@@ -1,3 +1,7 @@
+<h4 align="center">
+<img src="https://raw.githubusercontent.com/epessina/epssina.github.io/master/images/simile/logo.png" width="400" alt="SIMILE">
+</h4>
+
 # SIMILE Mobile Application
 
 ### Table of Contents
