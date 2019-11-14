@@ -1,3 +1,69 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+    <ion-menu side="start" menuId="main">
+
+        <ion-header>
+
+            <ion-toolbar>
+
+                <ion-title>SIMILE</ion-title>
+
+            </ion-toolbar>
+
+        </ion-header>
+
+        <ion-content>
+
+            <ion-list>
+
+                <ion-item lines="none">
+
+                    <ion-icon name="map" slot="start"></ion-icon>
+                    <ion-label>{{"drawer.item-map" | translate}}</ion-label>
+
+                </ion-item>
+
+                <ion-item lines="none">
+
+                    <ion-icon name="image" slot="start"></ion-icon>
+                    <ion-label>{{"drawer.item-thematic-maps" | translate}}</ion-label>
+
+                </ion-item>
+
+                <ion-item lines="none">
+
+                    <ion-icon name="help-circle" slot="start"></ion-icon>
+                    <ion-label>{{"drawer.item-surveys" | translate}}</ion-label>
+
+                </ion-item>
+
+                <ion-item lines="none">
+
+                    <ion-icon name="calendar" slot="start"></ion-icon>
+                    <ion-label>{{"drawer.item-events" | translate}}</ion-label>
+
+                </ion-item>
+
+                <ion-item lines="none">
+
+                    <ion-icon name="information-circle" slot="start"></ion-icon>
+                    <ion-label>{{"drawer.item-info" | translate}}</ion-label>
+
+                </ion-item>
+
+                <ion-item lines="none">
+
+                    <ion-icon name="settings" slot="start"></ion-icon>
+                    <ion-label>{{"drawer.item-settings" | translate}}</ion-label>
+
+                </ion-item>
+
+            </ion-list>
+
+        </ion-content>
+
+    </ion-menu>
+
+    <ion-router-outlet main></ion-router-outlet>
+
 </ion-app>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { TranslateService } from "@ngx-translate/core";
 
 import { Map, tileLayer } from 'leaflet';
+import { MenuController } from "@ionic/angular";
 
 @Component({
     selector   : 'app-map',
@@ -14,10 +16,11 @@ export class MapPage implements OnInit {
 
     private _selectedTab = "reports";
 
-    constructor(private statusBar: StatusBar) { }
+    constructor(private statusBar: StatusBar, private translateService: TranslateService, private menuCtrl: MenuController) { }
 
     ngOnInit() {
 
+        // Set the status bar to black
         this.statusBar.overlaysWebView(true);
         this.statusBar.backgroundColorByHexString("#000000");
 
@@ -50,4 +53,7 @@ export class MapPage implements OnInit {
     add() {
         console.log("Clicked add button")
     }
+
+    onOpenMenu() { this.menuCtrl.open("main") }
+
 }

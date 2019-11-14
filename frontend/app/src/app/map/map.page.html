@@ -4,7 +4,11 @@
     <!-- FAB hamburger -->
     <ion-fab vertical="top" horizontal="start" slot="fixed">
 
-        <ion-fab-button color="medium"></ion-fab-button>
+        <ion-fab-button class="fab-transparent" (click)="onOpenMenu()">
+
+            <ion-icon name="menu"></ion-icon>
+
+        </ion-fab-button>
 
     </ion-fab>
 
@@ -51,14 +55,14 @@
 
     <ion-segment-button value="reports" checked>
 
-        <ion-label>Reports</ion-label>
+        <ion-label>{{ "page-map.tab-reports-title" | translate}}</ion-label>
         <ion-icon name="warning"></ion-icon>
 
     </ion-segment-button>
 
     <ion-segment-button value="measures">
 
-        <ion-label>Measures</ion-label>
+        <ion-label>{{ "page-map.tab-measures-title" | translate}}</ion-label>
         <ion-icon name="thermometer"></ion-icon>
 
     </ion-segment-button>

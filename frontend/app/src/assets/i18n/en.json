@@ -1,0 +1,14 @@
+{
+  "drawer": {
+    "item-map": "Map",
+    "item-thematic-maps": "Thematic maps",
+    "item-surveys": "Surveys",
+    "item-events": "Events",
+    "item-info": "Info",
+    "item-settings": "Settings"
+  },
+  "page-map": {
+    "tab-reports-title": "reports",
+    "tab-measures-title": "measures"
+  }
+}
