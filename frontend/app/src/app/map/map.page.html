@@ -1,11 +1,66 @@
-<ion-header>
-
-    <ion-toolbar>
-        <ion-title>map</ion-title>
-    </ion-toolbar>
-
-</ion-header>
-
+<!-- Main content -->
 <ion-content>
 
+    <!-- FAB hamburger -->
+    <ion-fab vertical="top" horizontal="start" slot="fixed">
+
+        <ion-fab-button color="medium"></ion-fab-button>
+
+    </ion-fab>
+
+    <!-- FAB gps -->
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+
+        <ion-fab-button class="fab-white" size="small">
+
+            <ion-icon name="locate"></ion-icon>
+
+        </ion-fab-button>
+
+    </ion-fab>
+
+    <!-- FAB sync -->
+    <ion-fab class="fab-second-row" vertical="top" horizontal="end" slot="fixed">
+
+        <ion-fab-button class="fab-white" size="small">
+
+            <ion-icon name="sync"></ion-icon>
+
+        </ion-fab-button>
+
+    </ion-fab>
+
+    <!-- FAB add -->
+    <ion-fab class="fab-bottom" vertical="bottom" horizontal="end" slot="fixed">
+
+        <ion-fab-button (click)="add()">
+
+            <ion-icon name="add"></ion-icon>
+
+        </ion-fab-button>
+
+    </ion-fab>
+
+    <!-- Map -->
+    <div id="map" style="width: 100%; height: 100%"></div>
+
 </ion-content>
+
+<!-- Bottom tabs -->
+<ion-segment (ionChange)="segmentChanged($event)">
+
+    <ion-segment-button value="reports" checked>
+
+        <ion-label>Reports</ion-label>
+        <ion-icon name="warning"></ion-icon>
+
+    </ion-segment-button>
+
+    <ion-segment-button value="measures">
+
+        <ion-label>Measures</ion-label>
+        <ion-icon name="thermometer"></ion-icon>
+
+    </ion-segment-button>
+
+</ion-segment>

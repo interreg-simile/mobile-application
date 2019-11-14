@@ -1,0 +1,39 @@
+.fab-white {
+  --background           : #FFFFFF;
+  --background-activated : var(--ion-color-light);
+  --background-hover     : var(--ion-color-light);
+  --color                : var(--ion-color-primary);
+  --color-activated      : var(--ion-color-primary);
+}
+
+.fab-second-row { top : #{10 + 40 + 16}px }
+
+.fab-bottom {
+
+  &.md { bottom : 88px }
+
+  &.ios { bottom : 72px }
+
+}
+
+ion-segment {
+  position : absolute;
+  bottom   : 0;
+  z-index  : 400;
+
+  &.md {
+    box-shadow : 0px -4px 4px 0px rgba(0, 0, 0, 0.2);
+
+    ion-segment-button {
+      --background         : #FFFFFF;
+      --background-checked : #FFFFFF;
+    }
+
+  }
+
+  &.ios ion-segment-button {
+    --background  : #FFFFFF;
+    --padding-top : 8px;
+  }
+
+}
