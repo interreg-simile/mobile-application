@@ -32,4 +32,7 @@ export class AppComponent {
         });
 
     }
+
+    // ToDo
+    onThematicMap() { console.log("Thematic maps") }
 }

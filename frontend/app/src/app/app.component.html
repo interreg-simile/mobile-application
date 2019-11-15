@@ -6,7 +6,17 @@
 
             <ion-toolbar>
 
-                <ion-title>SIMILE</ion-title>
+                <div class="container">
+
+                    <ion-avatar><img src="../assets/images/avatar.png" alt="User"></ion-avatar>
+
+                    <div class="username">Username</div>
+
+                    <div class="icon-container">
+                        <ion-icon id="icon-notifications" name="notifications"></ion-icon>
+                    </div>
+
+                </div>
 
             </ion-toolbar>
 
@@ -16,47 +26,78 @@
 
             <ion-list>
 
-                <ion-item lines="none">
+                <!-- Map -->
+                <ion-menu-toggle menu="main">
 
-                    <ion-icon name="map" slot="start"></ion-icon>
-                    <ion-label>{{"drawer.item-map" | translate}}</ion-label>
+                    <ion-item lines="none" routerLink="/map" routerLinkActive="active-link">
 
-                </ion-item>
+                        <ion-icon name="map" slot="start"></ion-icon>
+                        <ion-label>{{"drawer.item-map" | translate}}</ion-label>
 
-                <ion-item lines="none">
+                    </ion-item>
 
-                    <ion-icon name="image" slot="start"></ion-icon>
-                    <ion-label>{{"drawer.item-thematic-maps" | translate}}</ion-label>
+                </ion-menu-toggle>
 
-                </ion-item>
+                <!-- Thematic maps -->
+                <ion-menu-toggle menu="main">
 
-                <ion-item lines="none">
+                    <ion-item button lines="none" (click)="onThematicMap()">
 
-                    <ion-icon name="help-circle" slot="start"></ion-icon>
-                    <ion-label>{{"drawer.item-surveys" | translate}}</ion-label>
+                        <ion-icon name="image" slot="start"></ion-icon>
+                        <ion-label>{{"drawer.item-thematic-maps" | translate}}</ion-label>
+                        <ion-icon name="open" slot="end"></ion-icon>
 
-                </ion-item>
+                    </ion-item>
 
-                <ion-item lines="none">
+                </ion-menu-toggle>
 
-                    <ion-icon name="calendar" slot="start"></ion-icon>
-                    <ion-label>{{"drawer.item-events" | translate}}</ion-label>
+                <!-- Surveys -->
+                <ion-menu-toggle menu="main">
 
-                </ion-item>
+                    <ion-item lines="none" routerLink="/surveys" routerLinkActive="active-link">
 
-                <ion-item lines="none">
+                        <ion-icon name="help-circle" slot="start"></ion-icon>
+                        <ion-label>{{"drawer.item-surveys" | translate}}</ion-label>
 
-                    <ion-icon name="information-circle" slot="start"></ion-icon>
-                    <ion-label>{{"drawer.item-info" | translate}}</ion-label>
+                    </ion-item>
 
-                </ion-item>
+                </ion-menu-toggle>
 
-                <ion-item lines="none">
+                <!-- Events -->
+                <ion-menu-toggle menu="main">
 
-                    <ion-icon name="settings" slot="start"></ion-icon>
-                    <ion-label>{{"drawer.item-settings" | translate}}</ion-label>
+                    <ion-item lines="none" routerLink="/events" routerLinkActive="active-link">
 
-                </ion-item>
+                        <ion-icon name="calendar" slot="start"></ion-icon>
+                        <ion-label>{{"drawer.item-events" | translate}}</ion-label>
+
+                    </ion-item>
+
+                </ion-menu-toggle>
+
+                <!-- Info -->
+                <ion-menu-toggle menu="main">
+
+                    <ion-item lines="none" routerLink="/info" routerLinkActive="active-link">
+
+                        <ion-icon name="information-circle" slot="start"></ion-icon>
+                        <ion-label>{{"drawer.item-info" | translate}}</ion-label>
+
+                    </ion-item>
+
+                </ion-menu-toggle>
+
+                <!-- Settings -->
+                <ion-menu-toggle menu="main">
+
+                    <ion-item lines="none" routerLink="/settings" routerLinkActive="active-link">
+
+                        <ion-icon name="settings" slot="start"></ion-icon>
+                        <ion-label>{{"drawer.item-settings" | translate}}</ion-label>
+
+                    </ion-item>
+
+                </ion-menu-toggle>
 
             </ion-list>
 

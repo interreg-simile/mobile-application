@@ -21,7 +21,6 @@ export class MapPage implements OnInit {
     ngOnInit() {
 
         // Set the status bar to black
-        this.statusBar.overlaysWebView(true);
         this.statusBar.backgroundColorByHexString("#000000");
 
     }

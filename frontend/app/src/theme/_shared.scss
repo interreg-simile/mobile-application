@@ -1,0 +1,27 @@
+ion-content {
+
+  &.outer-content { --background : #F7F7FA }
+
+  &.custom-container {
+    --padding-top    : 16px;
+    --padding-bottom : 16px;
+    --padding-start  : 16px;
+    --padding-end    : 16px;
+  }
+
+}
+
+.card-header {
+  font-size      : 14px;
+  color          : #737373;
+  text-transform : uppercase;
+}
+
+ion-card {
+  color        : #000000 !important;
+  margin-left  : 0 !important;
+  margin-right : 0 !important;
+
+  &.md { margin-bottom : 24px !important }
+
+}

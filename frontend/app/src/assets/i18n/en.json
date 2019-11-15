@@ -10,5 +10,14 @@
   "page-map": {
     "tab-reports-title": "reports",
     "tab-measures-title": "measures"
+  },
+  "page-events": {
+    "header-upcoming": "Upcoming",
+    "header-communications": "Communications"
+  },
+  "page-info": {
+    "header-project": "The project",
+    "header-contributions": "Contributions",
+    "header-contacts": "contacts"
   }
 }
