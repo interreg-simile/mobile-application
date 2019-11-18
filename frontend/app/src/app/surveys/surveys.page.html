@@ -1,9 +1,45 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>surveys</ion-title>
-  </ion-toolbar>
+
+    <ion-toolbar>
+
+        <ion-buttons slot="start">
+
+            <ion-menu-button menu="main"></ion-menu-button>
+
+        </ion-buttons>
+
+        <ion-title>{{"drawer.item-surveys" | translate}}</ion-title>
+
+    </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
+<ion-content class="outer-content custom-container">
+
+    <div class="card-header">{{"page-surveys.header-new" | translate}}</div>
+
+    <ion-card>
+
+        <ion-card-content>
+
+            <ion-list>
+
+                <ion-item button detail="false" (click)="onSurveyClick()">
+                    <app-survey-item></app-survey-item>
+                </ion-item>
+
+                <ion-item>
+                    <app-survey-item></app-survey-item>
+                </ion-item>
+
+                <ion-item>
+                    <app-survey-item></app-survey-item>
+                </ion-item>
+
+            </ion-list>
+
+        </ion-card-content>
+
+    </ion-card>
 
 </ion-content>

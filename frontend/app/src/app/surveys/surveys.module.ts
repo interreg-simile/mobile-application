@@ -6,21 +6,24 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SurveysPage } from './surveys.page';
+import { TranslateModule } from "@ngx-translate/core";
+import { SurveyItemComponent } from "./survey-item/survey-item.component";
 
 const routes: Routes = [
-  {
-    path: '',
-    component: SurveysPage
-  }
+    {
+        path     : '',
+        component: SurveysPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [SurveysPage]
+    imports     : [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes),
+        TranslateModule
+    ],
+    declarations: [SurveysPage, SurveyItemComponent]
 })
 export class SurveysPageModule {}

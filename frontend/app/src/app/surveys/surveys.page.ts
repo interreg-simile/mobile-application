@@ -12,4 +12,7 @@ export class SurveysPage implements OnInit {
   ngOnInit() {
   }
 
+    onSurveyClick() {
+        console.log("Survey clicked")
+    }
 }

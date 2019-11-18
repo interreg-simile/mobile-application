@@ -11,6 +11,10 @@
     "tab-reports-title": "reports",
     "tab-measures-title": "measures"
   },
+  "page-surveys": {
+    "header-new": "New",
+    "header-completed": "Completed"
+  },
   "page-events": {
     "header-upcoming": "Upcoming",
     "header-communications": "Communications"
