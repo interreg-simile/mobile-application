@@ -13,7 +13,8 @@
   },
   "page-surveys": {
     "header-new": "New",
-    "header-completed": "Completed"
+    "header-completed": "Completed",
+    "no-surveys": "No surveys for now."
   },
   "page-events": {
     "header-upcoming": "Upcoming",

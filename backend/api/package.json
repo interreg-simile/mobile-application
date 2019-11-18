@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "babel-node src/setup/seeder.js",
     "start": "nodemon src/app.js --exec babel-node",
     "start:prod": "npm run build:prod && npm run start:server",
     "build:prod": "babel src -s -D -d build",

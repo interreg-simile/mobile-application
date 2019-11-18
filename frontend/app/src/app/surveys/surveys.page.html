@@ -16,30 +16,46 @@
 
 <ion-content class="outer-content custom-container">
 
-    <div class="card-header">{{"page-surveys.header-new" | translate}}</div>
+    <div *ngIf="isLoading" class="flex-center">
 
-    <ion-card>
+        <ion-spinner color="primary"></ion-spinner>
 
-        <ion-card-content>
+    </div>
 
-            <ion-list>
+    <div *ngIf="!isLoading && surveys.length <= 0" class="flex-center">
 
-                <ion-item button detail="false" (click)="onSurveyClick()">
-                    <app-survey-item></app-survey-item>
-                </ion-item>
+        <p class="no-surveys">{{"page-surveys.no-surveys" | translate}}</p>
 
-                <ion-item>
-                    <app-survey-item></app-survey-item>
-                </ion-item>
+    </div>
 
-                <ion-item>
-                    <app-survey-item></app-survey-item>
-                </ion-item>
+    <div *ngIf="!isLoading && surveys.length > 0">
 
-            </ion-list>
+        <div class="card-header">{{"page-surveys.header-new" | translate}}</div>
 
-        </ion-card-content>
+        <ion-card>
 
-    </ion-card>
+            <ion-card-content>
+
+                <ion-list>
+
+                    <ion-item button detail="false" (click)="onSurveyClick()">
+                        <app-survey-item></app-survey-item>
+                    </ion-item>
+
+                    <ion-item>
+                        <app-survey-item></app-survey-item>
+                    </ion-item>
+
+                    <ion-item>
+                        <app-survey-item></app-survey-item>
+                    </ion-item>
+
+                </ion-list>
+
+            </ion-card-content>
+
+        </ion-card>
+
+    </div>
 
 </ion-content>

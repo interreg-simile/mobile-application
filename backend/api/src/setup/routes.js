@@ -1,4 +1,4 @@
-import surveyRouter from "../routes/survey";
+import surveyRouter from "../modules/survey/survey.route";
 
 /**
  * Sets up the endpoints of the API.
