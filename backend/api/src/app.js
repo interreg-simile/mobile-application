@@ -1,12 +1,20 @@
 import express from "express";
 
-import { start } from "./config/server";
-import { connect, onError } from "./config/database";
+import { startServer } from "./setup/server";
+import { connectDb, onDbConnectionError } from "./setup/database";
+import { setupMiddlewares } from "./setup/middlewares";
+import { setupRoutes } from "./setup/routes";
 
 // Create an express server
 const server = express();
 
+// Setup the middlewares
+setupMiddlewares(server);
+
+// Setup the routes
+setupRoutes(server);
+
 // Connect to the database and start the server
-connect()
-    .then(() => start(server))
-    .catch(err => onError(err));
+connectDb()
+    .then(() => startServer(server))
+    .catch(err => onDbConnectionError(err));
