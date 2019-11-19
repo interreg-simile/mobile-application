@@ -6,6 +6,7 @@ export default async function () {
 
     const users = [
         {
+            _id        : "abc",
             email      : "user@example.com",
             password   : "123456",
             role       : "user",

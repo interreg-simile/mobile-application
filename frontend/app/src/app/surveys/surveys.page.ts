@@ -26,9 +26,9 @@ export class SurveysPage implements OnInit, OnDestroy {
 
     ionViewWillEnter() {
 
-        this.isLoading = true;
+        this.isLoading = false;
 
-        setTimeout(() => this.isLoading = false, 3000);
+        this.surveysService.getAll().subscribe();
 
     }
 

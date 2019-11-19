@@ -16,18 +16,21 @@
 
 <ion-content class="outer-content custom-container">
 
+    <!-- Spinner -->
     <div *ngIf="isLoading" class="flex-center">
 
         <ion-spinner color="primary"></ion-spinner>
 
     </div>
 
+    <!-- No data -->
     <div *ngIf="!isLoading && surveys.length <= 0" class="flex-center">
 
         <p class="no-surveys">{{"page-surveys.no-surveys" | translate}}</p>
 
     </div>
 
+    <!-- List -->
     <div *ngIf="!isLoading && surveys.length > 0">
 
         <div class="card-header">{{"page-surveys.header-new" | translate}}</div>
@@ -38,16 +41,10 @@
 
                 <ion-list>
 
-                    <ion-item button detail="false" (click)="onSurveyClick()">
-                        <app-survey-item></app-survey-item>
-                    </ion-item>
+                    <ion-item *ngFor="let survey of surveys" button detail="false" (click)="onSurveyClick()">
 
-                    <ion-item>
-                        <app-survey-item></app-survey-item>
-                    </ion-item>
+                        <app-survey-item [survey]="survey"></app-survey-item>
 
-                    <ion-item>
-                        <app-survey-item></app-survey-item>
                     </ion-item>
 
                 </ion-list>
