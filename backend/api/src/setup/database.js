@@ -9,7 +9,7 @@ import { MONGO_URL } from "../config/env"
  */
 export const connectDb = async () => {
 
-    console.info("SETUP - Connecting database..");
+    console.info("SETUP - Connecting database...");
 
     // Try to connect
     await mongoose.connect(MONGO_URL, {

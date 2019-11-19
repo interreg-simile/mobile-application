@@ -1,3 +1,4 @@
+import userRouter from "../modules/user/user.route";
 import surveyRouter from "../modules/survey/survey.route";
 
 /**
@@ -9,6 +10,7 @@ export const setupRoutes = server => {
 
     console.info('SETUP - Routes...');
 
+    server.use("/user", userRouter);
     server.use("/survey", surveyRouter);
 
 };

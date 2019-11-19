@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 
 import { connectDb } from "./database";
 import { NODE_ENV } from "../config/env";
+
 import survey from "../modules/survey/survey.seed";
+import user from "../modules/user/user.seed";
 
 /**
  * Seeds the database with dummy data.
@@ -24,6 +26,7 @@ async function seeder() {
     }
 
     // Seed the data
+    await user();
     await survey();
 
     // Close the connection
