@@ -1,0 +1,68 @@
+openapi: 3.0.2
+
+info:
+  title: SIMILE API
+  description: API description...
+  version: 1.0.0
+  license:
+    name: GNU GPLv3
+    url: https://choosealicense.com/licenses/gpl-3.0/
+  contact:
+    email: edoardo.pessina@polimi.it
+
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/epessina/SIMILE/1.0.0
+  - url: "http://localhost:8000"
+    description: Development server
+
+paths:
+
+  /surveys:
+    get:
+      tags:
+        - developers
+      summary: Summary...
+      description: Description...
+      operationId: surveys
+      parameters:
+        - name: expired
+          in: query
+          description: "States if the query must return also the expired surveys."
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        200:
+          description: Successfull response.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Survey"
+                  - $ref: "#/components/schemas/Survey2"
+
+components:
+
+  schemas:
+
+    Survey:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the survey.
+
+    Survey2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The title of the survey.

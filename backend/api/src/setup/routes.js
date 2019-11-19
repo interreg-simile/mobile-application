@@ -11,6 +11,6 @@ export const setupRoutes = server => {
     console.info('SETUP - Routes...');
 
     server.use("/user", userRouter);
-    server.use("/survey", surveyRouter);
+    server.use("/surveys", surveyRouter);
 
 };

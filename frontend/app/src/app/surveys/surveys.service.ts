@@ -20,7 +20,7 @@ export class SurveysService {
     getAll() {
 
         return this.http
-            .get<[any]>(`${ environment.apiUrl }/survey/get-all?expired=false`)
+            .get<[any]>(`${ environment.apiUrl }/surveys/?expired=false`)
             .pipe(
                 map(resData => {
 
