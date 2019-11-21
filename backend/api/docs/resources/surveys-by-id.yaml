@@ -1,0 +1,103 @@
+get:
+  tags:
+    - developers
+  summary: "Get the surveys filtered by user."
+  description: "Retrieves the surveys completed **or** not completed by a certain user. This can be chosen using the query parameter ```completed```."
+  operationId: surveysByUser
+
+  parameters:
+    - name: user_id
+      in: path
+      description: "The id of the user."
+      required: true
+      schema:
+        type: string
+
+    - name: includeExpired
+      in: query
+      description: "States if the query should return also the expired surveys."
+      required: false
+      schema:
+        type: boolean
+        default: true
+
+    - name: invert
+      in: query
+      description: "If set to ```true```, the query will return the survey that the user has not completed instead of
+      the ones he has completed."
+      required: false
+      schema:
+        type: boolean
+        default: true
+
+  responses:
+
+    200:
+      description: "Successful response."
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  description: "Unique identifier of the survey."
+                title:
+                  type: string
+                  description: "Title of the survey."
+                etc:
+                  type: string
+                  description: "Time needed to complete the survey."
+                area:
+                  type: string
+                  description: "Area interested by the survey."
+                expireDate:
+                  type: string
+                  description: "Expiration date of the survey"
+                questions:
+                  type: array
+                  description: "Questions that composes the survey."
+                  items:
+                    type: object
+                    properties:
+                      question:
+                        type: string
+                        description: "Body of the question."
+                      answers:
+                        type: array
+                        description: "Possible answers to the question."
+                        items:
+                          type: string
+                answers:
+                  description: "Answers given by the users. Returned only if parameter ```answers``` is set to
+                           ```true```."
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: "Unique identifier of the answers given by a user."
+                      uid:
+                        type: string
+                        description: "Unique identifier of the user. Returned only if the call is performed by an **admin**."
+                      date:
+                        type: string
+                        description: "Date in witch the answer was given. Returned only if the call is performed by an **admin**."
+                      answers:
+                        type: array
+                        items:
+                          type: object
+                          description: "Answer to a single question."
+                          properties:
+                            _id:
+                              type: string
+                              description: "Unique identifier of the answer."
+                            question:
+                              type: string
+                              description: "Question."
+                            answer:
+                              type: string
+                              description: "Answer to the question."

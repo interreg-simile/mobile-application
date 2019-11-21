@@ -12,6 +12,7 @@ export default function (req, res, next) {
     if (!keyHeader) {
         const error      = new Error("API key missing.");
         error.statusCode = 403;
+        error.type       = "APIKeyException";
         next(error);
         return;
     }
@@ -24,6 +25,7 @@ export default function (req, res, next) {
             if (!result) {
                 const error      = new Error("API key not recognized.");
                 error.statusCode = 403;
+                error.type       = "APIKeyException";
                 next(error);
             }
 

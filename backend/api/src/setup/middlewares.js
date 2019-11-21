@@ -1,8 +1,12 @@
+import path from "path";
 import fs from "fs";
+
+import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import cors from "cors";
+
 import checkKeyMiddleware from "../middlewares/check-key";
 import checkToken from "../middlewares/check-token";
 
@@ -15,6 +19,9 @@ export const setupMiddlewares = server => {
 
     console.info('SETUP - Middlewares...');
 
+    // Set headers for CORS
+    server.use(cors());
+
     // Use helmet to set secure response headers
     server.use(helmet());
 
@@ -25,8 +32,9 @@ export const setupMiddlewares = server => {
     // Use BodyParser to parse for application/json
     server.use(bodyParser.json());
 
-    // Set headers for CORS
-    server.use(cors());
+    // ToDo temporary
+    // Serve docs as static files
+    server.use(express.static(path.join(__dirname, "..", "..", "docs")));
 
     // Check the API key
     server.use(checkKeyMiddleware);

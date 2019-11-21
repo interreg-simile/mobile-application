@@ -6,7 +6,19 @@ export default async function () {
 
     const users = [
         {
-            _id        : "abc",
+            _id        : "adminId",
+            email      : "admin@example.com",
+            password   : "123456",
+            role       : "admin",
+            isConfirmed: "true",
+            name       : "Carlo Colombo",
+            city       : "Como",
+            cap        : "22100",
+            age        : "18-25",
+            gender     : "male"
+        },
+        {
+            _id        : "simpleUserId",
             email      : "user@example.com",
             password   : "123456",
             role       : "user",
@@ -16,6 +28,18 @@ export default async function () {
             cap        : "22100",
             age        : "18-25",
             gender     : "male"
+        },
+        {
+            _id        : "otherUserId",
+            email      : "user2@example.com",
+            password   : "123456",
+            role       : "user",
+            isConfirmed: "true",
+            name       : "Federica Bianchi",
+            city       : "Lecco",
+            cap        : "23900",
+            age        : "30-35",
+            gender     : "female"
         }
     ];
 
