@@ -4,6 +4,7 @@ import { connectDb } from "./database";
 import { NODE_ENV } from "../config/env";
 
 import survey from "../modules/survey/survey.seed";
+import apiKey from "../modules/auth/key.seed";
 import user from "../modules/user/user.seed";
 
 /**
@@ -26,6 +27,7 @@ async function seeder() {
     }
 
     // Seed the data
+    await apiKey();
     await user();
     await survey();
 

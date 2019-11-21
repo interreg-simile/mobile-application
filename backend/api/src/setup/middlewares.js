@@ -2,6 +2,9 @@ import fs from "fs";
 import helmet from "helmet";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import cors from "cors";
+import checkKeyMiddleware from "../middlewares/check-key";
+import checkToken from "../middlewares/check-token";
 
 /**
  * Sets up the necessary middlewares.
@@ -23,14 +26,12 @@ export const setupMiddlewares = server => {
     server.use(bodyParser.json());
 
     // Set headers for CORS
-    server.use((req, res, next) => {
+    server.use(cors());
 
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    // Check the API key
+    server.use(checkKeyMiddleware);
 
-        next();
-
-    });
+    // Check the authorization token
+    server.use(checkToken);
 
 };

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
+import { HttpService } from "../shared/http.service";
 import { environment } from "../../environments/environment";
 import { Survey } from "./survey.model";
 
@@ -13,20 +13,20 @@ export class SurveysService {
 
     private _surveys = new BehaviorSubject<Survey[]>([]);
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpService) { }
 
     get surveys() { return this._surveys.asObservable() }
 
     getAll() {
 
         return this.http
-            .get<[any]>(`${ environment.apiUrl }/surveys/?expired=false`)
+            .get(`${ environment.apiUrl }/surveys/?expired=false&answers=all`)
             .pipe(
                 map(resData => {
 
                     const surveys = [];
 
-                    for (const survey of resData) {
+                    for (const survey of resData.data.surveys) {
 
                         surveys.push(new Survey(
                             survey._id,

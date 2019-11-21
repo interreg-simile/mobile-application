@@ -7,6 +7,14 @@ export const getAll = (req, res, next) => {
     const expired = req.query.expired,
           answers = req.query.answers;
 
+    // Check parameter "answers" against the user id // ToDo check for admin
+    if ((answers === "curr" || answers === "all") && !req.userId) {
+        const error      = new Error("Unauthorized. Wrong value of parameter 'answers'.");
+        error.statusCode = 401;
+        next(error);
+        return;
+    }
+
     // Set the parameters for the mongo query
     let queryParams = {};
 
@@ -14,7 +22,10 @@ export const getAll = (req, res, next) => {
 
     // Find the data
     Survey.find(queryParams)
-        .then(surveys => res.status(200).json(surveys))
+        .then(surveys => res.status(200).json({
+            meta: { code: 200 },
+            data: { surveys }
+        }))
         .catch(err => next(err));
 
 };

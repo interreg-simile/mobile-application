@@ -10,6 +10,6 @@ export default function (err, req, res, next) {
     const status  = err.statusCode || 500,
           message = status === 500 ? "Something went wrong on the server." : err.message;
 
-    res.status(status).json({ message: message });
+    res.status(status).json({ meta: { code: status, errorMessage: message } });
 
 }
