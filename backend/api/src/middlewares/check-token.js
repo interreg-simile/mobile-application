@@ -1,3 +1,10 @@
+import jwt from "jsonwebtoken";
+
+import { JWT_PK } from "../config/env";
+
+/*
+ * Extracts and verifies the authorization token attached to any incoming request.
+ */
 export default function (req, res, next) {
 
     // Extract the authorization header
@@ -12,33 +19,23 @@ export default function (req, res, next) {
     // Extract the token from the header
     const token = authHeader.split(" ")[1];
 
-    // ToDo temporary
-    switch (token) {
+    let decodedToken;
 
-        case "simpleUserToken":
-            req.userId  = "simpleUserId";
-            req.isAdmin = false;
-            next();
-            break;
-
-        case "otherUserToken":
-            req.userId  = "otherUserId";
-            req.isAdmin = false;
-            next();
-            break;
-
-        case "adminToken":
-            req.userId  = "adminId";
-            req.isAdmin = true;
-            next();
-            break;
-
-        default:
-            const error      = new Error("Authentication token not recognized.");
-            error.statusCode = 401;
-            error.type       = "AuthTokenException";
-            next(error);
-
+    // Try to decode the token
+    try {
+        decodedToken = jwt.verify(token, JWT_PK);
+    } catch (err) {
+        err.statusCode = 400;
+        err.type       = err.name;
+        next(err);
+        return;
     }
+
+    // Save id and status of the user
+    req.userId  = decodedToken.userId;
+    req.isAdmin = decodedToken.isAdmin === "true";
+
+    // Call the next middleware
+    next();
 
 }

@@ -19,16 +19,9 @@ async function seeder() {
     // Connect to the database
     await connectDb();
 
-    // @temp
-    // If the program is running in development mode, clear the database
-    if (NODE_ENV === "development") {
-        console.info("SEED - Clearing database...");
-        await mongoose.connection.dropDatabase();
-    }
-
     // Seed the data
-    await apiKey();
-    await user();
+    // await apiKey();
+    // await user();
     await survey();
 
     // Close the connection
