@@ -41,7 +41,7 @@
 
                 <ion-list>
 
-                    <ion-item *ngFor="let survey of surveys" button detail="false" (click)="onSurveyClick()">
+                    <ion-item *ngFor="let survey of new" button detail="false" (click)="onSurveyClick()">
 
                         <app-survey-item [survey]="survey"></app-survey-item>
 

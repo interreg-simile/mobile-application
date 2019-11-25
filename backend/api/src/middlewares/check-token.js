@@ -1,9 +1,14 @@
 import jwt from "jsonwebtoken";
 
 import { JWT_PK } from "../config/env";
+import { constructError } from "../modules/utils/construct-error";
 
-/*
+/**
  * Extracts and verifies the authorization token attached to any incoming request.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
  */
 export default function (req, res, next) {
 
@@ -25,9 +30,7 @@ export default function (req, res, next) {
     try {
         decodedToken = jwt.verify(token, JWT_PK);
     } catch (err) {
-        err.statusCode = 400;
-        err.type       = err.name;
-        next(err);
+        next(constructError(400, err.message, err.name));
         return;
     }
 

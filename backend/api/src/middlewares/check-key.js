@@ -1,7 +1,12 @@
 import Key from "../modules/auth/key.model";
+import { constructError } from "../modules/utils/construct-error";
 
-/*
- * Check if the request has a valid API key in the headers.
+/**
+ * Checks if the request has a valid API key in the headers.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
  */
 export default function (req, res, next) {
 
@@ -10,10 +15,7 @@ export default function (req, res, next) {
 
     // If no key is found, throw an error
     if (!keyHeader) {
-        const error      = new Error("API key missing.");
-        error.statusCode = 403;
-        error.type       = "APIKeyException";
-        next(error);
+        next(constructError(403, "API key missing.", "APIKeyException"));
         return;
     }
 
@@ -23,12 +25,11 @@ export default function (req, res, next) {
 
             // If no key is found, throw an error
             if (!result) {
-                const error      = new Error("API key not recognized.");
-                error.statusCode = 403;
-                error.type       = "APIKeyException";
+                next(constructError(403, "API key not recognized.", "APIKeyException"));
                 next(error);
             }
 
+            // Call the next middleware
             next()
 
         })

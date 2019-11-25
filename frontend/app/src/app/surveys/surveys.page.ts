@@ -11,7 +11,8 @@ import { SurveysService } from "./surveys.service";
 })
 export class SurveysPage implements OnInit, OnDestroy {
 
-    surveys: Survey[];
+    surveys: any = [];
+    new: Survey[] = [];
     private _surveysSub: Subscription;
 
     isLoading = false;
@@ -20,15 +21,28 @@ export class SurveysPage implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this._surveysSub = this.surveysService.surveys.subscribe(surveys => this.surveys = surveys);
+        // this._surveysSub = this.surveysService.surveys.subscribe(surveys => this.surveys = surveys);
 
     }
 
     ionViewWillEnter() {
 
-        this.isLoading = false;
+        this.isLoading = true;
 
-        this.surveysService.getAll().subscribe();
+        this.surveysService.getAll()
+            .then(res => {
+
+                console.log(res);
+
+                this.surveys = res;
+
+                this.new = res.new;
+
+                this.isLoading = false;
+
+            });
+
+        // this.surveysService.getAll().subscribe(() => this.isLoading = false);
 
     }
 
@@ -40,7 +54,7 @@ export class SurveysPage implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 
-        if (this._surveysSub) this._surveysSub.unsubscribe();
+        // if (this._surveysSub) this._surveysSub.unsubscribe();
 
     }
 

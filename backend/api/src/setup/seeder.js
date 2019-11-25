@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 import { connectDb } from "./database";
-import { NODE_ENV } from "../config/env";
 
 import survey from "../modules/survey/survey.seed";
 import apiKey from "../modules/auth/key.seed";

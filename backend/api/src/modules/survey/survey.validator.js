@@ -50,4 +50,24 @@ export const questions = [
     )
 ];
 
+export const userAnswer = [
+    oneOf(
+        [body("uid").not().exists(), body("uid").isMongoId(),],
+        "Invalid value of property 'uid'."
+    ),
+    oneOf(
+        [body("date").not().exists(), body("date").isISO8601()],
+        "Invalid value of property 'date'."
+    ),
+    body("answers")
+        .not().isEmpty().withMessage("Missing property 'answers'.")
+        .isArray().withMessage("Wrong format of property 'answers'."),
+    body("answers.*.question")
+        .not().isEmpty().withMessage("Missing property 'question' of one of the answers.")
+        .isMongoId().withMessage("Wrong format of property 'question' of one of the answers."),
+    body("answers.*.answer")
+        .trim()
+        .escape()
+];
+
 export const all = [...mainInfo, ...questions];

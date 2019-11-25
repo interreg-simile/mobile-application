@@ -3,6 +3,7 @@ import mongoose, { Schema } from "mongoose";
 import * as validator from "./survey.validator";
 import { collection as User } from "../user/user.model";
 
+
 export const collection = "Survey";
 
 const answerSchema = new Schema({
@@ -21,7 +22,10 @@ const userAnswerSchema = new Schema({
     uid    : { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
     date   : { type: Date, required: true },
     answers: {
-        type    : [{ question: { type: String, required: true }, answer: { type: String, required: true } }],
+        type    : [{
+            question: { type: mongoose.Schema.Types.ObjectId, required: true },
+            answer  : { type: String, required: true }
+        }],
         required: true
     }
 });

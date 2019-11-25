@@ -21,11 +21,11 @@ router.get("/:surveyId", controller.getById);
 // DELETE - /survey/{survey_id}
 router.delete("/:surveyId", controller.markForDeletion);
 
-// PATCH - /survey/{survey_id}/general-info
-router.put("/:surveyId", controller.updateGeneralInfo);
+// PUT - /survey/{survey_id}
+router.put("/:surveyId", validator.all, controller.update);
 
-// PATCH - /survey/{survey_id}/user-answer
-router.patch("/:surveyId/user-answer", controller.addUserAnswer);
+// PATCH - /survey/{survey_id}
+router.patch("/:surveyId", validator.userAnswer, controller.addUserAnswer);
 
 // Export the router
 export default router;

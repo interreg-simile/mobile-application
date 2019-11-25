@@ -1,10 +1,14 @@
-/*
+/**
  * Handles any error that may occur during a response.
  *
  * @param {Error} err - The error object.
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
  */
 export default function (err, req, res, next) {
 
+    // Log the error
     console.error(err);
 
     const status  = err.statusCode || 500,

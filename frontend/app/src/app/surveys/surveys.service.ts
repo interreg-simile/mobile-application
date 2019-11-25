@@ -5,44 +5,109 @@ import { map, tap } from "rxjs/operators";
 import { HttpService } from "../shared/http.service";
 import { environment } from "../../environments/environment";
 import { Survey } from "./survey.model";
+import { AuthService } from "../auth/auth.service";
+
+
+interface SurveyData {
+    new: Survey[];
+    completed: Survey[];
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class SurveysService {
 
-    private _surveys = new BehaviorSubject<Survey[]>([]);
+    private _surveys = new BehaviorSubject<SurveyData>({ new: [], completed: [] });
 
-    constructor(private http: HttpService) { }
+    constructor(private http: HttpService, private auth: AuthService) { }
 
     get surveys() { return this._surveys.asObservable() }
 
-    getAll() {
+    // getAll() {
+    //
+    //     const s: SurveyData = { new: [], completed: [] };
+    //
+    //     return this.http
+    //         .get(`${ environment.apiUrl }/surveys/user/${ this.auth.userId }?includeExpired=false&invert=true`)
+    //         .pipe(
+    //             map(resData => {
+    //
+    //                 const surveys = [];
+    //
+    //                 for (const survey of resData.data.surveys) {
+    //
+    //                     surveys.push(new Survey(
+    //                         survey._id,
+    //                         survey.title,
+    //                         survey.etc,
+    //                         survey.area
+    //                     ));
+    //
+    //                 }
+    //
+    //                 s.new = surveys;
+    //
+    //                 // return surveys;
+    //
+    //             }),
+    //
+    //             // tap(surveys => this._surveys.next(surveys))
+    //         );
+    //
+    // }
 
-        return this.http
-            .get(`${ environment.apiUrl }/surveys/?expired=false&answers=all`)
-            .pipe(
-                map(resData => {
+    getAll(): Promise<SurveyData> {
 
-                    const surveys = [];
+        const s: SurveyData = { new: [], completed: [] };
 
-                    for (const survey of resData.data.surveys) {
+        const baseUrl = `${ environment.apiUrl }/surveys/user/${ this.auth.userId }?includeExpired=false&invert=`;
 
-                        surveys.push(new Survey(
-                            survey._id,
-                            survey.title,
-                            survey.etc,
-                            survey.area
-                        ));
+        return this.http.get(`${ baseUrl }=true`).toPromise()
+            .then((resData: any) => {
 
-                    }
+                const surveys = [];
 
-                    return surveys;
+                for (const survey of resData.data.surveys) {
 
-                }),
-                tap(surveys => this._surveys.next(surveys))
-            );
+                    surveys.push(new Survey(
+                        survey._id,
+                        survey.title,
+                        survey.etc,
+                        survey.area
+                    ));
+
+                }
+
+                s.new = surveys;
+
+                return this.http.get(`${ baseUrl }=false`).toPromise();
+
+            })
+            .then((resData: any) => {
+
+                const surveys = [];
+
+                for (const survey of resData.data.surveys) {
+
+                    surveys.push(new Survey(
+                        survey._id,
+                        survey.title,
+                        survey.etc,
+                        survey.area
+                    ));
+
+                }
+
+                s.completed = surveys;
+
+                return s;
+
+            })
+            // .then((s: SurveyData) => this._surveys.next(s))
+            // .catch(err => console.error(err))
 
     }
+
 
 }

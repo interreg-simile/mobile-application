@@ -63,7 +63,7 @@ export default async function () {
                 }
             ],
             area      : "-",
-            expireDate: new Date(2018, 11, 19)
+            expireDate: new Date(2020, 11, 20)
         }
     ];
 
@@ -75,14 +75,14 @@ export default async function () {
         const data = await Survey.create(surveys[i]);
 
         data.usersAnswers = [{
-            uid    : user1Id,
+            uid    : user2Id,
             date   : new Date(),
             answers: populateAnswers(data.questions)
         }];
 
         if (i === 0)
             data.usersAnswers.push({
-                uid    : user2Id,
+                uid    : user1Id,
                 date   : new Date(),
                 answers: populateAnswers(data.questions)
             });
