@@ -10,7 +10,16 @@
 
     <div class="bottom-row">
 
-        Area: <span>{{ survey.area }}</span>
+        <div class="area">Area: <span>{{ survey.area }}</span></div>
+
+        <div *ngIf="survey.expireDate" class="date">
+            {{ "page-surveys.expires-on" | translate}}:
+            {{ survey.expireDate | date: undefined:undefined:locale}}
+        </div>
+
+        <div *ngIf="survey.completionDate" class="date">
+            {{ survey.completionDate | date: undefined:undefined:locale }}
+        </div>
 
     </div>
 

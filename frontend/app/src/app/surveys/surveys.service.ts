@@ -1,113 +1,74 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, forkJoin } from "rxjs";
 import { map, tap } from "rxjs/operators";
 
-import { HttpService } from "../shared/http.service";
 import { environment } from "../../environments/environment";
 import { Survey } from "./survey.model";
 import { AuthService } from "../auth/auth.service";
+import { genericApiResponse } from "../shared/utils.interface";
 
 
-interface SurveyData {
-    new: Survey[];
-    completed: Survey[];
+export interface SurveyData {
+    newSurveys: Survey[],
+    doneSurveys: Survey[]
 }
 
-@Injectable({
-    providedIn: 'root'
-})
+/** Handles the logic behind the communication with the API with regard to the surveys. */
+@Injectable({ providedIn: "root" })
 export class SurveysService {
 
-    private _surveys = new BehaviorSubject<SurveyData>({ new: [], completed: [] });
+    /** @ignore */
+    private _surveys = new BehaviorSubject<SurveyData>({ newSurveys: [], doneSurveys: [] });
 
-    constructor(private http: HttpService, private auth: AuthService) { }
+    /** @ignore */
+    constructor(private http: HttpClient, private auth: AuthService) { }
 
+    /**
+     * Returns the surveys as an observable.
+     *
+     * @return Observable<SurveyData> The surveys.
+     */
     get surveys() { return this._surveys.asObservable() }
 
-    // getAll() {
-    //
-    //     const s: SurveyData = { new: [], completed: [] };
-    //
-    //     return this.http
-    //         .get(`${ environment.apiUrl }/surveys/user/${ this.auth.userId }?includeExpired=false&invert=true`)
-    //         .pipe(
-    //             map(resData => {
-    //
-    //                 const surveys = [];
-    //
-    //                 for (const survey of resData.data.surveys) {
-    //
-    //                     surveys.push(new Survey(
-    //                         survey._id,
-    //                         survey.title,
-    //                         survey.etc,
-    //                         survey.area
-    //                     ));
-    //
-    //                 }
-    //
-    //                 s.new = surveys;
-    //
-    //                 // return surveys;
-    //
-    //             }),
-    //
-    //             // tap(surveys => this._surveys.next(surveys))
-    //         );
-    //
-    // }
+    /**
+     * Fetches the surveys done and not yet done by the user.
+     *
+     * @return Observable<SurveyData> - An observable containing the surveys.
+     */
+    getAll() {
 
-    getAll(): Promise<SurveyData> {
+        // Save the url of the requests
+        const url = `${ environment.apiUrl }/surveys/user/${ this.auth.userId }`;
 
-        const s: SurveyData = { new: [], completed: [] };
+        // Retrieve both the surveys done and not done by the user
+        const newSurveys  = this.http.get<genericApiResponse>(`${ url }?includeExpired=false&invert=true`);
+        const doneSurveys = this.http.get<genericApiResponse>(url);
 
-        const baseUrl = `${ environment.apiUrl }/surveys/user/${ this.auth.userId }?includeExpired=false&invert=`;
+        // Wait for the two requests to complete
+        return forkJoin([newSurveys, doneSurveys]).pipe(
+            map(data => {
 
-        return this.http.get(`${ baseUrl }=true`).toPromise()
-            .then((resData: any) => {
+                console.log(data);
 
-                const surveys = [];
+                // Initialize the surveys object
+                const surveys = { newSurveys: [], doneSurveys: [] };
 
-                for (const survey of resData.data.surveys) {
+                // Save all the new surveys
+                for (const s of data[0].data.surveys)
+                    surveys.newSurveys.push(new Survey(s._id, s.title, s.etc, s.area, s.expireDate, s.questions));
 
-                    surveys.push(new Survey(
-                        survey._id,
-                        survey.title,
-                        survey.etc,
-                        survey.area
-                    ));
+                // Save all the done surveys
+                for (const s of data[1].data.surveys)
+                    surveys.doneSurveys.push(new Survey(s._id, s.title, s.etc, s.area, null, null, s.usersAnswers[0].date));
 
-                }
+                // Return the surveys
+                return surveys;
 
-                s.new = surveys;
-
-                return this.http.get(`${ baseUrl }=false`).toPromise();
-
-            })
-            .then((resData: any) => {
-
-                const surveys = [];
-
-                for (const survey of resData.data.surveys) {
-
-                    surveys.push(new Survey(
-                        survey._id,
-                        survey.title,
-                        survey.etc,
-                        survey.area
-                    ));
-
-                }
-
-                s.completed = surveys;
-
-                return s;
-
-            })
-            // .then((s: SurveyData) => this._surveys.next(s))
-            // .catch(err => console.error(err))
+            }),
+            tap(surveys => this._surveys.next(surveys))
+        );
 
     }
-
 
 }

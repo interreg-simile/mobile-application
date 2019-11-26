@@ -1,7 +1,3 @@
-import path from "path";
-import fs from "fs";
-
-import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import bodyParser from "body-parser";
@@ -9,6 +5,7 @@ import cors from "cors";
 
 import checkKeyMiddleware from "../middlewares/check-key";
 import checkToken from "../middlewares/check-token";
+import { setupDocs } from "./docs";
 
 /**
  * Sets up the necessary middlewares.
@@ -32,9 +29,8 @@ export const setupMiddlewares = server => {
     // Use BodyParser to parse for application/json
     server.use(bodyParser.json());
 
-    // ToDo temporary
-    // Serve docs as static files
-    server.use(express.static(path.join(__dirname, "..", "..", "docs")));
+    // Setup the docs
+    setupDocs(server);
 
     // Check the API key
     server.use(checkKeyMiddleware);

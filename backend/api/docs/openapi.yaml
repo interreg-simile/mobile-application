@@ -26,13 +26,13 @@ security:
 
 paths:
   /surveys:
-    $ref: "http://localhost:8000/docs/resources/surveys/surveys.yaml"
+    $ref: "http://localhost:8000/resources/surveys/surveys.yaml"
 
   /surveys/user/{user_id}:
-    $ref: "surveys-by-user.yaml"
+    $ref: "http://localhost:8000/resources/surveys/surveys-by-user.yaml"
 
   /surveys/{survey_id}:
-    $ref: "surveys-by-id.yaml"
+    $ref: "http://localhost:8000/resources/surveys/surveys-by-id.yaml"
 
 
 components:

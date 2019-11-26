@@ -14,7 +14,9 @@
   "page-surveys": {
     "header-new": "New",
     "header-completed": "Completed",
-    "no-surveys": "No surveys for now."
+    "no-surveys": "Nothing here yet!<br>Try again in a bit",
+    "no-surveys-new": "No new surveys",
+    "expires-on": "Expires on"
   },
   "page-events": {
     "header-upcoming": "Upcoming",

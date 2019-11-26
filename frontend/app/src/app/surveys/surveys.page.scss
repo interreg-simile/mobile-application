@@ -7,17 +7,24 @@
 }
 
 .no-surveys {
-  font-size : 20px;
-  color     : #666666;
+  font-size   : 20px;
+  color       : #666666;
+  line-height : 1.5;
 }
 
-ion-card-content {
-  padding : 0;
+.card-header-completed { padding-top : 24px }
 
-  ion-list {
+ion-card {
+
+  ion-card-content {
     padding : 0;
 
-    app-survey-item { width : 100% }
+    ion-list {
+      padding : 0;
+
+      app-survey-item { width : 100% }
+    }
+
   }
 
 }

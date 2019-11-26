@@ -1,15 +1,22 @@
 import { Component, Input } from '@angular/core';
+
 import { Survey } from "../survey.model";
 
 @Component({
     selector   : 'app-survey-item',
     templateUrl: './survey-item.component.html',
-    styleUrls  : ['./survey-item.component.scss'],
+    styleUrls  : ['./survey-item.component.scss']
 })
 export class SurveyItemComponent {
 
+    /** The survey object to visualize. */
     @Input() survey: Survey;
 
-    constructor() { }
+    /** The current locale. */
+    @Input() locale: string;
+
+
+    /** @ignore */
+    constructor() {}
 
 }

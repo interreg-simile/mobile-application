@@ -16,6 +16,13 @@
 
 <ion-content class="outer-content custom-container">
 
+    <!-- Pull down to refresh -->
+    <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+
+        <ion-refresher-content></ion-refresher-content>
+
+    </ion-refresher>
+
     <!-- Spinner -->
     <div *ngIf="isLoading" class="flex-center">
 
@@ -23,35 +30,81 @@
 
     </div>
 
-    <!-- No data -->
-    <div *ngIf="!isLoading && surveys.length <= 0" class="flex-center">
+    <!-- Data fetched -->
+    <div *ngIf="!isLoading">
 
-        <p class="no-surveys">{{"page-surveys.no-surveys" | translate}}</p>
+        <!-- No data -->
+        <div *ngIf="surveys.newSurveys.length <= 0 && surveys.doneSurveys.length <= 0" class="flex-center">
 
-    </div>
+            <p class="no-surveys" [innerHTML]="'page-surveys.no-surveys' | translate"></p>
 
-    <!-- List -->
-    <div *ngIf="!isLoading && surveys.length > 0">
+        </div>
 
-        <div class="card-header">{{"page-surveys.header-new" | translate}}</div>
+        <!-- Some data -->
+        <div *ngIf="surveys.newSurveys.length > 0 || surveys.doneSurveys.length > 0">
 
-        <ion-card>
+            <!-- New surveys header -->
+            <div class="card-header">{{"page-surveys.header-new" | translate}}</div>
 
-            <ion-card-content>
+            <!-- No new surveys -->
+            <div *ngIf="surveys.newSurveys.length <= 0" class="ion-text-center">
 
-                <ion-list>
+                <p class="no-surveys">{{"page-surveys.no-surveys-new" | translate}}</p>
 
-                    <ion-item *ngFor="let survey of new" button detail="false" (click)="onSurveyClick()">
+            </div>
 
-                        <app-survey-item [survey]="survey"></app-survey-item>
+            <!-- New surveys -->
+            <div *ngIf="surveys.newSurveys.length > 0">
 
-                    </ion-item>
+                <ion-card>
 
-                </ion-list>
+                    <ion-card-content>
 
-            </ion-card-content>
+                        <ion-list>
 
-        </ion-card>
+                            <ion-item *ngFor="let survey of surveys.newSurveys"
+                                      button
+                                      detail="false"
+                                      (click)="onSurveyClick(survey)">
+
+                                <app-survey-item [survey]="survey" [locale]="locale"></app-survey-item>
+
+                            </ion-item>
+
+                        </ion-list>
+
+                    </ion-card-content>
+
+                </ion-card>
+
+            </div>
+
+            <!-- Completed surveys -->
+            <div *ngIf="surveys.doneSurveys.length > 0">
+
+                <div class="card-header card-header-completed">{{"page-surveys.header-completed" | translate}}</div>
+
+                <ion-card>
+
+                    <ion-card-content>
+
+                        <ion-list>
+
+                            <ion-item *ngFor="let survey of surveys.doneSurveys">
+
+                                <app-survey-item [survey]="survey" [locale]="locale"></app-survey-item>
+
+                            </ion-item>
+
+                        </ion-list>
+
+                    </ion-card-content>
+
+                </ion-card>
+
+            </div>
+
+        </div>
 
     </div>
 

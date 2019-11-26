@@ -7,11 +7,14 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
+import { AuthInterceptorService } from "./shared/auth-interceptor.service";
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { registerLocaleData } from "@angular/common";
+import localeIt from "@angular/common/locales/it";
 
 @NgModule({
     declarations   : [AppComponent],
@@ -28,11 +31,17 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
     providers      : [
         StatusBar,
         SplashScreen,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
     ],
     bootstrap      : [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+
+    /** @ignore */
+    constructor() { registerLocaleData(localeIt, "it") }
+
+}
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
