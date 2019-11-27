@@ -21,6 +21,8 @@ export class SurveysService {
     /** @ignore */
     private _surveys = new BehaviorSubject<SurveyData>({ newSurveys: [], doneSurveys: [] });
 
+    private newSurveys: Survey[] = [];
+
     /** @ignore */
     constructor(private http: HttpClient, private auth: AuthService) { }
 
@@ -62,6 +64,8 @@ export class SurveysService {
                 for (const s of data[1].data.surveys)
                     surveys.doneSurveys.push(new Survey(s._id, s.title, s.etc, s.area, null, null, s.usersAnswers[0].date));
 
+                this.newSurveys = surveys.newSurveys;
+
                 // Return the surveys
                 return surveys;
 
@@ -70,5 +74,7 @@ export class SurveysService {
         );
 
     }
+
+    getById(id: string) { return this.newSurveys.find(s => s.id === id) }
 
 }

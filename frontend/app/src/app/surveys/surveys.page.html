@@ -65,7 +65,7 @@
                             <ion-item *ngFor="let survey of surveys.newSurveys"
                                       button
                                       detail="false"
-                                      (click)="onSurveyClick(survey)">
+                                      [routerLink]="['/', 'surveys', survey.id]">
 
                                 <app-survey-item [survey]="survey" [locale]="locale"></app-survey-item>
 

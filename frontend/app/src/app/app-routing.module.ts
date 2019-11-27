@@ -4,11 +4,17 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
     { path: '', redirectTo: 'surveys', pathMatch: 'full' },
     { path: 'map', loadChildren: './map/map.module#MapPageModule' },
-    { path: 'surveys', loadChildren: './surveys/surveys.module#SurveysPageModule' },
+    {
+        path: 'surveys', children: [
+            { path: "", loadChildren: './surveys/surveys.module#SurveysPageModule' },
+            { path: ":surveyId", loadChildren: './surveys/survey/survey.module#SurveyPageModule' }
+        ]
+    },
     { path: 'events', loadChildren: './events/events.module#EventsPageModule' },
     { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
     { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
-  { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' }
+    { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' }
+
 ];
 
 @NgModule({

@@ -1,10 +1,10 @@
 export enum QuestionType { singleAnswer, freeText }
 
-interface questionInterface {
+export interface questionInterface {
     position: number,
     body: string,
     type: QuestionType,
-    answers?: [{ position: number, body: string }]
+    answers?: { position: number, body: string }[]
 }
 
 
