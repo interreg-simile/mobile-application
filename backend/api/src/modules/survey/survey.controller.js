@@ -323,7 +323,7 @@ export const addUserAnswer = (req, res, next) => {
  */
 export const markForDeletion = (req, res, next) => {
 
-    // Extract the user id from the request path
+    // Extract the survey id from the request path
     const surveyId = req.params.surveyId;
 
     // Check the validity of the id
@@ -332,6 +332,7 @@ export const markForDeletion = (req, res, next) => {
     // If the request does not come from an admin, throw an error
     if (!checkIfAuthorized(req, next)) return;
 
+    // Find the survey
     Survey.findById(surveyId)
         .then(survey => {
 

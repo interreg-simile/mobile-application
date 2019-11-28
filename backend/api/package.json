@@ -43,6 +43,7 @@
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
+    "lorem-ipsum": "^2.0.3",
     "nodemon": "^1.19.4",
     "swagger-ui-express": "^4.1.2",
     "yamljs": "^0.3.0"

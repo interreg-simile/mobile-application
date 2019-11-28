@@ -1,17 +1,14 @@
-import mongoose from "mongoose";
-
 import Survey, { collection } from "./survey.model";
 import User from "../user/user.model";
 import { NODE_ENV } from "../../config/env";
+import { dropCollection } from "../../setup/seeder";
+
 
 export default async function () {
 
     console.info("SEED - Survey...");
 
-    // If the program is running in development mode, clear the collection
-    if (NODE_ENV === "development") await mongoose.connection.dropCollection(collection);
-
-    const user = await User.findOne().sort({ createdAt: -1 });
+    await dropCollection(collection);
 
     const surveys = [
         {
