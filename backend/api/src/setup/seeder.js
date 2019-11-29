@@ -2,10 +2,12 @@ import mongoose from "mongoose";
 
 import { NODE_ENV } from "../config/env";
 import { connectDb } from "./database";
+
 import survey from "../modules/survey/survey.seed";
 import apiKey from "../modules/auth/key.seed";
 import user from "../modules/user/user.seed";
 import event from "../modules/event/event.seed";
+
 
 /**
  * Seeds the database with dummy data.
@@ -22,7 +24,7 @@ async function seeder() {
     // Seed the data
     // await apiKey();
     // await user();
-    await survey();
+    // await survey();
     await event();
 
     // Close the connection
@@ -45,12 +47,10 @@ export async function dropCollection(collection) {
     if (NODE_ENV !== "development") return;
 
     // Fetch the list of the collection in the database
-    mongoose.connection.db.listCollections().toArray(async (err, names) => {
+    const collections = await mongoose.connection.db.listCollections().toArray();
 
-        // If the collection exists, drop it
-        if (names.find(e => e.name === collection)) await mongoose.connection.dropCollection(collection);
-
-    });
+    // Drop the collection if it exists
+    for (const c of collections) { if (c.name === collection) await mongoose.connection.dropCollection(collection) }
 
 }
 

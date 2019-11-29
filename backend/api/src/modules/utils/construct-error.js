@@ -39,7 +39,7 @@ export const constructError = (code, msg, type) => {
         case 422:
             error.message    = msg || "The body of the request contains some error.";
             error.statusCode = code;
-            error.type       = type || "BodyValidationException";
+            error.type       = type || "RequestValidationException";
             break;
 
         case 500:

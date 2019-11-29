@@ -8,7 +8,7 @@ get:
   parameters:
     - name: user_id
       in: path
-      description: "The id of the user."
+      description: "The idValidation of the user."
       required: true
       schema:
         type: string

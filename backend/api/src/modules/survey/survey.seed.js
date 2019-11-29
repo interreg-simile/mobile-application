@@ -1,6 +1,5 @@
 import Survey, { collection } from "./survey.model";
 import User from "../user/user.model";
-import { NODE_ENV } from "../../config/env";
 import { dropCollection } from "../../setup/seeder";
 
 

@@ -17,6 +17,8 @@ export default function (req, res, next) {
 
     // If no header is found, proceed (some routes can be accessed without a valid token)
     if (!authHeader) {
+        req.isAdmin = false;
+        req.userId  = null;
         next();
         return;
     }
@@ -34,7 +36,7 @@ export default function (req, res, next) {
         return;
     }
 
-    // Save id and status of the user
+    // Save idValidation and status of the user
     req.userId  = decodedToken.userId;
     req.isAdmin = decodedToken.isAdmin === "true";
 

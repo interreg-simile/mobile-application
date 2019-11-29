@@ -1,6 +1,6 @@
 import Survey from "./survey.model";
 import User from "../user/user.model";
-import { checkIdValidity, checkIfAuthorized, checkValidation } from "../utils/common-checks";
+import { checkIfAuthorized, checkValidation } from "../utils/common-checks";
 import { constructError } from "../utils/construct-error";
 
 
@@ -37,7 +37,7 @@ export const getAll = (req, res, next) => {
     // Exclude the answers
     if (includeUsersAnswers === "false") projection.usersAnswers = 0;
 
-    // Exclude the id of the user who has answered and the answer date
+    // Exclude the idValidation of the user who has answered and the answer date
     if (includeUsersAnswers === "true" && !req.isAdmin) {
         projection["usersAnswers.uid"]  = 0;
         projection["usersAnswers.date"] = 0;
@@ -60,11 +60,11 @@ export const getAll = (req, res, next) => {
  */
 export const getByUser = (req, res, next) => {
 
-    // Extract the user id from the request path
-    const userId = req.params.userId;
+    // Validate the request
+    if (!checkValidation(req, next)) return;
 
-    // Check the validity of the id
-    if (!checkIdValidity(userId, next)) return;
+    // Extract the user id from the request path
+    const userId = req.params.id;
 
     // If the request does not come from an admin and the user is requesting the data of another user, throw an error
     if (!checkIfAuthorized(req, next, userId)) return;
@@ -134,7 +134,7 @@ export const getByUser = (req, res, next) => {
 
 
 /**
- * Returns the survey with a given id.
+ * Returns the survey with a given idValidation.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -142,11 +142,11 @@ export const getByUser = (req, res, next) => {
  */
 export const getById = (req, res, next) => {
 
-    // Extract the user id from the request path
-    const surveyId = req.params.surveyId;
+    // Validate the request
+    if (!checkValidation(req, next)) return;
 
-    // Check the validity of the id
-    if (!checkIdValidity(surveyId, next)) return;
+    // Extract the user id from the request path
+    const surveyId = req.params.id;
 
     // Extract the query parameters
     const answers = req.query.answers || "false";
@@ -157,7 +157,7 @@ export const getById = (req, res, next) => {
     // Exclude the answers
     if (answers === "false") projection.usersAnswers = 0;
 
-    // Exclude the id of the users who have answered and the answer date
+    // Exclude the idValidation of the users who have answered and the answer date
     if (answers === "true" && !req.isAdmin) {
         projection["usersAnswers.uid"]  = 0;
         projection["usersAnswers.date"] = 0;
@@ -220,17 +220,14 @@ export const create = (req, res, next) => {
  */
 export const update = (req, res, next) => {
 
-    // Extract the user id from the request path
-    const surveyId = req.params.surveyId;
-
-    // Check the validity of the id
-    if (!checkIdValidity(surveyId, next)) return;
-
     // If the request does not come from an admin, throw an error
     if (!checkIfAuthorized(req, next)) return;
 
-    // Validate the body of the request
+    // Validate the request
     if (!checkValidation(req, next)) return;
+
+    // Extract the user id from the request path
+    const surveyId = req.params.id;
 
     // Find the survey
     Survey.findById(surveyId)
@@ -257,7 +254,7 @@ export const update = (req, res, next) => {
 
 
 /**
- * Adds a new user answer to the survey.
+ * Adds a new user answer a given survey.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -265,14 +262,11 @@ export const update = (req, res, next) => {
  */
 export const addUserAnswer = (req, res, next) => {
 
-    // Extract the user id from the request path
-    const surveyId = req.params.surveyId;
-
-    // Check the validity of the id
-    if (!checkIdValidity(surveyId, next)) return;
-
-    // Validate the body of the request
+    // Validate the request
     if (!checkValidation(req, next)) return;
+
+    // Extract the user id from the request path
+    const surveyId = req.params.id;
 
     // Find the survey
     Survey.findById(surveyId)
@@ -281,16 +275,16 @@ export const addUserAnswer = (req, res, next) => {
             // If no data is found, throw an error
             if (!survey) throw constructError(404, "Survey not found.");
 
-            // If the user is not an admin and tries to set the user id of the answer, throw an error.
+            // If the user is not an admin and tries to set the user idValidation of the answer, throw an error.
             if (!req.isAdmin && req.body.uid)
-                throw constructError(401, "You are not authorized to set the user id of the answer.");
+                throw constructError(401, "You are not authorized to set the user idValidation of the answer.");
 
             // If the user is not an admin and tries to set the date of the answer, throw an error.
             if (!req.isAdmin && req.body.date)
                 throw constructError(401, "You are not authorized to set the date of the answer.");
 
             // ToDo check:
-            //        - questions id in the answers are among the actual questions
+            //        - questions idValidation in the answers are among the actual questions
             //        - number of answers matches the number of questions
             //        - answers are coherent with question type
 
@@ -308,7 +302,7 @@ export const addUserAnswer = (req, res, next) => {
             return survey.save();
 
         })
-        .then(() => res.status(201).json({ meta: { code: 201 }, data: { id: surveyId } }))
+        .then(() => res.status(200).json({ meta: { code: 200 }, data: { id: surveyId } }))
         .catch(err => next(err));
 
 };
@@ -323,14 +317,14 @@ export const addUserAnswer = (req, res, next) => {
  */
 export const markForDeletion = (req, res, next) => {
 
-    // Extract the survey id from the request path
-    const surveyId = req.params.surveyId;
-
-    // Check the validity of the id
-    if (!checkIdValidity(surveyId, next)) return;
-
     // If the request does not come from an admin, throw an error
     if (!checkIfAuthorized(req, next)) return;
+
+    // Validate the request
+    if (!checkValidation(req, next)) return;
+
+    // Extract the survey id from the request path
+    const surveyId = req.params.id;
 
     // Find the survey
     Survey.findById(surveyId)

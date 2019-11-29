@@ -9,17 +9,15 @@ import { constructError } from "./construct-error";
  *
  * @param {Object} req - The Express request object.
  * @param {Function} next - The Express next middleware function.
- * @param {string} [userId] - The id of the user to check.
+ * @param {string | null} [userId=null] - The idValidation of the user to check.
  * @returns {boolean} The result of the check.
  */
 export const checkIfAuthorized = (req, next, userId) => {
 
-    if (!req.isAdmin && (userId && req.userId !== userId)) {
-        next(constructError(401));
-        return false;
-    }
+    if (req.isAdmin || req.userId === userId) return true;
 
-    return true;
+    next(constructError(401));
+    return false;
 
 };
 
@@ -36,24 +34,6 @@ export const checkValidation = (req, next) => {
 
     if (!errors.isEmpty()) {
         next(constructError(422, errors.errors[0].msg));
-        return false;
-    }
-
-    return true;
-
-};
-
-/**
- * Checks if a given id is a valid Mongoose id.
- *
- * @param {string} id - The id to check.
- * @param {Function} next - The Express next middleware function.
- * @returns {boolean} The result of the check.
- */
-export const checkIdValidity = (id, next) => {
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        next(constructError(400, "Id not valid.", "BadIdException"));
         return false;
     }
 

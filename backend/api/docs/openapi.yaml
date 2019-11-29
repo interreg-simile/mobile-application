@@ -32,7 +32,7 @@ paths:
     $ref: "http://localhost:8000/resources/surveys/surveys-by-user.yaml"
 
   /surveys/{survey_id}:
-    $ref: "http://localhost:8000/resources/surveys/surveys-by-id.yaml"
+    $ref: "http://localhost:8000/resources/surveys/surveys-by-idValidation.yaml"
 
 
 components:

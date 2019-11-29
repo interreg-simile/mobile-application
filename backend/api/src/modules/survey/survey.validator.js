@@ -52,7 +52,7 @@ export const questions = [
 
 export const userAnswer = [
     oneOf(
-        [body("uid").not().exists(), body("uid").isMongoId(),],
+        [body("uid").not().exists(), body("uid").isMongoId()],
         "Invalid value of property 'uid'."
     ),
     oneOf(

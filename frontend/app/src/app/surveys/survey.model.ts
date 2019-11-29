@@ -10,7 +10,7 @@ export interface questionInterface {
 
 export class Survey {
 
-    /** Unique id of the survey. */
+    /** Unique idValidation of the survey. */
     id: string;
 
     /** Title of the survey. */
