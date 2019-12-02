@@ -21,9 +21,10 @@ export default async function () {
                 civic     : "17",
                 city      : "como",
                 postalCode: 22100,
-                province  : "como",
+                province  : "co",
                 country   : "italy"
             },
+            rois          : ["lake_como"],
             date          : new Date("2019-12-30T15:24:00")
         },
         {
@@ -36,9 +37,10 @@ export default async function () {
                 civic     : "2",
                 city      : "lecco",
                 postalCode: 23900,
-                province  : "lecco",
+                province  : "lc",
                 country   : "italy"
             },
+            rois          : ["lake_maggiore"],
             date          : new Date("2019-09-13T09:10:00")
         },
         {
@@ -51,9 +53,10 @@ export default async function () {
                 civic     : "2",
                 city      : "lecco",
                 postalCode: 23900,
-                province  : "lecco",
+                province  : "lc",
                 country   : "italy"
             },
+            rois          : ["lake_maggiore", "lake_lugano"],
             date          : new Date("2019-10-13T09:10:00")
         },
         {
@@ -66,9 +69,10 @@ export default async function () {
                 civic     : "2",
                 city      : "lecco",
                 postalCode: 23900,
-                province  : "lecco",
+                province  : "lc",
                 country   : "italy"
             },
+            rois             : ["lake_como"],
             date             : new Date("2020-10-13T09:10:00"),
             markedForDeletion: true
         }

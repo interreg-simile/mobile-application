@@ -21,16 +21,27 @@ async function seeder() {
     // Connect to the database
     await connectDb();
 
-    // Seed the data
-    // await apiKey();
-    // await user();
-    // await survey();
-    await event();
+    try {
 
-    // Close the connection
-    await mongoose.connection.close();
+        // Seed the data
+        // await apiKey();
+        // await user();
+        // await survey();
+        await event();
 
-    console.info("SEED - Complete");
+        // Close the connection
+        await mongoose.connection.close();
+
+        console.info("SEED - Complete");
+
+    } catch (e) {
+
+        // Close the connection
+        await mongoose.connection.close();
+
+        console.error(`SEED - Error: ${e}`);
+
+    }
 
 }
 

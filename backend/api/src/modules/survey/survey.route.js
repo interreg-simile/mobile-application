@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import * as validator from "./survey.validator";
-import { idValidation } from "../utils/common-validations";
+import { idValidation } from "../../utils/common-validations";
 import * as controller from "./survey.controller";
 
 // Create a router object

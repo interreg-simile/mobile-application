@@ -1,7 +1,7 @@
 import Survey from "./survey.model";
 import User from "../user/user.model";
-import { checkIfAuthorized, checkValidation } from "../utils/common-checks";
-import { constructError } from "../utils/construct-error";
+import { checkIfAuthorized, checkValidation } from "../../utils/common-checks";
+import { constructError } from "../../utils/construct-error";
 
 
 /**

@@ -1,6 +1,6 @@
 import Event from "./event.model";
-import { constructError } from "../utils/construct-error";
-import { checkIfAuthorized, checkValidation } from "../utils/common-checks";
+import { constructError } from "../../utils/construct-error";
+import { checkIfAuthorized, checkValidation } from "../../utils/common-checks";
 
 
 /**
@@ -19,10 +19,18 @@ export const getAll = (req, res, next) => {
     const includePast    = req.query.includePast || "false",
           includeDeleted = req.query.includeDeleted || "false",
           orderByDate    = req.query.orderByDate || "false",
+          rois           = req.query.rois,
           city           = req.query.city,
           postalCode     = req.query.postalCode,
           coords         = req.query.coords,
           buffer         = req.query.buffer || 1;
+
+    // Check that the use has passed no more than one geographical filter
+    if ([rois, city, postalCode, coords].filter(e => e !== undefined).length > 1) {
+        next(constructError(422,
+            "You can pass only one query parameter among 'rois', 'city', 'postalCode' and 'coords'."));
+        return;
+    }
 
     // Set the parameters for the mongo query
     let filter     = {};
@@ -40,6 +48,9 @@ export const getAll = (req, res, next) => {
 
     // Take the surveys with expireDate greater or equal to the current date
     if (includePast === "false") filter.date = { $gte: new Date() };
+
+    // Filter by regions of interest
+    if (rois) filter.rois = { $in: rois.split(",") };
 
     // Filter by city
     if (city) filter["address.city"] = { $eq: city.toLocaleLowerCase() };
@@ -68,7 +79,26 @@ export const getAll = (req, res, next) => {
 };
 
 
-export const create = (req, res, next) => {};
+/**
+ * Inserts a new event in the database.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
+ */
+export const create = (req, res, next) => {
+
+    // If the request does not come from an admin, throw an error
+    if (!checkIfAuthorized(req, next)) return;
+
+    // Validate the body of the request
+    if (!checkValidation(req, next)) return;
+
+    console.log(req.file);
+
+    res.status(201).json({ meta: { code: 201 }, data: {} })
+
+};
 
 
 /**

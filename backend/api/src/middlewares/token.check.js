@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import { JWT_PK } from "../config/env";
-import { constructError } from "../modules/utils/construct-error";
+import { constructError } from "../utils/construct-error";
 
 /**
  * Extracts and verifies the authorization token attached to any incoming request.

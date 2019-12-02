@@ -1,8 +1,11 @@
 import { Router } from "express";
 
 import * as validator from "./event.validator";
-import { idValidation } from "../utils/common-validations";
+import { idValidation } from "../../utils/common-validations";
 import * as controller from "./event.controller";
+import upload from "../../setup/upload";
+import parse from "../../middlewares/formdata.parse"
+
 
 // Create a router object
 const router = Router();
@@ -11,7 +14,7 @@ const router = Router();
 router.get("/", validator.getAllQuery, controller.getAll);
 
 // POST - /event
-router.post("/", controller.create);
+router.post("/", upload.single("image"), parse, validator.event, controller.create);
 
 // GET - /event/{event_id}
 router.get("/:id", idValidation, controller.getById);

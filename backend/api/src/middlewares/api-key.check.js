@@ -1,5 +1,5 @@
 import Key from "../modules/auth/key.model";
-import { constructError } from "../modules/utils/construct-error";
+import { constructError } from "../utils/construct-error";
 
 /**
  * Checks if the request has a valid API key in the headers.

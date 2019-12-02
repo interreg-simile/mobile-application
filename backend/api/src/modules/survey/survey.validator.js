@@ -4,16 +4,13 @@ export const questionTypeEnum = ["singleAnswer", "freeText"];
 
 export const mainInfo = [
     body("title")
-        .trim()
-        .escape()
+        .trim().escape()
         .not().isEmpty().withMessage("Missing property 'title'."),
     body("etc")
-        .trim()
-        .escape()
+        .trim().escape()
         .not().isEmpty().withMessage("Missing property 'etc'."),
     body("area")
-        .trim()
-        .escape()
+        .trim().escape()
         .not().isEmpty().withMessage("Missing property 'area'."),
     body("expireDate")
         .not().isEmpty().withMessage("Missing property 'expireDate'.")
@@ -25,8 +22,7 @@ const answers = [
         .not().isEmpty().withMessage("Missing property 'position' of one of the answers of one of the questions.")
         .isInt().withMessage("Wrong format of property 'position' of one of the answers of one of the questions."),
     body("questions.*.answers.*.body")
-        .trim()
-        .escape()
+        .trim().escape()
         .not().isEmpty().withMessage("Missing property 'body' of one of the answers of one of the questions."),
 ];
 
@@ -38,12 +34,11 @@ export const questions = [
         .not().isEmpty().withMessage("Missing property 'position' of one of the questions.")
         .isInt().withMessage("Wrong format of property 'position' of one of the questions."),
     body("questions.*.body")
-        .trim()
-        .escape()
+        .trim().escape()
         .not().isEmpty().withMessage("Missing property 'body' of one of the questions."),
     body("questions.*.type")
         .not().isEmpty().withMessage("Missing property 'type' of one of the questions.")
-        .isIn(questionTypeEnum).withMessage("Forbidden value of property 'type' of one of the questions."),
+        .isIn(questionTypeEnum).withMessage("Invalid value of property 'type' of one of the questions."),
     oneOf(
         [body("questions.*.answers").not().exists(), answers],
         "Invalid or missing value of one of the properties of one of answers of one of the questions."
@@ -66,8 +61,7 @@ export const userAnswer = [
         .not().isEmpty().withMessage("Missing property 'question' of one of the answers.")
         .isMongoId().withMessage("Wrong format of property 'question' of one of the answers."),
     body("answers.*.answer")
-        .trim()
-        .escape()
+        .trim().escape()
 ];
 
 export const all = [...mainInfo, ...questions];

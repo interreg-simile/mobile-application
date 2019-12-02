@@ -3,9 +3,9 @@ import morgan from "morgan";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-import checkKeyMiddleware from "../middlewares/check-key";
-import checkToken from "../middlewares/check-token";
+import checkToken from "../middlewares/token.check";
 import { setupDocs } from "./docs";
+import checkKeyMiddleware from "../middlewares/api-key.check";
 
 /**
  * Sets up the necessary middlewares.

@@ -7,7 +7,7 @@
     "node": "13.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha 'src/**/*.test.js' --require @babel/register",
     "seed": "babel-node src/setup/seeder.js",
     "start": "nodemon src/app.js --exec babel-node",
     "start:prod": "npm run build:prod && npm run start:server",
@@ -36,15 +36,23 @@
     "ip": "^1.1.5",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.10",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.4",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.9",
     "lorem-ipsum": "^2.0.3",
+    "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0",
     "swagger-ui-express": "^4.1.2",
     "yamljs": "^0.3.0"
   }
