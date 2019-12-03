@@ -4,7 +4,7 @@ import * as validator from "./event.validator";
 import { idValidation } from "../../utils/common-validations";
 import * as controller from "./event.controller";
 import upload from "../../setup/upload";
-import parse from "../../middlewares/formdata.parse"
+import parse from "../../middlewares/parse-formdata"
 
 
 // Create a router object

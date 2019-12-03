@@ -9,7 +9,7 @@ import { PORT, NODE_ENV } from '../config/env';
  *
  * @param {Object} server - The express server instance.
  */
-export const startServer = server => {
+export default function (server) {
 
     console.info("SETUP - Starting server...");
 

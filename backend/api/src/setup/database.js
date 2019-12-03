@@ -7,7 +7,7 @@ import { MONGO_URL } from "../config/env"
  *
  * @returns {Promise<void>}
  */
-export const connectDb = async () => {
+export default async function () {
 
     console.info("SETUP - Connecting database...");
 
@@ -19,15 +19,11 @@ export const connectDb = async () => {
         useUnifiedTopology: true
     });
 
-};
+}
 
 /**
  * Handles any connection error.
  *
  * @param {Error} error - The error object.
  */
-export const onDbConnectionError = error => {
-
-    console.log(`ERROR - Connection failed: ${error.message}`);
-
-};
+export function onDbConnectionError(error) { console.log(`ERROR - Connection failed: ${error.message}`) }

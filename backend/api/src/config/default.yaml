@@ -1,0 +1,9 @@
+endpoints:
+
+  /event:
+
+    - path: /
+      method: GET
+      key_required: true
+      admin_required: false
+      token_required: false

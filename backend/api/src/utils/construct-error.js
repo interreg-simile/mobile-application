@@ -33,7 +33,7 @@ export const constructError = (code, msg, type) => {
         case 404:
             error.message    = msg || "Resource not found.";
             error.statusCode = code;
-            error.type       = type || "NotAuthorizedException";
+            error.type       = type || "NotFoundException";
             break;
 
         case 422:

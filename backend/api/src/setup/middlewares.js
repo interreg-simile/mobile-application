@@ -1,18 +1,22 @@
+import path from "path";
 import helmet from "helmet";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import cors from "cors";
+import express from "express";
 
-import checkToken from "../middlewares/token.check";
-import { setupDocs } from "./docs";
-import checkKeyMiddleware from "../middlewares/api-key.check";
+import setupDocs from "./docs";
+import loadConfig from "../middlewares/load-config";
+import checkKey from "../middlewares/check-key";
+import checkToken from "../middlewares/check-token";
+
 
 /**
  * Sets up the necessary middlewares.
  *
  * @param {Object} server - The express server instance.
  */
-export const setupMiddlewares = server => {
+export default function (server) {
 
     console.info('SETUP - Middlewares...');
 
@@ -26,14 +30,21 @@ export const setupMiddlewares = server => {
     // const accessLogStream = fs.createWriteStream(path.join(__dirname, "src/logs/server.log"), { flags: "a" });
     // server.use(morgan("combined", { stream: accessLogStream }));
 
-    // Use BodyParser to parse for application/json
+    // Parse the requests
     server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: false }));
 
     // Setup the docs
     setupDocs(server);
 
+    // Setup the static path to the images
+    server.use(express.static(path.join(__dirname, "..", "..", "uploads")));
+
+    // Load the route configuration
+    server.use(loadConfig);
+
     // Check the API key
-    server.use(checkKeyMiddleware);
+    server.use(checkKey);
 
     // Check the authorization token
     server.use(checkToken);

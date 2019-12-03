@@ -28,11 +28,11 @@ paths:
   /surveys:
     $ref: "http://localhost:8000/resources/surveys/surveys.yaml"
 
-  /surveys/user/{user_id}:
-    $ref: "http://localhost:8000/resources/surveys/surveys-by-user.yaml"
-
-  /surveys/{survey_id}:
-    $ref: "http://localhost:8000/resources/surveys/surveys-by-idValidation.yaml"
+#  /surveys/user/{user_id}:
+#    $ref: "http://localhost:8000/resources/surveys/surveys-by-user.yaml"
+#
+#  /surveys/{survey_id}:
+#    $ref: "http://localhost:8000/resources/surveys/surveys-by-idValidation.yaml"
 
 
 components:

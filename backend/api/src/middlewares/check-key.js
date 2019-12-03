@@ -10,6 +10,12 @@ import { constructError } from "../utils/construct-error";
  */
 export default function (req, res, next) {
 
+    // If the route does not need the key, skip the check
+    if (req.config && !req.config.key_required) {
+        next();
+        return;
+    }
+
     // Extract the key
     const keyHeader = req.get("X-API-KEY");
 

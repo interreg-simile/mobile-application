@@ -38,7 +38,9 @@
     "mongoose": "^5.7.10",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "lodash": "^4.17.15",
+    "path-to-regexp": "^6.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",

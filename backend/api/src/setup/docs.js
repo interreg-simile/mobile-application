@@ -1,5 +1,4 @@
 import path from "path";
-
 import express from "express";
 import swagger from "swagger-ui-express";
 import yaml from "yamljs";
@@ -9,7 +8,7 @@ import yaml from "yamljs";
  *
  * @param {Object} server - The express server instance.
  */
-export const setupDocs = server => {
+export default function (server) {
 
     // ToDo temporary
     // Serve docs as static files
