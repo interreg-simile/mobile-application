@@ -1,0 +1,20 @@
+--- # Endpoints configuration
+
+/event:
+
+  - path: /
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: false
+
+  - path: /
+    method: POST
+    key_required: true
+    admin_required: true
+    token_required: true
+    upload:
+      required: true
+      single: true
+      name: image
+      dest: ./uploads/events

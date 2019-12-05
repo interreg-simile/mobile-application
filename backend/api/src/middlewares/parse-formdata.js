@@ -7,6 +7,12 @@
  */
 export default function (req, res, next) {
 
+    // If the content type of the request is not multipart/form-data, call the next middleware
+    if (!req.is("multipart/form-data")) {
+        next();
+        return;
+    }
+
     // Parse each of the JSON fields in the body of the request
     for (const field in req.body) {
 

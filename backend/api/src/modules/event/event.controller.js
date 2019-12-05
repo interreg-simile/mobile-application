@@ -88,9 +88,6 @@ export const getAll = (req, res, next) => {
  */
 export const create = (req, res, next) => {
 
-    // If the request does not come from an admin, throw an error
-    if (!checkIfAuthorized(req, next)) return;
-
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 

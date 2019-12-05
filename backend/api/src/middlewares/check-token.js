@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { JWT_PK } from "../config/env";
 import { constructError } from "../utils/construct-error";
 
+
 /**
  * Extracts and verifies the authorization token attached to any incoming request.
  *
@@ -15,11 +16,11 @@ export default function (req, res, next) {
     // Extract the authorization header
     const authHeader = req.get("Authorization");
 
-    // If no header is found, proceed (some routes can be accessed without a valid token)
+    // If no header is found, check the permissions of the route
     if (!authHeader) {
         req.isAdmin = false;
         req.userId  = null;
-        next();
+        checkPermission(req, next);
         return;
     }
 
@@ -39,6 +40,38 @@ export default function (req, res, next) {
     // Save idValidation and status of the user
     req.userId  = decodedToken.userId;
     req.isAdmin = decodedToken.isAdmin === "true";
+
+    // Check the permissions of the route
+    checkPermission(req, next);
+
+}
+
+
+/**
+ * Checks if the user has the right permissions to access the route.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Function} next - The Express next middleware function.
+ */
+function checkPermission(req, next) {
+
+    // If the user is an admin, call the next middleware
+    if (req.isAdmin) {
+        next();
+        return;
+    }
+
+    // If the route is accessible only by an admin, throw an error
+    if (req.config.admin_required) {
+        next(constructError(401));
+        return;
+    }
+
+    // If the route requires an authenticate user and the user id is not provided, throw and error
+    if (req.config.token_required && !req.userId) {
+        next(constructError(401));
+        return;
+    }
 
     // Call the next middleware
     next();

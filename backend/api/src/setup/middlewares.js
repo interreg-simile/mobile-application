@@ -9,6 +9,8 @@ import setupDocs from "./docs";
 import loadConfig from "../middlewares/load-config";
 import checkKey from "../middlewares/check-key";
 import checkToken from "../middlewares/check-token";
+import upload from "../middlewares/upload";
+import parseFormData from "../middlewares/parse-formdata";
 
 
 /**
@@ -30,10 +32,6 @@ export default function (server) {
     // const accessLogStream = fs.createWriteStream(path.join(__dirname, "src/logs/server.log"), { flags: "a" });
     // server.use(morgan("combined", { stream: accessLogStream }));
 
-    // Parse the requests
-    server.use(bodyParser.json());
-    server.use(bodyParser.urlencoded({ extended: false }));
-
     // Setup the docs
     setupDocs(server);
 
@@ -42,6 +40,14 @@ export default function (server) {
 
     // Load the route configuration
     server.use(loadConfig);
+
+    // Upload any possible file
+    server.use(upload);
+
+    // Parse the requests
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: false }));
+    server.use(parseFormData);
 
     // Check the API key
     server.use(checkKey);

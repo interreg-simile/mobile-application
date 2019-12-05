@@ -7,7 +7,7 @@ import { constructError } from "../utils/construct-error";
 
 
 /** Configuration in JSON format. */
-const conf = yaml.load(path.resolve("./src/config/default.yaml"));
+const conf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 
 /**
  * Loads the configuration of the incoming route.
@@ -25,7 +25,7 @@ export default function (req, res, next) {
     const path = req.path.replace(baseUrl, "");
 
     // Find the first item that matches the path and the method
-    const params = _.find(conf.endpoints[baseUrl], i => match(i.path)(path) && i.method === req.method);
+    const params = _.find(conf[baseUrl], i => match(i.path)(path) && i.method === req.method);
 
     // If no route is found throw an error
     if (!params) {

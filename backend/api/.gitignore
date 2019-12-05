@@ -9,4 +9,8 @@ build/
 .env
 
 uploads/*
+!uploads/**/
 !uploads/.gitkeep
+uploads/**/*.png
+uploads/**/*.jpg
+uploads/**/*.jpeg

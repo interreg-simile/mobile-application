@@ -11,7 +11,7 @@ import { constructError } from "../utils/construct-error";
 export default function (req, res, next) {
 
     // If the route does not need the key, skip the check
-    if (req.config && !req.config.key_required) {
+    if (!req.config.key_required) {
         next();
         return;
     }
