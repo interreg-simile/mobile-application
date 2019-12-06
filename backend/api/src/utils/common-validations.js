@@ -2,7 +2,7 @@ import { oneOf, param, query } from "express-validator";
 
 
 export const idValidation = [
-    param("idValidation").isMongoId().withMessage("Wrong format of path parameter 'idValidation'.")
+    param("id").isMongoId().withMessage("Wrong format of path parameter 'id'.")
 ];
 
 

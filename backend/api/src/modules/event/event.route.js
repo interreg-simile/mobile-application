@@ -21,7 +21,7 @@ router.get("/:id", idValidation, controller.getById);
 router.delete("/:id", idValidation, controller.markForDeletion);
 
 // PUT - /event/{event_id}
-router.put("/:id", idValidation, controller.update);
+router.put("/:id", idValidation, validator.event, controller.update);
 
 // PATCH - /event/{event_id}
 router.patch("/:id", idValidation, validator.participants, controller.addParticipants);

@@ -18,3 +18,32 @@
       single: true
       name: image
       dest: ./uploads/events
+
+  - path: /:id
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: false
+
+  - path: /:id
+    method: PUT
+    key_required: true
+    admin_required: true
+    token_required: true
+    upload:
+      required: false
+      single: true
+      name: image
+      dest: ./uploads/events
+
+  - path: /:id
+    method: PATCH
+    key_required: true
+    admin_required: true
+    token_required: true
+
+  - path: /:id
+    method: DELETE
+    key_required: true
+    admin_required: true
+    token_required: true

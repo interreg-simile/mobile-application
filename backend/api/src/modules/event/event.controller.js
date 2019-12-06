@@ -1,6 +1,6 @@
-import Event from "./event.model";
 import { constructError } from "../../utils/construct-error";
-import { checkIfAuthorized, checkValidation } from "../../utils/common-checks";
+import { checkValidation } from "../../utils/common-checks";
+import * as eventService from "./event.service";
 
 
 /**
@@ -33,9 +33,7 @@ export const getAll = (req, res, next) => {
     }
 
     // Set the parameters for the mongo query
-    let filter     = {};
-    let projection = {};
-    let options    = {};
+    const filter = {}, projection = {}, options = {};
 
     // Exclude the survey marked for deletion
     if (includeDeleted === "false") filter.markedForDeletion = false;
@@ -71,8 +69,8 @@ export const getAll = (req, res, next) => {
     // Sort by date ascending
     if (orderByDate === "true") options.sort = "-date";
 
-    // Find the data
-    Event.find(filter, projection, options)
+    // Find the events
+    eventService.getAll(filter, projection, options)
         .then(events => res.status(200).json({ meta: { code: 200 }, data: { events } }))
         .catch(err => next(err));
 
@@ -91,15 +89,16 @@ export const create = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
-    console.log(req.file);
-
-    res.status(201).json({ meta: { code: 201 }, data: {} })
+    // Create the event
+    eventService.create({ ...req.body, imageUrl: req.file.path })
+        .then(event => res.status(201).json({ meta: { code: 201 }, data: { event } }))
+        .catch(err => next(err));
 
 };
 
 
 /**
- * Returns the event with a given idValidation.
+ * Returns the event with a given id.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -110,16 +109,17 @@ export const getById = (req, res, next) => {
     // Validate the request
     if (!checkValidation(req, next)) return;
 
-    // Extract the user idValidation from the request path
-    const eventId = req.params.id;
+    // Initialize the filer for the query
+    const filter = {};
 
-    // SurveyFind the data
-    Event.findById(eventId)
+    // If the user is not admin, don't return the event if it's marked for deletion
+    if (!req.isAdmin) filter.markedForDeletion = false;
+
+    eventService.getById(req.params.id, filter, {}, {})
         .then(event => {
 
             // If no data is found, throw an error
-            if (!event || (event.markedForDeletion && !req.isAdmin))
-                throw constructError(404, "Event not found.");
+            if (!event) throw constructError(404, "Event not found.");
 
             res.status(200).json({ meta: { code: 200 }, data: { event } });
 
@@ -129,7 +129,27 @@ export const getById = (req, res, next) => {
 };
 
 
-export const update = (req, res, next) => {};
+/**
+ * Update an event.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
+ */
+export const update = (req, res, next) => {
+
+    // Validate the body of the request
+    if (!checkValidation(req, next)) return;
+
+    // If a new image is provided, append the path to the body
+    if (req.file) req.body.imageUrl = req.file.path;
+
+    // Update the event
+    eventService.update(req.params.id, req.body)
+        .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
+        .catch(err => next(err));
+
+};
 
 
 /**
@@ -141,30 +161,12 @@ export const update = (req, res, next) => {};
  */
 export const addParticipants = (req, res, next) => {
 
-    // If the request does not come from an admin, throw an error
-    if (!checkIfAuthorized(req, next)) return;
-
     // Validate the request
     if (!checkValidation(req, next)) return;
 
-    // Extract the user idValidation from the request path
-    const eventId = req.params.id;
-
-    // Find the survey
-    Event.findById(eventId)
-        .then(event => {
-
-            // If no data is found, throw an error
-            if (!event) throw constructError(404, "Event not found.");
-
-            // Save the data
-            event.participants = req.body.participants;
-
-            // Save the event
-            return event.save();
-
-        })
-        .then(() => res.status(200).json({ meta: { code: 200 }, data: { id: eventId } }))
+    // Mark the event for deletion
+    eventService.setParticipants(req.params.id, req.body.participants)
+        .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
         .catch(err => next(err));
 
 };
@@ -179,29 +181,11 @@ export const addParticipants = (req, res, next) => {
  */
 export const markForDeletion = (req, res, next) => {
 
-    // If the request does not come from an admin, throw an error
-    if (!checkIfAuthorized(req, next)) return;
-
     // Validate the request
     if (!checkValidation(req, next)) return;
 
-    // Extract the event idValidation from the request path
-    const eventId = req.params.id;
-
-    // Find the event
-    Event.findById(eventId)
-        .then(event => {
-
-            // If no data is found, throw an error
-            if (!event) throw constructError(404, "Event not found.");
-
-            // Mark the survey for deletion
-            event.markedForDeletion = true;
-
-            // Save the change
-            return event.save();
-
-        })
+    // Mark the event for deletion
+    eventService.softDelete(req.params.id)
         .then(() => res.status(204).json({ meta: { code: 204 } }))
         .catch(err => next(err));
 
