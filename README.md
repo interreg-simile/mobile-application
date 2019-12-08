@@ -1,5 +1,5 @@
 <h4 align="center">
-<img src="https://raw.githubusercontent.com/epessina/epssina.github.io/master/images/simile/logo.png" width="400" alt="SIMILE">
+<img src="https://raw.githubusercontent.com/epessina/SIMILE-App/master/docs/media/logo.png" width="400" alt="SIMILE">
 </h4>
 
 # SIMILE Mobile Application
@@ -19,7 +19,7 @@ Cross-platform application built for the interreg project [SIMILE](https://inter
 
 ## Structure
 
-<img src="https://raw.githubusercontent.com/epessina/epssina.github.io/master/images/simile/hight-level-architecture_v1.0.png" alt="High-Level Architecture"/>
+<img src="https://raw.githubusercontent.com/epessina/SIMILE-App/master/docs/media/hight-level-architecture_v1.0.png"/>
 
 
 ## Setup and Running
@@ -30,7 +30,7 @@ Cross-platform application built for the interreg project [SIMILE](https://inter
 
 Design and development by [Edoardo Pessina](edoardo.pessina@mail.polimi.it) - [GitHub](https://github.com/epessina)
 
-<img src="https://raw.githubusercontent.com/epessina/epssina.github.io/master/images/general/logo-polimi.png" height="200" alt="Polimi">
+<img src="https://raw.githubusercontent.com/epessina/SIMILE-App/master/docs/media/logo-polimi.png" height="200" alt="Polimi">
 
 ## License
 
