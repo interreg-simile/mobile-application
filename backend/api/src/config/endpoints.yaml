@@ -1,6 +1,6 @@
 --- # Endpoints configuration
 
-/event:
+/events:
 
   - path: /
     method: GET
@@ -38,6 +38,39 @@
 
   - path: /:id
     method: PATCH
+    key_required: true
+    admin_required: true
+    token_required: true
+
+  - path: /:id
+    method: DELETE
+    key_required: true
+    admin_required: true
+    token_required: true
+
+
+/communications:
+
+  - path: /
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: false
+
+  - path: /
+    method: POST
+    key_required: true
+    admin_required: true
+    token_required: true
+
+  - path: /:id
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: false
+
+  - path: /:id
+    method: PUT
     key_required: true
     admin_required: true
     token_required: true

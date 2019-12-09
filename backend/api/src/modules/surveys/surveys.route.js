@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import * as validator from "./surveys.validator";
-import { idValidation } from "../../utils/common-validations";
+import { p } from "../../utils/common-validations";
 import * as controller from "./surveys.controller";
 
 // Create a router object
@@ -14,19 +14,19 @@ router.get("/", controller.getAll);
 router.post("/", validator.all, controller.create);
 
 // GET - /survey/user/{user_id}
-router.get("/user/:id", idValidation, controller.getByUser);
+router.get("/user/:id", p.id, controller.getByUser);
 
 // GET - /survey/{survey_id}
-router.get("/:id", idValidation, controller.getById);
+router.get("/:id", p.id, controller.getById);
 
 // DELETE - /survey/{survey_id}
-router.delete("/:id", idValidation, controller.markForDeletion);
+router.delete("/:id", p.id, controller.markForDeletion);
 
 // PUT - /survey/{survey_id}
-router.put("/:id", idValidation, validator.all, controller.update);
+router.put("/:id", p.id, validator.all, controller.update);
 
 // PATCH - /survey/{survey_id}
-router.patch("/:id", idValidation, validator.userAnswer, controller.addUserAnswer);
+router.patch("/:id", p.id, validator.userAnswer, controller.addUserAnswer);
 
 // Export the router
 export default router;

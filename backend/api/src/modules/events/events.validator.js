@@ -1,23 +1,10 @@
 import { body, query } from "express-validator";
-import { countryEnum, roiEnum } from "../../utils/common-validations";
+import { q, e, b } from "../../utils/common-validations";
 
 
+// Validation chain for the query parameters of the "get all" route
 export const getAllQuery = [
-    query("includePast")
-        .optional()
-        .isBoolean().withMessage("Wrong format of query parameter 'includePast'."),
-    query("includeDeleted")
-        .optional()
-        .isBoolean().withMessage("Wrong format of query parameter 'includeDeleted'."),
-    query("orderByDate")
-        .optional()
-        .isBoolean().withMessage("Wrong format of query parameter 'orderByDate'."),
-    query("rois")
-        .optional()
-        .custom(v => {
-            return v.split(",").every(e => roiEnum.indexOf(e) >= 0) &&
-                new Set(v.split(",")).size === v.split(",").length
-        }).withMessage("Wrong format of query parameter 'rois'."),
+    ...q.includePast, ...q.includeDeleted, ...q.orderByDate, ...q.rois,
     query("city")
         .optional()
         .trim().escape(),
@@ -33,14 +20,18 @@ export const getAllQuery = [
 ];
 
 
+// Validation chain for the body of the "post" and "put" requests
 export const event = [
-    body("title")
+    body("titleIta")
         .trim().escape()
-        .not().isEmpty().withMessage("Missing property 'title'."),
-    body("descriptionEng")
-        .trim().escape()
-        .not().isEmpty().withMessage("Missing property 'descriptionEng'."),
+        .not().isEmpty().withMessage("Missing property 'titleIta'."),
+    body("titleEng")
+        .optional()
+        .trim().escape(),
     body("descriptionIta")
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'descriptionIta'."),
+    body("descriptionEng")
         .optional()
         .trim().escape(),
     body("position")
@@ -76,12 +67,8 @@ export const event = [
         .isLength({ min: 2, max: 2 }).withMessage("Wrong format of property 'province' of 'address'."),
     body("address.country")
         .not().isEmpty().withMessage("Missing property 'country' of 'address'.")
-        .isIn(countryEnum).withMessage("Invalid value of property 'country' of 'address'."),
-    body("rois")
-        .not().isEmpty().withMessage("Missing property 'rois'.")
-        .isArray().withMessage("Wrong format of property 'rois'."),
-    body("rois.*")
-        .isIn(roiEnum).withMessage("Invalid value of one of the properties of 'rois'."),
+        .isIn(e.county).withMessage("Invalid value of property 'country' of 'address'."),
+    ...b.rois,
     body("date")
         .not().isEmpty().withMessage("Missing property 'date'.")
         .isISO8601().withMessage("Wrong format of property 'date'."),
@@ -91,11 +78,11 @@ export const event = [
         .optional()
         .isInt({ min: 0 }).withMessage("Wrong format of property 'participants'."),
     body("markedForDeletion")
-        .optional()
-        .isBoolean().withMessage("Wrong format of property 'markedForDeletion'.")
+        .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")
 ];
 
 
+// Validation chain for the "participants" field
 export const participants = [
     body("participants")
         .isInt({ min: 0 }).withMessage("Wrong format of property 'participants'.")

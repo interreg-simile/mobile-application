@@ -29,7 +29,14 @@ export async function getAll(filter, projection, options) {
  */
 export async function getById(id, filter, projection, options) {
 
-    return Event.findOne({ _id: id, ...filter }, projection, options);
+    // Find the data
+    const event = Event.findOne({ _id: id, ...filter }, projection, options);
+
+    // If no data is found, throw an error
+    if (!event) throw constructError(404, "Resource not found.");
+
+    // Return the data
+    return event;
 
 }
 
@@ -44,9 +51,10 @@ export async function create(data) {
 
     // Create the new event
     const event = new Event({
-        title         : data.title,
-        descriptionEng: data.descriptionEng,
+        titleIta      : data.titleIta,
+        titleEng      : data.titleEng,
         descriptionIta: data.descriptionIta,
+        descriptionEng: data.descriptionEng,
         position      : data.position,
         address       : data.address,
         rois          : data.rois,
@@ -74,12 +82,13 @@ export async function update(id, data) {
     const event = await Event.findById(id);
 
     // If no data is found, throw an error
-    if (!event) throw constructError(404, "Event not found.");
+    if (!event) throw constructError(404, "Resource not found.");
 
     // Update the values
-    event.title          = data.title;
-    event.descriptionEng = data.descriptionEng;
-    event.descriptionIta = data.descriptionIta || event.descriptionIta;
+    event.titleIta       = data.titleIta;
+    event.titleEng       = data.titleEng || event.titleEng;
+    event.descriptionIta = data.descriptionIta;
+    event.descriptionEng = data.descriptionEng || event.descriptionEng;
     event.position       = data.position;
     event.address        = data.address;
     event.rois           = data.rois;
@@ -134,7 +143,7 @@ export async function softDelete(id) {
     const event = await Event.findOne({ _id: id, markedForDeletion: false });
 
     // If no data is found, throw an error
-    if (!event) throw constructError(404, "Event not found.");
+    if (!event) throw constructError(404, "Resource not found.");
 
     // Mark the survey for deletion
     event.markedForDeletion = true;
@@ -143,5 +152,3 @@ export async function softDelete(id) {
     await event.save();
 
 }
-
-

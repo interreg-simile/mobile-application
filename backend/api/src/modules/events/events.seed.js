@@ -12,9 +12,10 @@ export default async function () {
 
     const events = [
         {
-            title         : "Event title",
-            descriptionEng: new LoremIpsum().generateParagraphs(1),
+            titleIta      : "Titolo evento",
+            titleEng      : "Event title",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
+            descriptionEng: new LoremIpsum().generateParagraphs(1),
             position      : { type: "Point", coordinates: [9.077134, 45.823060] },
             address       : {
                 main      : "Viale Geno",
@@ -28,9 +29,10 @@ export default async function () {
             date          : new Date("2019-12-30T15:24:00")
         },
         {
-            title         : "Past event title",
-            descriptionEng: new LoremIpsum().generateParagraphs(1),
+            titleIta      : "Titolo evento passato",
+            titleEng      : "Past event title",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
+            descriptionEng: new LoremIpsum().generateParagraphs(1),
             position      : { type: "Point", coordinates: [9.383572, 45.860125] },
             address       : {
                 main      : "Largo Fratelli Calvi",
@@ -44,9 +46,10 @@ export default async function () {
             date          : new Date("2019-09-13T09:10:00")
         },
         {
-            title         : "Middle event title",
-            descriptionEng: new LoremIpsum().generateParagraphs(1),
+            titleIta      : "Titolo evento in mezzo",
+            titleEng      : "Middle event title",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
+            descriptionEng: new LoremIpsum().generateParagraphs(1),
             position      : { type: "Point", coordinates: [9.383572, 45.860125] },
             address       : {
                 main      : "Largo Fratelli Calvi",
@@ -60,9 +63,10 @@ export default async function () {
             date          : new Date("2019-10-13T09:10:00")
         },
         {
-            title            : "Deleted event",
-            descriptionEng   : new LoremIpsum().generateParagraphs(1),
+            titleIta         : "Titolo evento cancellato",
+            titleEng         : "Deleted event title",
             descriptionIta   : new LoremIpsum().generateParagraphs(1),
+            descriptionEng   : new LoremIpsum().generateParagraphs(1),
             position         : { type: "Point", coordinates: [9.383572, 45.860125] },
             address          : {
                 main      : "Largo Fratelli Calvi",

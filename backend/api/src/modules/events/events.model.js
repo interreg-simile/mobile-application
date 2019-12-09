@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 import { point } from "../../utils/common-schemas";
-import { countryEnum, roiEnum } from "../../utils/common-validations";
+import { e } from "../../utils/common-validations";
 
 
 export const collection = "Events";
@@ -12,16 +12,17 @@ const address = new Schema({
     city      : { type: String, lowercase: true, required: true },
     postalCode: { type: Number, required: true },
     province  : { type: String, lowercase: true, required: true },
-    country   : { type: String, enum: countryEnum, required: true }
+    country   : { type: String, enum: e.county, required: true }
 });
 
 const schema = new Schema({
-    title            : { type: String, required: true },
-    descriptionEng   : { type: String, required: true },
-    descriptionIta   : { type: String, required: false },
+    titleIta         : { type: String, required: true },
+    titleEng         : { type: String, required: false },
+    descriptionIta   : { type: String, required: true },
+    descriptionEng   : { type: String, required: false },
     position         : { type: point, required: true },
     address          : { type: address, required: true },
-    rois             : { type: [{ type: String, enum: roiEnum }], required: true },
+    rois             : { type: [{ type: String, enum: e.roi }], required: true },
     date             : { type: Date, required: true },
     imageUrl         : { type: String, required: false },
     participants     : { type: Number, required: false },
