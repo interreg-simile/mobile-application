@@ -1,14 +1,12 @@
-import Key, { collection } from "./key.model";
+import Key, { collection } from "./keys.model";
 import { dropCollection } from "../../setup/seeder";
 
 
 export default async function () {
 
-    console.info("SEED - Key...");
+    console.info("SEED - Keys...");
 
     await dropCollection(collection);
-
-    console.log("Dropped");
 
     const keys = [{ key: "testApiKey" }];
 

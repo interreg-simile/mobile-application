@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-export const collection = "User";
+export const collection = "Users";
 
 const schema = new Schema({
     email      : { type: String, unique: true, required: true },

@@ -1,6 +1,6 @@
 import { constructError } from "../../utils/construct-error";
 import { checkValidation } from "../../utils/common-checks";
-import * as eventService from "./event.service";
+import * as eventService from "./events.service";
 
 
 /**

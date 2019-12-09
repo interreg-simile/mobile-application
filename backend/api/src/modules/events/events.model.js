@@ -4,7 +4,7 @@ import { point } from "../../utils/common-schemas";
 import { countryEnum, roiEnum } from "../../utils/common-validations";
 
 
-export const collection = "Event";
+export const collection = "Events";
 
 const address = new Schema({
     main      : { type: String, required: true },

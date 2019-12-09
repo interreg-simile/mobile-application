@@ -1,12 +1,12 @@
 import { LoremIpsum } from "lorem-ipsum";
 
-import Event, { collection } from "./event.model";
+import Event, { collection } from "./events.model";
 import { dropCollection } from "../../setup/seeder";
 
 
 export default async function () {
 
-    console.info("SEED - Event...");
+    console.info("SEED - Events...");
 
     await dropCollection(collection);
 

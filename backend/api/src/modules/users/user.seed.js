@@ -7,7 +7,7 @@ import { dropCollection } from "../../setup/seeder";
 
 export default async function () {
 
-    console.info("SEED - User...");
+    console.info("SEED - Users...");
 
     await dropCollection(collection);
 
@@ -55,7 +55,7 @@ export default async function () {
 
     for (const user of users) {
         const u = await User.create(user);
-        generateUserToken(u);
+        // generateUserToken(u);
     }
 
 }

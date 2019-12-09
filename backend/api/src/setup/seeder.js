@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 import { NODE_ENV } from "../config/env";
 import connectDb from "./database";
 
-import survey from "../modules/survey/survey.seed";
-import apiKey from "../modules/auth/key.seed";
-import user from "../modules/user/user.seed";
-import event from "../modules/event/event.seed";
+import surveys from "../modules/surveys/surveys.seed";
+import apiKeys from "../modules/auth/keys.seed";
+import users from "../modules/users/user.seed";
+import events from "../modules/events/events.seed";
 
 
 /**
@@ -24,10 +24,10 @@ async function seeder() {
     try {
 
         // Seed the data
-        // await apiKey();
-        // await user();
-        // await survey();
-        await event();
+        await apiKeys();
+        await users();
+        await surveys();
+        await events();
 
         // Close the connection
         await mongoose.connection.close();

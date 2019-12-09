@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import * as validator from "./survey.validator";
+import * as validator from "./surveys.validator";
 import { idValidation } from "../../utils/common-validations";
-import * as controller from "./survey.controller";
+import * as controller from "./surveys.controller";
 
 // Create a router object
 const router = Router();

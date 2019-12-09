@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-import APIKey from "./key.model"
+import APIKey from "./keys.model"
 
 export const generateApiKey = (req, res, next) => {
 

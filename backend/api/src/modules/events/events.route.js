@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import * as validator from "./event.validator";
+import * as validator from "./events.validator";
 import { idValidation } from "../../utils/common-validations";
-import * as controller from "./event.controller";
+import * as controller from "./events.controller";
 
 
 // Create a router object

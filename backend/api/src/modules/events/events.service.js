@@ -1,4 +1,4 @@
-import Event from "./event.model";
+import Event from "./events.model";
 import { constructError } from "../../utils/construct-error";
 import { removeFile } from "../../utils/utils";
 

@@ -1,10 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
-import * as validator from "./survey.validator";
-import { collection as User } from "../user/user.model";
+import * as validator from "./surveys.validator";
+import { collection as User } from "../users/user.model";
 
 
-export const collection = "Survey";
+export const collection = "Surveys";
 
 const answerSchema = new Schema({
     position: { type: Number, required: true },

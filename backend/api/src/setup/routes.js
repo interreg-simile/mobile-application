@@ -1,7 +1,7 @@
 import authRouter from "../modules/auth/auth.route";
-import userRouter from "../modules/user/user.route";
-import surveyRouter from "../modules/survey/survey.route";
-import eventRouter from "../modules/event/event.route";
+import userRouter from "../modules/users/user.route";
+import surveyRouter from "../modules/surveys/surveys.route";
+import eventRouter from "../modules/events/events.route";
 import errorMiddleware from "../middlewares/error";
 
 
@@ -15,9 +15,9 @@ export default function (server) {
     console.info('SETUP - Routes...');
 
     server.use("/auth", authRouter);
-    server.use("/user", userRouter);
-    server.use("/survey", surveyRouter);
-    server.use("/event", eventRouter);
+    server.use("/users", userRouter);
+    server.use("/surveys", surveyRouter);
+    server.use("/events", eventRouter);
 
     // Error handling middleware
     server.use(errorMiddleware);

@@ -1,4 +1,4 @@
-import Key from "../modules/auth/key.model";
+import Key from "../modules/auth/keys.model";
 import { constructError } from "../utils/construct-error";
 
 /**

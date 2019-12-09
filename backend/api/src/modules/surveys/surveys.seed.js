@@ -1,11 +1,11 @@
-import Survey, { collection } from "./survey.model";
-import User from "../user/user.model";
+import Survey, { collection } from "./surveys.model";
+import User from "../users/user.model";
 import { dropCollection } from "../../setup/seeder";
 
 
 export default async function () {
 
-    console.info("SEED - Survey...");
+    console.info("SEED - Surveys...");
 
     await dropCollection(collection);
 
