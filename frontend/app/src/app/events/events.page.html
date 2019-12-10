@@ -26,30 +26,42 @@
 
 <ion-content class="outer-content custom-container">
 
-  <div class="card-header">{{"page-events.header-upcoming" | translate}}</div>
+    <!-- Pull down to refresh -->
+    <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
 
-  <ion-card>
+        <ion-refresher-content></ion-refresher-content>
 
-    <ion-card-content>
+    </ion-refresher>
 
-      Keep close to Nature's heart... and break clear away, once in awhile, and climb a mountain or spend a week
-      in the woods. Wash your spirit clean.
+    <!-- Spinner -->
+    <section *ngIf="isLoading" class="central-spinner">
 
-    </ion-card-content>
+        <ion-spinner color="primary"></ion-spinner>
 
-  </ion-card>
+    </section>
 
-  <div class="card-header">{{"page-events.header-communications" | translate}}</div>
+    <!-- Main content -->
+    <section *ngIf="!isLoading">
 
-  <ion-card>
+        <!-- Communications -->
+        <ion-card *ngIf="communications.length > 0">
 
-    <ion-card-content>
+            <ion-card-content class="ion-no-padding">
 
-      Keep close to Nature's heart... and break clear away, once in awhile, and climb a mountain or spend a week
-      in the woods. Wash your spirit clean.
+                <ion-list class="ion-no-padding">
 
-    </ion-card-content>
+                    <ion-item *ngFor="let c of communications" button detail="false">
+                        <app-communication-item [item]="c"></app-communication-item>
+                    </ion-item>
 
-  </ion-card>
+                </ion-list>
+
+            </ion-card-content>
+
+        </ion-card>
+
+        <!--        <div class="card-header">{{"page-events.header-events" | translate}}</div>-->
+
+    </section>
 
 </ion-content>

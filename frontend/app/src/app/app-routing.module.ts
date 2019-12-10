@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'surveys', pathMatch: 'full' },
+    { path: '', redirectTo: 'events', pathMatch: 'full' },
     { path: 'map', loadChildren: './map/map.module#MapPageModule' },
     {
         path: 'surveys', children: [
@@ -18,9 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-    ],
+    imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {}

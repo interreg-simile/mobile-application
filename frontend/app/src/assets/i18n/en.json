@@ -3,7 +3,7 @@
     "item-map": "Map",
     "item-thematic-maps": "Thematic maps",
     "item-surveys": "Surveys",
-    "item-events": "Events",
+    "item-events": "Communications",
     "item-info": "Info",
     "item-settings": "Settings"
   },
@@ -19,8 +19,7 @@
     "expires-on": "Expires on"
   },
   "page-events": {
-    "header-upcoming": "Upcoming",
-    "header-communications": "Communications"
+    "header-events": "Events"
   },
   "page-info": {
     "header-project": "The project",

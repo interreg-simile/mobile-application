@@ -15,6 +15,8 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { registerLocaleData } from "@angular/common";
 import localeIt from "@angular/common/locales/it";
+import { IonicStorageModule } from "@ionic/storage";
+
 
 @NgModule({
     declarations   : [AppComponent],
@@ -26,7 +28,8 @@ import localeIt from "@angular/common/locales/it";
         HttpClientModule,
         TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useFactory: (createTranslateLoader), deps: [HttpClient] }
-        })
+        }),
+        IonicStorageModule.forRoot()
     ],
     providers      : [
         StatusBar,

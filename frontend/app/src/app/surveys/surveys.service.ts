@@ -23,8 +23,10 @@ export class SurveysService {
 
     private newSurveys: Survey[] = [];
 
+
     /** @ignore */
     constructor(private http: HttpClient, private auth: AuthService) { }
+
 
     /**
      * Returns the surveys as an observable.
@@ -32,6 +34,7 @@ export class SurveysService {
      * @return Observable<SurveyData> The surveys.
      */
     get surveys() { return this._surveys.asObservable() }
+
 
     /**
      * Fetches the surveys done and not yet done by the user.
@@ -74,6 +77,7 @@ export class SurveysService {
         );
 
     }
+
 
     getById(id: string) { return this.newSurveys.find(s => s.id === id) }
 

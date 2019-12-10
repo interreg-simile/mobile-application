@@ -9,12 +9,7 @@ import { SurveysPage } from './surveys.page';
 import { TranslateModule } from "@ngx-translate/core";
 import { SurveyItemComponent } from "./survey-item/survey-item.component";
 
-const routes: Routes = [
-    {
-        path     : '',
-        component: SurveysPage
-    }
-];
+const routes: Routes = [{ path: '', component: SurveysPage }];
 
 @NgModule({
     imports     : [

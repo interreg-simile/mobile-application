@@ -39,8 +39,8 @@ export const getAll = (req, res, next) => {
     // Filter by regions of interest
     if (rois) filter.rois = { $in: rois.split(",") };
 
-    // Sort by date ascending
-    if (orderByDate === "true") options.sort = "-dateStart";
+    // Sort by date descending
+    if (orderByDate === "true") options.sort = "+dateStart";
 
     // Find the events
     communicationService.getAll(filter, projection, options)
