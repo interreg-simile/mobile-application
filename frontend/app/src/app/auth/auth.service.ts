@@ -10,6 +10,8 @@ export class AuthService {
     private _userId: String;
     private _token: String;
 
+    public rois = ["lake_como"];
+
     constructor(private http: HttpClient) {
 
         this.login();

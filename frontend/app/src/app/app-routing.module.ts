@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'events', pathMatch: 'full' },
+    { path: '', redirectTo: 'news', pathMatch: 'full' },
     { path: 'map', loadChildren: './map/map.module#MapPageModule' },
     {
         path: 'surveys', children: [
@@ -10,10 +10,20 @@ const routes: Routes = [
             { path: ":surveyId", loadChildren: './surveys/survey/survey.module#SurveyPageModule' }
         ]
     },
-    { path: 'events', loadChildren: './events/events.module#EventsPageModule' },
+    {
+        path: 'events', children: [
+            { path: "", loadChildren: './events/events.module#EventsPageModule' },
+            {
+                path        : "communication/:id",
+                loadChildren: './events/communication-single/communication-single.module#CommunicationSinglePageModule'
+            }
+        ]
+    },
     { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
     { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
-    { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' }
+    { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
+    { path: 'news', loadChildren: './news/news.module#NewsPageModule' }
+
 
 ];
 

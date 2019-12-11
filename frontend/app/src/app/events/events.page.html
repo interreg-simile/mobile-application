@@ -50,8 +50,12 @@
 
                 <ion-list class="ion-no-padding">
 
-                    <ion-item *ngFor="let c of communications" button detail="false">
+                    <ion-item *ngFor="let c of communications"
+                              button detail="false"
+                              [routerLink]="['/', 'events', 'communication', c.id]">
+
                         <app-communication-item [item]="c"></app-communication-item>
+
                     </ion-item>
 
                 </ion-list>

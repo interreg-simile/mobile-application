@@ -50,13 +50,13 @@ export async function create(data) {
 
     // Create the new event
     const communication = new Communication({
-        titleIta      : data.titleIta,
-        titleEng      : data.titleEng,
-        descriptionIta: data.descriptionIta,
-        descriptionEng: data.descriptionEng,
-        dateStart     : data.dateStart,
-        dateEnd       : data.dateEnd,
-        rois          : data.rois,
+        titleIta  : data.titleIta,
+        titleEng  : data.titleEng,
+        contentIta: data.contentIta,
+        contentEng: data.contentEng,
+        dateStart : data.dateStart,
+        dateEnd   : data.dateEnd,
+        rois      : data.rois,
     });
 
     // Save the event
@@ -81,13 +81,13 @@ export async function update(id, data) {
     if (!communication) throw constructError(404, "Resource not found.");
 
     // Update the values
-    communication.titleIta       = data.titleIta;
-    communication.titleEng       = data.titleEng || event.titleEng;
-    communication.descriptionIta = data.descriptionIta;
-    communication.descriptionEng = data.descriptionEng || event.descriptionEng;
-    communication.dateStart      = data.dateStart;
-    communication.dateEnd        = data.dateEnd;
-    communication.rois           = data.rois;
+    communication.titleIta   = data.titleIta;
+    communication.titleEng   = data.titleEng || communication.titleEng;
+    communication.contentIta = data.contentIta;
+    communication.contentEng = data.contentEng || communication.descriptionEng;
+    communication.dateStart  = data.dateStart;
+    communication.dateEnd    = data.dateEnd;
+    communication.rois       = data.rois;
 
     // Save the event
     return await communication.save();

@@ -3,7 +3,7 @@
     "item-map": "Map",
     "item-thematic-maps": "Thematic maps",
     "item-surveys": "Surveys",
-    "item-events": "Communications",
+    "item-news": "News",
     "item-info": "Info",
     "item-settings": "Settings"
   },
@@ -20,6 +20,10 @@
   },
   "page-events": {
     "header-events": "Events"
+  },
+  "page-news": {
+    "segment-alerts": "Alerts",
+    "segment-events": "Events"
   },
   "page-info": {
     "header-project": "The project",

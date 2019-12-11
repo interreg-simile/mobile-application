@@ -34,7 +34,7 @@ export const q = {
     rois          : [
         query("rois")
             .optional()
-            .custom(v => v.split(",").every(e => roiEnum.indexOf(e) >= 0) && new Set(v.split(",")).size === v.split(",").length)
+            .custom(v => v.split(",").every(i => e.roi.indexOf(i) >= 0) && new Set(v.split(",")).size === v.split(",").length)
             .withMessage("Wrong format of query parameter 'rois'.")
     ]
 };

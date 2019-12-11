@@ -15,10 +15,10 @@ export const communication = [
     body("titleEng")
         .optional()
         .trim().escape(),
-    body("descriptionIta")
+    body("contentIta")
         .trim().escape()
         .not().isEmpty().withMessage("Missing property 'descriptionIta'."),
-    body("descriptionEng")
+    body("contentEng")
         .optional()
         .trim().escape(),
     body("dateStart")

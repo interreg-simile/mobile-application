@@ -11,8 +11,8 @@ export const collection = "Communications";
 const schema = new Schema({
     titleIta         : { type: String, required: true },
     titleEng         : { type: String, required: false },
-    descriptionIta   : { type: String, required: true },
-    descriptionEng   : { type: String, required: false },
+    contentIta       : { type: String, required: true },
+    contentEng       : { type: String, required: false },
     dateStart        : { type: Date, required: true },
     dateEnd          : { type: Date, required: true },
     rois             : { type: [{ type: String, enum: e.roi }], required: true },

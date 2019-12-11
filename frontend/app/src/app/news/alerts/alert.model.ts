@@ -1,6 +1,7 @@
-import { Rois } from "../shared/common.enum";
+import { Rois } from "../../shared/common.enum";
 
-export class Communication {
+
+export class Alert {
 
     /** Unique idValidation of the communication. */
     id: string;

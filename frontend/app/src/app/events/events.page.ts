@@ -37,8 +37,10 @@ export class EventsPage implements OnInit, OnDestroy {
         // Set is loading to true
         this.isLoading = true;
 
-        // Retrieve the communications from the database
-        this.eventsService.getAllCommunications().subscribe(() => this.isLoading = false);
+        // Retrieve all the communications from the server
+        this.eventsService.getAllCommunications()
+            .then(() => this.isLoading = false)
+            .catch(err => console.log(err))
 
     }
 
@@ -58,7 +60,31 @@ export class EventsPage implements OnInit, OnDestroy {
      *
      * @param $event - The event object.
      */
-    onRefresh($event) { this.eventsService.getAllCommunications().subscribe(() => $event.target.complete()) }
+    onRefresh($event) {
 
+        this.eventsService.addReadCommunication("test")
+            .then(() => {
+
+                $event.target.complete()
+
+            })
+            .catch(err => console.error(err));
+
+    }
+
+
+    onCommunicationClick(communication: Communication) {
+
+        this.eventsService.addReadCommunication(communication.id)
+            .then(() => {
+
+                console.log("Communication added");
+
+                communication.read = true;
+
+            })
+            .catch(err => console.error(err));
+
+    }
 
 }

@@ -1,0 +1,56 @@
+<ion-header>
+
+    <ion-toolbar>
+
+        <ion-buttons slot="start">
+
+            <ion-menu-button menu="main"></ion-menu-button>
+
+        </ion-buttons>
+
+        <ion-title>{{"drawer.item-news" | translate}}</ion-title>
+
+        <ion-buttons slot="end">
+
+            <ion-button>
+
+                <ion-icon name="funnel"></ion-icon>
+
+            </ion-button>
+
+        </ion-buttons>
+
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="outer-content">
+
+
+    <!-- Top segments -->
+    <ion-toolbar>
+
+        <ion-segment (ionChange)="onSegmentChange($event)">
+
+            <ion-segment-button value="{{ segmentsEnum.ALERTS }}" checked="true">
+                <ion-label>{{"page-news.segment-alerts" | translate}}</ion-label>
+            </ion-segment-button>
+
+            <ion-segment-button value="{{ segmentsEnum.EVENTS }}">
+                <ion-label>{{"page-news.segment-events" | translate}}</ion-label>
+            </ion-segment-button>
+
+        </ion-segment>
+
+    </ion-toolbar>
+
+
+    <!-- Main content -->
+    <div class="custom-container">
+
+
+    </div>
+
+
+</ion-content>

@@ -13,13 +13,22 @@ export default async function () {
 
     const communications = [
         {
-            titleIta      : "Titolo della comunicazione",
-            titleEng      : "Title of the communication",
-            descriptionIta: new LoremIpsum().generateParagraphs(1),
-            descriptionEng: new LoremIpsum().generateParagraphs(1),
+            titleIta      : "Comunicazione 1",
+            titleEng      : "Communication 1",
+            contentIta: new LoremIpsum().generateParagraphs(1),
+            contentEng: new LoremIpsum().generateParagraphs(1),
             dateStart     : new Date("2019-12-08T00:00:00"),
             dateEnd       : new Date("2020-01-30T00:00:00"),
             rois          : ["lake_como"],
+        },
+        {
+            titleIta      : "Comunicazione 2",
+            titleEng      : "Communication 2",
+            contentIta: new LoremIpsum().generateParagraphs(1),
+            contentEng: new LoremIpsum().generateParagraphs(1),
+            dateStart     : new Date("2019-10-09T00:00:00"),
+            dateEnd       : new Date("2019-12-30T00:00:00"),
+            rois          : ["lake_maggiore"],
         }
     ];
 
