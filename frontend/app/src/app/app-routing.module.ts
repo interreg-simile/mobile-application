@@ -11,28 +11,17 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'events', children: [
-            { path: "", loadChildren: './events/events.module#EventsPageModule' },
+        path: 'news', children: [
+            { path: "", loadChildren: './news/news.module#NewsPageModule' },
             {
-                path        : "communication/:id",
-                loadChildren: './events/communication-single/communication-single.module#CommunicationSinglePageModule'
+                path        : 'alert/:id',
+                loadChildren: './news/alerts/single-alert/single-alert.module#SingleAlertPageModule'
             }
         ]
     },
     { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
     { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
     { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
-    {
-        path: 'news', children: [
-            { path: "", loadChildren: './news/news.module#NewsPageModule' },
-            {
-                path          : 'alert/:id',
-                loadChildren: './news/alerts/single-alert/single-alert.module#SingleAlertPageModule'
-            }
-        ]
-    }
-
-
 ];
 
 @NgModule({

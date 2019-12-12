@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Alert } from "./alerts/alert.model";
 import { NewsService } from "./news.service";
 import { Subscription } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
+import { map } from "rxjs/operators";
 
 
 enum Segments { ALERTS, EVENTS}
@@ -20,15 +22,21 @@ export class NewsPage implements OnInit, OnDestroy {
 
     public alerts: Alert[];
 
+    public navError;
+
 
     /** @ignore */
-    constructor(private newsService: NewsService) { }
+    constructor(private newsService: NewsService, private route: ActivatedRoute) { }
 
 
     /** @ignore */
     ngOnInit() {
 
         this._alertsSub = this.newsService.alerts.subscribe(alerts => this.alerts = alerts);
+
+        this.navError = window.history.state.error;
+
+        console.log(this.navError);
 
     }
 

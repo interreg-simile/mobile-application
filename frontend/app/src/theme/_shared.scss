@@ -1,4 +1,10 @@
-.outer-content { --background : #F7F7FA }
+@import "variables";
+
+
+.bg-off-white {
+  --background : $off-white;
+  background   : $off-white;
+}
 
 .custom-container {
   width            : 100%;

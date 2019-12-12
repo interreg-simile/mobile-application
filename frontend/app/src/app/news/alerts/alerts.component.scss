@@ -1,22 +1,20 @@
+@import "../../../theme/variables";
+@import "../../../theme/mixins";
+
+
 ion-item {
-  --background    : #F7F7FA;
-  --padding-start : 16px;
+  --background : #{$off-white};
 
   .container {
-    width   : 100%;
-    padding : 16px 0;
     display : flex;
 
-    .start-element { padding-right : 16px }
-
     .content {
-      width          : 100%;
       display        : flex;
       flex-direction : column;
 
       .date {
-        color          : #666666;
-        font-size      : 14px;
+        color          : $text-secondary;
+        font-size      : $font-body-small;
         padding-bottom : 8px;
         line-height    : 1;
       }

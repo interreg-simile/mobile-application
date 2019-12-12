@@ -1,7 +1,19 @@
-// Ionic Variables and Theming. For more info, please see:
-// http://ionicframework.com/docs/theming/
+/** Custom Sass Variables **/
+
+// Font size
+$font-title-lg   : 24px;
+$font-title      : 20px;
+$font-body       : 16px;
+$font-body-small : 14px;
+
+// Colors
+$off-white       : #F7F7FA;
+$text-secondary  : #666666;
+$text-tertiary   : #EBEBEB;
+
 
 /** Ionic CSS Variables **/
+
 :root {
   --ion-color-primary                : #007888;
   --ion-color-primary-rgb            : 0, 120, 136;

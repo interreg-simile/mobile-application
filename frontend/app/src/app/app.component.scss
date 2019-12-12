@@ -1,45 +1,30 @@
+@import "../theme/mixins";
+@import "../theme/variables";
+
 $avatar-size : 48px;
 
-ion-toolbar {
-  padding             : 16px;
-  --ion-safe-area-top : 16px;
-  --background        : #FFFFFF;
-  --color             : #424242;
+.container {
+  width : 100%;
+  @include flex-center();
 
-  .container {
-    width           : 100%;
-    display         : flex;
-    align-items     : center;
-    justify-content : center;
-
-    ion-avatar {
-      flex   : 0 0 $avatar-size;
-      height : $avatar-size;
-    }
-
-    .username {
-      flex         : 1;
-      font-weight  : 500;
-      font-size    : 20px;
-      padding-left : 16px;
-    }
-
-    .icon-container {
-      flex : 0 0 48px;
-
-      ion-icon {
-        padding   : 12px;
-        font-size : 24px;
-      }
-
-    }
-
+  ion-avatar {
+    height : $avatar-size;
+    @include flex-static($avatar-size)
   }
+
+  .username {
+    flex         : 1;
+    font-weight  : 500;
+    font-size    : $font-title;
+  }
+
+  @include icon();
 
 }
 
+
 .active-link {
-  --background : #{rgba(#007888, .1)};
+  --background : rgba(var(--ion-color-primary-rgb), 0.1);
   --color      : var(--ion-color-primary);
 
   ion-icon { color : var(--ion-color-primary) }

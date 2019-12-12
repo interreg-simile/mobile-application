@@ -18,9 +18,6 @@
     "no-surveys-new": "No new surveys",
     "expires-on": "Expires on"
   },
-  "page-events": {
-    "header-events": "Events"
-  },
   "page-news": {
     "segment-alerts": "Alerts",
     "segment-events": "Events"
