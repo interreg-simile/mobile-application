@@ -7,22 +7,18 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewsPage } from './news.page';
 import { TranslateModule } from "@ngx-translate/core";
+import { AlertsComponent } from "./alerts/alerts.component";
 
-const routes: Routes = [
-  {
-    path: '',
-    component: NewsPage
-  }
-];
+const routes: Routes = [{ path: '', component: NewsPage }];
 
 @NgModule({
-    imports: [
+    imports     : [
         CommonModule,
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
         TranslateModule
     ],
-  declarations: [NewsPage]
+    declarations: [NewsPage, AlertsComponent]
 })
 export class NewsPageModule {}

@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Alert } from "./alerts/alert.model";
+import { NewsService } from "./news.service";
+import { Subscription } from "rxjs";
 
 
 enum Segments { ALERTS, EVENTS}
 
 
 @Component({ selector: 'app-news', templateUrl: './news.page.html', styleUrls: ['./news.page.scss'] })
-export class NewsPage implements OnInit {
+export class NewsPage implements OnInit, OnDestroy {
+
+
+    /** @ignore */ private _alertsSub: Subscription;
 
 
     public segmentsEnum = Segments;
@@ -17,20 +22,32 @@ export class NewsPage implements OnInit {
 
 
     /** @ignore */
-    constructor() { }
+    constructor(private newsService: NewsService) { }
 
 
     /** @ignore */
-    ngOnInit() { }
+    ngOnInit() {
+
+        this._alertsSub = this.newsService.alerts.subscribe(alerts => this.alerts = alerts);
+
+    }
 
 
-    onSegmentChange($event: CustomEvent) {
+    ionViewWillEnter() {
 
-        const selected = +$event.detail.value;
+        this.newsService.fetchAlerts()
+            .then(() => {})
+            .catch(err => console.error(err))
 
-        if (selected === this.segmentsEnum.ALERTS) console.log("Alerts");
+    }
 
-        if (selected === this.segmentsEnum.EVENTS) console.log("Events");
+
+    onSegmentChange($event: CustomEvent) { this.selectedSegment = +$event.detail.value }
+
+
+    ngOnDestroy() {
+
+        if (this._alertsSub) this._alertsSub.unsubscribe();
 
     }
 

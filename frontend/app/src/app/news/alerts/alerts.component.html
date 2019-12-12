@@ -1,3 +1,28 @@
-<p>
-  alerts works!
-</p>
+<ion-list class="ion-no-padding">
+
+    <ion-item class="ion-no-padding"
+              *ngFor="let alert of alerts"
+              button detail="false"
+              [routerLink]="['/', 'news', 'alert', alert.id]">
+
+        <section class="container">
+
+            <section class="start-element">
+
+                <div class="notification-dot" [class.active]="!alert.read"></div>
+
+            </section>
+
+            <section class="content">
+
+                <div class="date">{{ alert.dateStart | date}}</div>
+
+                <div class="title"><span>{{ alert.titleIta }}</span></div>
+
+            </section>
+
+        </section>
+
+    </ion-item>
+
+</ion-list>

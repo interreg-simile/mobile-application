@@ -10,7 +10,7 @@
 
         <ion-title>{{"drawer.item-news" | translate}}</ion-title>
 
-        <ion-buttons slot="end">
+        <ion-buttons slot="end" *ngIf="selectedSegment === segmentsEnum.EVENTS">
 
             <ion-button>
 
@@ -22,35 +22,25 @@
 
     </ion-toolbar>
 
+    <ion-segment (ionChange)="onSegmentChange($event)">
+
+        <ion-segment-button value="{{ segmentsEnum.ALERTS }}" checked="true">
+            <ion-label>{{"page-news.segment-alerts" | translate}}</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button value="{{ segmentsEnum.EVENTS }}">
+            <ion-label>{{"page-news.segment-events" | translate}}</ion-label>
+        </ion-segment-button>
+
+    </ion-segment>
+
 </ion-header>
 
 
 <ion-content class="outer-content">
 
 
-    <!-- Top segments -->
-    <ion-toolbar>
-
-        <ion-segment (ionChange)="onSegmentChange($event)">
-
-            <ion-segment-button value="{{ segmentsEnum.ALERTS }}" checked="true">
-                <ion-label>{{"page-news.segment-alerts" | translate}}</ion-label>
-            </ion-segment-button>
-
-            <ion-segment-button value="{{ segmentsEnum.EVENTS }}">
-                <ion-label>{{"page-news.segment-events" | translate}}</ion-label>
-            </ion-segment-button>
-
-        </ion-segment>
-
-    </ion-toolbar>
-
-
-    <!-- Main content -->
-    <div class="custom-container">
-
-
-    </div>
+    <app-alerts *ngIf="selectedSegment === segmentsEnum.ALERTS" [alerts]="alerts"></app-alerts>
 
 
 </ion-content>

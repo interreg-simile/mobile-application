@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Alert } from "./alert.model";
 
-@Component({
-  selector: 'app-alerts',
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss'],
-})
+@Component({ selector: 'app-alerts', templateUrl: './alerts.component.html', styleUrls: ['./alerts.component.scss'] })
 export class AlertsComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {}
+    /** The array of alerts to display. */
+    @Input() alerts: Alert[];
+
+
+    constructor() { }
+
+
+    ngOnInit() {}
+
 
 }
