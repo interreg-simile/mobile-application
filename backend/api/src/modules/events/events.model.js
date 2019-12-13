@@ -24,7 +24,7 @@ const schema = new Schema({
     address          : { type: address, required: true },
     rois             : { type: [{ type: String, enum: e.roi }], required: true },
     date             : { type: Date, required: true },
-    imageUrl         : { type: String, required: false },
+    imageUrl         : { type: String, required: true },
     participants     : { type: Number, required: false },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: false });

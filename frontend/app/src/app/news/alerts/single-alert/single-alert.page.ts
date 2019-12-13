@@ -4,7 +4,7 @@ import { NavController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Alert } from "../alert.model";
-import { NewsService } from "../../news.service";
+import { NewsService, STORAGE_KEY_ALERTS } from "../../news.service";
 
 
 @Component({
@@ -55,7 +55,7 @@ export class SingleAlertPage implements OnInit {
             }
 
             // Add the alert to the array of read alert in local memory
-            this.newsService.addReadAlert(this.alert.id)
+            this.newsService.saveData(STORAGE_KEY_ALERTS, this.alert.id)
                 .then(() => this.alert.read = true)
                 .catch(err => console.error(err));
 

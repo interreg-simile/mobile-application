@@ -6,7 +6,7 @@ import { map, tap } from "rxjs/operators";
 import { environment } from "../../environments/environment";
 import { Survey } from "./survey.model";
 import { AuthService } from "../auth/auth.service";
-import { genericApiResponse } from "../shared/utils.interface";
+import { GenericApiResponse } from "../shared/utils.interface";
 
 
 export interface SurveyData {
@@ -47,8 +47,8 @@ export class SurveysService {
         const url = `${ environment.apiUrl }/surveys/user/${ this.auth.userId }`;
 
         // Retrieve both the surveys done and not done by the user
-        const newSurveys  = this.http.get<genericApiResponse>(`${ url }?includeExpired=false&invert=true`);
-        const doneSurveys = this.http.get<genericApiResponse>(url);
+        const newSurveys  = this.http.get<GenericApiResponse>(`${ url }?includeExpired=false&invert=true`);
+        const doneSurveys = this.http.get<GenericApiResponse>(url);
 
         // Wait for the two requests to complete
         return forkJoin([newSurveys, doneSurveys]).pipe(

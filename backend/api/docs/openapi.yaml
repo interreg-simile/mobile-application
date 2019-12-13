@@ -11,10 +11,12 @@ info:
     email: edoardo.pessina@polimi.it
 
 tags:
-  - name: admins
-    description: Secured Admin-only calls
-  - name: developers
-    description: Operations available to regular developers
+#  - name: admins
+#    description: Secured Admin-only calls
+#  - name: developers
+#    description: Operations available to regular developers
+  - name: Events
+    description: "CRUD operations for management of events"
 
 servers:
   - url: "http://localhost:8000"
@@ -25,14 +27,48 @@ security:
   - bearerAuth: []
 
 paths:
-  /surveys:
-    $ref: "http://localhost:8000/resources/surveys/surveys.yaml"
 
-#  /surveys/user/{user_id}:
-#    $ref: "http://localhost:8000/resources/surveys/surveys-by-user.yaml"
-#
-#  /surveys/{survey_id}:
-#    $ref: "http://localhost:8000/resources/surveys/surveys-by-idValidation.yaml"
+  /events:
+    get:
+
+      tags:
+        - Events
+      summary: "Retrieves all the events from the database"
+      description: "Description..."
+      operationId: get-events
+
+      parameters:
+
+        - name: includePast
+          in: query
+          description: "Include in the result also past events."
+          required: false
+          schema:
+            type: boolean
+            default: false
+
+        - name: includeDeleted
+          in: query
+          description: "Include in the result also deleted events. Only **admin** users can set it to true."
+          required: false
+          schema:
+            type: boolean
+            default: false
+
+        - name: orderByDate
+          in: query
+          description: "Order the results by date (descending)."
+          required: false
+          schema:
+            type: boolean
+            default: false
+
+
+
+      responses:
+
+
+
 
 
 components:

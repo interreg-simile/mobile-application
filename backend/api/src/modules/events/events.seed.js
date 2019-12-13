@@ -26,7 +26,8 @@ export default async function () {
                 country   : "italy"
             },
             rois          : ["lake_como"],
-            date          : new Date("2019-12-30T15:24:00")
+            date          : new Date("2019-12-30T15:24:00"),
+            imageUrl      : "events/default"
         },
         {
             titleIta      : "Titolo evento passato",
@@ -43,7 +44,8 @@ export default async function () {
                 country   : "italy"
             },
             rois          : ["lake_maggiore"],
-            date          : new Date("2019-09-13T09:10:00")
+            date          : new Date("2019-09-13T09:10:00"),
+            imageUrl      : "events/default"
         },
         {
             titleIta      : "Titolo evento in mezzo",
@@ -60,7 +62,8 @@ export default async function () {
                 country   : "italy"
             },
             rois          : ["lake_maggiore", "lake_lugano"],
-            date          : new Date("2019-10-13T09:10:00")
+            date          : new Date("2019-10-13T09:10:00"),
+            imageUrl      : "events/default"
         },
         {
             titleIta         : "Titolo evento cancellato",
@@ -78,6 +81,7 @@ export default async function () {
             },
             rois             : ["lake_como"],
             date             : new Date("2020-10-13T09:10:00"),
+            imageUrl         : "events/default",
             markedForDeletion: true
         }
     ];
