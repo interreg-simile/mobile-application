@@ -1,4 +1,11 @@
 @import "variables";
+@import "mixins";
+
+
+.full-size {
+  width  : 100%;
+  height : 100%;
+}
 
 
 .bg-off-white {
@@ -6,12 +13,28 @@
   background   : $off-white;
 }
 
+
 .custom-container {
   width            : 100%;
   --padding-top    : 16px;
   --padding-bottom : 16px;
   --padding-start  : 16px;
   --padding-end    : 16px;
+}
+
+
+.on-page-message {
+  @include flex-display(column, center, center);
+  padding-top : 32px;
+  color       : $text-tertiary;
+
+  ion-icon {
+    font-size      : 32px;
+    padding-bottom : 8px;
+  }
+
+  p { font-size : $font-title-lg }
+
 }
 
 
@@ -32,12 +55,11 @@ ion-card {
 }
 
 .central-spinner {
-  width           : 100%;
-  height          : 100%;
-  display         : flex;
-  justify-content : center;
-  align-items     : center;
+  width  : 100%;
+  height : 100%;
+  @include flex-center();
 }
+
 
 .notification-dot {
   width         : 10px;

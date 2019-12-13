@@ -1,4 +1,7 @@
 {
+  "common": {
+    "error-occurred": "Sorry, an error occurred!"
+  },
   "drawer": {
     "item-map": "Map",
     "item-thematic-maps": "Thematic maps",
@@ -20,7 +23,9 @@
   },
   "page-news": {
     "segment-alerts": "Alerts",
-    "segment-events": "Events"
+    "segment-events": "Events",
+    "no-alerts": "No new alerts",
+    "no-events": "No events"
   },
   "page-info": {
     "header-project": "The project",

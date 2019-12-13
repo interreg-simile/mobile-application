@@ -1,13 +1,16 @@
+@import "../../../../theme/variables";
+
+
 .title {
-  font-size      : 24px;
-  color          : var(--ion-color-primary);
+  font-size      : $font-title-lg;
   font-weight    : 500;
+  color          : var(--ion-color-primary);
   padding-bottom : 8px;
 }
 
 .date {
-  font-size      : 14px;
-  color          : #666666;
+  font-size      : $font-body-small;
+  color          : $text-secondary;
   padding-bottom : 24px;
 }
 

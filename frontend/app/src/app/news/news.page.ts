@@ -3,7 +3,6 @@ import { Alert } from "./alerts/alert.model";
 import { NewsService } from "./news.service";
 import { Subscription } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
-import { map } from "rxjs/operators";
 
 
 enum Segments { ALERTS, EVENTS}
@@ -16,11 +15,21 @@ export class NewsPage implements OnInit, OnDestroy {
     /** @ignore */ private _alertsSub: Subscription;
 
 
+    /** Possible values of the segments. */
     public segmentsEnum = Segments;
 
-    public selectedSegment = this.segmentsEnum.ALERTS;
+    /** Currently selected segment. */
+    public selectedSegment: Segments = this.segmentsEnum.ALERTS;
 
+    /** Flag that states if the app is waiting data form the server. */
+    public isLoading = false;
+
+    /** Flag that states if an error occurred. */
+    public hasError = false;
+
+    /** Array of alerts retrieved from the server. */
     public alerts: Alert[];
+
 
     public navError;
 
@@ -43,14 +52,29 @@ export class NewsPage implements OnInit, OnDestroy {
 
     ionViewWillEnter() {
 
+        // Set is loading to true
+        this.isLoading = true;
+
+        // Fetch all the alerts
         this.newsService.fetchAlerts()
-            .then(() => {})
-            .catch(err => console.error(err))
+            .then(() => {
+                this.hasError  = false;
+                this.isLoading = false;
+            })
+            .catch(err => {
+                console.error(err);
+                this.hasError  = true;
+                this.isLoading = false;
+            })
 
     }
 
 
-    onSegmentChange($event: CustomEvent) { this.selectedSegment = +$event.detail.value }
+    onSegmentChange($event: CustomEvent) {
+
+        this.selectedSegment = +$event.detail.value;
+
+    }
 
 
     ngOnDestroy() {

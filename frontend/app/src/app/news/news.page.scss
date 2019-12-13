@@ -1,12 +1,34 @@
 @import "../../theme/variables";
+@import "../../theme/mixins";
 
 
 ion-segment-button {
   --background              : var(--ion-color-primary);
   --background-checked      : var(--ion-color-primary);
   --indicator-color-checked : #FFFFFF;
-  --color                   : #{$text-tertiary};
+  --color                   : #{$text-unfocused};
   --color-checked           : #FFFFFF;
+
+  section {
+    @include flex-center();
+
+    ion-label {
+      padding-right : 8px;
+    }
+
+    .notification-dot {
+      display    : none;
+      border     : none;
+      background : $text-unfocused;
+
+      .visible { display : block }
+
+    }
+
+  }
+
+  &.segment-button-checked .notification-dot { background : #FFFFFF !important }
+
 }
 
 ion-segment.ios {
@@ -16,6 +38,12 @@ ion-segment.ios {
   ion-segment-button {
     --background : #FFFFFF;
     --color      : var(--ion-color-primary);
+
+    .notification-dot { background : var(--ion-color-danger) }
+
   }
 
 }
+
+
+.data-container { padding-top : 8px }

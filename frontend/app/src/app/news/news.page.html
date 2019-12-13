@@ -26,14 +26,26 @@
 		
 		<ion-segment-button value="{{ segmentsEnum.ALERTS }}" checked="true">
 			
-			<ion-label>{{"page-news.segment-alerts" | translate}}</ion-label>
+			<section>
+				
+				<ion-label>{{"page-news.segment-alerts" | translate}}</ion-label>
+				
+				<div class="notification-dot"></div>
+			
+			</section>
 		
 		</ion-segment-button>
 		
 		<ion-segment-button value="{{ segmentsEnum.EVENTS }}">
 			
-			<ion-label>{{"page-news.segment-events" | translate}}</ion-label>
-		
+			<section>
+				
+				<ion-label>{{"page-news.segment-events" | translate}}</ion-label>
+
+				<div class="notification-dot active"></div>
+			
+			</section>
+			
 		</ion-segment-button>
 	
 	</ion-segment>
@@ -43,8 +55,29 @@
 
 <ion-content class="bg-off-white">
 	
-	<app-alerts *ngIf="selectedSegment === segmentsEnum.ALERTS" [alerts]="alerts"></app-alerts>
+	<!-- Spinner -->
+	<section *ngIf="isLoading && !hasError" class="central-spinner">
+		
+		<ion-spinner color="primary"></ion-spinner>
 	
-	<app-events *ngIf="selectedSegment === segmentsEnum.EVENTS"></app-events>
+	</section>
 	
+	<!-- Error -->
+	<section *ngIf="!isLoading && hasError" class="on-page-message">
+		
+		<ion-icon name="sad"></ion-icon>
+		
+		<p class="ion-no-margin">{{ "common.error-occurred" | translate }}</p>
+	
+	</section>
+	
+	<!-- Data -->
+	<section *ngIf="!isLoading && !hasError" class="full-size data-container">
+		
+		<app-alerts *ngIf="selectedSegment === segmentsEnum.ALERTS" [alerts]="alerts"></app-alerts>
+		
+		<app-events *ngIf="selectedSegment === segmentsEnum.EVENTS"></app-events>
+	
+	</section>
+
 </ion-content>

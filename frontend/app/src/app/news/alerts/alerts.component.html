@@ -1,4 +1,13 @@
-<ion-list class="ion-no-padding">
+<section class="on-page-message" *ngIf="alerts.length === 0">
+	
+	<ion-icon name="notifications"></ion-icon>
+	
+	<p class="ion-no-margin">{{ "page-news.no-alerts" | translate }}</p>
+
+</section>
+
+
+<ion-list *ngIf="alerts.length > 0" class="ion-no-padding">
 	
 	<ion-item *ngFor="let alert of alerts"
 			  button detail="false"
@@ -6,7 +15,7 @@
 		
 		<section class="container ion-padding-vertical">
 			
-			<section class="start-element ion-padding-end">
+			<section class="ion-padding-end">
 				
 				<div class="notification-dot" [class.active]="!alert.read"></div>
 			

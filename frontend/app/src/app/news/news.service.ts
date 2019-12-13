@@ -9,8 +9,8 @@ import { AuthService } from "../auth/auth.service";
 import { Alert } from "./alerts/alert.model";
 
 
-
 const STORAGE_KEY_ALERTS = "communications";
+const STORAGE_KEY_EVENTS = "event";
 
 
 /** Handles the logic behind the communication with the API with regard to events and communications. */
