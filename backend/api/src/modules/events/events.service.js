@@ -60,6 +60,7 @@ export async function create(data) {
         rois          : data.rois,
         date          : data.date,
         imageUrl      : data.imageUrl,
+        contacts      : data.contacts,
         participants  : data.participants,
     });
 
@@ -86,15 +87,16 @@ export async function update(id, data) {
 
     // Update the values
     event.titleIta       = data.titleIta;
-    event.titleEng       = data.titleEng || event.titleEng;
+    event.titleEng       = data.titleEng;
     event.descriptionIta = data.descriptionIta;
-    event.descriptionEng = data.descriptionEng || event.descriptionEng;
+    event.descriptionEng = data.descriptionEng;
     event.position       = data.position;
     event.address        = data.address;
     event.rois           = data.rois;
     event.date           = data.date;
-    event.imageUrl       = data.imageUrl || event.imageUrl;
-    event.participants   = data.participants || event.participants;
+    event.imageUrl       = data.imageUrl ;
+    event.contacts       = data.contacts;
+    event.participants   = data.participants;
 
     // Save the event
     const newEvent = await event.save();

@@ -1,4 +1,14 @@
-<section class="on-page-message" *ngIf="alerts.length === 0">
+<!-- Error -->
+<section *ngIf="hasError" class="on-page-message">
+	
+	<ion-icon name="sad"></ion-icon>
+	
+	<p class="ion-no-margin">{{ "common.error-occurred" | translate }}</p>
+
+</section>
+
+<!-- No data -->
+<section *ngIf="!hasError && alerts.length === 0" class="on-page-message" >
 	
 	<ion-icon name="notifications"></ion-icon>
 	
@@ -6,8 +16,8 @@
 
 </section>
 
-
-<ion-list *ngIf="alerts.length > 0" class="ion-no-padding">
+<!-- Data -->
+<ion-list *ngIf="!hasError && alerts.length > 0" class="ion-no-padding">
 	
 	<ion-item *ngFor="let alert of alerts"
 			  button detail="false"

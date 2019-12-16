@@ -9,7 +9,7 @@
 
 
 .bg-off-white {
-  --background : $off-white;
+  --background : #{$off-white};
   background   : $off-white;
 }
 
@@ -20,6 +20,7 @@
   --padding-bottom : 16px;
   --padding-start  : 16px;
   --padding-end    : 16px;
+  padding          : 16px;
 }
 
 
@@ -38,22 +39,28 @@
 }
 
 
+/* Cards */
 .card-header {
   font-size      : 14px;
-  color          : #737373;
+  color          : $text-card-header;
   text-transform : uppercase;
+  padding-bottom : 16px;
 }
 
 ion-card {
-  background   : #FFFFFF !important;
-  color        : #000000 !important;
-  margin-left  : 0 !important;
-  margin-right : 0 !important;
+  background : #FFFFFF !important;
 
-  &.md { margin-bottom : 24px !important }
+  ion-card-content.card-content-md { font-size : 16px }
 
+  //color        : #000000 !important;
+  //margin-left  : 0 !important;
+  //margin-right : 0 !important;
+  //
+  //&.md { margin-bottom : 24px !important }
 }
 
+
+/* Spinner */
 .central-spinner {
   width  : 100%;
   height : 100%;
@@ -61,6 +68,7 @@ ion-card {
 }
 
 
+/* Notification dot */
 .notification-dot {
   width         : 10px;
   height        : 10px;

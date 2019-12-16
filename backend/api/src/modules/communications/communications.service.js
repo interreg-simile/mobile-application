@@ -82,9 +82,9 @@ export async function update(id, data) {
 
     // Update the values
     communication.titleIta   = data.titleIta;
-    communication.titleEng   = data.titleEng || communication.titleEng;
+    communication.titleEng   = data.titleEng;
     communication.contentIta = data.contentIta;
-    communication.contentEng = data.contentEng || communication.descriptionEng;
+    communication.contentEng = data.contentEng;
     communication.dateStart  = data.dateStart;
     communication.dateEnd    = data.dateEnd;
     communication.rois       = data.rois;

@@ -16,6 +16,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { registerLocaleData } from "@angular/common";
 import localeIt from "@angular/common/locales/it";
 import { IonicStorageModule } from "@ionic/storage";
+import { CallNumber } from "@ionic-native/call-number/ngx";
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { IonicStorageModule } from "@ionic/storage";
     providers      : [
         StatusBar,
         SplashScreen,
+        CallNumber,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
     ],

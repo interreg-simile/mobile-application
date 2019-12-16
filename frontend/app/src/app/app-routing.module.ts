@@ -16,6 +16,10 @@ const routes: Routes = [
             {
                 path        : 'alert/:id',
                 loadChildren: './news/alerts/single-alert/single-alert.module#SingleAlertPageModule'
+            },
+            {
+                path        : 'event/:id',
+                loadChildren: './news/events/single-event/single-event.module#SingleEventPageModule'
             }
         ]
     },

@@ -74,6 +74,13 @@ export const event = [
         .isISO8601().withMessage("Wrong format of property 'date'."),
     body("imageUrl")
         .isEmpty().withMessage("Set forbidden property 'imageUrl'."),
+    body("contacts.mail")
+        .optional()
+        .isEmail().withMessage("Wrong format of property 'mail' of 'contacts'.")
+        .normalizeEmail(),
+    body("contacts.phone")
+        .optional()
+        .isMobilePhone("any", { strictMode: true }).withMessage("Wrong format of property 'phone' of 'contacts'."),
     body("participants")
         .optional()
         .isInt({ min: 0 }).withMessage("Wrong format of property 'participants'."),

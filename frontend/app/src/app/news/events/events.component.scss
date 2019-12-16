@@ -1,0 +1,48 @@
+@import "../../../theme/variables";
+@import "../../../theme/mixins";
+
+ion-item {
+  --background : #{$off-white};
+
+  .container {
+    display : flex;
+
+    .notification-dot { margin-top : 3px }
+
+    .content {
+      @include flex-display(column);
+
+      .title {
+        width          : 100%;
+        display        : table;
+        table-layout   : fixed;
+        padding-bottom : 8px;
+
+        span {
+          display       : table-cell;
+          white-space   : nowrap;
+          overflow      : hidden;
+          text-overflow : ellipsis;
+        }
+
+      }
+
+      .bottom-row {
+        @include flex-display(row, space-between);
+
+        .city { color : var(--ion-color-primary) }
+
+        .date {
+          color       : $text-secondary;
+          font-size   : $font-body-small;
+          line-height : 1;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+

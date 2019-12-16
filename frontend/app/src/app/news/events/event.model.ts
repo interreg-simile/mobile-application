@@ -13,6 +13,13 @@ interface Address {
 }
 
 
+/** Interface of the contacts object. */
+interface Contacts {
+    mail?: string,
+    phone?: string
+}
+
+
 export class Event {
 
     /** Unique idValidation of the event. */
@@ -45,13 +52,17 @@ export class Event {
     /** Image url of the event. */
     imageUrl: string;
 
+    /** Contacts. */
+    contacts?: Contacts;
+
     /** Flag that states if the event has already been read by the user. */
     read: Boolean;
 
 
     /** @ignore */
     constructor(id: string, titleIta: string, titleEng: string, descriptionIta: string, descriptionEng: string,
-                position: Point, address: Address, rois: Rois[], date: Date, imageUrl: string, read: boolean) {
+                position: Point, address: Address, rois: Rois[], date: Date, imageUrl: string, contacts: Contacts,
+                read: boolean) {
         this.id             = id;
         this.titleIta       = titleIta;
         this.titleEng       = titleEng;
@@ -62,6 +73,7 @@ export class Event {
         this.rois           = rois;
         this.date           = date;
         this.imageUrl       = imageUrl;
+        this.contacts       = (contacts && Object.entries(contacts).length === 0) ? null : contacts;
         this.read           = read;
     }
 }

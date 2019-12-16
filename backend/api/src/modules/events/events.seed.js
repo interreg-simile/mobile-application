@@ -27,7 +27,8 @@ export default async function () {
             },
             rois          : ["lake_como"],
             date          : new Date("2019-12-30T15:24:00"),
-            imageUrl      : "events/default"
+            imageUrl      : "events/default.jpg",
+            contacts      : { mail: "info@simile.it", phone: "+393349969525" }
         },
         {
             titleIta      : "Titolo evento passato",
@@ -45,7 +46,8 @@ export default async function () {
             },
             rois          : ["lake_maggiore"],
             date          : new Date("2019-09-13T09:10:00"),
-            imageUrl      : "events/default"
+            imageUrl      : "events/default.jpg",
+            contacts      : { mail: "info@simile.it", phone: "+393349969525" }
         },
         {
             titleIta      : "Titolo evento in mezzo",
@@ -63,7 +65,8 @@ export default async function () {
             },
             rois          : ["lake_maggiore", "lake_lugano"],
             date          : new Date("2019-10-13T09:10:00"),
-            imageUrl      : "events/default"
+            imageUrl      : "events/default.jpg",
+            contacts      : { mail: "info@simile.it" }
         },
         {
             titleIta         : "Titolo evento cancellato",
@@ -81,7 +84,8 @@ export default async function () {
             },
             rois             : ["lake_como"],
             date             : new Date("2020-10-13T09:10:00"),
-            imageUrl         : "events/default",
+            imageUrl         : "events/default.jpg",
+            contacts         : {},
             markedForDeletion: true
         }
     ];

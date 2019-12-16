@@ -27,6 +27,11 @@
     "no-alerts": "No new alerts",
     "no-events": "No events"
   },
+  "page-single-event": {
+    "header-details": "details",
+    "header-contacts": "contacts",
+    "at": "At"
+  },
   "page-info": {
     "header-project": "The project",
     "header-contributions": "Contributions",

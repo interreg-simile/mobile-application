@@ -1,0 +1,94 @@
+<ion-header>
+	
+	<ion-toolbar>
+		
+		<ion-buttons slot="start">
+			
+			<ion-back-button class="back-button" defaultHref="news"></ion-back-button>
+		
+		</ion-buttons>
+	
+	</ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="bg-off-white">
+	
+	<!-- Image -->
+	<ion-img src="{{ event.imageUrl }}" alt="Event image"></ion-img>
+	
+	
+	<section class="custom-container">
+		
+		
+		<!-- Title -->
+		<div class="title">{{ locale === "en" && event.titleEng ? event.titleEng : event.titleIta }}</div>
+		
+		
+		<!-- Description -->
+		<div class="description">{{ locale === "en" && event.descriptionEng ? event.descriptionEng : event.descriptionIta }}</div>
+		
+		
+		<!-- Details -->
+		<section class="details">
+			
+			<div class="card-header">{{"page-single-event.header-details" | translate}}</div>
+			
+			<ion-card class="ion-no-margin" color="#000">
+				
+				<div id="map"></div>
+				
+				<ion-card-content class="row">
+					
+					<ion-icon name="calendar"></ion-icon>
+					
+					<div class="date">
+						{{ event.date | date:"fullDate":undefined:locale | titlecase }}
+						<br>
+						{{"page-single-event.at" | translate}}
+						{{ event.date | date:"shortTime":undefined:locale }}
+					</div>
+				
+				</ion-card-content>
+			
+			</ion-card>
+		
+		</section>
+		
+		
+		<!-- Contacts -->
+		<section class="contacts" *ngIf="event.contacts">
+			
+			<div class="card-header">{{"page-single-event.header-contacts" | translate}}</div>
+			
+			<ion-card class="ion-no-margin" color="#000">
+				
+				<ion-card-content>
+					
+					<div *ngIf="event.contacts.mail" class="row ion-padding-bottom">
+						
+						<ion-icon name="mail"></ion-icon>
+						
+						<div>{{ event.contacts.mail }}</div>
+					
+					</div>
+					
+					<div *ngIf="event.contacts.phone" class="row" (click)="onPhoneClick()">
+						
+						<ion-icon name="call"></ion-icon>
+						
+						<div>{{ event.contacts.phone }}</div>
+					
+					</div>
+				
+				</ion-card-content>
+			
+			</ion-card>
+		
+		</section>
+	
+	</section>
+
+</ion-content>
+

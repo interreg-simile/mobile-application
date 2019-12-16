@@ -125,6 +125,7 @@ export class NewsService {
                 event.rois,
                 new Date(event.date),
                 event.imageUrl,
+                event.contacts,
                 read.includes(event._id)
             ))
 

@@ -31,6 +31,7 @@ export class SingleAlertPage implements OnInit {
     ) { }
 
 
+    /** @ignore */
     ngOnInit() {
 
         // Retrieve the current locale

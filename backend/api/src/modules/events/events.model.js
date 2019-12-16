@@ -15,6 +15,11 @@ const address = new Schema({
     country   : { type: String, enum: e.county, required: true }
 });
 
+const contacts = new Schema({
+    mail : { type: String, required: false },
+    phone: { type: String, required: false }
+});
+
 const schema = new Schema({
     titleIta         : { type: String, required: true },
     titleEng         : { type: String, required: false },
@@ -25,6 +30,7 @@ const schema = new Schema({
     rois             : { type: [{ type: String, enum: e.roi }], required: true },
     date             : { type: Date, required: true },
     imageUrl         : { type: String, required: true },
+    contacts         : { type: contacts, required: false },
     participants     : { type: Number, required: false },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: false });
