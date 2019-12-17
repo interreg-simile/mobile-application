@@ -30,12 +30,23 @@
   padding     : 8px 0 16px 0;
 }
 
+
 .description { padding-bottom : 24px }
 
+
 #map {
-  width      : 100%;
-  height     : 180px;
+  width  : 100%;
+  height : 180px;
+
+  ion-fab-button {
+    margin : 0 !important;
+
+    ion-icon { color : var(--ion-color-primary) }
+
+  }
+
 }
+
 
 .row {
   @include flex-display(row, flex-start, center);
@@ -47,5 +58,6 @@
   }
 
 }
+
 
 .details { padding-bottom : 24px }

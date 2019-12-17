@@ -57,7 +57,15 @@ export class SingleAlertPage implements OnInit {
 
             // Add the alert to the array of read alert in local memory
             this.newsService.saveData(STORAGE_KEY_ALERTS, this.alert.id)
-                .then(() => this.alert.read = true)
+                .then(() => {
+
+                    // Set the alert as read
+                    this.alert.read = true;
+
+                    // Check if there are some unread alerts
+                    return this.newsService.checkNewAlerts();
+
+                })
                 .catch(err => console.error(err));
 
         });

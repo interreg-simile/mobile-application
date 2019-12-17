@@ -15,6 +15,8 @@ export class NewsPage implements OnInit, OnDestroy {
 
     /** @ignore */ private _alertsSub: Subscription;
     /** @ignore */ private _eventsSub: Subscription;
+    /** @ignore */ private _newAlertsSub: Subscription;
+    /** @ignore */ private _newEventsSub: Subscription;
 
 
     /** Possible values of the segments. */
@@ -38,6 +40,12 @@ export class NewsPage implements OnInit, OnDestroy {
     /** Array of events retrieved from the server. */
     public events: Event[];
 
+    /** Flag that states if there are unread alerts. */
+    public newAlerts: Boolean;
+
+    /** Flag that states if there are unread events. */
+    public newEvents: Boolean;
+
 
     public navError;
 
@@ -51,6 +59,10 @@ export class NewsPage implements OnInit, OnDestroy {
 
         // Subscribe to the changes of the alerts array in the newsService
         this._alertsSub = this.newsService.alerts.subscribe(alerts => this.alerts = alerts);
+
+        // Subscribe to the observables that state if the are unread alerts and events
+        this._newAlertsSub = this.newsService.areNewAlerts.subscribe(v => this.newAlerts = v);
+        this._newEventsSub = this.newsService.areNewEvents.subscribe(v => this.newEvents = v);
 
         // Extract the navigation errors
         this.navError = window.history.state.error;
@@ -132,6 +144,8 @@ export class NewsPage implements OnInit, OnDestroy {
         // Unsubscribe
         if (this._alertsSub) this._alertsSub.unsubscribe();
         if (this._eventsSub) this._eventsSub.unsubscribe();
+        if (this._newAlertsSub) this._newAlertsSub.unsubscribe();
+        if (this._newEventsSub) this._newEventsSub.unsubscribe();
 
     }
 

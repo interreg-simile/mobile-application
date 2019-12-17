@@ -1,7 +1,9 @@
 ### App ToDo List
 
 - Handle "notification dot" for news when the application opens
-    - Save a flag in storage (?)
+    - Create a common service to save application-wise if there are new things to notify
     
 - In events, test telTo and mailTo
+
+- Add events filtering
  

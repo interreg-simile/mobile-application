@@ -21,7 +21,7 @@ ion-segment-button {
       border     : none;
       background : $text-unfocused;
 
-      .visible { display : block }
+      &.visible { display : block }
 
     }
 

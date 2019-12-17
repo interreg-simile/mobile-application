@@ -10,8 +10,11 @@ import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
 
 
-export const STORAGE_KEY_ALERTS = "communications";
+export const STORAGE_KEY_ALERTS = "alerts";
 export const STORAGE_KEY_EVENTS = "event";
+
+export const STORAGE_KEY_ALERTS_NEW = "new_alerts";
+export const STORAGE_KEY_EVENTS_NEW = "new_events";
 
 
 /** Handles the logic behind the communication with the API with regard to events and communications. */
@@ -21,10 +24,8 @@ export class NewsService {
     /** @ignore */ private _alerts = new BehaviorSubject<Alert[]>([]);
     /** @ignore */ private _events = new BehaviorSubject<Event[]>([]);
 
-
-    /** @ignore */
-    constructor(private http: HttpClient, private storage: Storage, private auth: AuthService) { }
-
+    /** @ignore */ private _newAlerts = new BehaviorSubject<Boolean>(false);
+    /** @ignore */ private _newEvents = new BehaviorSubject<Boolean>(false);
 
     /** Observable that contains the alerts retrieved from the server. */
     get alerts() { return this._alerts.asObservable() }
@@ -32,10 +33,37 @@ export class NewsService {
     /** Observable that contains the events retrieved from the server. */
     get events() { return this._events.asObservable() }
 
+    /** Observable that states if there are some not read alerts. */
+    get areNewAlerts() { return this._newAlerts.asObservable() }
+
+    /** Observable that states if there are some not read events. */
+    get areNewEvents() { return this._newEvents.asObservable() }
+
+
+    /** @ignore */
+    constructor(private http: HttpClient, private storage: Storage, private auth: AuthService) {
+
+        this.storage.get(STORAGE_KEY_ALERTS_NEW)
+            .then(res => {
+
+                console.log(res);
+
+                this._newAlerts.next(!!res);
+
+                return this.storage.get(STORAGE_KEY_EVENTS_NEW);
+
+            })
+            .then(res => this._newEvents.next(!!res))
+            .catch(err => console.error(err));
+
+    }
+
 
     /**
      * Fetches all the not-ended alerts from the server ordered by date descending and updates the
      * BehaviourSubject that holds the alerts list.
+     *
+     * @returns {Promise<>} - An empty promise.
      */
     async fetchAlerts() {
 
@@ -82,12 +110,17 @@ export class NewsService {
         // Update the alert subject
         this._alerts.next(alerts);
 
+        // Check for unread alerts
+        await this.checkNewAlerts();
+
     }
 
 
     /**
      * Fetches all the not-ended events from the server ordered by date ascending and updates the
      * BehaviourSubject that holds the events list.
+     *
+     * @returns {Promise<>} - An empty promise.
      */
     async fetchEvents() {
 
@@ -137,6 +170,9 @@ export class NewsService {
         // Update the alert subject
         this._events.next(events);
 
+        // Check for unread events
+        await this.checkNewEvents();
+
     }
 
 
@@ -163,6 +199,7 @@ export class NewsService {
      *
      * @param{string} key - The storage key of the resource.
      * @param {string} id - The id of the alert.
+     * @returns {Promise<>} - An empty promise.
      */
     async saveData(key, id) {
 
@@ -191,6 +228,7 @@ export class NewsService {
      *
      * @param {string} key - The storage key of the resource to clean.
      * @param {string[]} ids - The id array.
+     * @returns {Promise<>} - An empty promise.
      */
     private async cleanSavedData(key: string, ids: string[]) {
 
@@ -202,6 +240,37 @@ export class NewsService {
 
         // Remove the ids not in the given array
         await this.storage.set(key, data.filter(e => ids.includes(e)));
+
+    }
+
+
+    /**
+     * Checks if there are some unread alerts and updates the local storage flag accordingly.
+     *
+     * @returns {Promise<>} - An empty promise.
+     */
+    async checkNewAlerts() {
+
+        const areNew = this._alerts.getValue().some(e => !e.read);
+
+        await this.storage.set(STORAGE_KEY_ALERTS_NEW, areNew);
+
+        this._newAlerts.next(areNew);
+
+    }
+
+    /**
+     * Checks if there are some unread events and updates the local storage flag accordingly.
+     *
+     * @returns {Promise<>} - An empty promise.
+     */
+    async checkNewEvents() {
+
+        const areNew = this._events.getValue().some(e => !e.read);
+
+        await this.storage.set(STORAGE_KEY_EVENTS_NEW, areNew);
+
+        this._newEvents.next(areNew);
 
     }
 

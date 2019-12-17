@@ -30,7 +30,7 @@
 				
 				<ion-label>{{"page-news.segment-alerts" | translate}}</ion-label>
 				
-				<div class="notification-dot"></div>
+				<div class="notification-dot" [class.visible]="newAlerts"></div>
 			
 			</section>
 		
@@ -42,7 +42,7 @@
 				
 				<ion-label>{{"page-news.segment-events" | translate}}</ion-label>
 				
-				<div class="notification-dot active"></div>
+				<div class="notification-dot active" [class.visible]="newEvents"></div>
 			
 			</section>
 		

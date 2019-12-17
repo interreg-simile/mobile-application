@@ -48,6 +48,12 @@ export class AppModule {
 
 }
 
+
+/**
+ * Creates the loader needed by the translate service.
+ *
+ * @param {HttpClient} http - The http client needed to lead the translation.
+ */
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { NavController } from "@ionic/angular";
+import { NavController, Platform } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Map, tileLayer, marker, icon } from "leaflet";
@@ -20,21 +20,7 @@ import { defaultMarkerIcon } from "../../../shared/utils";
 export class SingleEventPage implements OnInit {
 
     /** The event shown in the page. */
-    public event: Event = new Event(
-        "5df75bae100fc46e48160af6",
-        "Titolo evento",
-        "Event title",
-        "Et commodo Lorem nulla duis ipsum incididunt pariatur adipisicing ut velit reprehenderit nulla. Occaecat proident est excepteur nostrud veniam laboris non consequat. Occaecat ex incididunt mollit cupidatat cupidatat mollit nostrud pariatur ullamco ut aliquip consectetur cupidatat. Tempor esse labore aliquip elit nulla consectetur non velit ullamco nisi.",
-        "Occaecat nulla culpa culpa amet reprehenderit fugiat reprehenderit reprehenderit reprehenderit commodo. Lorem reprehenderit cupidatat do excepteur est in. Mollit deserunt eiusmod adipisicing ullamco qui consequat duis et do aliqua ut. Sit quis sit culpa magna aute quis minim do commodo magna est dolor reprehenderit consequat.",
-        { coordinates: [9.077134, 45.82306], type: "Point" },
-        { city: "como", civic: "17", country: "italy", main: "Viale Geno", postalCode: 22100, province: "co" },
-        [Rois.lake_como],
-        new Date(),
-        "http://localhost:8000/events/default.jpg",
-        { mail: "info@simile.it", phone: "+393349956232" },
-        true
-    );
-
+    public event: Event;
 
     /** Current locale of the application. */
     public locale: string;
@@ -50,7 +36,8 @@ export class SingleEventPage implements OnInit {
         private route: ActivatedRoute,
         private navCtrl: NavController,
         private i18n: TranslateService,
-        private call: CallNumber
+        private call: CallNumber,
+        private platform: Platform
     ) { }
 
 
@@ -60,37 +47,41 @@ export class SingleEventPage implements OnInit {
         // Retrieve the current locale
         this.locale = this.i18n.currentLang;
 
-        console.log(this.event)
-
         // Extract the id from the route
-        // this.route.paramMap.subscribe(params => {
-        //
-        //     // If there is no id, navigate back
-        //     if (!params.has("id")) {
-        //         this.navCtrl.navigateBack("/news", { state: { error: true } });
-        //         return;
-        //     }
-        //
-        //     // Get the alert
-        //     this.event = this.newsService.getEventById(params.get("id"));
-        //
-        //     // If there is no event, navigate back
-        //     if (!this.event) {
-        //         this.navCtrl.navigateBack("/news", { state: { error: true } });
-        //         return;
-        //     }
-        //
-        //     // Append the api url to the image url
-        //     this.event.imageUrl = `${ environment.apiUrl }/${ this.event.imageUrl }`;
-        //
-        //     console.log(this.event);
-        //
-        //     // Add the alert to the array of read alert in local memory
-        //     this.newsService.saveData(STORAGE_KEY_EVENTS, this.event.id)
-        //         .then(() => this.event.read = true)
-        //         .catch(err => console.error(err));
-        //
-        // });
+        this.route.paramMap.subscribe(params => {
+
+            // If there is no id, navigate back
+            if (!params.has("id")) {
+                this.navCtrl.navigateBack("/news", { state: { error: true } });
+                return;
+            }
+
+            // Get the alert
+            this.event = this.newsService.getEventById(params.get("id"));
+
+            // If there is no event, navigate back
+            if (!this.event) {
+                this.navCtrl.navigateBack("/news", { state: { error: true } });
+                return;
+            }
+
+            // Append the api url to the image url
+            this.event.imageUrl = `${ environment.apiUrl }/${ this.event.imageUrl }`;
+
+            // Add the alert to the array of read alert in local memory
+            this.newsService.saveData(STORAGE_KEY_EVENTS, this.event.id)
+                .then(() => {
+
+                    // Set the alert as read
+                    this.event.read = true;
+
+                    // Check if there are some unread events
+                    return this.newsService.checkNewEvents();
+
+                })
+                .catch(err => console.error(err));
+
+        });
 
     }
 
@@ -105,15 +96,24 @@ export class SingleEventPage implements OnInit {
         // Create a new map
         this._map = new Map("map", { attributionControl: false });
 
+        // Save the coordinates of the point
         const latLng = [this.event.position.coordinates[1], this.event.position.coordinates[0]];
 
         // Set the map view
         this._map.setView(latLng, 18);
 
-        marker(latLng, { icon: defaultMarkerIcon() })
-            .addTo(this._map)
-            .bindPopup(latLng.toString())
-            .openPopup();
+        // Set the content of the address popup
+        const popupContent = `
+            <span style="text-transform: capitalize">${ this.event.address.main }</span>,
+            ${ this.event.address.civic } <br>
+            <span style="text-transform: capitalize">${ this.event.address.city }</span>
+            (<span style="text-transform: uppercase">${ this.event.address.province }</span>),
+            ${ this.event.address.postalCode } <br>
+            <span style="text-transform: capitalize">${ this.event.address.country }</span>
+        `;
+
+        // Create the popup
+        marker(latLng, { icon: defaultMarkerIcon() }).addTo(this._map).bindPopup(popupContent).openPopup();
 
         // Add OSM basemap
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -134,7 +134,29 @@ export class SingleEventPage implements OnInit {
     }
 
 
+    /** Opens the default map application with the event coordinates. */
+    onOpenMapClick() {
+
+        // Construct the location
+        const location = `${ this.event.position.coordinates[1] },${ this.event.position.coordinates[0] }`;
+
+        // If the platform is android, open Google Map
+        if (this.platform.is("android")) {
+            window.location.href = `geo:${ location }`;
+            return;
+        }
+
+        // If the platform is ios, open the native map application
+        if (this.platform.is("ios")) {
+            window.location.href = `maps://maps.apple.com/?q=${ location }`;
+            return;
+        }
+
+    }
+
+
     /** @ignore */
     ionViewWillLeave() { this._map.remove() }
+
 
 }

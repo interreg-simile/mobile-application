@@ -37,8 +37,22 @@
 			
 			<ion-card class="ion-no-margin" color="#000">
 				
-				<div id="map"></div>
+				<!-- Map -->
+				<div id="map">
+					
+					<ion-fab vertical="top" horizontal="end" slot="fixed" (click)="onOpenMapClick()">
+						
+						<ion-fab-button color="light" size="small">
+							
+							<ion-icon name="share-alt"></ion-icon>
+						
+						</ion-fab-button>
+					
+					</ion-fab>
 				
+				</div>
+				
+				<!-- Time -->
 				<ion-card-content class="row">
 					
 					<ion-icon name="calendar"></ion-icon>
