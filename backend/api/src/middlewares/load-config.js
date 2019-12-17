@@ -9,6 +9,7 @@ import { constructError } from "../utils/construct-error";
 /** Configuration in JSON format. */
 const conf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 
+
 /**
  * Loads the configuration of the incoming route.
  *
@@ -19,7 +20,7 @@ const conf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 export default function (req, res, next) {
 
     // Save the base url of the request (e.g. event)
-    const baseUrl = `/${req.path.split("/")[1]}`;
+    const baseUrl = `/${req.path.split("/")[2]}`;
 
     // Save the path of the request (e.g. /eventId)
     const path = req.path.replace(baseUrl, "");

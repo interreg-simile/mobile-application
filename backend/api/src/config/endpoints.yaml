@@ -49,7 +49,7 @@
     token_required: true
 
 
-/communications:
+/alerts:
 
   - path: /
     method: GET
