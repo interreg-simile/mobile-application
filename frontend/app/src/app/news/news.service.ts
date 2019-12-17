@@ -17,7 +17,7 @@ export const STORAGE_KEY_ALERTS_NEW = "new_alerts";
 export const STORAGE_KEY_EVENTS_NEW = "new_events";
 
 
-/** Handles the logic behind the communication with the API with regard to events and communications. */
+/** Handles the logic behind the communication with the API with regard to events and alerts. */
 @Injectable({ providedIn: 'root' })
 export class NewsService {
 

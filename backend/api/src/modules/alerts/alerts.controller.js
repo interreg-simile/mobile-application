@@ -1,10 +1,10 @@
 import { constructError } from "../../utils/construct-error";
 import { checkValidation } from "../../utils/common-checks";
-import * as communicationService from "./communications.service";
+import * as alertService from "./alerts.service";
 
 
 /**
- * Returns all the communications saved in the database.
+ * Returns all the alerts saved in the database.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -43,15 +43,15 @@ export const getAll = (req, res, next) => {
     if (orderByDate === "true") options.sort = "+dateStart";
 
     // Find the events
-    communicationService.getAll(filter, projection, options)
-        .then(communications => res.status(200).json({ meta: { code: 200 }, data: { communications } }))
+    alertService.getAll(filter, projection, options)
+        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
         .catch(err => next(err));
 
 };
 
 
 /**
- * Inserts a new communication in the database.
+ * Inserts a new alert in the database.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -63,15 +63,15 @@ export const create = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Create the event
-    communicationService.create(req.body)
-        .then(communication => res.status(201).json({ meta: { code: 201 }, data: { communication } }))
+    alertService.create(req.body)
+        .then(alert => res.status(201).json({ meta: { code: 201 }, data: { alert: alert } }))
         .catch(err => next(err));
 
 };
 
 
 /**
- * Returns the communication with a given id.
+ * Returns the alert with a given id.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -89,15 +89,15 @@ export const getById = (req, res, next) => {
     if (!req.isAdmin) filter.markedForDeletion = false;
 
     // Get the communication
-    communicationService.getById(req.params.id, filter, {}, {})
-        .then(communication => res.status(200).json({ meta: { code: 200 }, data: { communication } }))
+    alertService.getById(req.params.id, filter, {}, {})
+        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
         .catch(err => next(err));
 
 };
 
 
 /**
- * Updates a communication.
+ * Updates a alert.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -109,15 +109,15 @@ export const update = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Update the event
-    communicationService.update(req.params.id, req.body)
-        .then(communication => res.status(200).json({ meta: { code: 200 }, data: { communication } }))
+    alertService.update(req.params.id, req.body)
+        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
         .catch(err => next(err));
 
 };
 
 
 /**
- * Marks an event for deletion.
+ * Marks an alert for deletion.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -129,7 +129,7 @@ export const markForDeletion = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Mark the event for deletion
-    communicationService.softDelete(req.params.id)
+    alertService.softDelete(req.params.id)
         .then(() => res.status(204).json({ meta: { code: 204 } }))
         .catch(err => next(err));
 

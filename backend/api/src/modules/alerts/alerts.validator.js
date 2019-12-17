@@ -8,7 +8,7 @@ export const getAllQuery = [...q.includePast, ...q.includeDeleted, ...q.orderByD
 
 
 // Validation chain for the body of the "post" and "put" requests
-export const communication = [
+export const alert = [
     body("titleIta")
         .trim().escape()
         .not().isEmpty().withMessage("Missing property 'titleIta'."),

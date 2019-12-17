@@ -7,7 +7,7 @@ import surveys from "../modules/surveys/surveys.seed";
 import apiKeys from "../modules/auth/keys.seed";
 import users from "../modules/users/user.seed";
 import events from "../modules/events/events.seed";
-import communications from "../modules/communications/communications.seed";
+import alerts from "../modules/alerts/alerts.seed";
 
 
 /**
@@ -28,8 +28,8 @@ async function seeder() {
         // await apiKeys();
         // await users();
         // await surveys();
-        await events();
-        // await communications();
+        // await events();
+        await alerts();
 
         // Close the connection
         await mongoose.connection.close();

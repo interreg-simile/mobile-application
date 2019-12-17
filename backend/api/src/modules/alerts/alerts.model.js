@@ -4,7 +4,7 @@ import { e } from "../../utils/common-validations";
 
 
 /** Name of the collection. */
-export const collection = "Communications";
+export const collection = "Alerts";
 
 
 /** Schema of the resource. */
