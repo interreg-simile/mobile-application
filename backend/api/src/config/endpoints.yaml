@@ -56,6 +56,9 @@
     key_required: true
     admin_required: false
     token_required: false
+    sort:
+      - dateStart
+      - dateEnd
 
   - path: /
     method: POST

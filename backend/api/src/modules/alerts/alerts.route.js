@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import * as validator from "./alerts.validator";
-import { p } from "../../utils/common-validations";
+import { vPath } from "../../utils/common-validations";
 import * as controller from "./alerts.controller";
 
 
@@ -15,13 +15,13 @@ router.get("/", validator.getAllQuery, controller.getAll);
 router.post("/", validator.alert, controller.create);
 
 // GET - /alerts/{alert_id}
-router.get("/:id", p.id, controller.getById);
+router.get("/:id", vPath.id, controller.getById);
 
 // DELETE - /alerts/{alert_id}
-router.delete("/:id", p.id, controller.markForDeletion);
+router.delete("/:id", vPath.id, controller.markForDeletion);
 
 // PUT - /alerts/{alert_id}
-router.put("/:id", p.id, validator.alert, controller.update);
+router.put("/:id", vPath.id, validator.alert, controller.update);
 
 // Export the router
 export default router;

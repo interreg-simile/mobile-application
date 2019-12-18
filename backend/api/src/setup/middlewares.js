@@ -1,4 +1,6 @@
 import path from "path";
+import fs from "fs";
+
 import helmet from "helmet";
 import morgan from "morgan";
 import bodyParser from "body-parser";
@@ -29,8 +31,8 @@ export default function (server) {
     server.use(helmet());
 
     // Use morgan for request logging
-    // const accessLogStream = fs.createWriteStream(path.join(__dirname, "src/logs/server.log"), { flags: "a" });
-    // server.use(morgan("combined", { stream: accessLogStream }));
+    const accessLogStream = fs.createWriteStream(path.join(__dirname, "../../logs/server.log"), { flags: "a" });
+    server.use(morgan("combined", { stream: accessLogStream }));
 
     // Setup the docs
     setupDocs(server);

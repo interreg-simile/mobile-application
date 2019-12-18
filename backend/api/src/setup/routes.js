@@ -1,5 +1,4 @@
-import path from "path";
-import yaml from "yamljs";
+import { version } from "../middlewares/load-config";
 
 import authRouter from "../modules/auth/auth.route";
 import userRouter from "../modules/users/user.route";
@@ -10,14 +9,6 @@ import alertsRouter from "../modules/alerts/alerts.route";
 import errorMiddleware from "../middlewares/error";
 
 
-/** Configuration in JSON format. */
-const conf = yaml.load(path.resolve("./src/config/default.yaml"));
-
-
-/** Version of the API in the format v1. */
-export const version = `v${conf.app.version}`;
-
-
 /**
  * Sets up the endpoints of the API.
  *
@@ -26,8 +17,6 @@ export const version = `v${conf.app.version}`;
 export default function (server) {
 
     console.info('SETUP - Routes...');
-
-    console.log(`/${version}/alerts`);
 
     server.use(`/${version}/auth`, authRouter);
     server.use(`/${version}/users`, userRouter);

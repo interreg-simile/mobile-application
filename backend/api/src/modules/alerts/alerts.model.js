@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-import { e } from "../../utils/common-validations";
+import { enums } from "../../utils/common-validations";
 
 
 /** Name of the collection. */
@@ -15,7 +15,7 @@ const schema = new Schema({
     contentEng       : { type: String, required: false },
     dateStart        : { type: Date, required: true },
     dateEnd          : { type: Date, required: true },
-    rois             : { type: [{ type: String, enum: e.roi }], required: true },
+    rois             : { type: [{ type: String, enum: enums.roi }], required: true },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: false });
 

@@ -1,10 +1,10 @@
 import { body, query } from "express-validator";
-import { q, e, b } from "../../utils/common-validations";
+import { vQuery, enums, vBody } from "../../utils/common-validations";
 
 
 // Validation chain for the query parameters of the "get all" route
 export const getAllQuery = [
-    ...q.includePast, ...q.includeDeleted, ...q.orderByDate, ...q.rois,
+    ...vQuery.includePast, ...vQuery.includeDeleted, ...vQuery.orderByDate, ...vQuery.rois,
     query("city")
         .optional()
         .trim().escape(),
@@ -67,8 +67,8 @@ export const event = [
         .isLength({ min: 2, max: 2 }).withMessage("Wrong format of property 'province' of 'address'."),
     body("address.country")
         .not().isEmpty().withMessage("Missing property 'country' of 'address'.")
-        .isIn(e.county).withMessage("Invalid value of property 'country' of 'address'."),
-    ...b.rois,
+        .isIn(enums.county).withMessage("Invalid value of property 'country' of 'address'."),
+    ...vBody.rois,
     body("date")
         .not().isEmpty().withMessage("Missing property 'date'.")
         .isISO8601().withMessage("Wrong format of property 'date'."),

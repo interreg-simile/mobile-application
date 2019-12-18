@@ -6,8 +6,14 @@ import { match } from "path-to-regexp";
 import { constructError } from "../utils/construct-error";
 
 
-/** Configuration in JSON format. */
-const conf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
+// Load the configurations if JSON format
+const generalConf = yaml.load(path.resolve("./src/config/default.yaml"));
+const endpointsConf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
+
+
+/** Version of the API in the format v1. */
+export const version = `v${generalConf.app.version}`;
+
 
 
 /**
@@ -23,10 +29,10 @@ export default function (req, res, next) {
     const baseUrl = `/${req.path.split("/")[2]}`;
 
     // Save the path of the request (e.g. /eventId)
-    const path = req.path.replace(baseUrl, "");
+    const path = req.path.replace(`/${version}${baseUrl}`, "");
 
     // Find the first item that matches the path and the method
-    const params = _.find(conf[baseUrl], i => match(i.path)(path) && i.method === req.method);
+    const params = _.find(endpointsConf[baseUrl], i => match(i.path)(path) && i.method === req.method);
 
     // If no route is found throw an error
     if (!params) {

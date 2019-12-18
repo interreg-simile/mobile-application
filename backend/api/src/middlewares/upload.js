@@ -7,8 +7,9 @@ import { constructError } from "../utils/construct-error";
 // File filter
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") cb(null, true);
-    else cb(constructError(422, "File not supported.", "FileUploadException"));
+    else cb(constructError(415, "File type not supported."));
 };
+
 
 /**
  * If the request yields a file, it stores it on the server.

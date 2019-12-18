@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import * as validator from "./events.validator";
-import { p } from "../../utils/common-validations";
+import { vPath } from "../../utils/common-validations";
 import * as controller from "./events.controller";
 
 
@@ -15,16 +15,16 @@ router.get("/", validator.getAllQuery, controller.getAll);
 router.post("/", validator.event, controller.create);
 
 // GET - /events/{event_id}
-router.get("/:id", p.id, controller.getById);
+router.get("/:id", vPath.id, controller.getById);
 
 // DELETE - /events/{event_id}
-router.delete("/:id", p.id, controller.markForDeletion);
+router.delete("/:id", vPath.id, controller.markForDeletion);
 
 // PUT - /events/{event_id}
-router.put("/:id", p.id, validator.event, controller.update);
+router.put("/:id", vPath.id, validator.event, controller.update);
 
 // PATCH - /events/{event_id}
-router.patch("/:id", p.id, validator.participants, controller.addParticipants);
+router.patch("/:id", vPath.id, validator.participants, controller.addParticipants);
 
 // Export the router
 export default router;

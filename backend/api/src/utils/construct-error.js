@@ -36,6 +36,12 @@ export const constructError = (code, msg, type) => {
             error.type       = type || "NotFoundException";
             break;
 
+        case 415:
+            error.message = msg || "Unsupported media type.";
+            error.statusCode = code;
+            error.type       = type || "UnsupportedMediaTypeException";
+            break;
+
         case 422:
             error.message    = msg || "The body of the request contains some error.";
             error.statusCode = code;

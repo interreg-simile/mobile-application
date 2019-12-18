@@ -1,10 +1,10 @@
 import { body } from "express-validator";
 
-import { q, b } from "../../utils/common-validations";
+import { vQuery, vBody } from "../../utils/common-validations";
 
 
 // Validation chain for the query parameters of the "get all" route
-export const getAllQuery = [...q.includePast, ...q.includeDeleted, ...q.orderByDate, ...q.rois];
+export const getAllQuery = [...vQuery.includePast, ...vQuery.includeDeleted, ...vQuery.sort, ...vQuery.rois];
 
 
 // Validation chain for the body of the "post" and "put" requests
@@ -27,7 +27,7 @@ export const alert = [
     body("dateEnd")
         .not().isEmpty().withMessage("Missing property 'dateEnd'.")
         .isISO8601().withMessage("Wrong format of property 'dateEnd'."),
-    ...b.rois,
+    ...vBody.rois,
     body("markedForDeletion")
         .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")
 ];
