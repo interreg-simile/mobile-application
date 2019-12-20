@@ -2,6 +2,7 @@ import { constructError } from "../../utils/construct-error";
 import { checkValidation } from "../../utils/common-checks";
 import * as alertService from "./alerts.service";
 import { vSort } from "../../utils/common-validations";
+import { getQuerySorting } from "../../utils/utils";
 
 
 /**
@@ -19,7 +20,7 @@ export const getAll = (req, res, next) => {
     // Retrieve the query parameters
     const includePast    = req.query.includePast || "false",
           includeDeleted = req.query.includeDeleted || "false",
-          orderByDate    = req.query.orderByDate || "false",
+          sort           = req.query.sort,
           rois           = req.query.rois;
 
     // Set the parameters for the mongo query
@@ -29,10 +30,10 @@ export const getAll = (req, res, next) => {
     if (includeDeleted === "false") filter.markedForDeletion = false;
 
     // If the request does not come from an admin, throw an error
-    else if (includeDeleted === "true" && !req.isAdmin) {
-        next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
-        return;
-    }
+    // else if (includeDeleted === "true" && !req.isAdmin) {
+    //     next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
+    //     return;
+    // }
 
     // Take the surveys with expireDate greater or equal to the current date
     if (includePast === "false") filter.dateEnd = { $gte: new Date() };
@@ -40,8 +41,8 @@ export const getAll = (req, res, next) => {
     // Filter by regions of interest
     if (rois) filter.rois = { $in: rois.split(",") };
 
-    // Sort by date descending
-    if (orderByDate === "true") options.sort = "+dateStart";
+    // Sort
+    if (sort) options.sort = getQuerySorting(sort);
 
     // Find the events
     alertService.getAll(filter, projection, options)

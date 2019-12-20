@@ -16,63 +16,36 @@ export const vPath = {
 
 // Validation chains for common query parameters
 export const vQuery = {
-    includePast   : [
+    includePast        : [
         query("includePast")
             .optional()
             .isBoolean().withMessage("Wrong format of query parameter 'includePast'.")
     ],
-    includeDeleted: [
+    includeDeleted     : [
         query("includeDeleted")
             .optional()
             .isBoolean().withMessage("Wrong format of query parameter 'includeDeleted'.")
     ],
-    orderByDate   : [
-        query("orderByDate")
+    includeDeletedAdmin: [
+        query("includeDeleted")
             .optional()
-            .isBoolean().withMessage("Wrong format of query parameter 'orderByDate'.")
+            .custom((v, { req }) => !(v !== "false" && !req.isAdmin))
+            .withMessage("Forbidden value of query parameter 'includeDeleted'.")
+            .isBoolean().withMessage("Wrong format of query parameter 'includeDeleted'.")
     ],
-    sort          : [
+    sort               : [
         query("sort")
             .optional()
             .custom((v, { req }) => vSort(v, req.config.sort))
             .withMessage("Wrong format of query parameter 'sort'.")
     ],
-    rois          : [
+    rois               : [
         query("rois")
             .optional()
             .custom(v => v.split(",").every(i => enums.roi.indexOf(i) >= 0) && new Set(v.split(",")).size === v.split(",").length)
             .withMessage("Wrong format of query parameter 'rois'.")
     ]
 };
-
-
-export function vSort(val, allowedFields) {
-
-    console.log(val, allowedFields);
-
-    if (!allowedFields) return false;
-
-    console.log(val.split(","));
-
-    const fields = val.split(",");
-
-    for (const f of fields) {
-
-        const r = new RegExp("[+-]" + allowedFields.join("|"));
-
-        console.log(`${f}: ${r.test(f)}`)
-
-    }
-
-    const r = val.split(",").every(f => new RegExp("[+-]" + allowedFields.join("|")).test(f));
-
-    // [+-]dateStart|[+-]dateEnd
-
-    console.log(r);
-
-    return r;
-
-}
 
 
 // Validation chains for common body properties
@@ -85,3 +58,24 @@ export const vBody = {
             .isIn(enums.roi).withMessage("Invalid value of one of the properties of 'rois'."),
     ]
 };
+
+
+/**
+ * Validates the values passed with the 'sort' query parameter.
+ *
+ * @param {string} val - The passed value.
+ * @param {string[]} allowedFields - The allowed field for sorting.
+ * @returns {boolean} True if the validation passes.
+ */
+export function vSort(val, allowedFields) {
+
+    // If no allowed field are passed, return false
+    if (!allowedFields) return false;
+
+    // ToDo check if a properties is passed multiple times 
+
+    // Validates the value
+    return val.split(",").every(v => allowedFields.includes(v.split(":")[0]) &&
+        (!v.split(":")[1] || ["asc", "desc"].includes((v.split(":")[1]))));
+
+}

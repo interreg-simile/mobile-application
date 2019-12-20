@@ -1,6 +1,7 @@
 import Key from "../modules/auth/keys.model";
 import { constructError } from "../utils/construct-error";
 
+
 /**
  * Checks if the request has a valid API key in the headers.
  *
@@ -30,10 +31,7 @@ export default function (req, res, next) {
         .then(result => {
 
             // If no key is found, throw an error
-            if (!result) {
-                next(constructError(403, "API key not recognized.", "APIKeyException"));
-                next(error);
-            }
+            if (!result) next(constructError(403, "API key not recognized.", "APIKeyException"));
 
             // Call the next middleware
             next()

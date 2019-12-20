@@ -25,11 +25,11 @@ async function seeder() {
     try {
 
         // Seed the data
-        // await apiKeys();
+        await apiKeys();
         // await users();
         // await surveys();
         // await events();
-        await alerts();
+        // await alerts();
 
         // Close the connection
         await mongoose.connection.close();

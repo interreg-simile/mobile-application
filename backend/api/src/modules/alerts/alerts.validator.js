@@ -4,7 +4,7 @@ import { vQuery, vBody } from "../../utils/common-validations";
 
 
 // Validation chain for the query parameters of the "get all" route
-export const getAllQuery = [...vQuery.includePast, ...vQuery.includeDeleted, ...vQuery.sort, ...vQuery.rois];
+export const getAllQuery = [...vQuery.includePast, ...vQuery.includeDeletedAdmin, ...vQuery.sort, ...vQuery.rois];
 
 
 // Validation chain for the body of the "post" and "put" requests

@@ -4,7 +4,7 @@ import { vQuery, enums, vBody } from "../../utils/common-validations";
 
 // Validation chain for the query parameters of the "get all" route
 export const getAllQuery = [
-    ...vQuery.includePast, ...vQuery.includeDeleted, ...vQuery.orderByDate, ...vQuery.rois,
+    ...vQuery.includePast, ...vQuery.includeDeletedAdmin, ...vQuery.sort, ...vQuery.rois,
     query("city")
         .optional()
         .trim().escape(),
