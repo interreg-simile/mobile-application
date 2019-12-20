@@ -72,10 +72,25 @@ export function vSort(val, allowedFields) {
     // If no allowed field are passed, return false
     if (!allowedFields) return false;
 
-    // ToDo check if a properties is passed multiple times 
+    // Initialize the object of the already processed values
+    const valSoFar = Object.create(null);
 
-    // Validates the value
-    return val.split(",").every(v => allowedFields.includes(v.split(":")[0]) &&
-        (!v.split(":")[1] || ["asc", "desc"].includes((v.split(":")[1]))));
+    // For each value
+    for (const v of val.split(",")) {
+
+        // If the value is not in the form "key:order" or "key", return false
+        if (!(allowedFields.includes(v.split(":")[0]) &&
+            (!v.split(":")[1] || ["asc", "desc"].includes((v.split(":")[1]))))) return false;
+
+        // If the value is passed more than one, return false
+        if (v.split(":")[0] in valSoFar) return false;
+
+        // Save the value as processed
+        valSoFar[v.split(":")[0]] = true;
+
+    }
+
+    // Return true
+    return true
 
 }
