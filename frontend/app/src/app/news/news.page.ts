@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from "rxjs";
+import { PopoverController } from "@ionic/angular";
 
 import { NewsService } from "./news.service";
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
+import { FilterComponent } from "./events/filter/filter.component";
 
 
 enum Segments { ALERTS, EVENTS}
@@ -51,7 +53,7 @@ export class NewsPage implements OnInit, OnDestroy {
 
 
     /** @ignore */
-    constructor(private newsService: NewsService) { }
+    constructor(private newsService: NewsService, private popoverCtrl: PopoverController) { }
 
 
     /** @ignore */
@@ -134,6 +136,56 @@ export class NewsPage implements OnInit, OnDestroy {
                 .finally(() => $event.target.complete())
 
         }
+
+        if (this.selectedSegment === Segments.EVENTS) {
+
+            this.newsService.fetchEvents()
+                .then(() => this.eventError = false)
+                .catch(err => {
+                    console.error(err);
+                    this.eventError = true;
+                })
+                .finally(() => $event.target.complete())
+
+        }
+
+    }
+
+
+    /**
+     * Open the events filter popover.
+     *
+     * @param event - The click event.
+     */
+    async filterPopover(event) {
+
+        // Create the popover
+        const popover = await this.popoverCtrl.create({
+            component: FilterComponent,
+            event    : event
+        });
+
+        // Called when the popover is closed
+        popover.onWillDismiss().then(() => {
+
+            if (this.newsService.compareRois()) return;
+
+            // Set is loading to true
+            this.isLoading = true;
+
+            // Fetch all the events
+            this.newsService.fetchEvents()
+                .then(() => this.eventError = false)
+                .catch(err => {
+                    console.error(err);
+                    this.eventError = true;
+                })
+                .finally(() => this.isLoading = false)
+
+        });
+
+        // Open the popover
+        return await popover.present();
 
     }
 

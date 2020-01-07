@@ -16,8 +16,8 @@ export default async function () {
             titleEng  : "Communication 1",
             contentIta: new LoremIpsum().generateParagraphs(1),
             contentEng: new LoremIpsum().generateParagraphs(1),
-            dateStart : new Date("2019-12-08T00:00:00"),
-            dateEnd   : new Date("2020-01-30T00:00:00"),
+            dateStart : new Date("2020-01-08T00:00:00"),
+            dateEnd   : new Date("2020-12-30T00:00:00"),
             rois      : ["lake_como"],
         },
         {
@@ -25,9 +25,9 @@ export default async function () {
             titleEng  : "Communication 2",
             contentIta: new LoremIpsum().generateParagraphs(1),
             contentEng: new LoremIpsum().generateParagraphs(1),
-            dateStart : new Date("2019-10-09T00:00:00"),
-            dateEnd   : new Date("2019-12-30T00:00:00"),
-            rois      : ["lake_maggiore"],
+            dateStart : new Date("2020-10-09T00:00:00"),
+            dateEnd   : new Date("2020-12-30T00:00:00"),
+            rois      : ["lake_maggiore", "lake_como", "lake_lugano"],
         }
     ];
 

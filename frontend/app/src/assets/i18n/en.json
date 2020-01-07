@@ -1,6 +1,11 @@
 {
   "common": {
-    "error-occurred": "Sorry, an error occurred!"
+    "error-occurred": "Sorry, an error occurred!",
+    "rois": {
+      "lake_como": "Lake Como",
+      "lake_maggiore": "Lake Maggiore",
+      "lake_lugano": "Lake Lugano"
+    }
   },
   "drawer": {
     "item-map": "Map",

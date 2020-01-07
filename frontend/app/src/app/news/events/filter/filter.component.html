@@ -1,0 +1,19 @@
+<ion-content>
+	
+	<ion-list class="ion-no-padding">
+		
+		<ion-item *ngFor="let roi of rKeys">
+			
+			<ion-checkbox slot="start"
+						  value="{{ roi }}"
+						  [(ngModel)]="newsService.newRois[roi]"
+						  (ionChange)="onCheckboxChange($event)">
+			</ion-checkbox>
+			
+			<ion-label>{{ "common.rois." + roi | translate }}</ion-label>
+		
+		</ion-item>
+	
+	</ion-list>
+
+</ion-content>

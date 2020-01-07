@@ -17,7 +17,7 @@ export const alert = [
         .trim().escape(),
     body("contentIta")
         .trim().escape()
-        .not().isEmpty().withMessage("Missing property 'descriptionIta'."),
+        .not().isEmpty().withMessage("Missing property 'contentIta'."),
     body("contentEng")
         .optional()
         .trim().escape(),
@@ -26,7 +26,9 @@ export const alert = [
         .isISO8601().withMessage("Wrong format of property 'dateStart'."),
     body("dateEnd")
         .not().isEmpty().withMessage("Missing property 'dateEnd'.")
-        .isISO8601().withMessage("Wrong format of property 'dateEnd'."),
+        .isISO8601().withMessage("Wrong format of property 'dateEnd'.")
+        .custom((v, { req }) => new Date(v).getTime() > new Date(req.body.dateStart).getTime())
+        .withMessage("Property 'dateEnd' must be grater than property 'dateStart'."),
     ...vBody.rois,
     body("markedForDeletion")
         .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")

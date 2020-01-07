@@ -29,7 +29,7 @@ export class AuthService {
 
         this._isUserAuth = true;
         this._userId     = "5dd7bbe0701d5bdd685c1f18";
-        this._token      = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGQ3YmJlMDcwMWQ1YmRkNjg1YzFmMTgiLCJpc0FkbWluIjoiZmFsc2UiLCJpYXQiOjE1NzQ0MTk0MjQsImV4cCI6MTY2MDgxOTQyNH0.BDS7n-kHgwgCj9c_--aShJ9cWoOe5a8QSM_5a7oM7V8";
+        this._token      = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGQ3YmJlMDcwMWQ1YmRkNjg1YzFmMTgiLCJpc0FkbWluIjoiZmFsc2UiLCJpYXQiOjE1NzY4MzMyNzMsImV4cCI6MTY2MzIzMzI3M30.yYZLnBkZMoVzwaSg-xs5o8ZQXQkcrQA08cd545ubwDI";
 
     }
 

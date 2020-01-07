@@ -7,6 +7,8 @@
     key_required: true
     admin_required: false
     token_required: false
+    sort:
+      - date
 
   - path: /
     method: POST

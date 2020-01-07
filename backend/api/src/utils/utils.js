@@ -28,8 +28,6 @@ export function getQuerySorting(val) {
 
     }
 
-    console.log(s);
-
     // Return the object
     return s;
 

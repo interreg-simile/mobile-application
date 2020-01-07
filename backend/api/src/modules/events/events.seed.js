@@ -26,7 +26,7 @@ export default async function () {
                 country   : "italy"
             },
             rois          : ["lake_como"],
-            date          : new Date("2019-12-30T15:24:00"),
+            date          : new Date("2020-12-30T15:24:00"),
             imageUrl      : "events/default.jpg",
             contacts      : { mail: "info@simile.it", phone: "+393349969525" }
         },
@@ -64,7 +64,7 @@ export default async function () {
                 country   : "italy"
             },
             rois          : ["lake_maggiore", "lake_lugano"],
-            date          : new Date("2019-10-13T09:10:00"),
+            date          : new Date("2020-10-13T09:10:00"),
             imageUrl      : "events/default.jpg",
             contacts      : { mail: "info@simile.it" }
         },

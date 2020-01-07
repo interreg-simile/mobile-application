@@ -6,4 +6,5 @@
 - In events, test telTo and mailTo
 
 - Add events filtering
+    - Cache events to not recall server on rois changes
  

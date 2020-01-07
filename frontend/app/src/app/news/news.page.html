@@ -12,7 +12,7 @@
 		
 		<ion-buttons slot="end" *ngIf="selectedSegment === segmentsEnum.EVENTS">
 			
-			<ion-button>
+			<ion-button (click)="filterPopover($event)">
 				
 				<ion-icon name="funnel"></ion-icon>
 			

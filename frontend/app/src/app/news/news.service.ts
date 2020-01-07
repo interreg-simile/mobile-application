@@ -8,6 +8,7 @@ import { GenericApiResponse } from "../shared/utils.interface"
 import { AuthService } from "../auth/auth.service";
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
+import { Rois } from "../shared/common.enum";
 
 
 export const STORAGE_KEY_ALERTS = "alerts";
@@ -21,11 +22,19 @@ export const STORAGE_KEY_EVENTS_NEW = "new_events";
 @Injectable({ providedIn: 'root' })
 export class NewsService {
 
+
     /** @ignore */ private _alerts = new BehaviorSubject<Alert[]>([]);
     /** @ignore */ private _events = new BehaviorSubject<Event[]>([]);
 
     /** @ignore */ private _newAlerts = new BehaviorSubject<Boolean>(false);
     /** @ignore */ private _newEvents = new BehaviorSubject<Boolean>(false);
+
+
+    /** Object with the possible rois as keys and a flag stating if the roi is among the user's ones as value. */
+    public eventsRois: Object = {};
+
+    public newRois: Object = {};
+
 
     /** Observable that contains the alerts retrieved from the server. */
     get alerts() { return this._alerts.asObservable() }
@@ -46,8 +55,6 @@ export class NewsService {
         this.storage.get(STORAGE_KEY_ALERTS_NEW)
             .then(res => {
 
-                console.log(res);
-
                 this._newAlerts.next(!!res);
 
                 return this.storage.get(STORAGE_KEY_EVENTS_NEW);
@@ -55,6 +62,60 @@ export class NewsService {
             })
             .then(res => this._newEvents.next(!!res))
             .catch(err => console.error(err));
+
+        // Set up the user's regions of interest
+        Object.keys(Rois).forEach(r => {
+
+            // Save the rois
+            if (!isNaN(Number(Rois[r]))) this.eventsRois[r] = this.auth.rois.includes(r);
+
+            // Copy the object
+            Object.assign(this.newRois, this.eventsRois);
+
+        });
+
+    }
+
+
+    /**
+     * Compares the two objects containing the new rois and the old rois.
+     *
+     * @return Boolean True if the rois objects are equal.
+     */
+    compareRois() {
+
+        // If some roi is different
+        if (Object.keys(this.newRois).some(k => this.eventsRois[k] !== this.newRois[k])) {
+
+            // Copy the new rois into the old one
+            Object.assign(this.eventsRois, this.newRois);
+
+            // Return false
+            return false;
+
+        }
+
+        // Return true
+        return true;
+
+    }
+
+
+    /**
+     * Create a string to use as a query parameter for the API call containing the selected rois.
+     *
+     * @return String The query parameter string.
+     */
+    getSelectedRois() {
+
+        // Initialize the string
+        let rois = "";
+
+        // Add all the selected rois to the string
+        Object.keys(this.eventsRois).forEach(k => rois += this.eventsRois[k] ? `${ k },` : "");
+
+        // Remove the last comma
+        return rois.slice(0, -1);
 
     }
 
@@ -68,18 +129,18 @@ export class NewsService {
     async fetchAlerts() {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/communications/`;
+        const url = `${ environment.apiUrl }/${ environment.apiVersion }/alerts/`;
 
         // Query parameters of the request
         const qParams = new HttpParams()
-            .set("orderByDate", "true")
+            .set("sort", "dateStart:desc")
             .set("rois", this.auth.rois.join());
 
         // Retrieve the data from the server and return them as a promise
         const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
 
         // Extract the alerts from the server
-        const data = res.data.communications;
+        const data = res.data.alert;
 
         // Retrieve the id of the read alert form the local storage
         const read = <string[]>await this.storage.get(STORAGE_KEY_ALERTS) || [];
@@ -125,12 +186,12 @@ export class NewsService {
     async fetchEvents() {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/events/`;
+        const url = `${ environment.apiUrl }/${ environment.apiVersion }/events/`;
 
         // Query parameters of the request
         const qParams = new HttpParams()
-            .set("orderByDate", "true")
-            .set("rois", this.auth.rois.join());
+            .set("sort", "date:desc")
+            .set("rois", this.getSelectedRois());
 
         // Retrieve the data from the server and return them as a promise
         const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
