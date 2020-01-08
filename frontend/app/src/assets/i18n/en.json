@@ -15,10 +15,7 @@
     "item-info": "Info",
     "item-settings": "Settings"
   },
-  "page-map": {
-    "tab-reports-title": "reports",
-    "tab-measures-title": "measures"
-  },
+  "page-map": { },
   "page-surveys": {
     "header-new": "New",
     "header-completed": "Completed",

@@ -1,70 +1,60 @@
-<!-- Main content -->
+<ion-header>
+	
+	<ion-toolbar>
+		
+		<ion-buttons slot="start">
+			
+			<ion-menu-button menu="main"></ion-menu-button>
+		
+		</ion-buttons>
+		
+		<ion-title>{{"drawer.item-map" | translate}}</ion-title>
+		
+		<ion-buttons slot="end">
+			
+			<ion-button>
+				<ion-icon slot="icon-only" name="sync"></ion-icon>
+			</ion-button>
+			
+			<ion-button>
+				<ion-icon slot="icon-only" name="funnel"></ion-icon>
+			</ion-button>
+		
+		</ion-buttons>
+	
+	</ion-toolbar>
+
+</ion-header>
+
 <ion-content>
+	
+	
+	<!-- Map -->
+	<div id="map"></div>
+	
+	
+	<!-- FAB gps -->
+	<ion-fab class="fab-secondary" vertical="bottom" horizontal="end" slot="fixed">
+		
+		<ion-fab-button color="light" (click)="onGPSClick()">
+			
+			<ion-icon name="locate"></ion-icon>
+		
+		</ion-fab-button>
+	
+	</ion-fab>
+	
+	
+	<!-- FAB add -->
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		
+		<ion-fab-button (click)="onAddClick()">
+			
+			<ion-icon name="add"></ion-icon>
+		
+		</ion-fab-button>
+	
+	</ion-fab>
 
-    <!-- FAB hamburger -->
-    <ion-fab vertical="top" horizontal="start" slot="fixed">
-
-        <ion-fab-button class="fab-transparent" (click)="onOpenMenu()">
-
-            <ion-icon name="menu"></ion-icon>
-
-        </ion-fab-button>
-
-    </ion-fab>
-
-    <!-- FAB gps -->
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
-
-        <ion-fab-button class="fab-white" size="small">
-
-            <ion-icon name="locate"></ion-icon>
-
-        </ion-fab-button>
-
-    </ion-fab>
-
-    <!-- FAB sync -->
-    <ion-fab class="fab-second-row" vertical="top" horizontal="end" slot="fixed">
-
-        <ion-fab-button class="fab-white" size="small">
-
-            <ion-icon name="sync"></ion-icon>
-
-        </ion-fab-button>
-
-    </ion-fab>
-
-    <!-- FAB add -->
-    <ion-fab class="fab-bottom" vertical="bottom" horizontal="end" slot="fixed">
-
-        <ion-fab-button (click)="add()">
-
-            <ion-icon name="add"></ion-icon>
-
-        </ion-fab-button>
-
-    </ion-fab>
-
-    <!-- Map -->
-    <div id="map" style="width: 100%; height: 100%"></div>
 
 </ion-content>
-
-<!-- Bottom tabs -->
-<ion-segment (ionChange)="segmentChanged($event)">
-
-    <ion-segment-button value="reports" checked>
-
-        <ion-label>{{ "page-map.tab-reports-title" | translate}}</ion-label>
-        <ion-icon name="warning"></ion-icon>
-
-    </ion-segment-button>
-
-    <ion-segment-button value="measures">
-
-        <ion-label>{{ "page-map.tab-measures-title" | translate}}</ion-label>
-        <ion-icon name="thermometer"></ion-icon>
-
-    </ion-segment-button>
-
-</ion-segment>

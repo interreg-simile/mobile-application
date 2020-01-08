@@ -17,11 +17,4 @@ export class FilterComponent implements OnInit {
     /** @ignore */
     ngOnInit() { }
 
-
-    onCheckboxChange(e) {
-
-        // ToDo at least one checked
-
-    }
-
 }

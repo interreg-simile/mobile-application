@@ -6,8 +6,7 @@
 			
 			<ion-checkbox slot="start"
 						  value="{{ roi }}"
-						  [(ngModel)]="newsService.newRois[roi]"
-						  (ionChange)="onCheckboxChange($event)">
+						  [(ngModel)]="newsService.newRois[roi]">
 			</ion-checkbox>
 			
 			<ion-label>{{ "common.rois." + roi | translate }}</ion-label>

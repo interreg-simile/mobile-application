@@ -31,9 +31,10 @@ export class NewsService {
 
 
     /** Object with the possible rois as keys and a flag stating if the roi is among the user's ones as value. */
-    public eventsRois: Object = {};
+    public eventsRois: Object;
 
-    public newRois: Object = {};
+    /** Object with the possible rois as keys and a flag stating if the roi has been selected in the filter. */
+    public newRois: Object;
 
 
     /** Observable that contains the alerts retrieved from the server. */
@@ -63,7 +64,18 @@ export class NewsService {
             .then(res => this._newEvents.next(!!res))
             .catch(err => console.error(err));
 
-        // Set up the user's regions of interest
+
+        this.setupRois();
+
+    }
+
+
+    /** Sets up the user's regions of interest. */
+    setupRois() {
+
+        this.eventsRois = {};
+        this.newRois    = {};
+
         Object.keys(Rois).forEach(r => {
 
             // Save the rois
@@ -83,6 +95,17 @@ export class NewsService {
      * @return Boolean True if the rois objects are equal.
      */
     compareRois() {
+
+        // If all the rois are unchecked
+        if (Object.keys(this.newRois).every(k => this.newRois[k] === false)) {
+
+            // Re-setup the rois
+            this.setupRois();
+
+            // Return false
+            return false;
+
+        }
 
         // If some roi is different
         if (Object.keys(this.newRois).some(k => this.eventsRois[k] !== this.newRois[k])) {
