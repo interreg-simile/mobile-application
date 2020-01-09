@@ -1,4 +1,19 @@
+$fab-size     : 56px;
+$fab-bottom   : 56px;
+$fab-distance : 24px;
+
+
 #map {
   width  : 100%;
   height : 100%;
 }
+
+ion-fab[vertical=bottom] {
+  bottom : $fab-bottom;
+
+  &.fab-secondary { bottom : $fab-bottom + $fab-size + $fab-distance }
+
+}
+
+
+.follow { --ion-color-contrast : #3E86E8 !important; }

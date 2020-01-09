@@ -34,9 +34,9 @@
 	
 	
 	<!-- FAB gps -->
-	<ion-fab class="fab-secondary" vertical="top" horizontal="end" slot="fixed">
+	<ion-fab class="fab-secondary" vertical="bottom" horizontal="end" edge slot="fixed">
 		
-		<ion-fab-button color="light" (click)="onGPSClick()">
+		<ion-fab-button color="light" [class.follow]="_mapFlags.follows" (click)="onGPSClick()">
 			
 			<ion-icon name="locate"></ion-icon>
 		
@@ -46,9 +46,9 @@
 	
 	
 	<!-- FAB add -->
-	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+	<ion-fab vertical="bottom" horizontal="end" edge slot="fixed">
 		
-		<ion-fab-button (click)="onAddClick()">
+		<ion-fab-button [routerLink]="['/', 'map', 'test']">
 			
 			<ion-icon name="add"></ion-icon>
 		

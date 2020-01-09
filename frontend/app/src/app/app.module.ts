@@ -18,6 +18,7 @@ import localeIt from "@angular/common/locales/it";
 import { IonicStorageModule } from "@ionic/storage";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
         SplashScreen,
         CallNumber,
         Geolocation,
+        Diagnostic,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
     ],
