@@ -18,3 +18,13 @@ export function defaultMarkerIcon() {
         shadowSize   : [41, 41]
     });
 }
+
+
+export function userMarkerIcon() {
+    return icon({
+        iconUrl      : "assets/images/user-marker.png",
+        iconRetinaUrl: "assets/images/user-marker-2x.png",
+        iconSize     : [29, 41],
+        iconAnchor   : [15, 41],
+    });
+}

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TranslateService } from "@ngx-translate/core";
-
-import { Map, tileLayer } from 'leaflet';
+import { Map, tileLayer, marker } from 'leaflet';
 import { Subscription } from "rxjs";
+
 import { MapService } from "./map.service";
+import { userMarkerIcon } from "../shared/utils";
 
 
 @Component({ selector: 'app-map', templateUrl: './map.page.html', styleUrls: ['./map.page.scss'] })
@@ -15,6 +15,8 @@ export class MapPage implements OnInit, OnDestroy {
 
     /** Leaflet map object. */
     private _map: Map;
+
+    private _userMarker: marker;
 
 
     public position: { lat: Number, lon: Number, accuracy: Number };
@@ -39,18 +41,32 @@ export class MapPage implements OnInit, OnDestroy {
         this._map = new Map("map", { attributionControl: false, zoomControl: false });
 
         // Set the view
-        this._map.setView([45.466342, 9.185291], 10);
+        this._map.setView([45.466342, 9.185291], 16);
 
         // Add OMS as basemap
         tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this._map);
 
+
+        this._userMarker = marker([45.466342, 9.185291], { icon: userMarkerIcon() });
+
+        this._userMarker.addTo(this._map);
+
+
         this._positionSub = this.mapService.watchLocation().subscribe(data => {
 
-            console.log(data);
+            if (!data.coords) {
+                console.log("Error");
+                return;
+            }
+
+            this._map.setView([data.coords.latitude, data.coords.longitude]);
+
+            this._userMarker.setLatLng([data.coords.latitude, data.coords.longitude]);
 
         })
+
 
     }
 

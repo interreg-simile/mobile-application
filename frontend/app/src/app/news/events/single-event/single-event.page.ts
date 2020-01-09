@@ -3,12 +3,11 @@ import { ActivatedRoute } from "@angular/router";
 import { NavController, Platform } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { CallNumber } from "@ionic-native/call-number/ngx";
-import { Map, tileLayer, marker, icon } from "leaflet";
+import { Map, tileLayer, marker } from "leaflet";
 
 import { Event } from "../event.model";
 import { NewsService, STORAGE_KEY_EVENTS } from "../../news.service";
 import { environment } from "../../../../environments/environment";
-import { Rois } from "../../../shared/common.enum";
 import { defaultMarkerIcon } from "../../../shared/utils";
 
 

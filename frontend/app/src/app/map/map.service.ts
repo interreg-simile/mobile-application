@@ -19,7 +19,7 @@ export class MapService {
 
     watchLocation() {
 
-       return this.geolocation.watchPosition();
+        return this.geolocation.watchPosition({ enableHighAccuracy: true });
 
     }
 
