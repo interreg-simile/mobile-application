@@ -1,15 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Platform } from "@ionic/angular";
-import { Map, tileLayer, marker } from 'leaflet';
+import { latLng, Map, marker, tileLayer } from 'leaflet';
 import { Subscription } from "rxjs";
+import { Storage } from "@ionic/storage";
 
 import { MapService } from "./map.service";
-import { defaultMarkerIcon, userMarkerIcon } from "../shared/utils";
+import { defaultMarkerIcon } from "../shared/utils";
+import { Diagnostic } from "@ionic-native/diagnostic/ngx";
+import { LocationErrors } from "../shared/common.enum";
 
 
-const DEFAULT_ZOOM = 19;
+const STORAGE_KEY_POSITION = "position";
 
-const MAX_ZOOM_DELTA = 9;
+
+const INITIAL_LATLNG = latLng(45.95388572325957, 8.958533937111497);
+
+const INITIAL_ZOOM = 9;
+
+/** Initial and default zoom level of the map. */
+const DEFAULT_ZOOM = 18;
+
+/** Minimum level of zoom below which the map is reset to the default level when the GPS button is clicked. */
+const MIN_ZOOM = 14;
 
 
 @Component({ selector: 'app-map', templateUrl: './map.page.html', styleUrls: ['./map.page.scss'] })
@@ -20,22 +32,34 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */ private _pauseSub: Subscription;
     /** @ignore */ private _resumeSub: Subscription;
 
+
     /** Leaflet map object. */
     private _map: Map;
 
+
     private _userMarker: marker;
+
 
     private _mapFlags = {
         firstPosition: true,
-        follows      : true
+        follows      : false
     };
 
 
-    public position: { lat: Number, lon: Number, accuracy: Number };
+    private _locationErrors = LocationErrors;
+
+    private _locationError = LocationErrors.NO_ERROR;
+
+
+    /** User position. */
+    public position = { lat: undefined, lon: undefined, accuracy: undefined };
 
 
     /** @ignore */
-    constructor(private platform: Platform, private mapService: MapService) { }
+    constructor(private platform: Platform,
+                private mapService: MapService,
+                private diagnostic: Diagnostic,
+                private storage: Storage) { }
 
 
     /** @ignore */
@@ -57,66 +81,101 @@ export class MapPage implements OnInit, OnDestroy {
 
             console.log("paused");
 
+        });
+
+
+        this.diagnostic.registerLocationStateChangeHandler(state => {
+
+            console.log(state);
+
         })
 
     }
 
 
     /** @ignore */
-    ionViewDidEnter() { this.initMap() }
+    ionViewDidEnter() {
+
+        // this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
+
+        this.initMap();
+
+    }
 
 
     /** Initializes the Leaflet map. */
     initMap() {
 
-        this.position = { lat: undefined, lon: undefined, accuracy: undefined };
-
         // Create the map
-        this._map = new Map("map", { attributionControl: false, zoomControl: false });
+        this._map = new Map("map", { zoomControl: false });
 
-        // Set the view
-        this._map.setView([45.466342, 9.185291], DEFAULT_ZOOM);
+        // Set the initial view
+        this._map.setView(INITIAL_LATLNG, INITIAL_ZOOM);
 
         // Add OMS as basemap
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this._map);
+        tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            { attribution: '&copy; OpenStreetMap contributors' }
+        ).addTo(this._map);
 
 
-        this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() });
-
-        this._userMarker.addTo(this._map);
-
-
-        this._map.on("dragstart", () => {
-
-            console.log("Map drag");
-
-            this._mapFlags.follows = false;
-
-        });
+        // When the user drags the map, it stops following his position
+        this._map.on("dragstart", () => this._mapFlags.follows = false);
 
 
-        this._positionSub = this.mapService.watchLocation().subscribe(data => {
+        this.mapService.startPositionWatch()
+            .then(status => {
 
-            // if (!data.coords) {
-            //     console.log("Error");
-            //     return;
-            // }
+                console.log("Status: " + LocationErrors[status]);
 
-            this.position.lat = data.coords.latitude;
-            this.position.lon = data.coords.longitude;
+                this._locationError = status;
 
-            console.log(this.position.lat, this.position.lon);
+                if (this._locationError === LocationErrors.NO_ERROR) {
 
-            if (this._mapFlags.follows)
-                this._map.setView([this.position.lat, this.position.lon]);
+                    this._mapFlags.follows = true;
 
-            this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+                    // Add the user marker to the map
+                    this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
 
-            this._mapFlags.firstPosition = false;
+                }
 
-        })
+            })
+            .catch(err => console.error(err));
+
+
+        // navigator.geolocation.watchPosition(
+        //     data => console.log(data),
+        //     err => {
+        //         console.error(err);
+        //     },
+        //     {
+        //         timeout           : 3000,
+        //         enableHighAccuracy: true,
+        //         maximumAge        : 0
+        //     }
+        // );
+
+        // this._positionSub = this.mapService.watchLocation().subscribe(data => {
+
+        // if (!data.coords) {
+        //     console.log("Error");
+        //     return;
+        // }
+
+        // console.log(data);
+
+        // this.position.lat = data.coords.latitude;
+        // this.position.lon = data.coords.longitude;
+
+        // console.log(this.position.lat, this.position.lon);
+
+        // if (this._mapFlags.follows) this._map.setView([this.position.lat, this.position.lon]);
+        //
+        // this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+        //
+        // this._mapFlags.firstPosition = false;
+
+        // });
 
 
     }
@@ -124,29 +183,31 @@ export class MapPage implements OnInit, OnDestroy {
 
     onAddClick() { console.log("Clicked add button") }
 
-    // ToDo zoom
 
     onGPSClick() {
 
-        // this.mapService.checkGPSPermission()
-        //     .catch(err => console.error(err));
+        console.log(this._map.getCenter(), this._map.getZoom())
 
-        if (DEFAULT_ZOOM - this._map.getZoom() > MAX_ZOOM_DELTA) {
-
-            this._map.flyTo([this.position.lat, this.position.lon], DEFAULT_ZOOM, { animate: true });
-
-            this._mapFlags.follows = true;
-
-            return;
-        }
-
-        if (!this._mapFlags.follows) {
-
-            this._map.panTo([this.position.lat, this.position.lon], { animate: true });
-
-            this._mapFlags.follows = true;
-
-        }
+        // // If the map is not following the user position
+        // if (!this._mapFlags.follows) {
+        //
+        //     // If the zoom level of the map is less than the minimum one, fly to the user position with the default zoom
+        //     if (this._map.getZoom() < MIN_ZOOM)
+        //         this._map.flyTo([this.position.lat, this.position.lon], DEFAULT_ZOOM, { animate: false });
+        //
+        //     // Else, pan to the user position
+        //     else this._map.panTo([this.position.lat, this.position.lon], { animate: true });
+        //
+        //     // Start following the user position
+        //     this._mapFlags.follows = true;
+        //
+        //     // Return
+        //     return;
+        //
+        // }
+        //
+        // // Set the zoom to the default level
+        // this._map.setZoom(DEFAULT_ZOOM, { animate: true });
 
     }
 

@@ -38,7 +38,7 @@
 		
 		<ion-fab-button color="light" [class.follow]="_mapFlags.follows" (click)="onGPSClick()">
 			
-			<ion-icon name="locate"></ion-icon>
+			<i class="material-icons">{{ _locationError === _locationErrors.NO_ERROR ? "gps_fixed" : "gps_off" }}</i>
 		
 		</ion-fab-button>
 	

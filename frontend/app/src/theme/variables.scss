@@ -1,6 +1,7 @@
 /** Custom Sass Variables **/
 
 // Font size
+$font-path        : "/assets/fonts";
 $font-title-lg    : 24px;
 $font-title       : 20px;
 $font-body        : 16px;
@@ -83,4 +84,35 @@ $text-unfocused   : #DCDCDC;
   --ion-toolbar-background           : var(--ion-color-primary);
   --ion-toolbar-color                : var(--ion-color-primary-contrast);
 
+}
+
+@font-face {
+  font-family : 'Material Icons';
+  font-style  : normal;
+  font-weight : 400;
+  src         : url($font-path + '/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src         : local('Material Icons'),
+  local('MaterialIcons-Regular'),
+  url($font-path + '/MaterialIcons-Regular.woff2') format('woff2'),
+  url($font-path + '/MaterialIcons-Regular.woff') format('woff'),
+  url($font-path + '/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+  font-family             : 'Material Icons';
+  font-weight             : normal;
+  font-style              : normal;
+  font-size               : 24px; /* Preferred icon size */
+  display                 : inline-block;
+  line-height             : 1;
+  text-transform          : none;
+  letter-spacing          : normal;
+  word-wrap               : normal;
+  white-space             : nowrap;
+  direction               : ltr;
+
+  -webkit-font-smoothing  : antialiased;
+  text-rendering          : optimizeLegibility;
+  -moz-osx-font-smoothing : grayscale;
+  font-feature-settings   : 'liga';
 }
