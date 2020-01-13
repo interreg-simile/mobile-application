@@ -86,7 +86,23 @@ export class MapPage implements OnInit, OnDestroy {
 
         this.diagnostic.registerLocationStateChangeHandler(state => {
 
-            console.log(state);
+            if ((this.platform.is("android") && state === this.diagnostic.locationMode.LOCATION_OFF) ||
+                (this.platform.is("ios") && state !== this.diagnostic.permissionStatus.GRANTED
+                    && state !== this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE)) {
+
+                console.log(`GPS off: ${ state }`);
+
+                this.stopWatchPosition();
+
+                return;
+
+            }
+
+            console.log(`GPS on: ${ state }`);
+
+            this.startWatchPosition();
+
+            return;
 
         })
 
@@ -123,24 +139,7 @@ export class MapPage implements OnInit, OnDestroy {
         this._map.on("dragstart", () => this._mapFlags.follows = false);
 
 
-        this.mapService.startPositionWatch()
-            .then(status => {
-
-                console.log("Status: " + LocationErrors[status]);
-
-                this._locationError = status;
-
-                if (this._locationError === LocationErrors.NO_ERROR) {
-
-                    this._mapFlags.follows = true;
-
-                    // Add the user marker to the map
-                    this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
-
-                }
-
-            })
-            .catch(err => console.error(err));
+        this.startWatchPosition();
 
 
         // navigator.geolocation.watchPosition(
@@ -155,28 +154,65 @@ export class MapPage implements OnInit, OnDestroy {
         //     }
         // );
 
-        // this._positionSub = this.mapService.watchLocation().subscribe(data => {
+    }
 
-        // if (!data.coords) {
-        //     console.log("Error");
-        //     return;
-        // }
 
-        // console.log(data);
+    startWatchPosition() {
 
-        // this.position.lat = data.coords.latitude;
-        // this.position.lon = data.coords.longitude;
+        this.mapService.startPositionWatch()
+            .then(status => {
 
-        // console.log(this.position.lat, this.position.lon);
+                console.log("Status: " + LocationErrors[status]);
 
-        // if (this._mapFlags.follows) this._map.setView([this.position.lat, this.position.lon]);
-        //
-        // this._userMarker.setLatLng([this.position.lat, this.position.lon]);
-        //
-        // this._mapFlags.firstPosition = false;
+                this._locationError = status;
 
-        // });
+                if (this._locationError === LocationErrors.NO_ERROR) {
 
+                    this._mapFlags.follows = true;
+
+                    // Add the user marker to the map
+                    this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
+
+
+                    this._positionSub = this.mapService.watchLocation().subscribe(data => {
+
+                        // console.log(data);
+
+                        if (!data.coords) {
+                            console.error("Error");
+                            return;
+                        }
+
+                        this.position.lat = data.coords.latitude;
+                        this.position.lon = data.coords.longitude;
+
+                        console.log(this.position.lat, this.position.lon);
+
+                        if (this._mapFlags.follows) this._map.setView([this.position.lat, this.position.lon], DEFAULT_ZOOM);
+
+                        this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+
+                        this._mapFlags.firstPosition = false;
+
+                    });
+
+                }
+
+            })
+            .catch(err => console.error(err));
+
+    }
+
+
+    stopWatchPosition() {
+
+        if (this._positionSub) this._positionSub.unsubscribe();
+
+        this._locationError = LocationErrors.GPS_ERROR;
+
+        if (this._userMarker) this._map.removeLayer(this._userMarker);
+
+        this._mapFlags.follows = false;
 
     }
 
@@ -186,9 +222,15 @@ export class MapPage implements OnInit, OnDestroy {
 
     onGPSClick() {
 
-        console.log(this._map.getCenter(), this._map.getZoom())
+        if (this._locationError !== LocationErrors.NO_ERROR) {
 
-        // // If the map is not following the user position
+            this.mapService.startPositionWatch(true).catch(err => console.error(err));
+
+            return;
+
+        }
+
+        // If the map is not following the user position
         // if (!this._mapFlags.follows) {
         //
         //     // If the zoom level of the map is less than the minimum one, fly to the user position with the default zoom
@@ -206,7 +248,7 @@ export class MapPage implements OnInit, OnDestroy {
         //
         // }
         //
-        // // Set the zoom to the default level
+        // Set the zoom to the default level
         // this._map.setZoom(DEFAULT_ZOOM, { animate: true });
 
     }

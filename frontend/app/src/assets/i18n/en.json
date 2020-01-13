@@ -5,6 +5,9 @@
       "lake_como": "Lake Como",
       "lake_maggiore": "Lake Maggiore",
       "lake_lugano": "Lake Lugano"
+    },
+    "alerts": {
+      "button-ok": "OK"
     }
   },
   "drawer": {
@@ -15,7 +18,10 @@
     "item-info": "Info",
     "item-settings": "Settings"
   },
-  "page-map": { },
+  "page-map": {
+    "alert-message-auth": "You have to grant the location permissions from the settings.",
+    "alert-message-gps": "Please, turn on the GPS of the phone."
+  },
   "page-surveys": {
     "header-new": "New",
     "header-completed": "Completed",
