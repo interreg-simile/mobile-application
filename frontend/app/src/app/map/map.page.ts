@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Platform } from "@ionic/angular";
 import { latLng, Map, marker, tileLayer, circleMarker } from 'leaflet';
 import { Subscription } from "rxjs";
@@ -68,7 +68,8 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** @ignore */
-    constructor(private platform: Platform,
+    constructor(private changeRef: ChangeDetectorRef,
+                private platform: Platform,
                 private mapService: MapService,
                 private diagnostic: Diagnostic,
                 private storage: Storage) { }
@@ -153,6 +154,7 @@ export class MapPage implements OnInit, OnDestroy {
 
                 // Save the status
                 this._locationStatus = status;
+                this.changeRef.detectChanges();
 
 
                 // If there an error, return
@@ -161,6 +163,7 @@ export class MapPage implements OnInit, OnDestroy {
 
                 // Set the map to follow the position
                 this._isMapFollowing = true;
+                this.changeRef.detectChanges();
 
                 // Add the user marker to the map
                 this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
@@ -228,6 +231,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Set the status to GPS error
         this._locationStatus = LocationErrors.GPS_ERROR;
+        this.changeRef.detectChanges();
 
         // Remove the user marker and the accuracy circle
         if (this._userMarker) this._map.removeLayer(this._userMarker);
@@ -235,6 +239,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Set the following flag to false
         this._isMapFollowing = false;
+        this.changeRef.detectChanges();
 
         // Cache the position of the user
         this.cachePosition().catch(err => console.error(`Error caching position: ${ err }`))
