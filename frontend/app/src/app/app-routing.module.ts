@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [
     { path: '', redirectTo: 'map', pathMatch: 'full' },
     {
         path: 'map', children: [
             { path: "", loadChildren: './map/map.module#MapPageModule' },
-            { path: "test", loadChildren: './map/test/test.module#TestPageModule' },
+            {
+                path        : 'new-observation',
+                loadChildren: './map/observations/new-observation/new-observation.module#NewObservationPageModule'
+            }
         ]
     },
     {
@@ -31,8 +35,8 @@ const routes: Routes = [
     { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
     { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
     { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' }
-
 ];
+
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

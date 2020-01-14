@@ -36,9 +36,9 @@
 	<!-- FAB gps -->
 	<ion-fab class="fab-secondary" vertical="bottom" horizontal="end" edge slot="fixed">
 		
-		<ion-fab-button color="light" [class.follow]="_mapFlags.follows" (click)="onGPSClick()">
+		<ion-fab-button color="light" [class.follow]="_isMapFollowing" (click)="onGPSClick()">
 			
-			<i class="material-icons">{{ _locationError === _locationErrors.NO_ERROR ? "gps_fixed" : "gps_off" }}</i>
+			<i class="material-icons">{{ _locationStatus === _locationErrors.NO_ERROR ? "gps_fixed" : "gps_off" }}</i>
 		
 		</ion-fab-button>
 	
@@ -48,7 +48,7 @@
 	<!-- FAB add -->
 	<ion-fab vertical="bottom" horizontal="end" edge slot="fixed">
 		
-		<ion-fab-button [routerLink]="['/', 'map', 'test']">
+		<ion-fab-button [routerLink]="['/', 'map', 'new-observation']">
 			
 			<ion-icon name="add"></ion-icon>
 		

@@ -1,54 +1,66 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Platform } from "@ionic/angular";
-import { latLng, Map, marker, tileLayer } from 'leaflet';
+import { latLng, Map, marker, tileLayer, circleMarker } from 'leaflet';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
+import { Diagnostic } from "@ionic-native/diagnostic/ngx";
 
 import { MapService } from "./map.service";
 import { defaultMarkerIcon } from "../shared/utils";
-import { Diagnostic } from "@ionic-native/diagnostic/ngx";
 import { LocationErrors } from "../shared/common.enum";
 
 
+/** Storage key for the cached user position. */
 const STORAGE_KEY_POSITION = "position";
 
 
+/** Initial coordinates of the center of the map. */
 const INITIAL_LATLNG = latLng(45.95388572325957, 8.958533937111497);
 
+/** Initial zoom level of the map.  */
 const INITIAL_ZOOM = 9;
 
-/** Initial and default zoom level of the map. */
+/** Default zoom level of the map. */
 const DEFAULT_ZOOM = 18;
 
 /** Minimum level of zoom below which the map is reset to the default level when the GPS button is clicked. */
 const MIN_ZOOM = 14;
 
 
+/**
+ * Main page of the application. Here the user can visualize herself on a map together with all the observations,
+ * measurements and events.
+ * From this page the user can navigate to the page designed for the insertion of a new observation.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
 @Component({ selector: 'app-map', templateUrl: './map.page.html', styleUrls: ['./map.page.scss'] })
 export class MapPage implements OnInit, OnDestroy {
 
 
     /** @ignore */ private _positionSub: Subscription;
     /** @ignore */ private _pauseSub: Subscription;
-    /** @ignore */ private _resumeSub: Subscription;
 
 
     /** Leaflet map object. */
     private _map: Map;
 
-
+    /** Marker for the user position. */
     private _userMarker: marker;
 
+    private _accuracyCircle: circleMarker;
 
-    private _mapFlags = {
-        firstPosition: true,
-        follows      : false
-    };
+    /** Flag that states if the position found is the first. */
+    private _isFirstPosition = true;
 
+    /** Flag that states if the map center is following the user position. */
+    private _isMapFollowing = false;
 
+    /** Local instantiation of the LocationErrors enum. */
     private _locationErrors = LocationErrors;
 
-    private _locationError = LocationErrors.NO_ERROR;
+    /** Current status of the location. */
+    private _locationStatus = LocationErrors.NO_ERROR;
 
 
     /** User position. */
@@ -65,138 +77,140 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */
     ngOnInit() {
 
-        this._resumeSub = this.platform.resume.subscribe(() => {
-
-            // console.log(this._positionSub);
-
-            console.log("resumed");
-
-        });
-
         this._pauseSub = this.platform.pause.subscribe(() => {
 
-            // this._positionSub.unsubscribe();
-            //
-            // console.log(this._positionSub);
+            console.log("App paused");
 
-            console.log("paused");
+            // Cache the position of the user
+            this.cachePosition().catch(err => console.error(`Error caching position: ${ err }`))
 
         });
 
 
+        // Register to any change in the location state
         this.diagnostic.registerLocationStateChangeHandler(state => {
 
+            console.log(`GPS state changed to ${ state }`);
+
+            // If the location is not available, stop the position watching
             if ((this.platform.is("android") && state === this.diagnostic.locationMode.LOCATION_OFF) ||
                 (this.platform.is("ios") && state !== this.diagnostic.permissionStatus.GRANTED
-                    && state !== this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE)) {
+                    && state !== this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE)) this.stopWatcher();
 
-                console.log(`GPS off: ${ state }`);
+            // Else, start the position watching
+            else this.startWatcher();
 
-                this.stopWatchPosition();
+        });
 
-                return;
 
-            }
-
-            console.log(`GPS on: ${ state }`);
-
-            this.startWatchPosition();
-
-            return;
-
-        })
+        // Restore the cached position and init the map
+        this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
 
     }
 
 
-    /** @ignore */
-    ionViewDidEnter() {
+    /**
+     * Initializes the Leaflet map.
+     *
+     * @param {Number[]} view - The coordinated on which the map should be centered on creation.
+     */
+    initMap(view) {
 
-        // this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
-
-        this.initMap();
-
-    }
-
-
-    /** Initializes the Leaflet map. */
-    initMap() {
+        console.log(view);
 
         // Create the map
         this._map = new Map("map", { zoomControl: false });
 
         // Set the initial view
-        this._map.setView(INITIAL_LATLNG, INITIAL_ZOOM);
+        if (view)
+            this._map.setView(view, DEFAULT_ZOOM);
+        else
+            this._map.setView(INITIAL_LATLNG, INITIAL_ZOOM);
 
         // Add OMS as basemap
-        tileLayer(
-            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            { attribution: '&copy; OpenStreetMap contributors' }
-        ).addTo(this._map);
+        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            { attribution: '&copy; OpenStreetMap contributors' }).addTo(this._map);
 
 
         // When the user drags the map, it stops following his position
-        this._map.on("dragstart", () => this._mapFlags.follows = false);
+        this._map.on("dragstart", () => this._isMapFollowing = false);
 
 
-        this.startWatchPosition();
-
-
-        // navigator.geolocation.watchPosition(
-        //     data => console.log(data),
-        //     err => {
-        //         console.error(err);
-        //     },
-        //     {
-        //         timeout           : 3000,
-        //         enableHighAccuracy: true,
-        //         maximumAge        : 0
-        //     }
-        // );
+        // Start the position watcher
+        this.startWatcher();
 
     }
 
 
-    startWatchPosition() {
+    /** Starts the position watcher. */
+    startWatcher() {
 
-        this.mapService.startPositionWatch()
+        // Start the position watcher
+        this.mapService.checkPositionAvailability()
             .then(status => {
 
-                console.log("Status: " + LocationErrors[status]);
+                console.log(`Trying to start position watching. Status: ${ LocationErrors[status] }`);
 
-                this._locationError = status;
-
-                if (this._locationError === LocationErrors.NO_ERROR) {
-
-                    this._mapFlags.follows = true;
-
-                    // Add the user marker to the map
-                    this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
+                // Save the status
+                this._locationStatus = status;
 
 
-                    this._positionSub = this.mapService.watchLocation().subscribe(data => {
+                // If there an error, return
+                if (this._locationStatus !== LocationErrors.NO_ERROR) return;
 
-                        // console.log(data);
 
-                        if (!data.coords) {
-                            console.error("Error");
-                            return;
-                        }
+                // Set the map to follow the position
+                this._isMapFollowing = true;
 
-                        this.position.lat = data.coords.latitude;
-                        this.position.lon = data.coords.longitude;
+                // Add the user marker to the map
+                this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
 
-                        console.log(this.position.lat, this.position.lon);
+                // Add the accuracy circle to the map
+                this._accuracyCircle = circleMarker([45.466342, 9.185291],
+                    { radius: 0, color: "green", opacity: .5 }).addTo(this._map);
 
-                        if (this._mapFlags.follows) this._map.setView([this.position.lat, this.position.lon], DEFAULT_ZOOM);
 
-                        this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+                // Subscribe to the location watcher
+                this._positionSub = this.mapService.watchLocation().subscribe(data => {
 
-                        this._mapFlags.firstPosition = false;
+                    // If the data does not contain any coordinate, raise an error and return
+                    if (!data.coords) {
+                        console.error("Error");
+                        return;
+                    }
 
-                    });
+                    // Save the geo data
+                    this.position.lat      = data.coords.latitude;
+                    this.position.lon      = data.coords.longitude;
+                    this.position.accuracy = data.coords.accuracy;
 
-                }
+                    console.log(`[${ this.position.lat }, ${ this.position.lon }] (${ this.position.accuracy })`);
+
+                    // If the map is set to follow the user position
+                    if (this._isMapFollowing) {
+
+                        // If its the first found position, set the center and the zoom of the map
+                        if (this._isFirstPosition)
+                            this._map.setView([this.position.lat, this.position.lon], DEFAULT_ZOOM);
+
+                        // Else, set just the center
+                        else
+                            this._map.panTo([this.position.lat, this.position.lon]);
+
+                    }
+
+                    // Set the position of the user marker
+                    this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+
+                    // Set the position and the radius of the accuracy circle
+                    this._accuracyCircle
+                        .setLatLng([this.position.lat, this.position.lon])
+                        .setRadius(this.position.accuracy / 2);
+
+                    // Set the first position flag to false
+                    this._isFirstPosition = false;
+
+                });
 
             })
             .catch(err => console.error(err));
@@ -204,64 +218,75 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    stopWatchPosition() {
+    /** Stops the position watcher. */
+    stopWatcher() {
 
+        console.log("Position watcher stopped");
+
+        // Unsubscribe from the position watcher
         if (this._positionSub) this._positionSub.unsubscribe();
 
-        this._locationError = LocationErrors.GPS_ERROR;
+        // Set the status to GPS error
+        this._locationStatus = LocationErrors.GPS_ERROR;
 
+        // Remove the user marker and the accuracy circle
         if (this._userMarker) this._map.removeLayer(this._userMarker);
+        if (this._accuracyCircle) this._map.removeLayer(this._accuracyCircle);
 
-        this._mapFlags.follows = false;
+        // Set the following flag to false
+        this._isMapFollowing = false;
+
+        // Cache the position of the user
+        this.cachePosition().catch(err => console.error(`Error caching position: ${ err }`))
 
     }
 
 
-    onAddClick() { console.log("Clicked add button") }
+    /** Saves the current position of the user in the local storage of the phone. */
+    async cachePosition() {
+
+        console.log("Caching position...");
+
+        if (this.position.lat && this.position.lon)
+            await this.storage.set(STORAGE_KEY_POSITION, [this.position.lat, this.position.lon]);
+
+    }
 
 
+    /** Response to the user action of clicking on the GPS button. */
     onGPSClick() {
 
-        if (this._locationError !== LocationErrors.NO_ERROR) {
+        // If there is an error
+        if (this._locationStatus !== LocationErrors.NO_ERROR) {
 
-            this.mapService.startPositionWatch(true).catch(err => console.error(err));
+            // Start the position watcher
+            this.mapService.checkPositionAvailability(true).catch(err => console.error(err));
 
+            // Return
             return;
 
         }
 
         // If the map is not following the user position
-        // if (!this._mapFlags.follows) {
-        //
-        //     // If the zoom level of the map is less than the minimum one, fly to the user position with the default zoom
-        //     if (this._map.getZoom() < MIN_ZOOM)
-        //         this._map.flyTo([this.position.lat, this.position.lon], DEFAULT_ZOOM, { animate: false });
-        //
-        //     // Else, pan to the user position
-        //     else this._map.panTo([this.position.lat, this.position.lon], { animate: true });
-        //
-        //     // Start following the user position
-        //     this._mapFlags.follows = true;
-        //
-        //     // Return
-        //     return;
-        //
-        // }
-        //
+        if (!this._isMapFollowing) {
+
+            // If the zoom level of the map is less than the minimum one, fly to the user position with the default zoom
+            if (this._map.getZoom() < MIN_ZOOM)
+                this._map.flyTo([this.position.lat, this.position.lon], DEFAULT_ZOOM, { animate: false });
+
+            // Else, pan to the user position
+            else this._map.panTo([this.position.lat, this.position.lon], { animate: true });
+
+            // Start following the user position
+            this._isMapFollowing = true;
+
+            // Return
+            return;
+
+        }
+
         // Set the zoom to the default level
-        // this._map.setZoom(DEFAULT_ZOOM, { animate: true });
-
-    }
-
-
-    /** @ignore */
-    ionViewWillLeave() {
-
-        console.log("Leave");
-
-        if (this._positionSub) this._positionSub.unsubscribe();
-
-        this._map.remove();
+        this._map.setZoom(DEFAULT_ZOOM, { animate: true });
 
     }
 
@@ -269,10 +294,16 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */
     ngOnDestroy() {
 
-        console.log("destroy");
+        console.log("View destroyed");
 
-        if (this._positionSub) this._positionSub.unsubscribe();
+        // Stop the position watcher
+        this.stopWatcher();
+
+        // Unsubscribe
         if (this._pauseSub) this._pauseSub.unsubscribe();
+
+        // Remove the map
+        this._map.remove();
 
     }
 

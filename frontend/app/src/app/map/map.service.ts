@@ -1,90 +1,81 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from "@ionic-native/geolocation/ngx";
-import { BehaviorSubject } from "rxjs";
-import { filter } from 'rxjs/operators';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
-import { AlertController, Platform } from "@ionic/angular";
+import { AlertController } from "@ionic/angular";
 
 import { LocationErrors } from "../shared/common.enum";
 import { TranslateService } from "@ngx-translate/core";
 
 
+/**
+ * Service to handle the map logic. It allows to check if the application is able to retrieve the user position and to
+ * start recording it.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
 @Injectable({ providedIn: 'root' })
 export class MapService {
-
-
-    private _position = new BehaviorSubject<any>({});
-    private _status   = new BehaviorSubject<LocationErrors>(undefined);
-
-
-    get position() { return this._position.asObservable() }
-
-    get status() { return this._status.asObservable() }
 
 
     /** @ignore */
     constructor(private translate: TranslateService,
                 private geolocation: Geolocation,
                 private diagnostic: Diagnostic,
-                private alertCtrl: AlertController,
-                private platform: Platform) { }
+                private alertCtrl: AlertController) { }
 
 
-    async checkGPSPermission() {
-
-        const auth = await this.diagnostic.isLocationAuthorized();
-
-        console.log("Location permissions: " + auth);
-
-    }
-
-
+    /** Starts registering the user location. */
     watchLocation() {
         return this.geolocation.watchPosition({ timeout: 3000, enableHighAccuracy: true, maximumAge: 0 });
     }
 
 
-    async startPositionWatch(fromClick = false) {
+    /**
+     * Checks if the app can retrieve the user position in terms of permissions and of GPS availability.
+     *
+     * @param {boolean} [fromClick=false] - True if the check is triggered from a user action.
+     * @returns {LocationErrors} The location status.
+     */
+    async checkPositionAvailability(fromClick = false) {
 
+        // Get the location authorization status
         const authStatus = await this.diagnostic.getLocationAuthorizationStatus();
 
-        console.log("Auth: " + authStatus);
+        console.log(`Location authorization status: ${authStatus}`);
 
+        // If the permission is denied and cannot be asked, return an error
         if (fromClick && authStatus === this.diagnostic.permissionStatus.DENIED_ALWAYS) {
             this.presetErrAlert(LocationErrors.AUTH_ERROR);
             return LocationErrors.AUTH_ERROR;
         }
 
+        // If the permission is denied, but can be asked
         if (authStatus !== this.diagnostic.permissionStatus.GRANTED ||
             authStatus !== this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
 
+            // Ask the permission
             const req = await this.diagnostic.requestLocationAuthorization();
 
-            console.log("Permission: " + req);
+            console.log(`Permission requested. Answer: ${req}`);
 
+            // If the permission is still denied, return an error
             if (req === this.diagnostic.permissionStatus.DENIED_ALWAYS ||
-                req === this.diagnostic.permissionStatus.DENIED_ONCE) {
-
-                console.log("Permissions definitely denied");
-
-                return LocationErrors.AUTH_ERROR;
-
-            }
+                req === this.diagnostic.permissionStatus.DENIED_ONCE) return LocationErrors.AUTH_ERROR;
 
         }
 
+        // Check if the GPS is enabled
         const gps = await this.diagnostic.isLocationEnabled();
 
-        console.log("GPS on: " + gps);
+        console.log(`GPS status: ${gps}`);
 
+        // If the gps is not enabled, return an error
         if (!gps) {
-
             if (fromClick) this.presetErrAlert(LocationErrors.GPS_ERROR);
-
             return LocationErrors.GPS_ERROR;
-
         }
 
+        // Return no errors
         return LocationErrors.NO_ERROR;
 
     }
