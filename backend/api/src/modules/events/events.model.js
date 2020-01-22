@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 import { point } from "../../utils/common-schemas";
 import { enums } from "../../utils/common-validations";
+import { collection as User } from "../users/user.model";
 
 
 export const collection = "Events";
@@ -21,6 +22,7 @@ const contacts = new Schema({
 });
 
 const schema = new Schema({
+    uid              : { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
     titleIta         : { type: String, required: true },
     titleEng         : { type: String, required: false },
     descriptionIta   : { type: String, required: true },
@@ -29,10 +31,11 @@ const schema = new Schema({
     address          : { type: address, required: true },
     rois             : { type: [{ type: String, enum: enums.roi }], required: true },
     date             : { type: Date, required: true },
-    imageUrl         : { type: String, required: true },
+    cover            : { type: String, required: true },
     contacts         : { type: contacts, required: false },
     participants     : { type: Number, required: false },
+    photos           : { type: [String], required: false },
     markedForDeletion: { type: Boolean, required: true, default: false }
-}, { timestamps: false });
+}, { timestamps: true });
 
 export default mongoose.model(collection, schema, collection);

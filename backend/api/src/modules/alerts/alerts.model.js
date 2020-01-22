@@ -17,6 +17,6 @@ const schema = new Schema({
     dateEnd          : { type: Date, required: true },
     rois             : { type: [{ type: String, enum: enums.roi }], required: true },
     markedForDeletion: { type: Boolean, required: true, default: false }
-}, { timestamps: false });
+}, { timestamps: true });
 
 export default mongoose.model(collection, schema, collection);

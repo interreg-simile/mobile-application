@@ -2,6 +2,7 @@ import { LoremIpsum } from "lorem-ipsum";
 
 import Event, { collection } from "./events.model";
 import { dropCollection } from "../../setup/seeder";
+import User from "../users/user.model";
 
 
 export default async function () {
@@ -12,27 +13,46 @@ export default async function () {
 
     const events = [
         {
-            titleIta      : "Titolo evento",
-            titleEng      : "Event title",
+            titleIta      : "Evento futuro",
+            titleEng      : "Future event",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
             descriptionEng: new LoremIpsum().generateParagraphs(1),
-            position      : { type: "Point", coordinates: [9.077134, 45.823060] },
+            position      : { type: "Point", coordinates: [5.909484, 8.505565] },
             address       : {
-                main      : "Viale Geno",
-                civic     : "17",
-                city      : "como",
-                postalCode: 22100,
-                province  : "co",
+                main      : "Corso Giuseppe Garibaldi",
+                civic     : "23",
+                city      : "baveno",
+                postalCode: 28831,
+                province  : "vb",
                 country   : "italy"
             },
-            rois          : ["lake_como"],
+            rois          : ["lake_maggiore"],
             date          : new Date("2020-12-30T15:24:00"),
-            imageUrl      : "events/default.jpg",
+            cover         : "events/default.jpg",
             contacts      : { mail: "info@simile.it", phone: "+393349969525" }
         },
         {
-            titleIta      : "Titolo evento passato",
-            titleEng      : "Past event title",
+            titleIta      : "Evento futuro 2",
+            titleEng      : "Future event 2",
+            descriptionIta: new LoremIpsum().generateParagraphs(1),
+            descriptionEng: new LoremIpsum().generateParagraphs(1),
+            position      : { type: "Point", coordinates: [9.383572, 45.860125] },
+            address       : {
+                main      : "Largo Fratelli Calvi",
+                civic     : "2",
+                city      : "lecco",
+                postalCode: 23900,
+                province  : "lc",
+                country   : "italy"
+            },
+            rois          : ["lake_como"],
+            date          : new Date("2020-10-13T09:10:00"),
+            cover         : "events/default.jpg",
+            contacts      : { mail: "info@simile.it" }
+        },
+        {
+            titleIta      : "Evento passato senza foto",
+            titleEng      : "Past event without photos",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
             descriptionEng: new LoremIpsum().generateParagraphs(1),
             position      : { type: "Point", coordinates: [9.383572, 45.860125] },
@@ -46,31 +66,33 @@ export default async function () {
             },
             rois          : ["lake_maggiore"],
             date          : new Date("2019-09-13T09:10:00"),
-            imageUrl      : "events/default.jpg",
+            cover         : "events/default.jpg",
             contacts      : { mail: "info@simile.it", phone: "+393349969525" }
         },
         {
-            titleIta      : "Titolo evento in mezzo",
-            titleEng      : "Middle event title",
+            titleIta      : "Evento passato con foto",
+            titleEng      : "Past event without photos",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
             descriptionEng: new LoremIpsum().generateParagraphs(1),
-            position      : { type: "Point", coordinates: [9.383572, 45.860125] },
+            position      : { type: "Point", coordinates: [45.903938, 8.899005] },
             address       : {
-                main      : "Largo Fratelli Calvi",
+                main      : "Via degli Alpini",
                 civic     : "2",
-                city      : "lecco",
-                postalCode: 23900,
-                province  : "lc",
+                city      : "porto ceresio",
+                postalCode: 21050,
+                province  : "va",
                 country   : "italy"
             },
-            rois          : ["lake_maggiore", "lake_lugano"],
-            date          : new Date("2020-10-13T09:10:00"),
-            imageUrl      : "events/default.jpg",
-            contacts      : { mail: "info@simile.it" }
+            rois          : ["lake_lugano"],
+            date          : new Date("2019-12-13T09:10:00"),
+            cover         : "events/default.jpg",
+            contacts      : { mail: "info@simile.it", phone: "+393349969525" },
+            participants  : 120,
+            photos        : ["events/photo_1.jpg", "events/photo_2.jpg", "events/photo_3.jpg"]
         },
         {
-            titleIta         : "Titolo evento cancellato",
-            titleEng         : "Deleted event title",
+            titleIta         : "Evento cancellato",
+            titleEng         : "Deleted event",
             descriptionIta   : new LoremIpsum().generateParagraphs(1),
             descriptionEng   : new LoremIpsum().generateParagraphs(1),
             position         : { type: "Point", coordinates: [9.383572, 45.860125] },
@@ -84,12 +106,20 @@ export default async function () {
             },
             rois             : ["lake_como"],
             date             : new Date("2020-10-13T09:10:00"),
-            imageUrl         : "events/default.jpg",
-            contacts         : {},
+            cover            : "events/default.jpg",
+            contacts         : { mail: "info@simile.it", phone: "+393349969525" },
             markedForDeletion: true
         }
     ];
 
-    for (const event of events) await Event.create(event);
+    const adminId = await User.findOne({ email: "admin@example.com" }, "_id");
+
+    for (const event of events) {
+
+        event.uid = adminId;
+
+        await Event.create(event);
+
+    }
 
 }

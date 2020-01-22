@@ -91,7 +91,7 @@ export const create = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Create the event
-    eventService.create({ ...req.body, imageUrl: req.file.path })
+    eventService.create({ uid: req.userId, ...req.body, cover: req.file.path })
         .then(event => res.status(201).json({ meta: { code: 201 }, data: { event } }))
         .catch(err => next(err));
 
@@ -135,15 +135,19 @@ export const update = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
-    // If a new image is provided, append the path to the body
-    if (req.file) req.body.imageUrl = req.file.path;
-
     // Update the event
-    eventService.update(req.params.id, req.body)
-        .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
+    eventService.update(req.params.id, { uid: req.userId, ...req.body, cover: req.file.path })
+        .then(result => res.status(200).json(
+            { meta: { code: result.created ? 201 : 200 }, data: { event: result.newEvent } }
+        ))
         .catch(err => next(err));
 
 };
+
+
+// ToDo fix patch
+
+// ToDo add images post
 
 
 /**

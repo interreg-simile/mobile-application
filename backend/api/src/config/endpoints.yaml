@@ -18,7 +18,7 @@
     upload:
       required: true
       single: true
-      name: image
+      name: cover
       dest: ./uploads/events
 
   - path: /:id
@@ -33,9 +33,9 @@
     admin_required: true
     token_required: true
     upload:
-      required: false
+      required: true
       single: true
-      name: image
+      name: cover
       dest: ./uploads/events
 
   - path: /:id

@@ -20,7 +20,7 @@ export default function (server) {
 
     server.use(`/${version}/auth`, authRouter);
     server.use(`/${version}/users`, userRouter);
-    server.use(`/${version}/surveys`, surveyRouter);
+    // server.use(`/${version}/surveys`, surveyRouter);
     server.use(`/${version}/events`, eventRouter);
     server.use(`/${version}/alerts`, alertsRouter);
 

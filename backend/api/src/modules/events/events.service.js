@@ -9,7 +9,7 @@ import { removeFile } from "../../utils/utils";
  * @param {Object} filter - The filter to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @returns {Promise<Object>} A promise containing the result of the query.
+ * @returns {Promise<Event[]>} A promise containing the result of the query.
  */
 export async function getAll(filter, projection, options) {
 
@@ -25,7 +25,7 @@ export async function getAll(filter, projection, options) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @returns {Promise<Object>} A promise containing the result of the query.
+ * @returns {Promise<Event>} A promise containing the result of the query.
  */
 export async function getById(id, filter, projection, options) {
 
@@ -45,24 +45,28 @@ export async function getById(id, filter, projection, options) {
  * Creates a new event and saves it in the database.
  *
  * @param {Object} data - The event data.
- * @returns {Promise<Object>} A promise containing the newly created event.
+ * @returns {Promise<Event>} A promise containing the newly created event.
  */
 export async function create(data) {
 
     // Create the new event
     const event = new Event({
+        uid           : data.uid,
         titleIta      : data.titleIta,
         titleEng      : data.titleEng,
         descriptionIta: data.descriptionIta,
         descriptionEng: data.descriptionEng,
-        position      : data.position,
+        position      : { type: "Point", coordinates: data.coordinates },
         address       : data.address,
         rois          : data.rois,
         date          : data.date,
-        imageUrl      : data.imageUrl,
+        cover         : data.cover,
         contacts      : data.contacts,
-        participants  : data.participants,
+        participants  : data.participants
     });
+
+    // If the event id is provided, set it
+    if (data.id) event._id = data.id;
 
     // Save the event
     return await event.save();
@@ -71,30 +75,34 @@ export async function create(data) {
 
 
 /**
- * Update an existing event.
+ * Updates an existing event. If the event do not exist, it creates it.
  *
  * @param {string} id - The id of the event.
  * @param {Object} data - The new data.
- * @returns {Promise<Object>} A promise containing the newly created event.
+ * @returns {Promise<{newEvent: Event, created: boolean}>} A promise containing the created or updated event and a flag
+ *          stating if the event has been created.
  */
 export async function update(id, data) {
 
     // Find the event
     const event = await Event.findById(id);
 
-    // If no data is found, throw an error
-    if (!event) throw constructError(404, "Resource not found.");
+    // If no data is found, create a new event
+    if (!event) return { newEvent: await create({ id: id, ...data }), created: true };
+
+    // Save the olf image url
+    const oldImg = event.cover;
 
     // Update the values
     event.titleIta       = data.titleIta;
     event.titleEng       = data.titleEng;
     event.descriptionIta = data.descriptionIta;
     event.descriptionEng = data.descriptionEng;
-    event.position       = data.position;
+    event.position       = { type: "Point", coordinates: data.coordinates };
     event.address        = data.address;
     event.rois           = data.rois;
     event.date           = data.date;
-    event.imageUrl       = data.imageUrl ;
+    event.cover          = data.cover;
     event.contacts       = data.contacts;
     event.participants   = data.participants;
 
@@ -102,9 +110,10 @@ export async function update(id, data) {
     const newEvent = await event.save();
 
     // If a new image has been provided, delete the old image
-    if (data.imageUrl) removeFile(event.imageUrl);
+    // if (data.cover)
+    removeFile(oldImg);
 
-    return newEvent;
+    return { newEvent: newEvent, created: false };
 
 }
 
@@ -114,7 +123,7 @@ export async function update(id, data) {
  *
  * @param {string} id - The id of the event.
  * @param {number} participants - The number of participants.
- * @returns {Promise<Object>} A promise containing the modified event.
+ * @returns {Promise<Event>} A promise containing the modified event.
  */
 export async function setParticipants(id, participants) {
 

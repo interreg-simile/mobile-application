@@ -110,6 +110,8 @@ export const update = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
+    // ToDo fix as events
+
     // Update the event
     alertService.update(req.params.id, req.body)
         .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))

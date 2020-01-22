@@ -1,4 +1,4 @@
-import { body, query } from "express-validator";
+import { body, query, oneOf } from "express-validator";
 import { vQuery, enums, vBody } from "../../utils/common-validations";
 
 
@@ -34,19 +34,14 @@ export const event = [
     body("descriptionEng")
         .optional()
         .trim().escape(),
-    body("position")
-        .not().isEmpty().withMessage("Missing property 'position'."),
-    body("position.type")
-        .optional()
-        .isIn(["Point"]).withMessage("Invalid value of property 'type' of 'position'."),
-    body("position.coordinates")
-        .not().isEmpty().withMessage("Missing property 'coordinates' of 'position'.")
-        .isArray({ min: 2, max: 2 }).withMessage("Wrong format of property 'coordinates' of 'position'.")
+    body("coordinates")
+        .not().isEmpty().withMessage("Missing property 'coordinates'.")
+        .isArray({ min: 2, max: 2 }).withMessage("Wrong format of property 'coordinates'.")
         .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0))
-        .withMessage("Invalid value of property 'coordinates' of 'position'."),
-    body("position.coordinates.*")
-        .not().isEmpty().withMessage("Missing one of the 'coordinates' of 'position'.")
-        .isFloat().withMessage("Wrong format of one of the 'coordinates' of 'position'."),
+        .withMessage("Invalid value of property 'coordinates'."),
+    body("coordinates.*")
+        .not().isEmpty().withMessage("Missing one of the 'coordinates'.")
+        .isFloat().withMessage("Wrong format of one of the 'coordinates'."),
     body("address")
         .not().isEmpty().withMessage("Missing property 'address'."),
     body("address.main")
@@ -72,15 +67,20 @@ export const event = [
     body("date")
         .not().isEmpty().withMessage("Missing property 'date'.")
         .isISO8601().withMessage("Wrong format of property 'date'."),
-    body("imageUrl")
-        .isEmpty().withMessage("Set forbidden property 'imageUrl'."),
-    body("contacts.mail")
-        .optional()
-        .isEmail().withMessage("Wrong format of property 'mail' of 'contacts'.")
-        .normalizeEmail(),
-    body("contacts.phone")
-        .optional()
-        .isMobilePhone("any", { strictMode: true }).withMessage("Wrong format of property 'phone' of 'contacts'."),
+    body("cover")
+        .isEmpty().withMessage("Set forbidden property 'cover'."),
+    body("contacts")
+        .not().isEmpty().withMessage("Missing property 'contacts'."),
+    oneOf([
+        body("contacts.mail")
+            .not().isEmpty()
+            .isEmail().withMessage("Wrong format of property 'mail' of 'contacts'.")
+            .normalizeEmail(),
+        body("contacts.phone")
+            .not().isEmpty()
+            .isMobilePhone("any", { strictMode: true })
+            .withMessage("Wrong format of property 'phone' of 'contacts'.")
+    ], "At least one contact has to be specified."),
     body("participants")
         .optional()
         .isInt({ min: 0 }).withMessage("Wrong format of property 'participants'."),
