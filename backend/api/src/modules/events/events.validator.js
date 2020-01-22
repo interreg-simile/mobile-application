@@ -89,6 +89,10 @@ export const event = [
 ];
 
 
+// Validation chain for the body of the "patch" requests
+export const patch = [];
+
+
 // Validation chain for the "participants" field
 export const participants = [
     body("participants")

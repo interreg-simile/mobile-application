@@ -90,7 +90,7 @@ export async function update(id, data) {
     // If no data is found, create a new event
     if (!event) return { newEvent: await create({ id: id, ...data }), created: true };
 
-    // Save the olf image url
+    // Save the old image url
     const oldImg = event.cover;
 
     // Update the values
@@ -109,8 +109,7 @@ export async function update(id, data) {
     // Save the event
     const newEvent = await event.save();
 
-    // If a new image has been provided, delete the old image
-    // if (data.cover)
+    // Delete the old image
     removeFile(oldImg);
 
     return { newEvent: newEvent, created: false };
@@ -119,25 +118,34 @@ export async function update(id, data) {
 
 
 /**
- * Sets the number of participants of an event.
+ * Patch an existing event.
  *
  * @param {string} id - The id of the event.
- * @param {number} participants - The number of participants.
- * @returns {Promise<Event>} A promise containing the modified event.
+ * @param {Object} data - The new data.
+ * @returns {Promise<Event>} A promise containing the patched event.
  */
-export async function setParticipants(id, participants) {
+export async function patch(id, data) {
 
     // Find the event
     const event = await Event.findById(id);
 
     // If no data is found, throw an error
-    if (!event) throw constructError(404, "Event not found.");
+    if (!event) throw constructError(404, "Resource not found.");
 
-    // Save the data
-    event.participants = participants;
+    // Save the old image url
+    const oldImg = event.cover;
+
+    // Change the value of the given properties
+    for (const k of Object.keys(data)) event[k] = data[k];
 
     // Save the event
-    return await event.save();
+    const newEvent = await event.save();
+
+    // If a new image has been provided, delete the old image
+    if (data.cover) removeFile(oldImg);
+
+    // Return the new event
+    return newEvent;
 
 }
 

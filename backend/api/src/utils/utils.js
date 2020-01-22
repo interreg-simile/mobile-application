@@ -32,3 +32,44 @@ export function getQuerySorting(val) {
     return s;
 
 }
+
+
+/**
+ * Changes the value associated to a given key in an object considering also any nested object.
+ *
+ * @param {Object} obj - The object which has the property to change.
+ * @param {string} key - The key of the property to change.
+ * @param {any} newVal - The new value to assign to the property.
+ * @return {boolean} True if the property has been found and the value correctly changed.
+ */
+export function changeNestedObjProperty(obj, key, newVal) {
+
+    let res;
+
+    for (const prop in obj) {
+
+        if (obj.hasOwnProperty(prop)) {
+
+            if (prop === key) {
+
+                obj[key] = newVal;
+
+                return true;
+
+            }
+
+            if (typeof obj[prop] === "object") {
+
+                res = changeNestedObjProperty(obj[prop], key, newVal);
+
+                if (res) return true;
+
+            }
+
+        }
+
+    }
+
+    return false;
+
+}

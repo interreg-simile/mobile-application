@@ -11,8 +11,11 @@ const generalConf = yaml.load(path.resolve("./src/config/default.yaml"));
 const endpointsConf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 
 
+/** App configuration. */
+export const appConf = generalConf.app;
+
 /** Version of the API in the format v1. */
-export const version = `v${generalConf.app.version}`;
+export const version = `v${appConf.version}`;
 
 
 

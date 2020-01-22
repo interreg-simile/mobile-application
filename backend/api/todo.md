@@ -9,6 +9,3 @@
     - How long is the admin allowed to add photos?
     - Add the user who created the event (only hem is allowed to add photos?).
     - How long will the "updated" event be visible on the map?
-
-- Add a "will participate" th the event.
-    - Put this in events or in users?

@@ -43,6 +43,11 @@
     key_required: true
     admin_required: true
     token_required: true
+    upload:
+      required: false
+      single: true
+      name: cover
+      dest: ./uploads/events
 
   - path: /:id
     method: DELETE

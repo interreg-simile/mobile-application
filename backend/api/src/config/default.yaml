@@ -1,5 +1,6 @@
 --- # Default general configuration
 
 app:
+  env: development
   version: 1
   port: 8000

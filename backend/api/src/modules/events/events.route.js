@@ -24,7 +24,7 @@ router.delete("/:id", vPath.id, controller.markForDeletion);
 router.put("/:id", vPath.id, validator.event, controller.update);
 
 // PATCH - /events/{event_id}
-router.patch("/:id", vPath.id, validator.participants, controller.addParticipants);
+router.patch("/:id", vPath.id, validator.patch, controller.patch);
 
 // Export the router
 export default router;

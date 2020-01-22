@@ -145,29 +145,33 @@ export const update = (req, res, next) => {
 };
 
 
-// ToDo fix patch
-
-// ToDo add images post
-
-
 /**
- * Adds the participants number to a given event.
+ * Patch an event.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
  * @param {Function} next - The Express next middleware function.
  */
-export const addParticipants = (req, res, next) => {
+export const patch = (req, res, next) => {
 
-    // Validate the request
+    // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
-    // Mark the event for deletion
-    eventService.setParticipants(req.params.id, req.body.participants)
+    // Save the body in the data to patch
+    const data = { ...req.body };
+
+    // If an image has been provided, add its path to the data
+    if (req.file) data.cover = req.file.path;
+
+    // Patch the event
+    eventService.patch(req.params.id, data)
         .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
         .catch(err => next(err));
 
 };
+
+
+// ToDo add images post
 
 
 /**

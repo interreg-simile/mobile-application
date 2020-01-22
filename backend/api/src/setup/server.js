@@ -2,7 +2,8 @@ import ip from 'ip';
 import mongoose from 'mongoose';
 import format from 'date-fns/format';
 
-import { PORT, NODE_ENV } from '../config/env';
+import { appConf } from "../middlewares/load-config";
+
 
 /**
  * Starts the server and listens for termination signals.
@@ -14,13 +15,13 @@ export default function (server) {
     console.info("SETUP - Starting server...");
 
     // Start the server
-    const serverProcess = server.listen(PORT, error => {
+    const serverProcess = server.listen(appConf.port, error => {
         if (error) {
             console.error('ERROR - Unable to start server.')
         } else {
             console.info(`INFO - Server started on`);
-            console.info(`  Local   http://localhost:${PORT} [${NODE_ENV}]`);
-            console.info(`  Network http://${ip.address()}:${PORT} [${NODE_ENV}]`);
+            console.info(`  Local   http://localhost:${appConf.port} [${appConf.env}]`);
+            console.info(`  Network http://${ip.address()}:${appConf.port} [${appConf.env}]`);
             console.info(`  Datetime ${format(new Date(), 'yyyy-MM-dd hh:mm:ss a')}\n`);
         }
     });
