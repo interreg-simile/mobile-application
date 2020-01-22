@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { NODE_ENV } from "../config/env";
+import { appConf } from "../middlewares/load-config";
 import connectDb from "./database";
 
 import surveys from "../modules/surveys/surveys.seed";
@@ -25,11 +25,11 @@ async function seeder() {
     try {
 
         // Seed the data
-        // await apiKeys();
-        // await users();
+        await apiKeys();
+        await users();
         // await surveys();
         await events();
-        // await alerts();
+        await alerts();
 
         // Close the connection
         await mongoose.connection.close();
@@ -57,7 +57,7 @@ async function seeder() {
 export async function dropCollection(collection) {
 
     // If the application is not running in development mode, return
-    if (NODE_ENV !== "development") return;
+    if (appConf.env !== "development") return;
 
     // Fetch the list of the collection in the database
     const collections = await mongoose.connection.db.listCollections().toArray();

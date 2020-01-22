@@ -36,16 +36,16 @@ export const getAll = (req, res, next) => {
     // Set the parameters for the mongo query
     const filter = {}, projection = {}, options = {};
 
-    // Exclude the survey marked for deletion
+    // Exclude the events marked for deletion
     if (includeDeleted === "false") filter.markedForDeletion = false;
 
-    // If the request does not come from an admin, throw an error
-    // else if (includeDeleted === "true" && !req.isAdmin) {
-    //     next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
-    //     return;
-    // }
+    // If includeDeleted is true and the request does not come from an admin, throw an error
+    if (includeDeleted === "true" && !req.isAdmin) {
+        next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
+        return;
+    }
 
-    // Take the surveys with expireDate greater or equal to the current date
+    // Take the events with expireDate greater than or equal to the current date
     if (includePast === "false") filter.date = { $gte: new Date() };
 
     // Filter by regions of interest
@@ -66,6 +66,9 @@ export const getAll = (req, res, next) => {
         filter["position.coordinates"] = { $geoWithin: { $centerSphere: [[lon, lat], buffer / 6378.1] } };
 
     }
+
+    // If the request does not come from an admin, project out the uid
+    if (!req.isAdmin) projection.uid = 0;
 
     // Sort
     if (sort) options.sort = getQuerySorting(sort);
@@ -111,12 +114,20 @@ export const getById = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Initialize the filer for the query
-    const filter = {};
+    const filter = {}, projection = {};
 
-    // If the user is not admin, don't return the event if it's marked for deletion
-    if (!req.isAdmin) filter.markedForDeletion = false;
+    // If the user is not admin
+    if (!req.isAdmin) {
 
-    eventService.getById(req.params.id, filter, {}, {})
+        // Don't return the event if it's marked for deletion
+        filter.markedForDeletion = false;
+
+        // Project out the uid
+        projection.uid = 0;
+
+    }
+
+    eventService.getById(req.params.id, filter, projection, {})
         .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
         .catch(err => next(err));
 
@@ -169,9 +180,6 @@ export const patch = (req, res, next) => {
         .catch(err => next(err));
 
 };
-
-
-// ToDo add images post
 
 
 /**
