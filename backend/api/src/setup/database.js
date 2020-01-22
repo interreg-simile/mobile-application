@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 
 import { MONGO_URL } from "../config/env"
 
+
 /**
  * Connects to the database.
  *
