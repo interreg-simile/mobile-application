@@ -50,8 +50,16 @@ export const vQuery = {
 
 // Validation chains for common body properties
 export const vBody = {
-    rois: [
+    rois   : [
         body("rois")
+            .not().isEmpty().withMessage("Missing property 'rois'.")
+            .isArray().withMessage("Wrong format of property 'rois'."),
+        body("rois.*")
+            .isIn(enums.roi).withMessage("Invalid value of one of the properties of 'rois'."),
+    ],
+    roisOpt: [
+        body("rois")
+            .optional()
             .not().isEmpty().withMessage("Missing property 'rois'.")
             .isArray().withMessage("Wrong format of property 'rois'."),
         body("rois.*")

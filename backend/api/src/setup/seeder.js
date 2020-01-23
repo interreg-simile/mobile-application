@@ -25,10 +25,10 @@ async function seeder() {
     try {
 
         // Seed the data
-        await apiKeys();
-        await users();
+        // await apiKeys();
+        // await users();
         // await surveys();
-        await events();
+        // await events();
         await alerts();
 
         // Close the connection

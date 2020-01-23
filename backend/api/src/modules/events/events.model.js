@@ -5,8 +5,11 @@ import { enums } from "../../utils/common-validations";
 import { collection as User } from "../users/user.model";
 
 
+/** Name of the collection. */
 export const collection = "Events";
 
+
+/** Schema of an address. */
 const address = new Schema({
     main      : { type: String, required: true },
     civic     : { type: String, required: true },
@@ -16,11 +19,15 @@ const address = new Schema({
     country   : { type: String, enum: enums.county, required: true }
 });
 
+
+/** Schema of the contacts. */
 const contacts = new Schema({
     mail : { type: String, required: false },
     phone: { type: String, required: false }
 });
 
+
+/** Schema of an event. */
 const schema = new Schema({
     uid              : { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
     titleIta         : { type: String, required: true },
@@ -38,4 +45,6 @@ const schema = new Schema({
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: true });
 
+
+/** Exports the schema. */
 export default mongoose.model(collection, schema, collection);

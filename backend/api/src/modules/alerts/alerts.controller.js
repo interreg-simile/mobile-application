@@ -1,8 +1,7 @@
-import { constructError } from "../../utils/construct-error";
 import { checkValidation } from "../../utils/common-checks";
 import * as alertService from "./alerts.service";
-import { vSort } from "../../utils/common-validations";
 import { getQuerySorting } from "../../utils/utils";
+import { constructError } from "../../utils/construct-error";
 
 
 /**
@@ -29,17 +28,20 @@ export const getAll = (req, res, next) => {
     // Exclude the survey marked for deletion
     if (includeDeleted === "false") filter.markedForDeletion = false;
 
-    // If the request does not come from an admin, throw an error
-    // else if (includeDeleted === "true" && !req.isAdmin) {
-    //     next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
-    //     return;
-    // }
+    // If includeDeleted is true and the request does not come from an admin, throw an error
+    if (includeDeleted === "true" && !req.isAdmin) {
+        next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
+        return;
+    }
 
     // Take the surveys with expireDate greater or equal to the current date
     if (includePast === "false") filter.dateEnd = { $gte: new Date() };
 
     // Filter by regions of interest
     if (rois) filter.rois = { $in: rois.split(",") };
+
+    // If the request does not come from an admin, project out the uid
+    if (!req.isAdmin) projection.uid = 0;
 
     // Sort
     if (sort) options.sort = getQuerySorting(sort);
@@ -65,8 +67,8 @@ export const create = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Create the event
-    alertService.create(req.body)
-        .then(alert => res.status(201).json({ meta: { code: 201 }, data: { alert: alert } }))
+    alertService.create({ uid: req.userId, ...req.body })
+        .then(alert => res.status(201).json({ meta: { code: 201 }, data: { alert } }))
         .catch(err => next(err));
 
 };
@@ -110,11 +112,31 @@ export const update = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
-    // ToDo fix as events
-
     // Update the event
-    alertService.update(req.params.id, req.body)
-        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
+    alertService.update(req.params.id, { uid: req.userId, ...req.body })
+        .then(result => res.status(200).json(
+            { meta: { code: result.created ? 201 : 200 }, data: { alert: result.newAlert } }
+        ))
+        .catch(err => next(err));
+
+};
+
+
+/**
+ * Patch an event.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
+ */
+export const patch = (req, res, next) => {
+
+    // Validate the body of the request
+    if (!checkValidation(req, next)) return;
+
+    // Patch the alert
+    alertService.patch(req.params.id, req.body)
+        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert } }))
         .catch(err => next(err));
 
 };

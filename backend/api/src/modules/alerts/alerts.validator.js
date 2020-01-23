@@ -9,6 +9,8 @@ export const getAllQuery = [...vQuery.includePast, ...vQuery.includeDeletedAdmin
 
 // Validation chain for the body of the "post" and "put" requests
 export const alert = [
+    body("uid")
+        .isEmpty().withMessage("Set forbidden property 'uid'."),
     body("titleIta")
         .trim().escape()
         .not().isEmpty().withMessage("Missing property 'titleIta'."),
@@ -30,6 +32,38 @@ export const alert = [
         .custom((v, { req }) => new Date(v).getTime() > new Date(req.body.dateStart).getTime())
         .withMessage("Property 'dateEnd' must be grater than property 'dateStart'."),
     ...vBody.rois,
+    body("markedForDeletion")
+        .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")
+];
+
+
+// Validation chain for the body of the "patch" requests
+export const patch = [
+    body("uid")
+        .isEmpty().withMessage("Set forbidden property 'uid'."),
+    body("titleIta")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'titleIta'."),
+    body("titleEng")
+        .optional()
+        .trim().escape(),
+    body("contentIta")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'contentIta'."),
+    body("contentEng")
+        .optional()
+        .trim().escape(),
+    body("dateStart")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'dateStart'.")
+        .isISO8601().withMessage("Wrong format of property 'dateStart'."),
+    body("dateEnd")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'dateEnd'.")
+        .isISO8601().withMessage("Wrong format of property 'dateEnd'."),
+    ...vBody.roisOpt,
     body("markedForDeletion")
         .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")
 ];

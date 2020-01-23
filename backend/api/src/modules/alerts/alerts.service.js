@@ -1,5 +1,6 @@
 import Alert from "./alerts.model";
 import { constructError } from "../../utils/construct-error";
+import { removeFile } from "../../utils/utils";
 
 
 /**
@@ -8,7 +9,7 @@ import { constructError } from "../../utils/construct-error";
  * @param {Object} filter - The filter to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @returns {Promise<Object>} A promise containing the result of the query.
+ * @returns {Promise<Alert[]>} A promise containing the result of the query.
  */
 export async function getAll(filter, projection, options) {
 
@@ -24,7 +25,7 @@ export async function getAll(filter, projection, options) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @returns {Promise<Object>} A promise containing the result of the query.
+ * @returns {Promise<Alert>} A promise containing the result of the query.
  */
 export async function getById(id, filter, projection, options) {
 
@@ -44,12 +45,13 @@ export async function getById(id, filter, projection, options) {
  * Creates a new alert and saves it in the database.
  *
  * @param {Object} data - The event data.
- * @returns {Promise<Object>} A promise containing the newly created alert.
+ * @returns {Promise<Alert>} A promise containing the newly created alert.
  */
 export async function create(data) {
 
     // Create the new alert
     const alert = new Alert({
+        uid       : data.uid,
         titleIta  : data.titleIta,
         titleEng  : data.titleEng,
         contentIta: data.contentIta,
@@ -58,6 +60,9 @@ export async function create(data) {
         dateEnd   : data.dateEnd,
         rois      : data.rois,
     });
+
+    // If the event id is provided, set it
+    if (data.id) alert._id = data.id;
 
     // Save the alert
     return await alert.save();
@@ -70,7 +75,8 @@ export async function create(data) {
  *
  * @param {string} id - The id of the alert.
  * @param {Object} data - The new data.
- * @returns {Promise<Object>} A promise containing the newly created alert.
+ * @returns {Promise<{newAlert: Alert, created: boolean}>} A promise containing the created or updated alert and a flag
+ *          stating if the alert has been created.
  */
 export async function update(id, data) {
 
@@ -78,7 +84,7 @@ export async function update(id, data) {
     const alert = await Alert.findById(id);
 
     // If no data is found, throw an error
-    if (!alert) throw constructError(404, "Resource not found.");
+    if (!alert) return { newAlert: await create({ id: id, ...data }), created: true };
 
     // Update the values
     alert.titleIta   = data.titleIta;
@@ -89,7 +95,35 @@ export async function update(id, data) {
     alert.dateEnd    = data.dateEnd;
     alert.rois       = data.rois;
 
-    // Save the event
+    // Save the alert
+    return { newAlert: await alert.save(), created: false };
+
+}
+
+
+/**
+ * Patch an existing alert.
+ *
+ * @param {string} id - The id of the alert.
+ * @param {Object} data - The new data.
+ * @returns {Promise<Alert>} A promise containing the patched alert.
+ */
+export async function patch(id, data) {
+
+    // Find the alert
+    const alert = await Alert.findById(id);
+
+    // If no data is found, throw an error
+    if (!alert) throw constructError(404, "Resource not found.");
+
+    // If dateEnd property id less than dateStart, throw an error
+    if (data.dateEnd && new Date(data.dateEnd).getTime() <= new Date(alert.dateStart).getTime())
+        throw constructError(422, "Property 'dateEnd' must be grater than property 'dateStart'.");
+
+    // Change the value of the given properties
+    for (const k of Object.keys(data)) alert[k] = data[k];
+
+    // Return the new alert
     return await alert.save();
 
 }
@@ -98,7 +132,7 @@ export async function update(id, data) {
 /**
  * Set an alert as marked for deletion.
  *
- * @param {String} id - The id of the alert.
+ * @param {string} id - The id of the alert.
  * @returns {Promise<void>} - An empty promise.
  */
 export async function softDelete(id) {

@@ -2,6 +2,7 @@ import { LoremIpsum } from "lorem-ipsum";
 
 import Alert, { collection } from "./alerts.model";
 import { dropCollection } from "../../setup/seeder";
+import User from "../users/user.model";
 
 
 export default async function () {
@@ -31,6 +32,14 @@ export default async function () {
         }
     ];
 
-    for (const alert of alerts) await Alert.create(alert);
+    const adminId = await User.findOne({ email: "admin@example.com" }, "_id");
+
+    for (const alert of alerts) {
+
+        alert.uid = adminId;
+
+        await Alert.create(alert);
+
+    }
 
 }

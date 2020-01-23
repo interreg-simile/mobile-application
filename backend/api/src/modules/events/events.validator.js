@@ -22,6 +22,8 @@ export const getAllQuery = [
 
 // Validation chain for the body of the "post" and "put" requests
 export const event = [
+    body("uid")
+        .isEmpty().withMessage("Set forbidden property 'uid'."),
     body("titleIta")
         .trim().escape()
         .not().isEmpty().withMessage("Missing property 'titleIta'."),
@@ -90,11 +92,85 @@ export const event = [
 
 
 // Validation chain for the body of the "patch" requests
-export const patch = [];
-
-
-// Validation chain for the "participants" field
-export const participants = [
+export const patch = [
+    body("uid")
+        .isEmpty().withMessage("Set forbidden property 'uid'."),
+    body("titleIta")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'titleIta'."),
+    body("titleEng")
+        .optional()
+        .trim().escape(),
+    body("descriptionIta")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'descriptionIta'."),
+    body("descriptionEng")
+        .optional()
+        .trim().escape(),
+    body("coordinates")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'coordinates'.")
+        .isArray({ min: 2, max: 2 }).withMessage("Wrong format of property 'coordinates'.")
+        .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0))
+        .withMessage("Invalid value of property 'coordinates'."),
+    body("coordinates.*")
+        .not().isEmpty().withMessage("Missing one of the 'coordinates'.")
+        .isFloat().withMessage("Wrong format of one of the 'coordinates'."),
+    body("address")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'address'."),
+    body("address.main")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'main' of 'address'."),
+    body("address.civic")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'civic' of 'address'."),
+    body("address.city")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'city' of 'address'."),
+    body("address.postalCode")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'postalCode' of 'address'.")
+        .isPostalCode("any").withMessage("Wrong format of property 'postalCode' of 'address'."),
+    body("address.province")
+        .optional()
+        .trim().escape()
+        .not().isEmpty().withMessage("Missing property 'province' of 'address'.")
+        .isLength({ min: 2, max: 2 }).withMessage("Wrong format of property 'province' of 'address'."),
+    body("address.country")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'country' of 'address'.")
+        .isIn(enums.county).withMessage("Invalid value of property 'country' of 'address'."),
+    ...vBody.roisOpt,
+    body("date")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'date'.")
+        .isISO8601().withMessage("Wrong format of property 'date'."),
+    body("cover")
+        .isEmpty().withMessage("Set forbidden property 'cover'."),
+    body("contacts")
+        .optional()
+        .not().isEmpty().withMessage("Missing property 'contacts'."),
+    oneOf([
+        body("contacts.mail")
+            .optional()
+            .not().isEmpty()
+            .isEmail().withMessage("Wrong format of property 'mail' of 'contacts'.")
+            .normalizeEmail(),
+        body("contacts.phone")
+            .optional()
+            .not().isEmpty()
+            .isMobilePhone("any", { strictMode: true })
+            .withMessage("Wrong format of property 'phone' of 'contacts'.")
+    ], "At least one contact has to be specified."),
     body("participants")
-        .isInt({ min: 0 }).withMessage("Wrong format of property 'participants'.")
+        .optional()
+        .isInt({ min: 0 }).withMessage("Wrong format of property 'participants'."),
+    body("markedForDeletion")
+        .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")
 ];
