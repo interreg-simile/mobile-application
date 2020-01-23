@@ -2,7 +2,6 @@ import { version } from "../middlewares/load-config";
 
 import authRouter from "../modules/auth/auth.route";
 import userRouter from "../modules/users/user.route";
-import surveyRouter from "../modules/surveys/surveys.route";
 import eventRouter from "../modules/events/events.route";
 import alertsRouter from "../modules/alerts/alerts.route";
 
@@ -20,7 +19,6 @@ export default function (server) {
 
     server.use(`/${version}/auth`, authRouter);
     server.use(`/${version}/users`, userRouter);
-    // server.use(`/${version}/surveys`, surveyRouter);
     server.use(`/${version}/events`, eventRouter);
     server.use(`/${version}/alerts`, alertsRouter);
 

@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import { appConf } from "../middlewares/load-config";
 import connectDb from "./database";
 
-import surveys from "../modules/surveys/surveys.seed";
 import apiKeys from "../modules/auth/keys.seed";
 import users from "../modules/users/user.seed";
 import events from "../modules/events/events.seed";
@@ -25,10 +24,9 @@ async function seeder() {
     try {
 
         // Seed the data
-        // await apiKeys();
-        // await users();
-        // await surveys();
-        // await events();
+        await apiKeys();
+        await users();
+        await events();
         await alerts();
 
         // Close the connection
