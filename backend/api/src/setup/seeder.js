@@ -7,6 +7,7 @@ import apiKeys from "../modules/auth/keys.seed";
 import users from "../modules/users/user.seed";
 import events from "../modules/events/events.seed";
 import alerts from "../modules/alerts/alerts.seed";
+import observations from "../modules/observations/observations.seed";
 
 
 /**
@@ -24,10 +25,12 @@ async function seeder() {
     try {
 
         // Seed the data
-        await apiKeys();
-        await users();
-        await events();
-        await alerts();
+        // await apiKeys();
+        // await users();
+        // await events();
+        // await alerts();
+        await observations();
+
 
         // Close the connection
         await mongoose.connection.close();

@@ -117,8 +117,6 @@ export class MapPage implements OnInit, OnDestroy {
      */
     initMap(view) {
 
-        console.log(view);
-
         // Create the map
         this._map = new Map("map", { zoomControl: false });
 

@@ -4,6 +4,7 @@ import authRouter from "../modules/auth/auth.route";
 import userRouter from "../modules/users/user.route";
 import eventRouter from "../modules/events/events.route";
 import alertsRouter from "../modules/alerts/alerts.route";
+import obsRouter from "../modules/observations/observations.route";
 
 import errorMiddleware from "../middlewares/error";
 
@@ -21,6 +22,7 @@ export default function (server) {
     server.use(`/${version}/users`, userRouter);
     server.use(`/${version}/events`, eventRouter);
     server.use(`/${version}/alerts`, alertsRouter);
+    server.use(`/${version}/observations`, obsRouter);
 
     // Error handling middleware
     server.use(errorMiddleware);

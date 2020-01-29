@@ -28,12 +28,6 @@ export const getAll = (req, res, next) => {
     // Exclude the survey marked for deletion
     if (includeDeleted === "false") filter.markedForDeletion = false;
 
-    // If includeDeleted is true and the request does not come from an admin, throw an error
-    if (includeDeleted === "true" && !req.isAdmin) {
-        next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
-        return;
-    }
-
     // Take the surveys with expireDate greater or equal to the current date
     if (includePast === "false") filter.dateEnd = { $gte: new Date() };
 

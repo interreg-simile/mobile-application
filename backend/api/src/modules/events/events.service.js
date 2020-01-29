@@ -32,6 +32,8 @@ export async function getById(id, filter, projection, options) {
     // Find the data
     const event = Event.findOne({ _id: id, ...filter }, projection, options);
 
+    console.log(event);
+
     // If no data is found, throw an error
     if (!event) throw constructError(404, "Resource not found.");
 

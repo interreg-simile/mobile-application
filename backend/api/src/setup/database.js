@@ -21,10 +21,3 @@ export default async function () {
     });
 
 }
-
-/**
- * Handles any connection error.
- *
- * @param {Error} error - The error object.
- */
-export function onDbConnectionError(error) { console.log(`ERROR - Connection failed: ${error.message}`) }

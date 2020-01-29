@@ -1,0 +1,33 @@
+--- # Translation file for English
+
+lakes:
+  1: "Other"
+  2: "Lake Maggiore"
+  3: "Lake Como"
+  4: "Lake Lugano"
+
+weather:
+  sky:
+    1: "Cielo limpido"
+    2: "Qualche nuvola"
+    3: "Nuvoloso"
+    4: "Pioggia"
+    5: "Neve"
+    6: "Nebbia"
+
+algae:
+
+  extension:
+    1: "<5"
+    2: "6-20"
+    3: ">20"
+
+  look:
+    1: "Disperse"
+    2: "Compatte"
+    3: "Raggruppamenti"
+    4: "Striature superficiali"
+
+instrumentType:
+  1: "Professionale"
+  2: "Artigianale"

@@ -96,3 +96,18 @@
     key_required: true
     admin_required: true
     token_required: true
+
+
+/observations:
+
+  - path: /
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: false
+
+  - path: /:id
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: false

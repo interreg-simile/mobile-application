@@ -39,12 +39,6 @@ export const getAll = (req, res, next) => {
     // Exclude the events marked for deletion
     if (includeDeleted === "false") filter.markedForDeletion = false;
 
-    // If includeDeleted is true and the request does not come from an admin, throw an error
-    if (includeDeleted === "true" && !req.isAdmin) {
-        next(constructError(401, "You are not authorized to set query parameter 'includeDeleted' to true."));
-        return;
-    }
-
     // Take the events with expireDate greater than or equal to the current date
     if (includePast === "false") filter.date = { $gte: new Date() };
 
@@ -127,6 +121,7 @@ export const getById = (req, res, next) => {
 
     }
 
+    // Find the data
     eventService.getById(req.params.id, filter, projection, {})
         .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
         .catch(err => next(err));

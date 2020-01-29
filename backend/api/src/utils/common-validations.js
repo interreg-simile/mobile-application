@@ -1,10 +1,10 @@
 import { body, param, query } from "express-validator";
 
 
-// Enum for common values
+// Enum for common values // ToDo transform in numbers
 export const enums = {
-    roi   : ["lake_como", "lake_maggiore", "lake_lugano"],
-    county: ["italy", "switzerland"]
+    roi                : ["lake_como", "lake_maggiore", "lake_lugano"],
+    county             : ["italy", "switzerland"],
 };
 
 
