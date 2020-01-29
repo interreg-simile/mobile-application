@@ -29,6 +29,26 @@ export default async function () {
                 outlets: { inPlace: true, terminal: { code: 1 }, signage: false }
             },
             photos  : ["observations/default.jpg"]
+        },
+        {
+            position: {
+                coordinates: [45.824735, 9.079017],
+                accuracy   : 20.86549,
+                custom     : false,
+                address    : "Piazzetta Felice Baratelli 22100 Como CO",
+                lake       : { code: 3 }
+            },
+            weather : {
+                temperature: 25.8,
+                sky        : { code: 1 },
+                wind       : 32
+            },
+            details : {
+                algae  : { extension: { code: 1 }, look: { code: 2 } },
+                oils   : {},
+                outlets: { inPlace: true, terminal: { code: 1 }, signage: false }
+            },
+            photos  : ["observations/default.jpg"]
         }
     ];
 

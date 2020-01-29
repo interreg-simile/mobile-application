@@ -30,9 +30,7 @@ export async function getAll(filter, projection, options) {
 export async function getById(id, filter, projection, options) {
 
     // Find the data
-    const event = Event.findOne({ _id: id, ...filter }, projection, options);
-
-    console.log(event);
+    const event = await Event.findOne({ _id: id, ...filter }, projection, options);
 
     // If no data is found, throw an error
     if (!event) throw constructError(404, "Resource not found.");
@@ -71,7 +69,7 @@ export async function create(data) {
     if (data.id) event._id = data.id;
 
     // Save the event
-    return await event.save();
+    return event.save();
 
 }
 

@@ -30,17 +30,13 @@ export async function getAll(filter, projection, options) {
  */
 export async function getById(id, filter, projection, options) {
 
-    console.log(id);
-
     // Find the data
-    const obs = Observation.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
-
-    // console.log(obs);
+    const obs = await Observation.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
 
     // If no data is found, throw an error
     if (!obs) throw constructError(404, "Resource not found.");
 
-    // populateObservation(obs);
+    populateObservation(obs);
 
     // Return the data
     return obs;

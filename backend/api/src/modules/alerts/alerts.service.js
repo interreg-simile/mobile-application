@@ -30,7 +30,7 @@ export async function getAll(filter, projection, options) {
 export async function getById(id, filter, projection, options) {
 
     // Find the data
-    const alert = Alert.findOne({ _id: id, ...filter }, projection, options);
+    const alert = await Alert.findOne({ _id: id, ...filter }, projection, options);
 
     // If no data is found, throw an error
     if (!alert) throw constructError(404, "Resource not found.");
@@ -65,7 +65,7 @@ export async function create(data) {
     if (data.id) alert._id = data.id;
 
     // Save the alert
-    return await alert.save();
+    return alert.save();
 
 }
 
