@@ -6,7 +6,7 @@ import fs from "fs";
  *
  * @param {string} fileUrl - The file url.
  */
-export function removeFile(fileUrl) { try { fs.unlinkSync(fileUrl) } catch (e) { console.error(e) } }
+export function removeFile(fileUrl) { try { fs.unlinkSync(fileUrl) } catch (e) { } }
 
 
 /**

@@ -14,8 +14,8 @@ export default function (err, req, res, next) {
     // Log the error
     console.error(err);
 
-    // Delete an file uploaded before the error
-    if (req.file) removeFile(req.file.path);
+    // Delete any file uploaded before the error
+    for (const k in req.files) req.files[k].forEach(f => removeFile(f.path));
 
     // Set the properties of the error
     const status  = err.statusCode || 500,

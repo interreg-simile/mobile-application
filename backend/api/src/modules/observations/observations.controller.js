@@ -40,9 +40,6 @@ export const getAll = (req, res, next) => {
  */
 export const create = (req, res, next) => {
 
-    console.log("Files:");
-    console.log(req.files);
-
     res.status(201).json({});
 
 };

@@ -32,39 +32,59 @@ export default function (req, res, next) {
         filename   : (req, file, cb) => cb(null, `${uuid()}.${file.mimetype.split("/")[1]}`)
     });
 
+    // Initialize the fields
+    const fields = [];
+
+    // Populate the fields
+    req.config.upload.fields.forEach(f => fields.push({ name: f.name, maxCount: f.max }));
+
     // Create the upload function
-    let upload;
+    const upload = multer({ storage: storage, fileFilter: fileFilter }).fields(fields);
 
-    if (req.config.upload.max === 1)
-        upload = multer({ storage: storage, fileFilter: fileFilter }).single(req.config.upload.name);
-    else
-        upload = multer({ storage: storage, fileFilter: fileFilter })
-            .array(req.config.upload.name, req.config.upload.max);
-
-    // Upload the file
+    // Upload the files
     upload(req, res, function (err) {
 
-        // Throw any error
+        // Throw any possible error
         if (err) {
 
             if (err.code && err.code === "LIMIT_UNEXPECTED_FILE")
                 err.statusCode ? next(err) : next(constructError(
                     422,
-                    `You can't provide more than ${req.config.upload.max} files`,
+                    `You can't provide more than ${req.config.upload.max} files for field ${err.field}.`,
                     "FileUploadException")
                 );
-
             else
                 err.statusCode ? next(err) : next(constructError(500, "", "FileUploadException"));
 
             return;
         }
 
-        // If no file is found and the route requires some, throw an error
-        if (req.config.upload.min > 0 && !req.file && (!req.files || (req.files && req.files.length === 0))) {
+
+        // Initialize a variable for saving any field with a number of files uploaded lower than the minimum allowed
+        let e = null;
+
+        // For each of the fields
+        req.config.upload.fields.some(f => {
+
+            // If the minimum allowed id 0, return false
+            if (f.min === 0) return false;
+
+            // If the field has a number of files uploaded lower than the minimum allowed, return true
+            if ((!req.files || !Object.keys(req.files).includes(f.name)) || req.files[f.name].length < f.min) {
+                e = f;
+                return true;
+            }
+
+            // Return false
+            return false;
+
+        });
+
+        /// If there was an error, throw it
+        if (e) {
             next(constructError(
                 422,
-                `You need to provide at least ${req.config.upload.min} file(s).`,
+                `You need to provide at least ${e.min} file(s) for field ${e.name}.`,
                 "FileUploadException")
             );
             return;
