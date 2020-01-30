@@ -13,6 +13,7 @@ import checkKey from "../middlewares/check-key";
 import checkToken from "../middlewares/check-token";
 import upload from "../middlewares/upload";
 import parseFormData from "../middlewares/parse-formdata";
+import setLng from "../middlewares/set-lng";
 
 
 /**
@@ -50,6 +51,9 @@ export default function (server) {
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: false }));
     server.use(parseFormData);
+
+    // Set the responses language
+    server.use(setLng);
 
     // Check the API key
     server.use(checkKey);

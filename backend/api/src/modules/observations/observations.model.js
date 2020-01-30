@@ -15,7 +15,7 @@ const position = new Schema({
     accuracy   : { type: Number, required: false },
     custom     : { type: Boolean, required: true }, // True means that the user has selected the point on the map
     address    : { type: String, required: true },
-    lake       : { type: { code: { type: Number, min: 1, max: 4, required: true } }, required: true }
+    lake       : { type: { dCode: { type: Number, min: 1, max: 4, required: true } }, required: true }
 });
 
 
@@ -23,7 +23,7 @@ const position = new Schema({
 const weather = new Schema({
     _id        : false,
     temperature: { type: Number, required: true },
-    sky        : { type: { code: { type: Number, min: 1, max: 6, required: true } }, required: true },
+    sky        : { type: { dCode: { type: Number, min: 1, max: 6, required: true } }, required: true },
     wind       : { type: Number, required: true }
 });
 
@@ -31,46 +31,46 @@ const weather = new Schema({
 /** Schema of the details about algae. */
 const algae = new Schema({
     _id      : false,
-    extension: { code: { type: Number, min: 1, max: 3} },
-    look     : { code: { type: Number, min: 1, max: 4 } },
-    colour   : String // ToDo fix
+    extension: { dCode: { type: Number, min: 1, max: 3 } },
+    look     : { dCode: { type: Number, min: 1, max: 4 } },
+    colour   : { dCode: { type: Number, min: 1, max: 5 }, iridescent: Boolean }
 });
 
 /** Schema of the details about foams. */
 const foams = new Schema({
     _id      : false,
-    extension: { code: { type: Number, min: 1, max: 3 } },
-    look     : { code: { type: Number, min: 1, max: 3 } },
-    height   : { code: { type: Number, min: 1, max: 3 } }
+    extension: { dCode: { type: Number, min: 1, max: 3 } },
+    look     : { dCode: { type: Number, min: 1, max: 3 } },
+    height   : { dCode: { type: Number, min: 1, max: 3 } }
 });
 
 /** Schema of the details about oils. */
 const oils = new Schema({
     _id      : false,
-    extension: { code: { type: Number, min: 1, max: 3} },
-    type     : { code: { type: Number, min: 1, max: 2} }
+    extension: { dCode: { type: Number, min: 1, max: 3 } },
+    type     : { dCode: { type: Number, min: 1, max: 2 } }
 });
 
 /** Schema of the details about litter. */
 const litters = new Schema({
     _id     : false,
-    quantity: { code: { type: Number, min: 1, max: 3 } },
-    type    : [{ code: { type: Number, min: 1, max: 10 } }]
+    quantity: { dCode: { type: Number, min: 1, max: 3 } },
+    type    : [{ dCode: { type: Number, min: 1, max: 10 } }]
 });
 
 /** Schema of the details about odours. */
 const odours = new Schema({
     _id      : false,
-    intensity: { code: { type: Number, min: 1, max: 3 } },
-    origin   : [{ code: { type: Number, min: 1, max: 6, } }]
+    intensity: { dCode: { type: Number, min: 1, max: 3 } },
+    origin   : [{ dCode: { type: Number, min: 1, max: 6, } }]
 });
 
 /** Schema of the details about outlets. */
 const outlets = new Schema({
     _id                 : false,
     inPlace             : Boolean,
-    terminal            : { code: { type: Number, min: 1, max: 2 } },
-    colour              : String, // ToDo fix
+    terminal            : { dCode: { type: Number, min: 1, max: 2 } },
+    colour              : { dCode: { type: Number, min: 1, max: 7 } },
     signage             : Boolean,
     signagePhoto        : String,
     prodActNearby       : Boolean,
@@ -79,8 +79,16 @@ const outlets = new Schema({
 
 /** Schema of the details about flora and fauna. */
 const floraFauna = new Schema({
-    _id: false,
+    _id         : false,
     // ToDo complete
+    alienSpecies: {
+        crustaceans: {present: Boolean, details: String},
+        molluscs   : {present: Boolean, details: String},
+        turtles    : {present: Boolean, details: String},
+        fish       : {present: Boolean, details: String},
+        birds      : {present: Boolean, details: String},
+        other      : String
+    }
 });
 
 /** Schema of the observation details. */
@@ -99,7 +107,7 @@ const details = new Schema({
 /** Schema of an instrument. */
 const instrument = new Schema({
     _id      : false,
-    type     : { type: { code: { type: Number, min: 1, max: 2 } }, required: true },
+    type     : { type: { dCode: { type: Number, min: 1, max: 2 } }, required: true },
     brand    : { type: String, required: false },
     precision: { type: String, required: false },
     details  : { type: String, required: false }
@@ -140,8 +148,7 @@ const oxygen = new Schema({
 const bacteria = new Schema({
     _id            : false,
     escherichiaColi: { type: Number, required: false },
-    enterococci    : { type: Number, required: false },
-    instrument     : { type: instrument, required: true }
+    enterococci    : { type: Number, required: false }
 });
 
 /** Schema of the observation measures. */

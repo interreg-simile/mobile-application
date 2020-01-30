@@ -7,7 +7,7 @@ import { constructError } from "../utils/construct-error";
 // File filter
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") cb(null, true);
-    else cb(constructError(415, "File type not supported."));
+    else cb(constructError(415));
 };
 
 
@@ -33,20 +33,40 @@ export default function (req, res, next) {
     });
 
     // Create the upload function
-    const upload = multer({ storage: storage, fileFilter: fileFilter }).single(req.config.upload.name);
+    let upload;
+
+    if (req.config.upload.max === 1)
+        upload = multer({ storage: storage, fileFilter: fileFilter }).single(req.config.upload.name);
+    else
+        upload = multer({ storage: storage, fileFilter: fileFilter })
+            .array(req.config.upload.name, req.config.upload.max);
 
     // Upload the file
     upload(req, res, function (err) {
 
         // Throw any error
         if (err) {
-            err.statusCode ? next(err) : next(constructError(500, "", "FileUploadException"));
+
+            if (err.code && err.code === "LIMIT_UNEXPECTED_FILE")
+                err.statusCode ? next(err) : next(constructError(
+                    422,
+                    `You can't provide more than ${req.config.upload.max} files`,
+                    "FileUploadException")
+                );
+
+            else
+                err.statusCode ? next(err) : next(constructError(500, "", "FileUploadException"));
+
             return;
         }
 
-        // If not file is found and the route requires one, throw an error
-        if (!req.file && req.config.upload.required) {
-            next(constructError(422, "You need to provide a file.", "FileUploadException"));
+        // If no file is found and the route requires some, throw an error
+        if (req.config.upload.min > 0 && !req.file && (!req.files || (req.files && req.files.length === 0))) {
+            next(constructError(
+                422,
+                `You need to provide at least ${req.config.upload.min} file(s).`,
+                "FileUploadException")
+            );
             return;
         }
 

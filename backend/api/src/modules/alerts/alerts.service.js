@@ -13,7 +13,7 @@ import { removeFile } from "../../utils/utils";
  */
 export async function getAll(filter, projection, options) {
 
-    return Alert.find(filter, projection, options);
+    return Alert.find(filter, projection, { lean: true, ...options });
 
 }
 
@@ -30,10 +30,10 @@ export async function getAll(filter, projection, options) {
 export async function getById(id, filter, projection, options) {
 
     // Find the data
-    const alert = await Alert.findOne({ _id: id, ...filter }, projection, options);
+    const alert = await Alert.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
 
     // If no data is found, throw an error
-    if (!alert) throw constructError(404, "Resource not found.");
+    if (!alert) throw constructError(404);
 
     // Return the data
     return alert;
@@ -114,7 +114,7 @@ export async function patch(id, data) {
     const alert = await Alert.findById(id);
 
     // If no data is found, throw an error
-    if (!alert) throw constructError(404, "Resource not found.");
+    if (!alert) throw constructError(404);
 
     // If dateEnd property id less than dateStart, throw an error
     if (data.dateEnd && new Date(data.dateEnd).getTime() <= new Date(alert.dateStart).getTime())
@@ -141,7 +141,7 @@ export async function softDelete(id) {
     const alert = await Alert.findOne({ _id: id, markedForDeletion: false });
 
     // If no data is found, throw an error
-    if (!alert) throw constructError(404, "Resource not found.");
+    if (!alert) throw constructError(404);
 
     // Mark the survey for deletion
     alert.markedForDeletion = true;

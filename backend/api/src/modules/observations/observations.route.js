@@ -11,14 +11,15 @@ const router = Router();
 // GET - /observations/
 router.get("/", validator.getAllQuery, controller.getAll);
 
-// POST - /events/
+// POST - /observations/
 // router.post("/", validator.observation, controller.create);
+router.post("/", controller.create);
 
 // GET - /observations/{obs_id}
 router.get("/:id", vPath.id, controller.getById);
 
-// DELETE - /events/{event_id}
-// router.delete("/:id", vPath.id, controller.markForDeletion);
+// DELETE - /observations/{obs_id}
+router.delete("/:id", vPath.id, controller.markForDeletion);
 
 // PUT - /events/{event_id}
 // router.put("/:id", vPath.id, validator.event, controller.update);

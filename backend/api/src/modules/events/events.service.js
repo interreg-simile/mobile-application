@@ -13,7 +13,7 @@ import { removeFile } from "../../utils/utils";
  */
 export async function getAll(filter, projection, options) {
 
-    return Event.find(filter, projection, options);
+    return Event.find(filter, projection, { lean: true, ...options });
 
 }
 
@@ -30,10 +30,10 @@ export async function getAll(filter, projection, options) {
 export async function getById(id, filter, projection, options) {
 
     // Find the data
-    const event = await Event.findOne({ _id: id, ...filter }, projection, options);
+    const event = await Event.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
 
     // If no data is found, throw an error
-    if (!event) throw constructError(404, "Resource not found.");
+    if (!event) throw constructError(404);
 
     // Return the data
     return event;
@@ -130,7 +130,7 @@ export async function patch(id, data) {
     const event = await Event.findById(id);
 
     // If no data is found, throw an error
-    if (!event) throw constructError(404, "Resource not found.");
+    if (!event) throw constructError(404);
 
     // Save the old image url
     const oldImg = event.cover;
@@ -162,7 +162,7 @@ export async function softDelete(id) {
     const event = await Event.findOne({ _id: id, markedForDeletion: false });
 
     // If no data is found, throw an error
-    if (!event) throw constructError(404, "Resource not found.");
+    if (!event) throw constructError(404);
 
     // Mark the survey for deletion
     event.markedForDeletion = true;

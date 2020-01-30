@@ -32,6 +32,23 @@ export const getAll = (req, res, next) => {
 
 
 /**
+ * Inserts a new event in the database.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
+ */
+export const create = (req, res, next) => {
+
+    console.log("Files:");
+    console.log(req.files);
+
+    res.status(201).json({});
+
+};
+
+
+/**
  * Returns the observation with a given id.
  *
  * @param {Object} req - The Express request object.
@@ -54,6 +71,26 @@ export const getById = (req, res, next) => {
     // Find the data
     observationService.getById(req.params.id, filter, projection, {})
         .then(observation => res.status(200).json({ meta: { code: 200 }, data: { observation } }))
+        .catch(err => next(err));
+
+};
+
+
+/**
+ * Marks an observation for deletion.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The Express next middleware function.
+ */
+export const markForDeletion = (req, res, next) => {
+
+    // Validate the request
+    if (!checkValidation(req, next)) return;
+
+    // Mark the observation for deletion
+    observationService.softDelete(req.params.id, req.isAdmin, req.userId)
+        .then(() => res.status(204).json({ meta: { code: 204 } }))
         .catch(err => next(err));
 
 };

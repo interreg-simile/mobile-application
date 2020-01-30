@@ -73,3 +73,39 @@ export function changeNestedObjProperty(obj, key, newVal) {
     return false;
 
 }
+
+
+// ToDo
+export function populateObjDescriptions(obj, lng, ns) {
+
+    let keyChain = [];
+
+    for (const key in obj) {
+
+        if (obj.hasOwnProperty(key) && key !== "_id" && key !== "uid" && key !== "createdAt" && key !== "updatedAt") {
+
+            keyChain.push(key);
+
+            console.log(`${key}: ${obj[key]} - ${typeof obj[key]}`);
+
+            if (typeof obj[key] === "object") {
+
+                console.log("---- Nested object found");
+
+                populateObjDescriptions(obj[key], lng, ns);
+
+            }
+
+            if (key === "dCode") {
+
+                console.log(`=== ${keyChain}`);
+
+            }
+
+            keyChain = [];
+
+        }
+
+    }
+
+}

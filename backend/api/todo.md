@@ -4,6 +4,8 @@
 
 - Explore response types
 
+- Translate the error messages
+
 
 ##### Events
 
@@ -33,3 +35,5 @@
 ##### Observations
 
 - Expiration date?
+
+- Populate description field
