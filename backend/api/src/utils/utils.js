@@ -1,4 +1,5 @@
 import fs from "fs";
+import i18next from "i18next";
 
 
 /**
@@ -35,74 +36,25 @@ export function getQuerySorting(val) {
 
 
 /**
- * Changes the value associated to a given key in an object considering also any nested object.
+ * Populates all the "description" fields of an object.
  *
- * @param {Object} obj - The object which has the property to change.
- * @param {string} key - The key of the property to change.
- * @param {any} newVal - The new value to assign to the property.
- * @return {boolean} True if the property has been found and the value correctly changed.
+ * @param {Object} obj - The object.
+ * @param {String} lng - The language of "description" fields.
+ * @param {String} ns - The namespace containing the keys for the "description" fields.
  */
-export function changeNestedObjProperty(obj, key, newVal) {
-
-    let res;
-
-    for (const prop in obj) {
-
-        if (obj.hasOwnProperty(prop)) {
-
-            if (prop === key) {
-
-                obj[key] = newVal;
-
-                return true;
-
-            }
-
-            if (typeof obj[prop] === "object") {
-
-                res = changeNestedObjProperty(obj[prop], key, newVal);
-
-                if (res) return true;
-
-            }
-
-        }
-
-    }
-
-    return false;
-
-}
-
-
-// ToDo
 export function populateObjDescriptions(obj, lng, ns) {
 
-    let keyChain = [];
+    // For each of the keys of the object
+    for (const k in obj) {
 
-    for (const key in obj) {
+        // If the key is a natural property and is not a Mongoose internal object
+        if (obj.hasOwnProperty(k) && k !== "_id" && k !== "uid" && k !== "createdAt" && k !== "updatedAt") {
 
-        if (obj.hasOwnProperty(key) && key !== "_id" && key !== "uid" && key !== "createdAt" && key !== "updatedAt") {
+            // If the key is "dCode", populate the "description" field
+            if (k === "dCode") obj[k].description = i18next.getResource(lng, ns, `${obj[k].path}.${obj[k].code}`);
 
-            keyChain.push(key);
-
-            console.log(`${key}: ${obj[key]} - ${typeof obj[key]}`);
-
-            if (typeof obj[key] === "object") {
-
-                console.log("---- Nested object found");
-
-                populateObjDescriptions(obj[key], lng, ns);
-
-            }
-
-            if (key === "dCode") {
-
-                console.log(`=== ${keyChain}`);
-
-            }
-
-            keyChain = [];
+            // Else if the key corresponds to an object, call the function recursively
+             else if (typeof obj[k] === "object") populateObjDescriptions(obj[k], lng, ns);
 
         }
 

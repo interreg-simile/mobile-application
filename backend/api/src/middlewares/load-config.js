@@ -6,7 +6,7 @@ import { match } from "path-to-regexp";
 import { constructError } from "../utils/construct-error";
 
 
-// Load the configurations if JSON format
+// Load the configurations in JSON format
 const generalConf = yaml.load(path.resolve("./src/config/default.yaml"));
 const endpointsConf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 

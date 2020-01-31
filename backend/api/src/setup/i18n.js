@@ -15,7 +15,7 @@ export default function () {
         .use(backend)
         .init({
             preload: ["it", "en"],
-            ns     : ["data", "errors"],
+            ns     : ["common", "observations", "errors"],
             backend: { loadPath: "./i18n/{{lng}}/{{ns}}.yml" }
         })
 

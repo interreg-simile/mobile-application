@@ -1,5 +1,6 @@
 import { checkValidation } from "../../utils/common-checks";
 import * as observationService from "./observations.service";
+import i18next from "i18next";
 
 
 /**
@@ -40,7 +41,16 @@ export const getAll = (req, res, next) => {
  */
 export const create = (req, res, next) => {
 
+    // Validate the body of the request
+    if (!checkValidation(req, next)) return;
+
     res.status(201).json({});
+
+    // const data = {};
+    //
+    // observationService.create(data)
+    //     .then(observation => res.status(201).json({ meta: { code: 201 }, data: { observation } }))
+    //     .catch(err => next(err));
 
 };
 
@@ -66,7 +76,7 @@ export const getById = (req, res, next) => {
     if (!req.isAdmin) filter.markedForDeletion = false;
 
     // Find the data
-    observationService.getById(req.params.id, filter, projection, {})
+    observationService.getById(req.params.id, filter, projection, {}, req.lng)
         .then(observation => res.status(200).json({ meta: { code: 200 }, data: { observation } }))
         .catch(err => next(err));
 

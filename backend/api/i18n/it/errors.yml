@@ -1,0 +1,4 @@
+--- # Translation file for italian
+
+validation:
+  missingProperty: "Proprietà {{name}} mancante."

@@ -1,10 +1,16 @@
---- # Translation file for English
+--- # Translation file for italian
 
 lakes:
-  1: "Other"
-  2: "Lake Maggiore"
-  3: "Lake Como"
-  4: "Lake Lugano"
+  1: "Altro"
+  2: "Lago Maggiore"
+  3: "Lago di Como"
+  4: "Lago di Lugano"
+
+
+contries:
+  1: "Italia"
+  2: "Svizzera"
+
 
 weather:
   sky:
@@ -14,6 +20,7 @@ weather:
     4: "Pioggia"
     5: "Neve"
     6: "Nebbia"
+
 
 algae:
 
@@ -27,6 +34,26 @@ algae:
     2: "Compatte"
     3: "Raggruppamenti"
     4: "Striature superficiali"
+
+  colour:
+    1: "Rosso"
+    2: "Blu"
+    3: "Verde"
+    4: "Grigio"
+    5: "Marrone"
+
+
+outlets:
+
+  colour:
+    1: "Rosso"
+    2: "Blu"
+    3: "Verde"
+    4: "Grigio"
+    5: "Marrone"
+    6: "Giallo"
+    7: "Bianco"
+
 
 instrumentType:
   1: "Professionale"

@@ -8,6 +8,8 @@
 
 - Use numbers instead of rois and countries (events + alerts)
 
+- Modify all the validation to be functions
+
 
 ##### Events
 
@@ -37,5 +39,3 @@
 ##### Observations
 
 - Expiration date?
-
-- Populate description field

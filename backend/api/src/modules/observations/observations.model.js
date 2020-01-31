@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 import { collection as User } from "../users/user.model";
+import { genDCode } from "../../utils/common-schemas";
 
 
 /** Name of the collection. */
@@ -15,7 +16,7 @@ const position = new Schema({
     accuracy   : { type: Number, required: false },
     custom     : { type: Boolean, required: true }, // True means that the user has selected the point on the map
     address    : { type: String, required: true },
-    lake       : { type: { dCode: { type: Number, min: 1, max: 4, required: true } }, required: true }
+    lake       : { type: { dCode: genDCode(1, 4, "position.lake") }, required: true }
 });
 
 
@@ -23,7 +24,7 @@ const position = new Schema({
 const weather = new Schema({
     _id        : false,
     temperature: { type: Number, required: true },
-    sky        : { type: { dCode: { type: Number, min: 1, max: 6, required: true } }, required: true },
+    sky        : { type: { dCode: genDCode(1, 6, "weather.sky") }, required: true },
     wind       : { type: Number, required: true }
 });
 
@@ -31,86 +32,88 @@ const weather = new Schema({
 /** Schema of the details about algae. */
 const algae = new Schema({
     _id      : false,
-    extension: { dCode: { type: Number, min: 1, max: 3 } },
-    look     : { dCode: { type: Number, min: 1, max: 4 } },
-    colour   : { dCode: { type: Number, min: 1, max: 5 }, iridescent: Boolean }
+    extension: { dCode: genDCode(1, 3, "details.algae.extension") },
+    look     : { dCode: genDCode(1, 4, "details.algae.look") },
+    colour   : { dCode: genDCode(1, 4, "details.algae.colour"), iridescent: Boolean }
 });
 
 /** Schema of the details about foams. */
 const foams = new Schema({
     _id      : false,
-    extension: { dCode: { type: Number, min: 1, max: 3 } },
-    look     : { dCode: { type: Number, min: 1, max: 3 } },
-    height   : { dCode: { type: Number, min: 1, max: 3 } }
+    extension: { dCode: genDCode(1, 3, "details.foams.extension") },
+    look     : { dCode: genDCode(1, 3, "details.foams.look") },
+    height   : { dCode: genDCode(1, 3, "details.foams.height") }
 });
 
 /** Schema of the details about oils. */
 const oils = new Schema({
     _id      : false,
-    extension: { dCode: { type: Number, min: 1, max: 3 } },
-    type     : { dCode: { type: Number, min: 1, max: 2 } }
+    extension: { dCode: genDCode(1, 3, "details.oils.extension") },
+    type     : { dCode: genDCode(1, 3, "details.oils.type") }
 });
 
 /** Schema of the details about litter. */
 const litters = new Schema({
     _id     : false,
-    quantity: { dCode: { type: Number, min: 1, max: 3 } },
-    type    : [{ dCode: { type: Number, min: 1, max: 10 } }]
+    quantity: { dCode: genDCode(1, 3, "details.litters.quantity") },
+    type    : [{ dCode: genDCode(1, 10, "details.litters.type") }]
 });
 
 /** Schema of the details about odours. */
 const odours = new Schema({
     _id      : false,
-    intensity: { dCode: { type: Number, min: 1, max: 3 } },
-    origin   : [{ dCode: { type: Number, min: 1, max: 6, } }]
+    intensity: { dCode: genDCode(1, 3, "details.odours.intensity") },
+    origin   : [{ dCode: genDCode(1, 6, "details.odours.origin") }]
 });
 
 /** Schema of the details about outlets. */
 const outlets = new Schema({
     _id                 : false,
     inPlace             : Boolean,
-    terminal            : { dCode: { type: Number, min: 1, max: 2 } },
-    colour              : { dCode: { type: Number, min: 1, max: 7 } },
+    visible             : Boolean,
+    colour              : { dCode: genDCode(1, 7, "details.outlets.colour") },
+    vapour              : Boolean,
     signage             : Boolean,
     signagePhoto        : String,
     prodActNearby       : Boolean,
     prodActNearbyDetails: String
 });
 
-/** Schema of the details about flora and fauna. */
-const floraFauna = new Schema({
+/** Schema of the details about the fauna. */
+const fauna = new Schema({
     _id         : false,
-    // ToDo complete
+    deceased    : { fish: Boolean, birds: Boolean, other: String },
+    abnormal    : { fish: Boolean, birds: Boolean, other: String, description: Boolean },
     alienSpecies: {
-        crustaceans: {present: Boolean, details: String},
-        molluscs   : {present: Boolean, details: String},
-        turtles    : {present: Boolean, details: String},
-        fish       : {present: Boolean, details: String},
-        birds      : {present: Boolean, details: String},
+        crustaceans: { present: Boolean, details: String },
+        molluscs   : { present: Boolean, details: String },
+        turtles    : { present: Boolean, details: String },
+        fish       : { present: Boolean, details: String },
+        birds      : { present: Boolean, details: String },
         other      : String
     }
 });
 
 /** Schema of the observation details. */
 const details = new Schema({
-    _id       : false,
-    algae     : algae,
-    foams     : foams,
-    oils      : oils,
-    litter    : litters,
-    odours    : odours,
-    outlets   : outlets,
-    floraFauna: floraFauna
+    _id    : false,
+    algae  : algae,
+    foams  : foams,
+    oils   : oils,
+    litters: litters,
+    odours : odours,
+    outlets: outlets,
+    fauna  : fauna
 });
 
 
 /** Schema of an instrument. */
 const instrument = new Schema({
-    _id      : false,
-    type     : { type: { dCode: { type: Number, min: 1, max: 2 } }, required: true },
-    brand    : { type: String, required: false },
-    precision: { type: String, required: false },
-    details  : { type: String, required: false }
+    _id         : false,
+    professional: { type: Boolean, required: true },
+    brand       : { type: String, required: false },
+    precision   : { type: String, required: false },
+    details     : { type: String, required: false }
 });
 
 /** Schema of the details about the transparency measure. */
@@ -167,7 +170,7 @@ const schema = new Schema({
     uid              : { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
     position         : { type: position, required: true },
     weather          : { type: weather, required: true },
-    details          : { type: details, required: true },
+    details          : { type: details, required: false },
     photos           : { type: [String], required: true },
     measures         : { type: measures, required: false },
     markedForDeletion: { type: Boolean, required: true, default: false }

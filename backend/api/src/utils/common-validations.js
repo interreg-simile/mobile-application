@@ -1,10 +1,10 @@
-import { body, param, query } from "express-validator";
+import { body, param, query, ValidationChain } from "express-validator";
 
 
 // Enum for common values // ToDo transform in numbers
 export const enums = {
-    roi                : ["lake_como", "lake_maggiore", "lake_lugano"],
-    county             : ["italy", "switzerland"],
+    roi   : ["lake_como", "lake_maggiore", "lake_lugano"],
+    county: ["italy", "switzerland"],
 };
 
 
@@ -66,6 +66,35 @@ export const vBody = {
             .isIn(enums.roi).withMessage("Invalid value of one of the properties of 'rois'."),
     ]
 };
+
+
+/**
+ * Creates a validation chain for a generic coordinates field.
+ *
+ * @param {String} field - The chain that brings to the field.
+ * @param {Boolean} opt - True if the field could be optional.
+ * @return {ValidationChain[]} The validation chain.
+ */
+export function vCoords(field, opt) {
+
+    // Save the validation of the field
+    const validation = body(field);
+
+    // If the field is optional, append the optional validation
+    if (opt) validation.optional();
+
+    // Return the field validation
+    return [
+        validation
+            .not().isEmpty().withMessage("Missing property 'coordinates'.")
+            .isArray({ min: 2, max: 2 }).withMessage("Wrong format of property 'coordinates'.")
+            .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0))
+            .withMessage("Invalid value of property 'coordinates'."),
+        body(`${field}.*`)
+            .not().isEmpty().withMessage("Missing one of the 'coordinates'.")
+            .isFloat().withMessage("Wrong format of one of the 'coordinates'.")
+    ]
+}
 
 
 /**

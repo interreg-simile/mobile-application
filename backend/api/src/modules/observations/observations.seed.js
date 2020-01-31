@@ -16,38 +16,20 @@ export default async function () {
                 accuracy   : 20.86549,
                 custom     : false,
                 address    : "Piazzetta Felice Baratelli 22100 Como CO",
-                lake       : { dCode: 3 }
+                lake       : { dCode: { code: 3, path: "position.lake" } }
             },
             weather : {
                 temperature: 25.8,
-                sky        : { dCode: 1 },
+                sky        : { dCode: { code: 1, path: "weather.sky" } },
                 wind       : 32
             },
             details : {
-                algae  : { extension: { dCode: 1 }, look: { dCode: 2 } },
+                algae  : {
+                    extension: { dCode: { code: 1, path: "details.algae.extension" } },
+                    look     : { dCode: { code: 2, path: "details.algae.look" } }
+                },
                 oils   : {},
-                outlets: { inPlace: true, terminal: { dCode: 1 }, signage: false }
-            },
-            photos  : ["observations/default.jpg"]
-        },
-        {
-            position: {
-                coordinates: [45.824735, 9.079017],
-                accuracy   : 20.86549,
-                custom     : false,
-                address    : "Piazzetta Felice Baratelli 22100 Como CO",
-                lake       : { dCode: 3 }
-            },
-            weather : {
-                temperature: 25.8,
-                sky        : { dCode: 1 },
-                wind       : 32
-            },
-            details : {
-                algae     : { extension: { dCode: 1 }, look: { dCode: 2 } },
-                oils      : {},
-                outlets   : { inPlace: true, terminal: { dCode: 1 }, signage: false },
-                floraFauna: { alienSpecies: { crustaceans: { present: true, details: "Gambero rosso" }} }
+                outlets: { inPlace: true, colour: { dCode: { code: 1, path: "details.outlets.colour" } } }
             },
             photos  : ["observations/default.jpg"]
         }

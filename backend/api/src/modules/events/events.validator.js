@@ -1,5 +1,5 @@
 import { body, query, oneOf } from "express-validator";
-import { vQuery, enums, vBody } from "../../utils/common-validations";
+import { vQuery, enums, vBody, vCoords } from "../../utils/common-validations";
 
 
 // Validation chain for the query parameters of the "get all" route
@@ -25,8 +25,6 @@ export const getAllQuery = [
 
 // Validation chain for the body of the "post" and "put" requests
 export const event = [
-    body("uid")
-        .isEmpty().withMessage("Set forbidden property 'uid'."),
     body("titleIta")
         .trim().escape()
         .not().isEmpty().withMessage("Missing property 'titleIta'."),
@@ -39,14 +37,7 @@ export const event = [
     body("descriptionEng")
         .optional()
         .trim().escape(),
-    body("coordinates")
-        .not().isEmpty().withMessage("Missing property 'coordinates'.")
-        .isArray({ min: 2, max: 2 }).withMessage("Wrong format of property 'coordinates'.")
-        .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0))
-        .withMessage("Invalid value of property 'coordinates'."),
-    body("coordinates.*")
-        .not().isEmpty().withMessage("Missing one of the 'coordinates'.")
-        .isFloat().withMessage("Wrong format of one of the 'coordinates'."),
+    ...vCoords("coordinates", false),
     body("address")
         .not().isEmpty().withMessage("Missing property 'address'."),
     body("address.main")
@@ -94,8 +85,6 @@ export const event = [
 
 // Validation chain for the body of the "patch" requests
 export const patch = [
-    body("uid")
-        .isEmpty().withMessage("Set forbidden property 'uid'."),
     body("titleIta")
         .optional()
         .trim().escape()
@@ -110,15 +99,7 @@ export const patch = [
     body("descriptionEng")
         .optional()
         .trim().escape(),
-    body("coordinates")
-        .optional()
-        .not().isEmpty().withMessage("Missing property 'coordinates'.")
-        .isArray({ min: 2, max: 2 }).withMessage("Wrong format of property 'coordinates'.")
-        .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0))
-        .withMessage("Invalid value of property 'coordinates'."),
-    body("coordinates.*")
-        .not().isEmpty().withMessage("Missing one of the 'coordinates'.")
-        .isFloat().withMessage("Wrong format of one of the 'coordinates'."),
+    ...vCoords("coordinates", true),
     body("address")
         .optional()
         .not().isEmpty().withMessage("Missing property 'address'."),

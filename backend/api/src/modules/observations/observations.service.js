@@ -1,5 +1,6 @@
 import Observation from "./observations.model";
 import { constructError } from "../../utils/construct-error";
+import { populateObjDescriptions } from "../../utils/utils";
 
 
 /**
@@ -24,9 +25,10 @@ export async function getAll(filter, projection, options) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
+ * @param {String} lng - The language requested.
  * @returns {Promise<Observation>} A promise containing the result of the query.
  */
-export async function getById(id, filter, projection, options) {
+export async function getById(id, filter, projection, options, lng) {
 
     // Find the data
     const obs = await Observation.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
@@ -34,8 +36,38 @@ export async function getById(id, filter, projection, options) {
     // If no data is found, throw an error
     if (!obs) throw constructError(404);
 
+    // Populate the "description" fields of the observation
+    populateObjDescriptions(obs, lng, "observations");
+
     // Return the data
     return obs;
+
+}
+
+
+/**
+ * Creates a new observation and saves it in the database.
+ *
+ * @param {Object} data - The observation data.
+ * @returns {Promise<Observation>} A promise containing the newly created observation.
+ */
+export async function create(data) {
+
+    // Create the new observation
+    const obs = new Observation({
+        uid     : data.uid,
+        position: { type: "Point", ...data.position },
+        weather : data.weather,
+        details : data.details,
+        photos  : data.photos,
+        measures: data.measures
+    });
+
+    // If the observation id is provided, set it
+    if (data.id) obs._id = data.id;
+
+    // Save the observation
+    return obs.save();
 
 }
 

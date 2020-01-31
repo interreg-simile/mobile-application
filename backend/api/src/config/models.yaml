@@ -1,0 +1,7 @@
+--- # Models configuration
+
+observations:
+  position:
+    lake:
+      min: 1
+      max: 4
