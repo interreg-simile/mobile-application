@@ -6,6 +6,8 @@
 
 - Translate the error messages
 
+- Use numbers instead of rois and countries (events + alerts)
+
 
 ##### Events
 

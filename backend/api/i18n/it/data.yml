@@ -6,6 +6,10 @@ lakes:
   3: "Lago di Como"
   4: "Lago di Lugano"
 
+contries:
+  1: "Italia"
+  2: "Svizzera"
+
 weather:
   sky:
     1: "Cielo limpido"

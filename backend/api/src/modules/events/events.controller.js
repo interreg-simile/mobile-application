@@ -88,7 +88,7 @@ export const create = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Create the event
-    eventService.create({ uid: req.userId, ...req.body, cover: req.file.path })
+    eventService.create({ uid: req.userId, ...req.body, cover: req.files.cover[0].path })
         .then(event => res.status(201).json({ meta: { code: 201 }, data: { event } }))
         .catch(err => next(err));
 
@@ -142,7 +142,7 @@ export const update = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Update the event
-    eventService.update(req.params.id, { uid: req.userId, ...req.body, cover: req.file.path })
+    eventService.update(req.params.id, { uid: req.userId, ...req.body, cover: req.files.cover[0].path })
         .then(result => res.status(200).json(
             { meta: { code: result.created ? 201 : 200 }, data: { event: result.newEvent } }
         ))
@@ -167,7 +167,7 @@ export const patch = (req, res, next) => {
     const data = { ...req.body };
 
     // If an image has been provided, add its path to the data
-    if (req.file) data.cover = req.file.path;
+    if (req.files) data.cover = req.files.cover[0].path;
 
     // Patch the event
     eventService.patch(req.params.id, data)

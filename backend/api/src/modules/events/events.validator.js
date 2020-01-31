@@ -72,8 +72,6 @@ export const event = [
     body("date")
         .not().isEmpty().withMessage("Missing property 'date'.")
         .isISO8601().withMessage("Wrong format of property 'date'."),
-    body("cover")
-        .isEmpty().withMessage("Set forbidden property 'cover'."),
     body("contacts")
         .not().isEmpty().withMessage("Missing property 'contacts'."),
     oneOf([
@@ -154,8 +152,6 @@ export const patch = [
         .optional()
         .not().isEmpty().withMessage("Missing property 'date'.")
         .isISO8601().withMessage("Wrong format of property 'date'."),
-    body("cover")
-        .isEmpty().withMessage("Set forbidden property 'cover'."),
     body("contacts")
         .optional()
         .not().isEmpty().withMessage("Missing property 'contacts'."),
