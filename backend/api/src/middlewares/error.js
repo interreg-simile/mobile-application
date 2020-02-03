@@ -19,10 +19,37 @@ export default function (err, req, res, next) {
 
     // Set the properties of the error
     const status  = err.statusCode || 500,
-          message = status === 500 ? "Something went wrong on the server." : err.message,
+          message = status === 500 ? req.t("generic.500") : translateMessage(err.message, req.t),
           type    = err.type || "InternalError";
 
     // Send the response
     res.status(status).json({ meta: { code: status, errorMessage: message, errorType: type } });
+
+}
+
+
+/**
+ * Translates an error message.
+ *
+ * @param {String} msg - The message to translate in the form "key;{options}"
+ * @param {Function} t - The i18next translation function fixed on the response language.
+ * @return {String} The translated message.
+ */
+function translateMessage(msg, t) {
+
+    // Try to translate the message
+    try {
+
+        // Extract the key and the options
+        const key  = `errors:${msg.split(";")[0]}`,
+              opts = JSON.parse(msg.split(";")[1]);
+
+        // Return the translation
+        return t(key, opts);
+
+    }
+
+        // Return the original message
+    catch (e) { return msg }
 
 }

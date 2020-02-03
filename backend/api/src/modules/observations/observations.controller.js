@@ -25,7 +25,7 @@ export const getAll = (req, res, next) => {
     if (includeDeleted === "false") filter.markedForDeletion = false;
 
     // Find the observations
-    observationService.getAll(filter, projection, options)
+    observationService.getAll(filter, projection, options, req.t)
         .then(observations => res.status(200).json({ meta: { code: 200 }, data: { observations } }))
         .catch(err => next(err));
 
@@ -76,7 +76,7 @@ export const getById = (req, res, next) => {
     if (!req.isAdmin) filter.markedForDeletion = false;
 
     // Find the data
-    observationService.getById(req.params.id, filter, projection, {}, req.lng)
+    observationService.getById(req.params.id, filter, projection, {}, req.t)
         .then(observation => res.status(200).json({ meta: { code: 200 }, data: { observation } }))
         .catch(err => next(err));
 

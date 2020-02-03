@@ -1,5 +1,6 @@
 import i18next from "i18next";
 import backend from "i18next-node-fs-backend";
+import { appConf } from "../middlewares/load-config";
 
 
 /**
@@ -14,7 +15,7 @@ export default function () {
     return i18next
         .use(backend)
         .init({
-            preload: ["it", "en"],
+            preload: appConf.lngs,
             ns     : ["common", "observations", "errors"],
             backend: { loadPath: "./i18n/{{lng}}/{{ns}}.yml" }
         })

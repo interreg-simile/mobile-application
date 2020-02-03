@@ -1,4 +1,10 @@
 import { Schema } from "mongoose";
+import yaml from "yamljs";
+import path from "path";
+
+
+// Load the configurations in JSON format
+const conf = yaml.load(path.resolve("./src/config/models.yaml"));
 
 
 /** Schema of a point. */
@@ -11,16 +17,20 @@ export const point = new Schema({
 /**
  * Generates the schema for a "dCode" property.
  *
- * @param {Number} min - The minimum allowed code.
- * @param {Number} max - The maximum allowed code.
- * @param {String} path - The path to the field.
+ * @param {String} path - The path to the field in the modes configuration file in form "model:path".
  * @return {Object} The schema.
  */
-export function genDCode(min, max, path) {
+export function genDCode(path) {
+
+    const c = conf[path.split(":")[0]];
 
     return {
-        code: { type: Number, min: 1, max: 4 },
-        path: { type: String, default: function () { return this.code ? path : undefined}, immutable: true }
+        code: { type: Number, min: c.min, max: c.max },
+        path: {
+            type     : String,
+            default  : function () { return this.code ? path.split(":")[1] : undefined},
+            immutable: true
+        }
     }
 
 }

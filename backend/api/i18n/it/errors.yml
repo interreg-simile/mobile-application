@@ -1,4 +1,11 @@
 --- # Translation file for italian
 
 validation:
-  missingProperty: "Proprietà {{name}} mancante."
+  missing: "Proprietà '{{name}}' mancante."
+  missingOne: "Una delle '{{name}}' mancante." # ToDo fix
+  wrongFormat: "Proprietà '{{name}}' in formato scorretto."
+  wrongFormatOne: "Una delle '{{name}}' in formato scorretto." # ToDo fix
+  invalidValue: "Valore non valido della proprietà '{{name}}'."
+
+generic:
+  500: "Qualcosa è andato storto!"

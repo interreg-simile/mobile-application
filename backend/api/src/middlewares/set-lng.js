@@ -1,5 +1,6 @@
 import { appConf } from "./load-config";
 import { constructError } from "../utils/construct-error";
+import i18next from "i18next";
 
 
 /**
@@ -20,8 +21,9 @@ export default function (req, res, next) {
         return;
     }
 
-    // Save the language in the request object
+    // Save the language and the fixed t function in the request object
     req.lng = lng;
+    req.t   = i18next.getFixedT(lng);
 
     // Call the next middleware
     next()

@@ -10,6 +10,8 @@
 
 - Modify all the validation to be functions
 
+- Find out if validation can be automatized (maybe inserting all in yml?)
+
 
 ##### Events
 
@@ -22,7 +24,7 @@
 
 - Add photos after the event is completed.
     - How long is the admin allowed to add photos?
-    - Add the user who created the event (only hem is allowed to add photos?).
+    - Add the user who created the event (only him is allowed to add photos?).
     - How long will the "updated" event be visible on the map?
 
 

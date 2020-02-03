@@ -9,11 +9,19 @@ import { populateObjDescriptions } from "../../utils/utils";
  * @param {Object} filter - The filter to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
+ * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Observation[]>} A promise containing the result of the query.
  */
-export async function getAll(filter, projection, options) {
+export async function getAll(filter, projection, options, t) {
 
-    return Observation.find(filter, projection, { lean: true, ...options });
+    // Retrieve the observations
+    const obs = await Observation.find(filter, projection, { lean: true, ...options });
+
+    // Populate the "description" fields of the observations
+    for (let i = 0; i < obs.length; i++) populateObjDescriptions(obs[i], t, "observations");
+
+    // Return the observations
+    return obs;
 
 }
 
@@ -25,10 +33,10 @@ export async function getAll(filter, projection, options) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @param {String} lng - The language requested.
+ * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Observation>} A promise containing the result of the query.
  */
-export async function getById(id, filter, projection, options, lng) {
+export async function getById(id, filter, projection, options, t) {
 
     // Find the data
     const obs = await Observation.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
@@ -37,7 +45,7 @@ export async function getById(id, filter, projection, options, lng) {
     if (!obs) throw constructError(404);
 
     // Populate the "description" fields of the observation
-    populateObjDescriptions(obs, lng, "observations");
+    populateObjDescriptions(obs, t, "observations");
 
     // Return the data
     return obs;

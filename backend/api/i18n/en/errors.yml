@@ -1,0 +1,7 @@
+--- # Translation file for english
+
+validation:
+  missingProperty: "Missing property '{{name}}'."
+
+generics:
+  500: "Something went wrong on the server."

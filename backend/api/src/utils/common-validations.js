@@ -85,15 +85,19 @@ export function vCoords(field, opt) {
 
     // Return the field validation
     return [
+
         validation
-            .not().isEmpty().withMessage("Missing property 'coordinates'.")
-            .isArray({ min: 2, max: 2 }).withMessage("Wrong format of property 'coordinates'.")
+            .not().isEmpty().withMessage(`validation.missing;{"name": "${field}"}`)
+            .isArray({ min: 2, max: 2 }).withMessage(`validation.wrongFormat;{"name": "${field}"}`)
             .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0))
-            .withMessage("Invalid value of property 'coordinates'."),
+            .withMessage(`validation.invalidValue;{"name": "${field}"}`),
+
         body(`${field}.*`)
-            .not().isEmpty().withMessage("Missing one of the 'coordinates'.")
-            .isFloat().withMessage("Wrong format of one of the 'coordinates'.")
+            .not().isEmpty().withMessage(`validation.missingOne;{"name": "${field}"}`)
+            .isFloat().withMessage(`validation.wrongFormatOne;{"name": "${field}"}`)
+
     ]
+
 }
 
 

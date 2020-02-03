@@ -16,7 +16,7 @@ const position = new Schema({
     accuracy   : { type: Number, required: false },
     custom     : { type: Boolean, required: true }, // True means that the user has selected the point on the map
     address    : { type: String, required: true },
-    lake       : { type: { dCode: genDCode(1, 4, "position.lake") }, required: true }
+    lake       : { type: { dCode: genDCode("observations:position.lake") }, required: true }
 });
 
 
@@ -24,7 +24,7 @@ const position = new Schema({
 const weather = new Schema({
     _id        : false,
     temperature: { type: Number, required: true },
-    sky        : { type: { dCode: genDCode(1, 6, "weather.sky") }, required: true },
+    sky        : { type: { dCode: genDCode("observations:weather.sky") }, required: true },
     wind       : { type: Number, required: true }
 });
 
@@ -32,46 +32,46 @@ const weather = new Schema({
 /** Schema of the details about algae. */
 const algae = new Schema({
     _id      : false,
-    extension: { dCode: genDCode(1, 3, "details.algae.extension") },
-    look     : { dCode: genDCode(1, 4, "details.algae.look") },
-    colour   : { dCode: genDCode(1, 4, "details.algae.colour"), iridescent: Boolean }
+    extension: { dCode: genDCode("observations:details.algae.extension") },
+    look     : { dCode: genDCode("observations:details.algae.look") },
+    colour   : { dCode: genDCode("observations:details.algae.colour"), iridescent: Boolean }
 });
 
 /** Schema of the details about foams. */
 const foams = new Schema({
     _id      : false,
-    extension: { dCode: genDCode(1, 3, "details.foams.extension") },
-    look     : { dCode: genDCode(1, 3, "details.foams.look") },
-    height   : { dCode: genDCode(1, 3, "details.foams.height") }
+    extension: { dCode: genDCode("observations:details.foams.extension") },
+    look     : { dCode: genDCode("observations:details.foams.look") },
+    height   : { dCode: genDCode("observations:details.foams.height") }
 });
 
 /** Schema of the details about oils. */
 const oils = new Schema({
     _id      : false,
-    extension: { dCode: genDCode(1, 3, "details.oils.extension") },
-    type     : { dCode: genDCode(1, 3, "details.oils.type") }
+    extension: { dCode: genDCode("observations:details.oils.extension") },
+    type     : { dCode: genDCode("observations:details.oils.type") }
 });
 
 /** Schema of the details about litter. */
 const litters = new Schema({
     _id     : false,
-    quantity: { dCode: genDCode(1, 3, "details.litters.quantity") },
-    type    : [{ dCode: genDCode(1, 10, "details.litters.type") }]
+    quantity: { dCode: genDCode("observations:details.litters.quantity") },
+    type    : [{ dCode: genDCode("observations:details.litters.type") }]
 });
 
 /** Schema of the details about odours. */
 const odours = new Schema({
     _id      : false,
-    intensity: { dCode: genDCode(1, 3, "details.odours.intensity") },
-    origin   : [{ dCode: genDCode(1, 6, "details.odours.origin") }]
+    intensity: { dCode: genDCode("observations:details.odours.intensity") },
+    origin   : [{ dCode: genDCode("observations:details.odours.origin") }]
 });
 
 /** Schema of the details about outlets. */
 const outlets = new Schema({
     _id                 : false,
     inPlace             : Boolean,
-    visible             : Boolean,
-    colour              : { dCode: genDCode(1, 7, "details.outlets.colour") },
+    terminal            : { dCode: genDCode("observations:details.outlets.terminal") },
+    colour              : { dCode: genDCode("observations:details.outlets.colour") },
     vapour              : Boolean,
     signage             : Boolean,
     signagePhoto        : String,
@@ -103,7 +103,8 @@ const details = new Schema({
     litters: litters,
     odours : odours,
     outlets: outlets,
-    fauna  : fauna
+    fauna  : fauna,
+    other  : String
 });
 
 
