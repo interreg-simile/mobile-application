@@ -3,11 +3,11 @@ import yaml from "yamljs";
 import _ from "lodash";
 import { match } from "path-to-regexp";
 
-import { constructError } from "../utils/construct-error";
+import constructError from "../utils/construct-error";
 
 
 // Load the configurations in JSON format
-const generalConf = yaml.load(path.resolve("./src/config/default.yaml"));
+const generalConf   = yaml.load(path.resolve("./src/config/default.yaml"));
 const endpointsConf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 
 
@@ -16,7 +16,6 @@ export const appConf = generalConf.app;
 
 /** Version of the API in the format v1. */
 export const version = `v${appConf.version}`;
-
 
 
 /**
@@ -39,7 +38,7 @@ export default function (req, res, next) {
 
     // If no route is found throw an error
     if (!params) {
-        next(constructError(404, "Route not found."));
+        next(constructError(404, "messages.routeNotFound"));
         return;
     }
 

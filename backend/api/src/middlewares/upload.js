@@ -1,7 +1,7 @@
 import multer from "multer";
 import uuid from "uuid/v4"
 
-import { constructError } from "../utils/construct-error";
+import constructError from "../utils/construct-error";
 
 
 // File filter
@@ -48,52 +48,55 @@ export default function (req, res, next) {
         if (err) {
 
             if (err.code && err.code === "LIMIT_UNEXPECTED_FILE")
-                err.statusCode ? next(err) : next(constructError(
-                    422,
-                    `You can't provide more than ${req.config.upload.max} files for field ${err.field}.`,
-                    "FileUploadException")
-                );
+                next(constructError(422,
+                    `messages.tooManyFiles;{"max": "${req.config.upload.max}", "field": "${err.field}" }`,
+                    "types.fileUploadException"));
             else
-                err.statusCode ? next(err) : next(constructError(500, "", "FileUploadException"));
+                next(constructError(500, "", "types.fileUploadException"));
 
             return;
+
         }
 
 
-        // Initialize a variable for saving any field with a number of files uploaded lower than the minimum allowed
-        let e = null;
 
-        // For each of the fields
-        req.config.upload.fields.some(f => {
+            // Initialize a variable for saving any field with a number of files uploaded lower than the minimum allowed
+            let e = null;
 
-            // If the minimum allowed id 0, return false
-            if (f.min === 0) return false;
+            // For each of the fields
+            req.config.upload.fields.some(f => {
 
-            // If the field has a number of files uploaded lower than the minimum allowed, return true
-            if ((!req.files || !Object.keys(req.files).includes(f.name)) || req.files[f.name].length < f.min) {
-                e = f;
-                return true;
+                // If the minimum allowed id 0, return false
+                if (f.min === 0) return false;
+
+                // If the field has a number of files uploaded lower than the minimum allowed, return true
+                if ((!req.files || !Object.keys(req.files).includes(f.name)) || req.files[f.name].length < f.min) {
+                    e = f;
+                    return true;
+                }
+
+                // Return false
+                return false;
+
+            });
+
+            /// If there was an error, throw it
+            if (e) {
+
+                next(constructError(
+                    422,
+                    `messages.tooFewFiles;{ "min": "${e.min}", "field": "${e.name}" }`,
+                    "types.fileUploadException"
+                ));
+
+                return;
+
             }
 
-            // Return false
-            return false;
+            // Call the next middleware
+            next();
 
         });
 
-        /// If there was an error, throw it
-        if (e) {
-            next(constructError(
-                422,
-                `You need to provide at least ${e.min} file(s) for field ${e.name}.`,
-                "FileUploadException")
-            );
-            return;
-        }
-
-        // Call the next middleware
-        next();
-
-    });
-
-}
+    }
 

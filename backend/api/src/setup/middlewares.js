@@ -36,29 +36,29 @@ export default function (server) {
     server.use(morgan("combined", { stream: accessLogStream }));
 
     // Setup the docs
-    setupDocs(server);
+    // setupDocs(server);
 
     // Setup the static path to the images
     server.use(express.static(path.join(__dirname, "..", "..", "uploads")));
 
+    // Set the responses language
+    server.use(setLng);
+
     // Load the route configuration
     server.use(loadConfig);
-
-    // Upload any possible file
-    server.use(upload);
 
     // Parse the requests
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: false }));
     server.use(parseFormData);
 
-    // Set the responses language
-    server.use(setLng);
-
     // Check the API key
     server.use(checkKey);
 
     // Check the authorization token
     server.use(checkToken);
+
+    // Upload any possible file
+    server.use(upload);
 
 };

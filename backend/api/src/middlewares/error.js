@@ -19,8 +19,8 @@ export default function (err, req, res, next) {
 
     // Set the properties of the error
     const status  = err.statusCode || 500,
-          message = status === 500 ? req.t("generic.500") : translateMessage(err.message, req.t),
-          type    = err.type || "InternalError";
+          message = status === 500 ? req.t("messages.500") : translateMessage(err.message, req.t),
+          type    = req.t(`errors:${err.type}`) || req.t("types.500");
 
     // Send the response
     res.status(status).json({ meta: { code: status, errorMessage: message, errorType: type } });
@@ -37,19 +37,16 @@ export default function (err, req, res, next) {
  */
 function translateMessage(msg, t) {
 
-    // Try to translate the message
-    try {
+        // Extract the key
+        const key  = `errors:${msg.split(";")[0]}`;
 
-        // Extract the key and the options
-        const key  = `errors:${msg.split(";")[0]}`,
-              opts = JSON.parse(msg.split(";")[1]);
+        // Initialize the options
+        let opts = {};
+
+        // If any option is provided, parse them
+        if (msg.split(";")[1]) opts = JSON.parse(msg.split(";")[1]);
 
         // Return the translation
         return t(key, opts);
-
-    }
-
-        // Return the original message
-    catch (e) { return msg }
 
 }

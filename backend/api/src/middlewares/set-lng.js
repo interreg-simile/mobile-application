@@ -1,5 +1,5 @@
 import { appConf } from "./load-config";
-import { constructError } from "../utils/construct-error";
+import constructError from "../utils/construct-error";
 import i18next from "i18next";
 
 
@@ -17,7 +17,8 @@ export default function (req, res, next) {
 
     // If the language is not supported throw an error
     if (!appConf.lngs.includes(lng)) {
-        next(constructError(422, "Language not supported."));
+        req.t = i18next.getFixedT(lng);
+        next(constructError(422, "messages.languageNotSupported"));
         return;
     }
 

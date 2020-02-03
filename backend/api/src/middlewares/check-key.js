@@ -1,5 +1,5 @@
 import Key from "../modules/auth/keys.model";
-import { constructError } from "../utils/construct-error";
+import constructError from "../utils/construct-error";
 
 
 /**
@@ -22,7 +22,7 @@ export default function (req, res, next) {
 
     // If no key is found, throw an error
     if (!keyHeader) {
-        next(constructError(403, "API key missing.", "APIKeyException"));
+        next(constructError(403,"messages.apiKeyMissing"));
         return;
     }
 
@@ -31,7 +31,7 @@ export default function (req, res, next) {
         .then(result => {
 
             // If no key is found, throw an error
-            if (!result) next(constructError(403, "API key not recognized.", "APIKeyException"));
+            if (!result) next(constructError(403, "messages.apiKeyNotRecognized"));
 
             // Call the next middleware
             next()

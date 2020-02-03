@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import { JWT_PK } from "../config/env";
-import { constructError } from "../utils/construct-error";
+import constructError from "../utils/construct-error";
 
 
 /**
@@ -33,7 +33,7 @@ export default function (req, res, next) {
     try {
         decodedToken = jwt.verify(token, JWT_PK);
     } catch (err) {
-        next(constructError(400, err.message, err.name));
+        next(constructError(500, "messages.jwtMalformed"));
         return;
     }
 
