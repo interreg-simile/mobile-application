@@ -4,8 +4,6 @@
 
 - Explore response types
 
-- Translate the error messages
-
 - Use numbers instead of rois and countries (events + alerts)
 
 - Modify all the validation to be functions
