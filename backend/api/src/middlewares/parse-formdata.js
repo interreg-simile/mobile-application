@@ -1,3 +1,6 @@
+import constructError from "../utils/construct-error";
+
+
 /**
  * Parses the body of a request with type "multipart/form-data".
  *
@@ -18,8 +21,15 @@ export default function (req, res, next) {
 
         // noinspection JSUnfilteredForInLoop
         if (req.body[field][0] === "{" || req.body[field][0] === "[")
-            // noinspection JSUnfilteredForInLoop
-            req.body[field] = JSON.parse(req.body[field])
+
+            // Try to parse the json and catch any error
+            try {
+                req.body[field] = JSON.parse(req.body[field])
+            } catch (e) {
+                next(constructError(422));
+                return;
+            }
+
 
     }
 

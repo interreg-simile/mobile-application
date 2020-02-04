@@ -44,13 +44,23 @@ export const checkModRights = (req, resUId) => {
  */
 export const checkValidation = (req, next) => {
 
+    // Extract the errors
     const errors = validationResult(req);
 
+    // If there is any error, throw it
     if (!errors.isEmpty()) {
-        next(constructError(422, errors.errors[0].msg));
+
+        let param = errors.errors[0].param;
+
+        if (param === "_error" && errors.errors[0].nestedErrors) param = errors.errors[0].nestedErrors[0].param;
+
+        next(constructError(422, `messages.validation;{"prop":"${param}"}`));
+
         return false;
+
     }
 
+    // Return true
     return true;
 
 };

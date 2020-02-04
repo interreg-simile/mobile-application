@@ -44,6 +44,8 @@ export const create = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
+    // console.log(req.body);
+
     res.status(201).json({});
 
     // const data = {};

@@ -83,7 +83,7 @@ const outlets = new Schema({
 const fauna = new Schema({
     _id         : false,
     deceased    : { fish: Boolean, birds: Boolean, other: String },
-    abnormal    : { fish: Boolean, birds: Boolean, other: String, description: Boolean },
+    abnormal    : { fish: Boolean, birds: Boolean, other: String, description: String },
     alienSpecies: {
         crustaceans: { present: Boolean, details: String },
         molluscs   : { present: Boolean, details: String },

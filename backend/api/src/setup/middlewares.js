@@ -47,11 +47,6 @@ export default function (server) {
     // Load the route configuration
     server.use(loadConfig);
 
-    // Parse the requests
-    server.use(bodyParser.json());
-    server.use(bodyParser.urlencoded({ extended: false }));
-    server.use(parseFormData);
-
     // Check the API key
     server.use(checkKey);
 
@@ -60,5 +55,10 @@ export default function (server) {
 
     // Upload any possible file
     server.use(upload);
+
+    // Parse the requests
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: false }));
+    server.use(parseFormData);
 
 };

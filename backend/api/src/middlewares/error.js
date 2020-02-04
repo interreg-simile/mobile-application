@@ -37,16 +37,16 @@ export default function (err, req, res, next) {
  */
 function translateMessage(msg, t) {
 
-        // Extract the key
-        const key  = `errors:${msg.split(";")[0]}`;
+    // Extract the key
+    const key = `errors:${msg.split(";")[0]}`;
 
-        // Initialize the options
-        let opts = {};
+    // Initialize the options
+    let opts = {};
 
-        // If any option is provided, parse them
-        if (msg.split(";")[1]) opts = JSON.parse(msg.split(";")[1]);
+    // If any option is provided, parse them
+    if (msg.split(";")[1]) opts = JSON.parse(msg.split(";")[1]);
 
-        // Return the translation
-        return t(key, opts);
+    // Return the translation
+    return t(key, opts);
 
 }

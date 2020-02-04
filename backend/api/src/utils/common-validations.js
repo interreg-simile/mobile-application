@@ -102,6 +102,58 @@ export function vCoords(field, opt) {
 
 
 /**
+ * Creates a validation chain for a generic dCode field.
+ *
+ * @param {String} field - The name of the field.
+ * @param {Number} min - The minimum accepted value.
+ * @param {Number} max - The maximum accepted value.
+ * @param {Boolean} [opt=false] - True if the field can be optional
+ * @return {ValidationChain[]} The validation chain.
+ */
+export function vDCode(field, min, max, opt = false) {
+
+    // Save the validation of the field
+    const validation = body(`${field}.dCode.code`);
+
+    // If the field is optional, append the optional validation
+    if (opt) validation.optional();
+
+    // Return the field validation
+    return [validation.not().isEmpty().isInt({ min: min, max: max, allow_leading_zeroes: false })]
+
+}
+
+
+/**
+ * Creates a validation chain for an array of dCode fields.
+ *
+ * @param {String} field - The name of the field.
+ * @param {Number} min - The minimum accepted value.
+ * @param {Number} max - The maximum accepted value.
+ * @param {Boolean} [opt=false] - True if the fields can be optional
+ * @return {ValidationChain[]} The validation chain.
+ */
+export function vArrayDCode(field, min, max, opt = false) {
+
+    // Save the validation of the field
+    const validation = body(field);
+
+    // If the field is optional, append the optional validation
+    if (opt) validation.optional();
+
+    // Return the field validation
+    return [
+
+        validation.isArray(),
+
+        ...vDCode(`${field}.*`, min, max, opt)
+
+    ]
+
+}
+
+
+/**
  * Validates the values passed with the 'sort' query parameter.
  *
  * @param {string} val - The passed value.
