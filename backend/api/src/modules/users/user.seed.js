@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import { JWT_PK } from "../../config/env";
+import { JWT_PK } from "../../setup/env";
 import User, { collection } from "./user.model";
 import { dropCollection } from "../../setup/seeder";
 

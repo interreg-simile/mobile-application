@@ -44,7 +44,7 @@
     "path-to-regexp": "^6.1.0",
     "rotating-file-stream": "^2.0.2",
     "uuid": "^3.3.2",
-    "validator-js": "^0.2.1"
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",
@@ -60,7 +60,6 @@
     "nodemon": "^1.19.4",
     "nyc": "^14.1.1",
     "sinon": "^7.5.0",
-    "swagger-ui-express": "^4.1.2",
-    "yamljs": "^0.3.0"
+    "swagger-ui-express": "^4.1.2"
   }
 }

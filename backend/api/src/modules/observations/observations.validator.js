@@ -12,7 +12,7 @@ import { vQuery,  vCoords, vDCode, vArrayDCode } from "../../utils/common-valida
 
 
 // Load the configurations in JSON format
-const conf = yaml.load(path.resolve("./src/config/models.yaml")).observations;
+const conf = yaml.load(path.resolve("./config/models.yaml")).observations;
 
 
 // Validation chain for the query parameters of the "get all" route

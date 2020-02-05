@@ -14,10 +14,10 @@ import constructError from "../utils/construct-error";
 
 
 /** General configuration of the API. */
-const generalConf   = yaml.load(path.resolve("./src/config/default.yaml"));
+const generalConf   = yaml.load(path.resolve("./config/default.yaml"));
 
 /** Configuration of the endpoints. */
-const endpointsConf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
+const endpointsConf = yaml.load(path.resolve("./config/endpoints.yaml"));
 
 /** App configuration. */
 export const appConf = generalConf.app;

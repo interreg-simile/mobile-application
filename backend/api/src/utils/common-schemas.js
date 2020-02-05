@@ -10,7 +10,7 @@ import path from "path";
 
 
 // Load the models configuration in JSON format
-const conf = yaml.load(path.resolve("./src/config/models.yaml"));
+const conf = yaml.load(path.resolve("./config/models.yaml"));
 
 
 /** Schema of a point. */

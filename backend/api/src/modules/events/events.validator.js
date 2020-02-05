@@ -11,7 +11,7 @@ import path from "path";
 
 
 // Load the configurations in JSON format
-const conf = yaml.load(path.resolve("./src/config/models.yaml")).events;
+const conf = yaml.load(path.resolve("./config/models.yaml")).events;
 
 
 // Validation chain for the query parameters of the "get all" route

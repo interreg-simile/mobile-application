@@ -8,7 +8,7 @@
 
 import jwt from "jsonwebtoken";
 
-import { JWT_PK } from "../config/env";
+import { JWT_PK } from "../setup/env";
 import constructError from "../utils/construct-error";
 
 

@@ -1,7 +1,7 @@
 /** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
 
 import mongoose from "mongoose"
-import { MONGO_URL } from "../config/env"
+import { MONGO_URL } from "./env"
 
 
 /**
