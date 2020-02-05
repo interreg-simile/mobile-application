@@ -7,7 +7,6 @@
     "node": "13.0.1"
   },
   "scripts": {
-    "test": "nyc mocha 'src/**/*.test.js' --require @babel/register",
     "seed": "babel-node src/setup/seeder.js",
     "start": "nodemon src/app.js --exec babel-node",
     "start:prod": "npm run build:prod && npm run start:server",

@@ -15,6 +15,7 @@ const conf = yaml.load(path.resolve("./src/config/models.yaml"));
 
 /** Schema of a point. */
 export const point = new Schema({
+    _id        : false,
     type       : { type: String, enum: ["Point"], required: true, default: "Point" },
     coordinates: { type: [Number], required: true }
 });

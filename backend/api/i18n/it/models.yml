@@ -6,6 +6,13 @@ alerts:
   rois: { 1: "All", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
 
 
+events:
+
+  rois: { 1: "All", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
+
+  countries: { 1: "Italia", 2: "Svizzera" }
+
+
 observations:
 
   position:

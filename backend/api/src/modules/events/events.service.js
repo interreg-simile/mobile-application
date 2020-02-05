@@ -1,5 +1,12 @@
+/**
+ * @fileoverview This file contains the services for the events endpoints. The services are workers which contain the
+ * business logic, directly communicates with the database and return to a controller the results of the operations.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import Event from "./events.model";
-import { constructError } from "../../utils/construct-error";
+import constructError from "../../utils/construct-error";
 import { removeFile } from "../../utils/utils";
 
 
@@ -9,11 +16,19 @@ import { removeFile } from "../../utils/utils";
  * @param {Object} filter - The filter to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
+ * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Event[]>} A promise containing the result of the query.
  */
-export async function getAll(filter, projection, options) {
+export async function getAll(filter, projection, options, t) {
 
-    return Event.find(filter, projection, { lean: true, ...options });
+    // Retrieve the events
+    const events = await Event.find(filter, projection, { lean: true, ...options });
+
+    // Populate the description fields of the events
+    for (let i = 0; i < events.length; i++) populateDescriptions(events[i], t);
+
+    // Return the events
+    return events;
 
 }
 
@@ -25,15 +40,19 @@ export async function getAll(filter, projection, options) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
+ * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Event>} A promise containing the result of the query.
  */
-export async function getById(id, filter, projection, options) {
+export async function getById(id, filter, projection, options, t) {
 
     // Find the data
     const event = await Event.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
 
     // If no data is found, throw an error
     if (!event) throw constructError(404);
+
+    // Populate the description fields of the event
+    populateDescriptions(event, t);
 
     // Return the data
     return event;
@@ -169,5 +188,22 @@ export async function softDelete(id) {
 
     // Save the change
     await event.save();
+
+}
+
+
+/**
+ * Populates the description fields of an event.
+ *
+ * @param {Event} event - The event.
+ * @param {Function} t - The i18next translation function fixed on the response language.
+ */
+function populateDescriptions(event, t) {
+
+    event.address.country["description"] = t(`models:events.countries.${event.address.country.code}`);
+
+    event.rois["descriptions"] = [];
+
+    event.rois.codes.forEach(r => event.rois["descriptions"].push(t(`models:events.rois.${r}`)));
 
 }

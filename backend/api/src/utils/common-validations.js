@@ -6,14 +6,6 @@
 
 import { body, param, query, ValidationChain } from "express-validator";
 
-
-// Enum for common values
-export const enums = {
-    roi   : ["lake_como", "lake_maggiore", "lake_lugano"],
-    county: ["italy", "switzerland"],
-};
-
-
 /** Validation chains for common path parameters */
 export const vPath = {
 
@@ -93,30 +85,6 @@ export function vSort(val, allowedFields) {
     return true
 
 }
-
-
-/** Validation chains for common body properties */
-export const vBody = {
-
-    rois   : [
-        body("rois")
-            .not().isEmpty().withMessage("Missing property 'rois'.")
-            .isArray().withMessage("Wrong format of property 'rois'."),
-        body("rois.*")
-            .isIn(enums.roi).withMessage("Invalid value of one of the properties of 'rois'."),
-    ],
-
-    roisOpt: [
-        body("rois")
-            .optional()
-            .not().isEmpty().withMessage("Missing property 'rois'.")
-            .isArray().withMessage("Wrong format of property 'rois'."),
-        body("rois.*")
-            .isIn(enums.roi).withMessage("Invalid value of one of the properties of 'rois'."),
-    ]
-
-};
-
 
 
 /**

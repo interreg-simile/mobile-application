@@ -182,8 +182,8 @@ export async function softDelete(id) {
  */
 function populateRoisDescription(alert, t) {
 
-    alert.roisDescription = [];
+    alert.rois["descriptions"] = [];
 
-    alert.rois.forEach(r => alert.roisDescription.push(t(`models:alerts.rois.${r}`)));
+    alert.rois.codes.forEach(r => alert.rois["descriptions"].push(t(`models:events.rois.${r}`)));
 
 }

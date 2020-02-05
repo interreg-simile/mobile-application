@@ -30,14 +30,14 @@ export default async function () {
             contentIta: new LoremIpsum().generateParagraphs(1),
             dateStart : new Date("2020-01-08T00:00:00"),
             dateEnd   : new Date("2020-12-30T00:00:00"),
-            rois      : [1],
+            rois      : { codes: [1] },
         },
         {
             titleIta  : "Comunicazione 2",
             contentIta: new LoremIpsum().generateParagraphs(1),
             dateStart : new Date("2020-10-09T00:00:00"),
             dateEnd   : new Date("2020-12-30T00:00:00"),
-            rois      : [2, 3],
+            rois      : { codes: [2,3] },
         }
     ];
 

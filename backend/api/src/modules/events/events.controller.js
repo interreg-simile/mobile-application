@@ -1,4 +1,12 @@
-import { constructError } from "../../utils/construct-error";
+/**
+ * @fileoverview This file contains the controller for the events endpoints. The controllers are manages which interact
+ * with the requests, take what it needs from Express, does some validation, passes the data to the right service(s)
+ * and send back to the user the results.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
+import constructError from "../../utils/construct-error";
 import { checkValidation } from "../../utils/common-checks";
 import * as eventService from "./events.service";
 import { getQuerySorting } from "../../utils/utils";
@@ -17,7 +25,7 @@ export const getAll = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Retrieve the query parameters
-    const includePast    = req.query.includePast || "false",
+    const includePast    = req.query.includePast || "true",
           includeDeleted = req.query.includeDeleted || "false",
           sort           = req.query.sort,
           rois           = req.query.rois,
@@ -28,8 +36,7 @@ export const getAll = (req, res, next) => {
 
     // Check that the use has passed no more than one geographical filter
     if ([rois, city, postalCode, coords].filter(e => e !== undefined).length > 1) {
-        next(constructError(422,
-            "You can pass only one query parameter among 'rois', 'city', 'postalCode' and 'coords'."));
+        next(constructError(422, `messages.validation.query;{"prop":"rois/city/postalCode/coords"}`));
         return;
     }
 
@@ -43,7 +50,7 @@ export const getAll = (req, res, next) => {
     if (includePast === "false") filter.date = { $gte: new Date() };
 
     // Filter by regions of interest
-    if (rois) filter.rois = { $in: rois.split(",") };
+    if (rois) filter["rois.codes"] = { $in: [1, ...rois.split(",").map(r => parseInt(r))] };
 
     // Filter by city
     if (city) filter["address.city"] = { $eq: city.toLocaleLowerCase() };
@@ -68,7 +75,7 @@ export const getAll = (req, res, next) => {
     if (sort) options.sort = getQuerySorting(sort);
 
     // Find the events
-    eventService.getAll(filter, projection, options)
+    eventService.getAll(filter, projection, options, req.t)
         .then(events => res.status(200).json({ meta: { code: 200 }, data: { events } }))
         .catch(err => next(err));
 
@@ -122,7 +129,7 @@ export const getById = (req, res, next) => {
     }
 
     // Find the data
-    eventService.getById(req.params.id, filter, projection, {})
+    eventService.getById(req.params.id, filter, projection, {}, req.t)
         .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
         .catch(err => next(err));
 

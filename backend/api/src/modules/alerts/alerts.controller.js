@@ -24,7 +24,7 @@ export const getAll = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Retrieve the query parameters
-    const includePast    = req.query.includePast || "false",
+    const includePast    = req.query.includePast || "true",
           includeDeleted = req.query.includeDeleted || "false",
           sort           = req.query.sort,
           rois           = req.query.rois;
@@ -39,7 +39,7 @@ export const getAll = (req, res, next) => {
     if (includePast === "false") filter.dateEnd = { $gte: new Date() };
 
     // Filter by regions of interest
-    if (rois) filter.rois = { $in: ["1", ...rois.split(",")] };
+    if (rois) filter["rois.codes"] = { $in: [1, ...rois.split(",").map(r => parseInt(r))] };
 
     // If the request does not come from an admin, project out the uid
     if (!req.isAdmin) projection.uid = 0;
@@ -49,7 +49,7 @@ export const getAll = (req, res, next) => {
 
     // Find the events
     alertService.getAll(filter, projection, options, req.t)
-        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
+        .then(alerts => res.status(200).json({ meta: { code: 200 }, data: { alerts } }))
         .catch(err => next(err));
 
 };
@@ -88,14 +88,22 @@ export const getById = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Initialize the filer for the query
-    const filter = {};
+    const filter = {}, projection = {};
 
-    // If the user is not admin, don't return the event if it's marked for deletion
-    if (!req.isAdmin) filter.markedForDeletion = false;
+    // If the user is not admin
+    if (!req.isAdmin) {
+
+        // Don't return the alert if it's marked for deletion
+        filter.markedForDeletion = false;
+
+        // Project out the uid
+        projection.uid = 0;
+
+    }
 
     // Get the communication
-    alertService.getById(req.params.id, filter, {}, {}, req.t)
-        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
+    alertService.getById(req.params.id, filter, projection, {}, req.t)
+        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert } }))
         .catch(err => next(err));
 
 };

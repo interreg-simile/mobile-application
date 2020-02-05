@@ -40,13 +40,14 @@ export const alert = [
     body("dateEnd").not().isEmpty().isISO8601()
         .custom((v, { req }) => new Date(v).getTime() > new Date(req.body.dateStart).getTime()),
 
-    body("rois")
+    body("rois.codes")
         .not().isEmpty()
         .isArray({min: 1})
         .custom(v => !(v.includes(1) && v.length > 1))
         .custom(v => new Set(v).size === v.length),
 
-    body("rois.*").not().isEmpty().isInt({min: conf.rois.min, max: conf.rois.max})
+    body("rois.codes.*").not().isEmpty().isInt({min: conf.rois.min, max: conf.rois.max}),
+
 
 ];
 
@@ -66,12 +67,14 @@ export const patch = [
 
     body("dateEnd").optional().not().isEmpty().isISO8601(),
 
-    body("rois")
+    body("rois.codes")
         .optional()
         .not().isEmpty()
         .isArray({min: 1})
-        .custom(v => new Set(v.split(",")).size === v.split(",").length),
+        .custom(v => !(v.includes(1) && v.length > 1))
+        .custom(v => new Set(v).size === v.length),
 
-    body("rois.*").not().isEmpty().isInt({min: conf.rois.min, max: conf.rois.max})
+    body("rois.codes.*").not().isEmpty().isInt({min: conf.rois.min, max: conf.rois.max}),
+
 
 ];

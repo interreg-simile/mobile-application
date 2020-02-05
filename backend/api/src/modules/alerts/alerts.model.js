@@ -23,7 +23,7 @@ const schema = new Schema({
     contentEng       : { type: String, required: false },
     dateStart        : { type: Date, required: true },
     dateEnd          : { type: Date, required: true },
-    rois             : { type: [Number], required: true },
+    rois             : { type: { _id: false, codes: [Number] }, required: true },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: true });
 
