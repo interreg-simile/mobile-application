@@ -1,3 +1,9 @@
+/**
+ * @fileoverview This file contains the Mongoose model for an observation.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import mongoose, { Schema } from "mongoose";
 
 import { collection as User } from "../users/user.model";

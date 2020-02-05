@@ -1,3 +1,10 @@
+/**
+ * @fileoverview This file contains the services for the observations endpoints. The services are workers which contain
+ * the business logic, directly communicates with the database and return to a controller the results of the operations.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import Observation from "./observations.model";
 import constructError from "../../utils/construct-error";
 import { populateObjDescriptions } from "../../utils/utils";

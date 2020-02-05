@@ -1,3 +1,9 @@
+/**
+ * @fileoverview This file defines the observation endpoints to access and manipulate the alerts.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import { Router } from "express";
 
 import * as validator from "./observations.validator";
@@ -12,7 +18,6 @@ const router = Router();
 router.get("/", validator.getAllQuery, controller.getAll);
 
 // POST - /observations/
-// router.post("/", validator.observation, controller.create);
 router.post("/", validator.observation, controller.create);
 
 // GET - /observations/{obs_id}
@@ -20,12 +25,6 @@ router.get("/:id", vPath.id, controller.getById);
 
 // DELETE - /observations/{obs_id}
 router.delete("/:id", vPath.id, controller.markForDeletion);
-
-// PUT - /events/{event_id}
-// router.put("/:id", vPath.id, validator.event, controller.update);
-
-// PATCH - /events/{event_id}
-// router.patch("/:id", vPath.id, validator.patch, controller.patch);
 
 // Export the router
 export default router;

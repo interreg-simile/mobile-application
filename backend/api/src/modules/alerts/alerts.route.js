@@ -1,5 +1,5 @@
 /**
- * @fileoverview This file defines the auth endpoints to access and manipulate the alerts.
+ * @fileoverview This file defines the alerts endpoints to access and manipulate the alerts.
  *
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */

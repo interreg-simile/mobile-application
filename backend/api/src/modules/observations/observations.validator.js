@@ -1,3 +1,9 @@
+/**
+ * @fileoverview This file contains express-validator validation chains regarding the `observations` routes.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import path from "path";
 import yaml from "yamljs";
 
