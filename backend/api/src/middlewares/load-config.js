@@ -1,3 +1,10 @@
+/**
+ * @fileoverview This file contains the logic needed to load the configuration files. It also check if an incoming
+ * request corresponds to a valid combination of verb and route.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import path from "path";
 import yaml from "yamljs";
 import _ from "lodash";
@@ -6,15 +13,16 @@ import { match } from "path-to-regexp";
 import constructError from "../utils/construct-error";
 
 
-// Load the configurations in JSON format
+/** General configuration of the API. */
 const generalConf   = yaml.load(path.resolve("./src/config/default.yaml"));
-const endpointsConf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 
+/** Configuration of the endpoints. */
+const endpointsConf = yaml.load(path.resolve("./src/config/endpoints.yaml"));
 
 /** App configuration. */
 export const appConf = generalConf.app;
 
-/** Version of the API in the format v1. */
+/** Version of the API in the format `v1`. */
 export const version = `v${appConf.version}`;
 
 

@@ -1,4 +1,15 @@
---- # Endpoints configuration
+--- # Configuration of the API endpoints.
+
+
+/auth:
+
+  - path: /keys/
+    method: POST
+    key_required: false
+    admin_required: false
+    token_required: false
+    paternity: false
+
 
 /events:
 

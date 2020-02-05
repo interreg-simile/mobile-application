@@ -1,3 +1,5 @@
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
+
 import ip from 'ip';
 import mongoose from 'mongoose';
 import format from 'date-fns/format';

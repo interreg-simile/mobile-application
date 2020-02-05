@@ -1,3 +1,10 @@
+/**
+ * @fileoverview This file contains the logic needed to handle the errors occurred during the resolution of a request.
+ * It translates the error and sends back to the client the right status code, message and error type.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import { removeFile } from "../utils/utils";
 
 

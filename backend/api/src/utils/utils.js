@@ -1,5 +1,10 @@
+/**
+ * @fileoverview This file contains utility functions.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import fs from "fs";
-import i18next from "i18next";
 
 
 /**

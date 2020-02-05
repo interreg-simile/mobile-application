@@ -1,7 +1,6 @@
 import { checkValidation } from "../../utils/common-checks";
 import * as alertService from "./alerts.service";
 import { getQuerySorting } from "../../utils/utils";
-import { constructError } from "../../utils/construct-error";
 
 
 /**

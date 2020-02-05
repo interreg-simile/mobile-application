@@ -1,10 +1,9 @@
---- # Default general configuration
+--- # Default general configuration for the API.
 
 app:
-  env: development
-  version: 1
-  port: 8000
-  lngs:
+  env: development  # Type of environment
+  version: 1        # API version
+  port: 8000        # API port
+  lngs:             # Supported languages
     - it
-    - en
-  defaultLng: it
+  defaultLng: it    # Default language

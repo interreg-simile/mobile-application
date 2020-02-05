@@ -1,3 +1,5 @@
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
+
 import { version } from "../middlewares/load-config";
 
 import authRouter from "../modules/auth/auth.route";
@@ -18,6 +20,7 @@ export default function (server) {
 
     console.info('SETUP - Routes...');
 
+    // Set up the routes
     server.use(`/${version}/auth`, authRouter);
     server.use(`/${version}/users`, userRouter);
     server.use(`/${version}/events`, eventRouter);

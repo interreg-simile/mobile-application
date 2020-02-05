@@ -1,7 +1,13 @@
+/**
+ * @fileoverview This file contains common express-validator validation chains.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import { body, param, query, ValidationChain } from "express-validator";
 
 
-// Enum for common values // ToDo transform in numbers
+// Enum for common values
 export const enums = {
     roi   : ["lake_como", "lake_maggiore", "lake_lugano"],
     county: ["italy", "switzerland"],

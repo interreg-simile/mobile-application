@@ -1,3 +1,11 @@
+/**
+ * @fileoverview This file contains the logic needed to check the authorization token of the user performing a request
+ * and to assess if she has the right permissions to proceed in the request. The permissions needed for each endpoint
+ * are defined in the configuration file `api/scr/config/endpoints.yaml`.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import jwt from "jsonwebtoken";
 
 import { JWT_PK } from "../config/env";
@@ -5,7 +13,7 @@ import constructError from "../utils/construct-error";
 
 
 /**
- * Extracts and verifies the authorization token attached to any incoming request.
+ * Extracts and verifies the authorization token attached to an incoming request.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -37,7 +45,9 @@ export default function (req, res, next) {
         return;
     }
 
-    // Save idValidation and status of the user
+    // ToDo check if the userId is in the database (?)
+
+    // Save id and status of the user
     req.userId  = decodedToken.userId;
     req.isAdmin = decodedToken.isAdmin === "true";
 

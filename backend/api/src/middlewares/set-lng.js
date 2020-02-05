@@ -1,3 +1,5 @@
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
+
 import { appConf } from "./load-config";
 import i18next from "i18next";
 
@@ -50,6 +52,5 @@ export default function (req, res, next) {
 
     // Call the next middleware
     next()
-
 
 }

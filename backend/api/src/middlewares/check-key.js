@@ -1,9 +1,11 @@
-import Key from "../modules/auth/keys.model";
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
+
 import constructError from "../utils/construct-error";
+import { getKeyByValue } from "../modules/auth/auth.service";
 
 
 /**
- * Checks if the request has a valid API key in the headers.
+ * Checks if the request has a valid API key in the X-API-KEY header.
  *
  * @param {Object} req - The Express request object.
  * @param {Object} res - The Express response object.
@@ -22,21 +24,13 @@ export default function (req, res, next) {
 
     // If no key is found, throw an error
     if (!keyHeader) {
-        next(constructError(403,"messages.apiKeyMissing"));
+        next(constructError(403, "messages.apiKeyMissing"));
         return;
     }
 
     // Search che key in the database
-    Key.findOne({ key: keyHeader })
-        .then(result => {
-
-            // If no key is found, throw an error
-            if (!result) next(constructError(403, "messages.apiKeyNotRecognized"));
-
-            // Call the next middleware
-            next()
-
-        })
-        .catch(err => next(err));
+    getKeyByValue(keyHeader)
+        .then(() => next())
+        .catch(() => next(constructError(403, "messages.apiKeyNotRecognized")));
 
 }

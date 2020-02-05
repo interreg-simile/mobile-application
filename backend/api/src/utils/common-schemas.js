@@ -1,9 +1,15 @@
+/**
+ * @fileoverview This file contains common Mongoose schemas.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import { Schema } from "mongoose";
 import yaml from "yamljs";
 import path from "path";
 
 
-// Load the configurations in JSON format
+// Load the models configuration in JSON format
 const conf = yaml.load(path.resolve("./src/config/models.yaml"));
 
 
@@ -22,8 +28,10 @@ export const point = new Schema({
  */
 export function genDCode(path) {
 
+    // Get the right configuration
     const c = conf[path.split(":")[0]];
 
+    // Return the schema
     return {
         code: { type: Number, min: c.min, max: c.max },
         path: {

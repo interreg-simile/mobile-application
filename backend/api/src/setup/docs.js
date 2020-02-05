@@ -1,7 +1,15 @@
+/**
+ * @fileoverview This file sets up the API documentation using Swagger. The documentation is work in progress, so the
+ * implementation in this file is just temporary.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import path from "path";
 import express from "express";
 import swagger from "swagger-ui-express";
 import yaml from "yamljs";
+
 
 /**
  * Sets up the API docs using Swagger.
@@ -10,7 +18,6 @@ import yaml from "yamljs";
  */
 export default function (server) {
 
-    // ToDo temporary
     // Serve docs as static files
     server.use(express.static(path.join(__dirname, "..", "..", "docs")));
 

@@ -1,8 +1,9 @@
-import path from "path";
-import fs from "fs";
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
 
+import path from "path";
 import helmet from "helmet";
 import morgan from "morgan";
+import { createStream } from "rotating-file-stream";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
@@ -31,11 +32,17 @@ export default function (server) {
     // Use helmet to set secure response headers
     server.use(helmet());
 
-    // Use morgan for request logging
-    const accessLogStream = fs.createWriteStream(path.join(__dirname, "../../logs/server.log"), { flags: "a" });
+    // Create the rotating logging access stream
+    const accessLogStream = createStream("access.log", {
+        interval: "1d",                                     // Rotate daily
+        compress: true,                                     // Compress the rotated files
+        path    : path.join(__dirname, "..", "..", "logs")  // Path to prepend to the files
+    });
+
+    // Use morgan to log
     server.use(morgan("combined", { stream: accessLogStream }));
 
-    // Setup the docs
+    // ToDo Setup the docs
     // setupDocs(server);
 
     // Setup the static path to the images

@@ -1,3 +1,5 @@
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
+
 import mongoose from "mongoose";
 
 import { appConf } from "../middlewares/load-config";
@@ -13,7 +15,7 @@ import observations from "../modules/observations/observations.seed";
 /**
  * Seeds the database with dummy data.
  *
- * @returns {Promise<void>}
+ * @returns {Promise<void>} An empty promise.
  */
 async function seeder() {
 
@@ -22,14 +24,15 @@ async function seeder() {
     // Connect to the database
     await connectDb();
 
+    // Try to seed the database
     try {
 
         // Seed the data
-        // await apiKeys();
+        await apiKeys();
         // await users();
         // await events();
         // await alerts();
-        await observations();
+        // await observations();
 
 
         // Close the connection
@@ -53,7 +56,7 @@ async function seeder() {
  * Drops a db collection if it exists.
  *
  * @param {string} collection - The name of the collection to drop.
- * @returns {Promise<void>}
+ * @returns {Promise<void>} An empty promise.
  */
 export async function dropCollection(collection) {
 

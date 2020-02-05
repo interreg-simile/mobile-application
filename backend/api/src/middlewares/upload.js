@@ -1,14 +1,9 @@
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
+
 import multer from "multer";
 import uuid from "uuid/v4"
 
 import constructError from "../utils/construct-error";
-
-
-// File filter
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") cb(null, true);
-    else cb(constructError(415));
-};
 
 
 /**
@@ -38,6 +33,12 @@ export default function (req, res, next) {
     // Populate the fields
     req.config.upload.fields.forEach(f => fields.push({ name: f.name, maxCount: f.max }));
 
+    // Configure the file filter
+    const fileFilter = (req, file, cb) => {
+        if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") cb(null, true);
+        else cb(constructError(415));
+    };
+
     // Create the upload function
     const upload = multer({ storage: storage, fileFilter: fileFilter }).fields(fields);
 
@@ -58,45 +59,43 @@ export default function (req, res, next) {
 
         }
 
+        // Initialize a variable for saving any field with a number of files uploaded lower than the minimum allowed
+        let e = null;
 
+        // For each of the fields
+        req.config.upload.fields.some(f => {
 
-            // Initialize a variable for saving any field with a number of files uploaded lower than the minimum allowed
-            let e = null;
+            // If the minimum allowed id 0, return false
+            if (f.min === 0) return false;
 
-            // For each of the fields
-            req.config.upload.fields.some(f => {
-
-                // If the minimum allowed id 0, return false
-                if (f.min === 0) return false;
-
-                // If the field has a number of files uploaded lower than the minimum allowed, return true
-                if ((!req.files || !Object.keys(req.files).includes(f.name)) || req.files[f.name].length < f.min) {
-                    e = f;
-                    return true;
-                }
-
-                // Return false
-                return false;
-
-            });
-
-            /// If there was an error, throw it
-            if (e) {
-
-                next(constructError(
-                    422,
-                    `messages.tooFewFiles;{ "min": "${e.min}", "field": "${e.name}" }`,
-                    "types.fileUploadException"
-                ));
-
-                return;
-
+            // If the field has a number of files uploaded lower than the minimum allowed, return true
+            if ((!req.files || !Object.keys(req.files).includes(f.name)) || req.files[f.name].length < f.min) {
+                e = f;
+                return true;
             }
 
-            // Call the next middleware
-            next();
+            // Return false
+            return false;
 
         });
 
-    }
+        /// If there was an error, throw it
+        if (e) {
+
+            next(constructError(
+                422,
+                `messages.tooFewFiles;{ "min": "${e.min}", "field": "${e.name}" }`,
+                "types.fileUploadException"
+            ));
+
+            return;
+
+        }
+
+        // Call the next middleware
+        next();
+
+    });
+
+}
 

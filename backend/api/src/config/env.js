@@ -1,4 +1,11 @@
+/**
+ * @fileoverview This file imports the environmental variables to expose them in a more readable way.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import dotenv from "dotenv";
+
 
 // Import the environmental variables
 dotenv.config();

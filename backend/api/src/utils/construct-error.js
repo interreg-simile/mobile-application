@@ -8,12 +8,15 @@
  */
 export default function (code, msg, type) {
 
+    // Initialize the error object
     const error = new Error();
 
+    // Set the status code, message and type of the error
     error.statusCode = code || 500;
     error.message    = msg || `messages.${error.statusCode}`;
     error.type       = type || `types.${error.statusCode}`;
 
+    // Return the error
     return error;
 
 };

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Starting point of the server. It calls all the setup files to initialize the middlewares, the routes,
+ * the internationalization, the database and finally the server itself.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import express from "express";
 
 import startServer from "./setup/server";

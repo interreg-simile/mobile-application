@@ -1,5 +1,7 @@
 ## ToDo
 
+- Write and set up API documentation.
+
 - Add right status code if route exists but verb is not allowed.
 
 - Explore response types

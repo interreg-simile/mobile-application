@@ -1,3 +1,5 @@
+/** @author Edoardo Pessina <edoardo.pessina@polimi.it> */
+
 import constructError from "../utils/construct-error";
 
 
