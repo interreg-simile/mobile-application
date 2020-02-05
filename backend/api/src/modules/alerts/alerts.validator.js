@@ -1,69 +1,77 @@
+/**
+ * @fileoverview This file contains express-validator validation chains regarding the `alerts` routes.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import { body } from "express-validator";
 
-import { vQuery, vBody } from "../../utils/common-validations";
+import { vQuery, vBody, vDCode, vArrayDCode } from "../../utils/common-validations";
+import yaml from "yamljs";
+import path from "path";
+
+
+// Load the configurations in JSON format
+const conf = yaml.load(path.resolve("./src/config/models.yaml")).alerts;
 
 
 // Validation chain for the query parameters of the "get all" route
-export const getAllQuery = [...vQuery.includePast, ...vQuery.includeDeletedAdmin, ...vQuery.sort, ...vQuery.rois];
+export const getAllQuery = [
+    ...vQuery.includePast,
+    ...vQuery.includeDeletedAdmin,
+    ...vQuery.sort,
+    ...vQuery.rois(conf.rois.min, conf.rois.max)
+];
 
 
 // Validation chain for the body of the "post" and "put" requests
 export const alert = [
-    body("uid")
-        .isEmpty().withMessage("Set forbidden property 'uid'."),
-    body("titleIta")
-        .trim().escape()
-        .not().isEmpty().withMessage("Missing property 'titleIta'."),
-    body("titleEng")
-        .optional()
-        .trim().escape(),
-    body("contentIta")
-        .trim().escape()
-        .not().isEmpty().withMessage("Missing property 'contentIta'."),
-    body("contentEng")
-        .optional()
-        .trim().escape(),
-    body("dateStart")
-        .not().isEmpty().withMessage("Missing property 'dateStart'.")
-        .isISO8601().withMessage("Wrong format of property 'dateStart'."),
-    body("dateEnd")
-        .not().isEmpty().withMessage("Missing property 'dateEnd'.")
-        .isISO8601().withMessage("Wrong format of property 'dateEnd'.")
-        .custom((v, { req }) => new Date(v).getTime() > new Date(req.body.dateStart).getTime())
-        .withMessage("Property 'dateEnd' must be grater than property 'dateStart'."),
-    ...vBody.rois,
-    body("markedForDeletion")
-        .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")
+
+    body("titleIta").trim().escape().not().isEmpty(),
+
+    body("titleEng").optional().trim().escape(),
+
+    body("contentIta").trim().escape().not().isEmpty(),
+
+    body("contentEng").optional().trim().escape(),
+
+    body("dateStart").not().isEmpty().isISO8601(),
+
+    body("dateEnd").not().isEmpty().isISO8601()
+        .custom((v, { req }) => new Date(v).getTime() > new Date(req.body.dateStart).getTime()),
+
+    body("rois")
+        .not().isEmpty()
+        .isArray({min: 1})
+        .custom(v => !(v.includes(1) && v.length > 1))
+        .custom(v => new Set(v).size === v.length),
+
+    body("rois.*").not().isEmpty().isInt({min: conf.rois.min, max: conf.rois.max})
+
 ];
 
 
 // Validation chain for the body of the "patch" requests
 export const patch = [
-    body("uid")
-        .isEmpty().withMessage("Set forbidden property 'uid'."),
-    body("titleIta")
+
+    body("titleIta").optional().trim().escape().not().isEmpty(),
+
+    body("titleEng").optional().trim().escape(),
+
+    body("contentIta").optional().trim().escape().not().isEmpty(),
+
+    body("contentEng").optional().trim().escape(),
+
+    body("dateStart").optional().not().isEmpty().isISO8601(),
+
+    body("dateEnd").optional().not().isEmpty().isISO8601(),
+
+    body("rois")
         .optional()
-        .trim().escape()
-        .not().isEmpty().withMessage("Missing property 'titleIta'."),
-    body("titleEng")
-        .optional()
-        .trim().escape(),
-    body("contentIta")
-        .optional()
-        .trim().escape()
-        .not().isEmpty().withMessage("Missing property 'contentIta'."),
-    body("contentEng")
-        .optional()
-        .trim().escape(),
-    body("dateStart")
-        .optional()
-        .not().isEmpty().withMessage("Missing property 'dateStart'.")
-        .isISO8601().withMessage("Wrong format of property 'dateStart'."),
-    body("dateEnd")
-        .optional()
-        .not().isEmpty().withMessage("Missing property 'dateEnd'.")
-        .isISO8601().withMessage("Wrong format of property 'dateEnd'."),
-    ...vBody.roisOpt,
-    body("markedForDeletion")
-        .isEmpty().withMessage("Forbidden value of property 'markedForDeletion'.")
+        .not().isEmpty()
+        .isArray({min: 1})
+        .custom(v => new Set(v.split(",")).size === v.split(",").length),
+
+    body("rois.*").not().isEmpty().isInt({min: conf.rois.min, max: conf.rois.max})
+
 ];

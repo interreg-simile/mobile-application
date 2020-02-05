@@ -16,7 +16,7 @@ export default async function () {
                 accuracy   : 20.86549,
                 custom     : false,
                 address    : "Piazzetta Felice Baratelli 22100 Como CO",
-                lake       : { dCode: { code: 3, path: "position.lake" } }
+                lake       : { dCode: { code: 3, path: "observations.position.lake" } }
             },
             weather : {
                 temperature: 25.8,
@@ -25,11 +25,11 @@ export default async function () {
             },
             details : {
                 algae  : {
-                    extension: { dCode: { code: 1, path: "details.algae.extension" } },
-                    look     : { dCode: { code: 2, path: "details.algae.look" } }
+                    extension: { dCode: { code: 1, path: "observations.details.algae.extension" } },
+                    look     : { dCode: { code: 2, path: "observations.details.algae.look" } }
                 },
                 oils   : {},
-                outlets: { inPlace: true, colour: { dCode: { code: 1, path: "details.outlets.colour" } } }
+                outlets: { inPlace: true, colour: { dCode: { code: 1, path: "observations.details.outlets.colour" } } }
             },
             photos  : ["observations/default.jpg"]
         }

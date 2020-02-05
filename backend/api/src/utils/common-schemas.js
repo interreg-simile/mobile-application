@@ -31,12 +31,15 @@ export function genDCode(path) {
     // Get the right configuration
     const c = conf[path.split(":")[0]];
 
+    // Save the resource path
+    const p = `${path.split(":")[0]}.${path.split(":")[1]}`;
+
     // Return the schema
     return {
         code: { type: Number, min: c.min, max: c.max },
         path: {
             type     : String,
-            default  : function () { return this.code ? path.split(":")[1] : undefined},
+            default  : function () { return this.code ? p : undefined},
             immutable: true
         }
     }

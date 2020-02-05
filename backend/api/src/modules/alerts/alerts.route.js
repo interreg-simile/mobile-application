@@ -1,3 +1,9 @@
+/**
+ * @fileoverview This file defines the auth endpoints to access and manipulate the alerts.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import { Router } from "express";
 
 import * as validator from "./alerts.validator";

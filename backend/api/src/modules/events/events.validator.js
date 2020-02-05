@@ -7,7 +7,7 @@ export const getAllQuery = [
     ...vQuery.includePast,
     ...vQuery.includeDeletedAdmin,
     ...vQuery.sort,
-    ...vQuery.rois,
+    // ...vQuery.rois,
     query("city")
         .optional()
         .trim().escape(),

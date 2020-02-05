@@ -66,19 +66,17 @@ export const create = (req, res, next) => {
  */
 export const getById = (req, res, next) => {
 
-    // console.log(i18next.getResource("it", "observations", "lakes.1"));
-
     // Validate the request
     if (!checkValidation(req, next)) return;
 
     // Initialize the filer for the query
-    const filter = {}, projection = {};
+    const filter = {};
 
     // If the user is not admin, don't return the observation if it's marked for deletion
     if (!req.isAdmin) filter.markedForDeletion = false;
 
     // Find the data
-    observationService.getById(req.params.id, filter, projection, {}, req.t)
+    observationService.getById(req.params.id, filter, {}, {}, req.t)
         .then(observation => res.status(200).json({ meta: { code: 200 }, data: { observation } }))
         .catch(err => next(err));
 

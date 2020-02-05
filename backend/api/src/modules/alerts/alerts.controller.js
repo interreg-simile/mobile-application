@@ -1,3 +1,11 @@
+/**
+ * @fileoverview This file contains the controller for the alerts endpoints. The controllers are manages which interact
+ * with the requests, take what it needs from Express, does some validation, passes the data to the right service(s)
+ * and send back to the user the results.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import { checkValidation } from "../../utils/common-checks";
 import * as alertService from "./alerts.service";
 import { getQuerySorting } from "../../utils/utils";
@@ -31,7 +39,7 @@ export const getAll = (req, res, next) => {
     if (includePast === "false") filter.dateEnd = { $gte: new Date() };
 
     // Filter by regions of interest
-    if (rois) filter.rois = { $in: rois.split(",") };
+    if (rois) filter.rois = { $in: ["1", ...rois.split(",")] };
 
     // If the request does not come from an admin, project out the uid
     if (!req.isAdmin) projection.uid = 0;
@@ -40,7 +48,7 @@ export const getAll = (req, res, next) => {
     if (sort) options.sort = getQuerySorting(sort);
 
     // Find the events
-    alertService.getAll(filter, projection, options)
+    alertService.getAll(filter, projection, options, req.t)
         .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
         .catch(err => next(err));
 
@@ -86,7 +94,7 @@ export const getById = (req, res, next) => {
     if (!req.isAdmin) filter.markedForDeletion = false;
 
     // Get the communication
-    alertService.getById(req.params.id, filter, {}, {})
+    alertService.getById(req.params.id, filter, {}, {}, req.t)
         .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert: alert } }))
         .catch(err => next(err));
 

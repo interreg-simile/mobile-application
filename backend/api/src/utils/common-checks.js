@@ -23,14 +23,18 @@ export const checkValidation = (req, next) => {
     // If there is any error
     if (!errors.isEmpty()) {
 
-        // Save the first error parameter
-        let param = errors.errors[0].param;
+        // Save the first error parameter and location
+        let param    = errors.errors[0].param,
+            location = errors.errors[0].location;
 
-        // If the error is nested, save the parameter of the first nested error
-        if (param === "_error" && errors.errors[0].nestedErrors) param = errors.errors[0].nestedErrors[0].param;
+        // If the error is nested, save the parameter and the location of the first nested error
+        if (param === "_error" && errors.errors[0].nestedErrors) {
+            param    = errors.errors[0].nestedErrors[0].param;
+            location = errors.errors[0].nestedErrors[0].location;
+        }
 
         // Throw the error
-        next(constructError(422, `messages.validation;{"prop":"${param}"}`));
+        next(constructError(422, `messages.validation.${location};{"prop":"${param}"}`));
 
         // Return false
         return false;

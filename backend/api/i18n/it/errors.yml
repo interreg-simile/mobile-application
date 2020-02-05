@@ -22,7 +22,10 @@ messages:
   tooManyFiles: You can't provide more than {{max}} files for field {{field}}.
   tooFewFiles: You need to provide at least {{min}} file(s) for field {{field}}.
 
-  validation: Missing or invalid property '{{prop}}'.
+  validation:
+    body: Missing or invalid body property '{{prop}}'.
+    params: Invalid path parameter '{{prop}}'.
+    query: Invalid query parameter '{{prop}}'.
 
 types:
 

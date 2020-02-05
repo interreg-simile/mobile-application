@@ -1,8 +1,8 @@
 import path from "path";
 import yaml from "yamljs";
 
-import { body, query, oneOf } from "express-validator";
-import { vQuery, enums, vBody, vCoords, vDCode, vArrayDCode } from "../../utils/common-validations";
+import { body, oneOf } from "express-validator";
+import { vQuery,  vCoords, vDCode, vArrayDCode } from "../../utils/common-validations";
 
 
 // Load the configurations in JSON format

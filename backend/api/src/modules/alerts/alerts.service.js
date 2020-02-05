@@ -1,6 +1,12 @@
+/**
+ * @fileoverview This file contains the services for the alerts endpoints. The services are workers which contain the
+ * business logic, directly communicates with the database and return to a controller the results of the operations.
+ *
+ * @author Edoardo Pessina <edoardo.pessina@polimi.it>
+ */
+
 import Alert from "./alerts.model";
-import { constructError } from "../../utils/construct-error";
-import { removeFile } from "../../utils/utils";
+import constructError from "../../utils/construct-error";
 
 
 /**
@@ -9,11 +15,19 @@ import { removeFile } from "../../utils/utils";
  * @param {Object} filter - The filter to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
+ * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Alert[]>} A promise containing the result of the query.
  */
-export async function getAll(filter, projection, options) {
+export async function getAll(filter, projection, options, t) {
 
-    return Alert.find(filter, projection, { lean: true, ...options });
+    // Retrieve the alerts
+    const alerts = await Alert.find(filter, projection, { lean: true, ...options });
+
+    // Populate the "description" fields of the alerts
+    for (let i = 0; i < alerts.length; i++) populateRoisDescription(alerts[i], t);
+
+    // Return the alerts
+    return alerts;
 
 }
 
@@ -25,15 +39,19 @@ export async function getAll(filter, projection, options) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
+ * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Alert>} A promise containing the result of the query.
  */
-export async function getById(id, filter, projection, options) {
+export async function getById(id, filter, projection, options, t) {
 
     // Find the data
     const alert = await Alert.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
 
     // If no data is found, throw an error
     if (!alert) throw constructError(404);
+
+    // Populate the "description" fields of the alert
+    populateRoisDescription(alert, t);
 
     // Return the data
     return alert;
@@ -116,9 +134,13 @@ export async function patch(id, data) {
     // If no data is found, throw an error
     if (!alert) throw constructError(404);
 
-    // If dateEnd property id less than dateStart, throw an error
-    if (data.dateEnd && new Date(data.dateEnd).getTime() <= new Date(alert.dateStart).getTime())
-        throw constructError(422, "Property 'dateEnd' must be grater than property 'dateStart'.");
+    // If dateStart property is grater than dateEnd, throw an error
+    if ((data.dateStart && !data.dateEnd) && new Date(data.dateStart).getTime() >= new Date(alert.dateEnd).getTime())
+        throw constructError(422, `messages.validation.body;{"prop":"dateStart"}`);
+
+    // If dateEnd property is less than dateStart, throw an error
+    if ((data.dateEnd && !data.dateStart) && new Date(data.dateEnd).getTime() <= new Date(alert.dateStart).getTime())
+        throw constructError(422, `messages.validation.body;{"prop":"dateEnd"}`);
 
     // Change the value of the given properties
     for (const k of Object.keys(data)) alert[k] = data[k];
@@ -148,5 +170,20 @@ export async function softDelete(id) {
 
     // Save the change
     await alert.save();
+
+}
+
+
+/**
+ * Populates the "roisDescription" field of an alert.
+ *
+ * @param {Alert} alert - The alert.
+ * @param {Function} t - The i18next translation function fixed on the response language.
+ */
+function populateRoisDescription(alert, t) {
+
+    alert.roisDescription = [];
+
+    alert.rois.forEach(r => alert.roisDescription.push(t(`models:alerts.rois.${r}`)));
 
 }

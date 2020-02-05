@@ -4,13 +4,16 @@
 
 - Add right status code if route exists but verb is not allowed.
 
-- Explore response types
+- Explore response types (GeoJSON).
 
-- Use numbers instead of rois and countries (events + alerts)
+- Use numbers instead of rois and countries (events + alerts).
 
-- Modify all the validation to be functions
+- Modify all the validation to be functions..
 
-- Find out if validation can be automatized (maybe inserting all in yml?)
+
+#### Auth
+
+- Handle users
 
 
 ##### Events

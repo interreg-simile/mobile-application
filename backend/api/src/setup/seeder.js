@@ -28,10 +28,10 @@ async function seeder() {
     try {
 
         // Seed the data
-        await apiKeys();
+        // await apiKeys();
         // await users();
         // await events();
-        // await alerts();
+        await alerts();
         // await observations();
 
 

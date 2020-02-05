@@ -1,5 +1,5 @@
 import Observation from "./observations.model";
-import { constructError } from "../../utils/construct-error";
+import constructError from "../../utils/construct-error";
 import { populateObjDescriptions } from "../../utils/utils";
 
 
@@ -18,7 +18,7 @@ export async function getAll(filter, projection, options, t) {
     const obs = await Observation.find(filter, projection, { lean: true, ...options });
 
     // Populate the "description" fields of the observations
-    for (let i = 0; i < obs.length; i++) populateObjDescriptions(obs[i], t, "observations");
+    for (let i = 0; i < obs.length; i++) populateObjDescriptions(obs[i], t);
 
     // Return the observations
     return obs;
@@ -45,7 +45,7 @@ export async function getById(id, filter, projection, options, t) {
     if (!obs) throw constructError(404);
 
     // Populate the "description" fields of the observation
-    populateObjDescriptions(obs, t, "observations");
+    populateObjDescriptions(obs, t);
 
     // Return the data
     return obs;

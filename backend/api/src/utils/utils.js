@@ -45,9 +45,8 @@ export function getQuerySorting(val) {
  *
  * @param {Object} obj - The object.
  * @param {Function} t - The i18next translation function fixed on the response language.
- * @param {String} ns - The namespace containing the keys for the "description" fields.
  */
-export function populateObjDescriptions(obj, t, ns) {
+export function populateObjDescriptions(obj, t) {
 
     // For each of the keys of the object
     for (const k in obj) {
@@ -56,10 +55,10 @@ export function populateObjDescriptions(obj, t, ns) {
         if (obj.hasOwnProperty(k) && k !== "_id" && k !== "uid" && k !== "createdAt" && k !== "updatedAt") {
 
             // If the key is "dCode", populate the "description" field
-            if (k === "dCode") obj[k].description = t(`${ns}:${obj[k].path}.${obj[k].code}`);
+            if (k === "dCode") obj[k].description = t(`models:${obj[k].path}.${obj[k].code}`);
 
             // Else if the key corresponds to an object, call the function recursively
-             else if (typeof obj[k] === "object") populateObjDescriptions(obj[k], t, ns);
+             else if (typeof obj[k] === "object") populateObjDescriptions(obj[k], t);
 
         }
 

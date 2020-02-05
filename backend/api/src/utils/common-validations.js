@@ -14,48 +14,90 @@ export const enums = {
 };
 
 
-// Validation chains for common path parameters
+/** Validation chains for common path parameters */
 export const vPath = {
-    id: [param("id").isMongoId().withMessage("Wrong format of path parameter 'id'.")]
+
+    // Mongoose id validation
+    id: [param("id").isMongoId()]
+
 };
 
 
-// Validation chains for common query parameters
+/** Validation chains for common query parameters */
 export const vQuery = {
-    includePast        : [
-        query("includePast")
-            .optional()
-            .isBoolean().withMessage("Wrong format of query parameter 'includePast'.")
-    ],
-    includeDeleted     : [
-        query("includeDeleted")
-            .optional()
-            .isBoolean().withMessage("Wrong format of query parameter 'includeDeleted'.")
-    ],
+
+    includePast: [query("includePast").optional().isBoolean()],
+
+    includeDeleted: [query("includeDeleted").optional().isBoolean()],
+
     includeDeletedAdmin: [
         query("includeDeleted")
             .optional()
             .custom((v, { req }) => !(v !== "false" && !req.isAdmin))
-            .withMessage("Forbidden value of query parameter 'includeDeleted'.")
-            .isBoolean().withMessage("Wrong format of query parameter 'includeDeleted'.")
+            .isBoolean()
     ],
-    sort               : [
-        query("sort")
-            .optional()
-            .custom((v, { req }) => vSort(v, req.config.sort))
-            .withMessage("Wrong format of query parameter 'sort'.")
-    ],
-    rois               : [
-        query("rois")
-            .optional()
-            .custom(v => v.split(",").every(i => enums.roi.indexOf(i) >= 0) && new Set(v.split(",")).size === v.split(",").length)
-            .withMessage("Wrong format of query parameter 'rois'.")
-    ]
+
+    sort: [query("sort").optional().custom((v, { req }) => vSort(v, req.config.sort))],
+
+    rois: (min, max) => {
+
+        return [
+
+            query("rois")
+                .optional()
+                .custom(v => {
+
+                    return v.split(",").every(r => parseInt(r) <= max && parseInt(r) > min) &&
+                        new Set(v.split(",")).size === v.split(",").length;
+
+                })
+
+        ]
+
+    }
+
 };
 
 
-// Validation chains for common body properties
+/**
+ * Validates the values passed with the 'sort' query parameter.
+ *
+ * @param {string} val - The passed value.
+ * @param {string[]} allowedFields - The allowed field for sorting.
+ * @returns {boolean} True if the validation passes.
+ */
+export function vSort(val, allowedFields) {
+
+    // If no allowed field are passed, return false
+    if (!allowedFields) return false;
+
+    // Initialize the object of the already processed values
+    const valSoFar = Object.create(null);
+
+    // For each value
+    for (const v of val.split(",")) {
+
+        // If the value is not in the form "key:order" or "key", return false
+        if (!(allowedFields.includes(v.split(":")[0]) &&
+            (!v.split(":")[1] || ["asc", "desc"].includes((v.split(":")[1]))))) return false;
+
+        // If the value is passed more than one, return false
+        if (v.split(":")[0] in valSoFar) return false;
+
+        // Save the value as processed
+        valSoFar[v.split(":")[0]] = true;
+
+    }
+
+    // Return true
+    return true
+
+}
+
+
+/** Validation chains for common body properties */
 export const vBody = {
+
     rois   : [
         body("rois")
             .not().isEmpty().withMessage("Missing property 'rois'.")
@@ -63,6 +105,7 @@ export const vBody = {
         body("rois.*")
             .isIn(enums.roi).withMessage("Invalid value of one of the properties of 'rois'."),
     ],
+
     roisOpt: [
         body("rois")
             .optional()
@@ -71,7 +114,9 @@ export const vBody = {
         body("rois.*")
             .isIn(enums.roi).withMessage("Invalid value of one of the properties of 'rois'."),
     ]
+
 };
+
 
 
 /**
@@ -92,15 +137,10 @@ export function vCoords(field, opt) {
     // Return the field validation
     return [
 
-        validation
-            .not().isEmpty().withMessage(`validation.missing;{"name": "${field}"}`)
-            .isArray({ min: 2, max: 2 }).withMessage(`validation.wrongFormat;{"name": "${field}"}`)
-            .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0))
-            .withMessage(`validation.invalidValue;{"name": "${field}"}`),
+        validation.not().isEmpty().isArray({ min: 2, max: 2 })
+            .custom(v => !(v[0] < -180.0 || v[0] > 180.0 || v[1] < -90.0 || v[1] > 90.0)),
 
-        body(`${field}.*`)
-            .not().isEmpty().withMessage(`validation.missingOne;{"name": "${field}"}`)
-            .isFloat().withMessage(`validation.wrongFormatOne;{"name": "${field}"}`)
+        body(`${field}.*`).not().isEmpty().isFloat()
 
     ]
 
@@ -158,38 +198,3 @@ export function vArrayDCode(field, min, max, opt = false) {
 
 }
 
-
-/**
- * Validates the values passed with the 'sort' query parameter.
- *
- * @param {string} val - The passed value.
- * @param {string[]} allowedFields - The allowed field for sorting.
- * @returns {boolean} True if the validation passes.
- */
-export function vSort(val, allowedFields) {
-
-    // If no allowed field are passed, return false
-    if (!allowedFields) return false;
-
-    // Initialize the object of the already processed values
-    const valSoFar = Object.create(null);
-
-    // For each value
-    for (const v of val.split(",")) {
-
-        // If the value is not in the form "key:order" or "key", return false
-        if (!(allowedFields.includes(v.split(":")[0]) &&
-            (!v.split(":")[1] || ["asc", "desc"].includes((v.split(":")[1]))))) return false;
-
-        // If the value is passed more than one, return false
-        if (v.split(":")[0] in valSoFar) return false;
-
-        // Save the value as processed
-        valSoFar[v.split(":")[0]] = true;
-
-    }
-
-    // Return true
-    return true
-
-}

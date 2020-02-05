@@ -20,7 +20,7 @@ export default function () {
         .use(backend)
         .init({
             preload: appConf.lngs,
-            ns     : ["common", "observations", "errors"],
+            ns     : ["models", "errors"],
             backend: { loadPath: "./i18n/{{lng}}/{{ns}}.yml" }
         })
 

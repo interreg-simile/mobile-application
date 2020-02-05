@@ -1,5 +1,5 @@
 /**
- * @fileoverview This file contains express-validator validation chains regarding the auth routes.
+ * @fileoverview This file contains express-validator validation chains regarding the `auth` routes.
  *
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
