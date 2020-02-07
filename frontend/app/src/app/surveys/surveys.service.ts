@@ -44,7 +44,7 @@ export class SurveysService {
     getAll() {
 
         // Save the url of the requests
-        const url = `${ environment.apiUrl }/surveys/user/${ this.auth.userId }`;
+        const url = `${ environment.apiBaseUrl }/surveys/user/${ this.auth.userId }`;
 
         // Retrieve both the surveys done and not done by the user
         const newSurveys  = this.http.get<GenericApiResponse>(`${ url }?includeExpired=false&invert=true`);

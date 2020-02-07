@@ -65,7 +65,7 @@ export class SingleEventPage implements OnInit {
             }
 
             // Append the api url to the image url
-            this.event.imageUrl = `${ environment.apiUrl }/${ this.event.imageUrl }`;
+            this.event.imageUrl = `${ environment.apiBaseUrl }/${ this.event.imageUrl }`;
 
             // Add the alert to the array of read alert in local memory
             this.newsService.saveData(STORAGE_KEY_EVENTS, this.event.id)

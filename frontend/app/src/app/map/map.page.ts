@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Platform } from "@ionic/angular";
+import { LoadingController, Platform } from "@ionic/angular";
 import { latLng, Map, marker, tileLayer, circleMarker } from 'leaflet';
+import * as L from 'leaflet';
+// import 'leaflet.markercluster';
+import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
 import { Diagnostic } from "@ionic-native/diagnostic/ngx";
@@ -8,6 +11,8 @@ import { Diagnostic } from "@ionic-native/diagnostic/ngx";
 import { MapService } from "./map.service";
 import { defaultMarkerIcon } from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
+import { NewsService } from "../news/news.service";
+import { Event } from "../news/events/event.model";
 
 
 /** Storage key for the cached user position. */
@@ -40,10 +45,16 @@ export class MapPage implements OnInit, OnDestroy {
 
     /** @ignore */ private _positionSub: Subscription;
     /** @ignore */ private _pauseSub: Subscription;
+    /** @ignore */ private _eventsSub;
+
+
+    private loading: HTMLIonLoadingElement;
 
 
     /** Leaflet map object. */
     private _map: Map;
+
+    private mapHoldTimeout: number;
 
     /** Marker for the user position. */
     private _userMarker: marker;
@@ -63,8 +74,14 @@ export class MapPage implements OnInit, OnDestroy {
     private _locationStatus = LocationErrors.NO_ERROR;
 
 
+    private _eventMarkers: MarkerClusterGroup;
+
+
     /** User position. */
     public position = { lat: undefined, lon: undefined, accuracy: undefined };
+
+
+    public events: Event[];
 
 
     /** @ignore */
@@ -72,7 +89,9 @@ export class MapPage implements OnInit, OnDestroy {
                 private platform: Platform,
                 private mapService: MapService,
                 private diagnostic: Diagnostic,
-                private storage: Storage) { }
+                private storage: Storage,
+                private newsService: NewsService,
+                private loadingCtr: LoadingController) { }
 
 
     /** @ignore */
@@ -99,13 +118,33 @@ export class MapPage implements OnInit, OnDestroy {
                     && state !== this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE)) this.stopWatcher();
 
             // Else, start the position watching
-            else this.startWatcher();
+            else this.startWatcher().catch(err => console.error(err));
 
         });
 
 
         // Restore the cached position and init the map
         this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
+
+        this._eventMarkers = new MarkerClusterGroup();
+
+
+        this._eventsSub = this.newsService.events.subscribe(events => {
+
+            console.log(events);
+
+            this.events = events;
+
+            this._eventMarkers.clearLayers();
+
+            this.events.forEach(e => {
+
+                marker(e.position.coordinates, { icon: defaultMarkerIcon() })
+                    .addTo(this._eventMarkers);
+
+            })
+
+        });
 
     }
 
@@ -131,90 +170,94 @@ export class MapPage implements OnInit, OnDestroy {
             { attribution: '&copy; OpenStreetMap contributors' }).addTo(this._map);
 
 
+        this._eventMarkers.addTo(this._map);
+
+
         // When the user drags the map, it stops following his position
         this._map.on("dragstart", () => this._isMapFollowing = false);
 
 
         // Start the position watcher
-        this.startWatcher();
+        this.startWatcher()
+            .catch(err => console.error(err))
+            .finally(() => this.populateMap());
 
     }
 
 
     /** Starts the position watcher. */
-    startWatcher() {
+    async startWatcher() {
 
         // Start the position watcher
-        this.mapService.checkPositionAvailability()
-            .then(status => {
+        const status = await this.mapService.checkPositionAvailability();
 
-                console.log(`Trying to start position watching. Status: ${ LocationErrors[status] }`);
+        console.log(`Trying to start position watching. Status: ${ LocationErrors[status] }`);
 
-                // Save the status
-                this._locationStatus = status;
-                this.changeRef.detectChanges();
-
-
-                // If there an error, return
-                if (this._locationStatus !== LocationErrors.NO_ERROR) return;
+        // Save the status
+        this._locationStatus = status;
+        this.changeRef.detectChanges();
 
 
-                // Set the map to follow the position
-                this._isMapFollowing = true;
-                this.changeRef.detectChanges();
-
-                // Add the user marker to the map
-                this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
-
-                // Add the accuracy circle to the map
-                this._accuracyCircle = circleMarker([45.466342, 9.185291],
-                    { radius: 0, color: "green", opacity: .5 }).addTo(this._map);
+        // If there an error, return
+        if (this._locationStatus !== LocationErrors.NO_ERROR) return;
 
 
-                // Subscribe to the location watcher
-                this._positionSub = this.mapService.watchLocation().subscribe(data => {
+        // Set the map to follow the position
+        this._isMapFollowing = true;
+        this.changeRef.detectChanges();
 
-                    // If the data does not contain any coordinate, raise an error and return
-                    if (!data.coords) {
-                        console.error("Error");
-                        return;
-                    }
+        // Add the user marker to the map
+        this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
 
-                    // Save the geo data
-                    this.position.lat      = data.coords.latitude;
-                    this.position.lon      = data.coords.longitude;
-                    this.position.accuracy = data.coords.accuracy;
+        // Add the accuracy circle to the map
+        this._accuracyCircle = circleMarker([45.466342, 9.185291],
+            { radius: 0, color: "green", opacity: .5 }).addTo(this._map);
 
-                    console.log(`[${ this.position.lat }, ${ this.position.lon }] (${ this.position.accuracy })`);
 
-                    // If the map is set to follow the user position
-                    if (this._isMapFollowing) {
+        // Subscribe to the location watcher
+        this._positionSub = this.mapService.watchLocation().subscribe(data => this.onPositionReceived(data));
 
-                        // If its the first found position, set the center and the zoom of the map
-                        if (this._isFirstPosition)
-                            this._map.setView([this.position.lat, this.position.lon], DEFAULT_ZOOM);
+    }
 
-                        // Else, set just the center
-                        else
-                            this._map.panTo([this.position.lat, this.position.lon]);
 
-                    }
+    onPositionReceived(data) {
 
-                    // Set the position of the user marker
-                    this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+        // If the data does not contain any coordinate, raise an error and return
+        if (!data.coords) {
+            console.error("Error");
+            return;
+        }
 
-                    // Set the position and the radius of the accuracy circle
-                    this._accuracyCircle
-                        .setLatLng([this.position.lat, this.position.lon])
-                        .setRadius(this.position.accuracy / 2);
+        // Save the geo data
+        this.position.lat      = data.coords.latitude;
+        this.position.lon      = data.coords.longitude;
+        this.position.accuracy = data.coords.accuracy;
 
-                    // Set the first position flag to false
-                    this._isFirstPosition = false;
+        console.log(`[${ this.position.lat }, ${ this.position.lon }] (${ this.position.accuracy })`);
 
-                });
+        // If the map is set to follow the user position
+        if (this._isMapFollowing) {
 
-            })
-            .catch(err => console.error(err));
+            // If its the first found position, set the center and the zoom of the map
+            if (this._isFirstPosition)
+                this._map.setView([this.position.lat, this.position.lon], DEFAULT_ZOOM);
+
+            // Else, set just the center
+            else
+                this._map.panTo([this.position.lat, this.position.lon]);
+
+        }
+
+        // Set the position of the user marker
+        this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+
+        // Set the position and the radius of the accuracy circle
+        this._accuracyCircle
+            .setLatLng([this.position.lat, this.position.lon])
+            .setRadius(this.position.accuracy / 2);
+
+        // Set the first position flag to false
+        this._isFirstPosition = false;
 
     }
 
@@ -252,6 +295,41 @@ export class MapPage implements OnInit, OnDestroy {
 
         if (this.position.lat && this.position.lon)
             await this.storage.set(STORAGE_KEY_POSITION, [this.position.lat, this.position.lon]);
+
+    }
+
+
+    async populateMap() {
+
+        this.presentLoading();
+
+        const pEvents = this.newsService.fetchEvents();
+
+        Promise.all([pEvents])
+            .then(() => console.log("Done!"))
+            .catch(err => console.error(err))
+            .finally(() => this.dismissLoading());
+
+
+        // marker(INITIAL_LATLNG, { icon: defaultMarkerIcon() }).addTo(this._map);
+
+        // const markers = new MarkerClusterGroup();
+        //
+        // for (let i = 0; i < 50; i += 1) {
+        //     marker(getRandomLatLng(), { icon: defaultMarkerIcon() }).addTo(markers);
+        // }
+        //
+        // console.log(markers);
+        //
+        // markers.addTo(this._map);
+        //
+        // function getRandomLatLng() {
+        //     return [
+        //         48.8 + 0.1 * Math.random(),
+        //         2.25 + 0.2 * Math.random()
+        //     ];
+        // }
+
 
     }
 
@@ -294,6 +372,23 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
+    async presentLoading() {
+
+        this.loading = await this.loadingCtr.create({ message: "Test", showBackdrop: false });
+
+        await this.loading.present();
+
+    }
+
+    async dismissLoading() {
+
+        if (this.loading) await this.loading.dismiss();
+
+        this.loading = null;
+
+    }
+
+
     /** @ignore */
     ngOnDestroy() {
 
@@ -304,6 +399,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Unsubscribe
         if (this._pauseSub) this._pauseSub.unsubscribe();
+        // if (this._eventsSub) this._eventsSub.unsubscribe();
 
         // Remove the map
         this._map.remove();

@@ -28,7 +28,7 @@ export default async function () {
         {
             titleIta      : "Evento futuro",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
-            position      : { type: "Point", coordinates: [5.909484, 8.505565] },
+            position      : { type: "Point", coordinates: [45.912573, 8.504056] },
             address       : {
                 main      : "Corso Giuseppe Garibaldi",
                 civic     : "23",
@@ -45,7 +45,7 @@ export default async function () {
         {
             titleIta      : "Evento futuro 2",
             descriptionIta: new LoremIpsum().generateParagraphs(1),
-            position      : { type: "Point", coordinates: [9.383572, 45.860125] },
+            position      : { type: "Point", coordinates: [45.852352, 9.389224] },
             address       : {
                 main      : "Largo Fratelli Calvi",
                 civic     : "2",

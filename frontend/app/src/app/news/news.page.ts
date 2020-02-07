@@ -61,6 +61,7 @@ export class NewsPage implements OnInit, OnDestroy {
 
         // Subscribe to the changes of the alerts array in the newsService
         this._alertsSub = this.newsService.alerts.subscribe(alerts => this.alerts = alerts);
+        this._eventsSub = this.newsService.events.subscribe(events => this.events = events);
 
         // Subscribe to the observables that state if the are unread alerts and events
         this._newAlertsSub = this.newsService.areNewAlerts.subscribe(v => this.newAlerts = v);
@@ -75,17 +76,17 @@ export class NewsPage implements OnInit, OnDestroy {
     /** @ignore */
     ionViewWillEnter() {
 
-        // Set is loading to true
-        this.isLoading = true;
-
-        // Fetch all the alerts
-        this.newsService.fetchAlerts()
-            .then(() => this.alertError = false)
-            .catch(err => {
-                console.error(err);
-                this.alertError = true;
-            })
-            .finally(() => this.isLoading = false)
+        // // Set is loading to true
+        // this.isLoading = true;
+        //
+        // // Fetch all the alerts
+        // this.newsService.fetchAlerts()
+        //     .then(() => this.alertError = false)
+        //     .catch(err => {
+        //         console.error(err);
+        //         this.alertError = true;
+        //     })
+        //     .finally(() => this.isLoading = false)
 
     }
 

@@ -152,7 +152,7 @@ export class NewsService {
     async fetchAlerts() {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/${ environment.apiVersion }/alerts/`;
+        const url = `${ environment.apiUrl }/alerts/`;
 
         // Query parameters of the request
         const qParams = new HttpParams()
@@ -209,7 +209,7 @@ export class NewsService {
     async fetchEvents() {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/${ environment.apiVersion }/events/`;
+        const url = `${ environment.apiUrl }/events/`;
 
         // Query parameters of the request
         const qParams = new HttpParams()
@@ -217,7 +217,8 @@ export class NewsService {
             .set("rois", this.getSelectedRois());
 
         // Retrieve the data from the server and return them as a promise
-        const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
+        // const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
+        const res = await this.http.get<GenericApiResponse>(url).toPromise();
 
         // Extract the events from the server
         const data = res.data.events;
@@ -251,7 +252,7 @@ export class NewsService {
         // Clean the saved alerts
         await this.cleanSavedData(STORAGE_KEY_EVENTS, events.map(e => e.id));
 
-        // Update the alert subject
+        // Update the events subject
         this._events.next(events);
 
         // Check for unread events

@@ -7,8 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
-import { AuthInterceptorService } from "./shared/auth-interceptor.service";
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
@@ -19,6 +18,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { interceptorProviders } from "./shared/interceptors/interceptors";
 
 
 @NgModule({
@@ -41,7 +41,7 @@ import { Diagnostic } from '@ionic-native/diagnostic/ngx';
         Geolocation,
         Diagnostic,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+        interceptorProviders
     ],
     bootstrap      : [AppComponent]
 })

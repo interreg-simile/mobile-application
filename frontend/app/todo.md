@@ -1,5 +1,7 @@
 ## App todo List
 
+- Find default device language and set app language accordingly.
+
 #### Events
 
 - Handle "notification dot" for news when the application opens
