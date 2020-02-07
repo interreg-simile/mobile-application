@@ -32,8 +32,8 @@ export class AppComponent {
             this.splashScreen.hide();
 
             // Set the default language
-            this.translate.setDefaultLang("en");
-            this.translate.use("en");
+            this.translate.setDefaultLang("it");
+            this.translate.use("it");
 
         });
 

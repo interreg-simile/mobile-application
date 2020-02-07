@@ -1,6 +1,48 @@
 {
+  "common": {
+    "error-occurred": "Errore!",
+    "rois": {
+      "lake_como": "Lago di Como",
+      "lake_maggiore": "Lago Maggiore",
+      "lake_lugano": "Lago di Lugano"
+    },
+    "alerts": {
+      "button-ok": "OK"
+    }
+  },
+  "drawer": {
+    "item-map": "Mappa",
+    "item-thematic-maps": "Mappe tematiche",
+    "item-surveys": "Questionari",
+    "item-news": "Novità",
+    "item-info": "Informazioni",
+    "item-settings": "Impostazioni"
+  },
   "page-map": {
-    "tab-reports-title": "report",
-    "tab-measures-title": "misure"
+    "alert-message-auth": "Devi abilitare i permessi di localizzazione nelle impostazioni del telefono.",
+    "alert-message-gps": "Accendi il servizio di localizzazione."
+  },
+  "page-surveys": {
+    "header-new": "Nuovo",
+    "header-completed": "Completato",
+    "no-surveys": "Niente di nuovo!<br>Riprova più tardi",
+    "no-surveys-new": "Nessun nuovo questionario.",
+    "expires-on": "Scade il"
+  },
+  "page-news": {
+    "segment-alerts": "Avvisi",
+    "segment-events": "Eventi",
+    "no-alerts": "Nessun avviso.",
+    "no-events": "Nessun evento."
+  },
+  "page-single-event": {
+    "header-details": "dettagli",
+    "header-contacts": "contatti",
+    "at": "Alle"
+  },
+  "page-info": {
+    "header-project": "Il progetto",
+    "header-contributions": "Contributions",
+    "header-contacts": "contatti"
   }
 }
