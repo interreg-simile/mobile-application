@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LoadingController, Platform } from "@ionic/angular";
-import { latLng, Map, marker, tileLayer, circleMarker } from 'leaflet';
+import { latLng, Map, Marker, TileLayer, CircleMarker, LatLng } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
@@ -11,6 +11,7 @@ import { defaultMarkerIcon } from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { Event } from "../news/events/event.model";
+import { ObservationsService } from "./observations/observations.service";
 
 
 /** Storage key for the cached user position. */
@@ -44,6 +45,7 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */ private _positionSub: Subscription;
     /** @ignore */ private _pauseSub: Subscription;
     /** @ignore */ private _eventsSub;
+    /** @ignore */ private _obsSub;
 
 
     private loading: HTMLIonLoadingElement;
@@ -55,9 +57,9 @@ export class MapPage implements OnInit, OnDestroy {
     private mapHoldTimeout: number;
 
     /** Marker for the user position. */
-    private _userMarker: marker;
+    private _userMarker: Marker;
 
-    private _accuracyCircle: circleMarker;
+    private _accuracyCircle: CircleMarker;
 
     /** Flag that states if the position found is the first. */
     private _isFirstPosition = true;
@@ -74,6 +76,8 @@ export class MapPage implements OnInit, OnDestroy {
 
     private _eventMarkers: MarkerClusterGroup;
 
+    private _obsMarkers: MarkerClusterGroup;
+
 
     /** User position. */
     public position = { lat: undefined, lon: undefined, accuracy: undefined };
@@ -81,11 +85,14 @@ export class MapPage implements OnInit, OnDestroy {
 
     public events: Event[];
 
+    public obs: any[];
+
 
     /** @ignore */
     constructor(private changeRef: ChangeDetectorRef,
                 private platform: Platform,
                 private mapService: MapService,
+                private obsService: ObservationsService,
                 private diagnostic: Diagnostic,
                 private storage: Storage,
                 private newsService: NewsService,
@@ -126,6 +133,8 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._eventMarkers = new MarkerClusterGroup();
 
+        this._obsMarkers = new MarkerClusterGroup();
+
 
         this._eventsSub = this.newsService.events.subscribe(events => {
 
@@ -137,8 +146,29 @@ export class MapPage implements OnInit, OnDestroy {
 
             this.events.forEach(e => {
 
-                marker(e.position.coordinates, { icon: defaultMarkerIcon() })
-                    .addTo(this._eventMarkers);
+                new Marker(
+                    new LatLng(e.position.coordinates[0], e.position.coordinates[1]),
+                    { icon: defaultMarkerIcon() }
+                ).addTo(this._eventMarkers);
+
+            })
+
+        });
+
+        this._obsSub = this.obsService.observations.subscribe(obs => {
+
+            console.log(obs);
+
+            this.obs = obs;
+
+            this._obsMarkers.clearLayers();
+
+            this.obs.forEach(o => {
+
+                new Marker(
+                    new LatLng(o.position.coordinates[0], o.position.coordinates[1]),
+                    { icon: defaultMarkerIcon() }
+                ).addTo(this._obsMarkers);
 
             })
 
@@ -164,11 +194,12 @@ export class MapPage implements OnInit, OnDestroy {
             this._map.setView(INITIAL_LATLNG, INITIAL_ZOOM);
 
         // Add OMS as basemap
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             { attribution: '&copy; OpenStreetMap contributors' }).addTo(this._map);
 
 
         this._eventMarkers.addTo(this._map);
+        this._obsMarkers.addTo(this._map);
 
 
         // When the user drags the map, it stops following his position
@@ -205,10 +236,10 @@ export class MapPage implements OnInit, OnDestroy {
         this.changeRef.detectChanges();
 
         // Add the user marker to the map
-        this._userMarker = marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
+        this._userMarker = new Marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
 
         // Add the accuracy circle to the map
-        this._accuracyCircle = circleMarker([45.466342, 9.185291],
+        this._accuracyCircle = new CircleMarker([45.466342, 9.185291],
             { radius: 0, color: "green", opacity: .5 }).addTo(this._map);
 
 
@@ -302,32 +333,12 @@ export class MapPage implements OnInit, OnDestroy {
         this.presentLoading();
 
         const pEvents = this.newsService.fetchEvents();
+        const pObs    = this.obsService.fetchObservations();
 
-        Promise.all([pEvents])
+        Promise.all([pEvents, pObs])
             .then(() => console.log("Done!"))
             .catch(err => console.error(err))
             .finally(() => this.dismissLoading());
-
-
-        // marker(INITIAL_LATLNG, { icon: defaultMarkerIcon() }).addTo(this._map);
-
-        // const markers = new MarkerClusterGroup();
-        //
-        // for (let i = 0; i < 50; i += 1) {
-        //     marker(getRandomLatLng(), { icon: defaultMarkerIcon() }).addTo(markers);
-        // }
-        //
-        // console.log(markers);
-        //
-        // markers.addTo(this._map);
-        //
-        // function getRandomLatLng() {
-        //     return [
-        //         48.8 + 0.1 * Math.random(),
-        //         2.25 + 0.2 * Math.random()
-        //     ];
-        // }
-
 
     }
 

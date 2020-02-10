@@ -217,7 +217,6 @@ export class NewsService {
             .set("rois", this.getSelectedRois());
 
         // Retrieve the data from the server and return them as a promise
-        // const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
         const res = await this.http.get<GenericApiResponse>(url).toPromise();
 
         // Extract the events from the server

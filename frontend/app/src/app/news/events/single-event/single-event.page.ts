@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { NavController, Platform } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { CallNumber } from "@ionic-native/call-number/ngx";
-import { Map, tileLayer, marker } from "leaflet";
+import { Map, TileLayer, Marker, LatLng } from "leaflet";
 
 import { Event } from "../event.model";
 import { NewsService, STORAGE_KEY_EVENTS } from "../../news.service";
@@ -96,7 +96,7 @@ export class SingleEventPage implements OnInit {
         this._map = new Map("map", { attributionControl: false });
 
         // Save the coordinates of the point
-        const latLng = [this.event.position.coordinates[1], this.event.position.coordinates[0]];
+        const latLng = new LatLng(this.event.position.coordinates[1], this.event.position.coordinates[0]); // ToDo check order
 
         // Set the map view
         this._map.setView(latLng, 18);
@@ -112,10 +112,10 @@ export class SingleEventPage implements OnInit {
         `;
 
         // Create the popup
-        marker(latLng, { icon: defaultMarkerIcon() }).addTo(this._map).bindPopup(popupContent).openPopup();
+        new Marker(latLng, { icon: defaultMarkerIcon() }).addTo(this._map).bindPopup(popupContent).openPopup();
 
         // Add OSM basemap
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this._map);
 

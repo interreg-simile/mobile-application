@@ -22,6 +22,40 @@
     "alert-message-auth": "Devi abilitare i permessi di localizzazione nelle impostazioni del telefono.",
     "alert-message-gps": "Accendi il servizio di localizzazione."
   },
+  "page-new-obs": {
+    "title": "Nuova osservazione",
+    "info-mandatory": "* indica un campo obbligatorio",
+    "location": {
+      "title": "Luogo *"
+    },
+    "weather":{
+      "title": "Meteo *"
+    },
+    "details": {
+      "title": "Dettagli",
+      "algae": {
+        "title": "Alghe"
+      },
+      "foams": {
+        "title": "Schiume"
+      },
+      "oils": {
+        "title": "Macchie oleose"
+      },
+      "litters": {
+        "title": "Rifiuti"
+      },
+      "odours": {
+        "title": "Odori"
+      },
+      "outlets": {
+        "title": "Scarichi"
+      },
+      "fauna": {
+        "title": "Fauna"
+      }
+    }
+  },
   "page-surveys": {
     "header-new": "Nuovo",
     "header-completed": "Completato",

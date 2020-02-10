@@ -76,4 +76,5 @@ export class Event {
         this.contacts       = (contacts && Object.entries(contacts).length === 0) ? null : contacts;
         this.read           = read;
     }
+
 }

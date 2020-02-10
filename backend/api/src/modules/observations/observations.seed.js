@@ -33,7 +33,7 @@ export default async function () {
             },
             weather : {
                 temperature: 25.8,
-                sky        : { dCode: { code: 1, path: "weather.sky" } },
+                sky        : { dCode: { code: 1, path: "observations.weather.sky" } },
                 wind       : 32
             },
             details : {
