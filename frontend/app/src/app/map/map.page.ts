@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LoadingController, Platform } from "@ionic/angular";
 import { latLng, Map, marker, tileLayer, circleMarker } from 'leaflet';
-import * as L from 'leaflet';
-// import 'leaflet.markercluster';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
@@ -368,6 +366,13 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Set the zoom to the default level
         this._map.setZoom(DEFAULT_ZOOM, { animate: true });
+
+    }
+
+
+    onSyncClick() {
+
+        this.mapService.pointInRois();
 
     }
 
