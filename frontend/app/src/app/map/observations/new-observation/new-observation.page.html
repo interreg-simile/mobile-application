@@ -12,7 +12,7 @@
 		
 		<ion-buttons slot="end">
 			
-			<ion-button>
+			<ion-button (click)="onHelpClick()">
 				
 				<ion-icon name="help-circle-outline"></ion-icon>
 			
@@ -27,95 +27,150 @@
 <ion-content class="bg-off-white custom-container">
 	
 	
-	<p class="info-small">{{"page-new-obs.info-mandatory" | translate}}</p>
-	
-	
-	<section id="location">
+	<main *ngIf="!_isLoading">
 		
-		<div class="heading">
-			
-			<ion-icon ios="ios-pin" md="md-pin" class="main"></ion-icon>
-			
-			<p class="title">{{"page-new-obs.location.title" | translate}}</p>
-			
-			<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
 		
-		</div>
+		<p class="info-small">{{"page-new-obs.info-mandatory" | translate}}</p>
 		
-		<ion-card class="ion-no-margin">
+		
+		<section id="location">
 			
-			<ion-card-content>
+			<div class="heading">
 				
-				<p>Via Roma 16, Como</p>
+				<ion-icon ios="ios-pin" md="md-pin" class="main"></ion-icon>
 				
-				<ion-icon ios="ios-create" md="md-create"></ion-icon>
+				<p class="title">{{"page-new-obs.location.title" | translate}}</p>
 				
-				<ion-icon ios="ios-locate" md="md-locate"></ion-icon>
+				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
 			
-			</ion-card-content>
-		
-		</ion-card>
-	
-	</section>
-	
-	
-	<section id="weather">
-		
-		<div class="heading">
+			</div>
 			
-			<ion-icon ios="ios-sunny" md="md-sunny"></ion-icon>
-			
-			<p class="title">{{"page-new-obs.weather.title" | translate}}</p>
-			
-			<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
-		
-		</div>
-		
-		<ion-card class="ion-no-margin">
-			
-			<ion-card-content></ion-card-content>
-		
-		</ion-card>
-	
-	</section>
-	
-	
-	<section id="details">
-		
-		<div class="heading">
-			
-			<ion-icon name="ios-more"></ion-icon>
-			
-			<p class="title">{{"page-new-obs.details.title" | translate}}</p>
-		
-		</div>
-		
-		<ion-card class="ion-no-margin">
-			
-			<ion-card-content class="ion-no-padding">
+			<ion-card class="ion-no-margin">
 				
-				<ion-list class="ion-no-padding">
+				<ion-card-content>
 					
-					<ion-item *ngFor="let detail of detailsList" button detail="true">
-						
-						<ion-checkbox slot="start"></ion-checkbox>
-						
-						<ion-label class="ion-no-margin">
-							
-							{{"page-new-obs.details." + detail + ".title" | translate}}
-							
-							<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
-						
-						</ion-label>
+					<p>{{_position.address || "page-new-obs.location.not-recognized" | translate }}</p>
 					
-					</ion-item>
+					<ion-icon ios="ios-create" md="md-create" (click)="onLocationEditClick()"></ion-icon>
+					
+					<ion-icon ios="ios-locate" md="md-locate" (click)="onLocateClick()"></ion-icon>
 				
-				</ion-list>
+				</ion-card-content>
 			
-			</ion-card-content>
+			</ion-card>
 		
-		</ion-card>
+		</section>
+		
+		
+		<section id="weather">
+			
+			<div class="heading">
+				
+				<ion-icon ios="ios-sunny" md="md-sunny" class="main"></ion-icon>
+				
+				<p class="title">{{"page-new-obs.weather.title" | translate}}</p>
+				
+				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
+			
+			</div>
+			
+			<ion-card class="ion-no-margin">
+				
+				<ion-card-content></ion-card-content>
+			
+			</ion-card>
+		
+		</section>
+		
+		
+		<section id="details">
+			
+			<div class="heading">
+				
+				<ion-icon name="ios-more" class="main"></ion-icon>
+				
+				<p class="title">{{"page-new-obs.details.title" | translate}}</p>
+			
+			</div>
+			
+			<ion-card class="ion-no-margin">
+				
+				<ion-card-content class="ion-no-padding">
+					
+					<ion-list class="ion-no-padding">
+						
+						<ion-item *ngFor="let detail of _details | keyvalue: originalOrder" button detail="true">
+							
+							<ion-checkbox slot="start" [(ngModel)]="detail.value.checked"></ion-checkbox>
+							
+							<ion-label class="ion-no-margin">
+								
+								{{"page-new-obs.details." + detail.key + ".title" | translate}}
+								
+								<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
+							
+							</ion-label>
+						
+						</ion-item>
+					
+					</ion-list>
+				
+				</ion-card-content>
+			
+			</ion-card>
+			
+			<p class="sub-heading">{{"page-new-obs.details.other-title" | translate}}</p>
+			
+			<ion-textarea placeholder="{{'page-new-obs.details.other-ph' | translate}}"
+						  maxlength="250"></ion-textarea>
+		
+		</section>
+		
+		
+		<section id="photos">
+			
+			<div class="heading">
+				
+				<ion-icon ios="ios-camera" md="md-camera" class="main"></ion-icon>
+				
+				<p class="title">{{"page-new-obs.photos.title" | translate}}</p>
+			
+			</div>
+		
+		</section>
+		
+		
+		<ion-button color="primary" expand="block" class="ion-margin-bottom">
+			{{"page-new-obs.btn-continue" | translate}}
+		</ion-button>
+	
+	
+	</main>
+	
+	
+	<section *ngIf="_isLoading" class="skeleton">
+		
+		<ion-skeleton-text animated class="ske-info-sm"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-card-xl ske-section"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-card-md ske-section"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-btn-block ion-margin-bottom"></ion-skeleton-text>
 	
 	</section>
+
 
 </ion-content>

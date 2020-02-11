@@ -138,7 +138,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._eventsSub = this.newsService.events.subscribe(events => {
 
-            console.log(events);
+            // console.log(events);
 
             this.events = events;
 
@@ -157,7 +157,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._obsSub = this.obsService.observations.subscribe(obs => {
 
-            console.log(obs);
+            // console.log(obs);
 
             this.obs = obs;
 
@@ -207,9 +207,9 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         // Start the position watcher
-        this.startWatcher()
-            .catch(err => console.error(err))
-            .finally(() => this.populateMap());
+        // this.startWatcher()
+            // .catch(err => console.error(err))
+            // .finally(() => this.populateMap());
 
     }
 

@@ -11,5 +11,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Export the variables in a readable way
-export const MONGO_URL = process.env.MONGO_URL;
-export const JWT_PK    = process.env.JWT_PK;
+export const MONGO_URL        = process.env.MONGO_URL;
+export const JWT_PK           = process.env.JWT_PK;
+export const OPEN_WEATHER_KEY = process.env.OPEN_WEATHER_KEY;

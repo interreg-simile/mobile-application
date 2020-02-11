@@ -26,8 +26,8 @@ export default function (err, req, res, next) {
 
     // Set the properties of the error
     const status  = err.statusCode || 500,
-          message = status === 500 ? req.t("messages.500") : translateMessage(err.message, req.t),
-          type    = req.t(`errors:${err.type}`) || req.t("types.500");
+          message = status === 500 ? req.t("errors:messages.500") : translateMessage(err.message, req.t),
+          type    = status === 500 ? req.t("errors:types.500") : req.t(`errors:${err.type}`);
 
     // Send the response
     res.status(status).json({ meta: { code: status, errorMessage: message, errorType: type } });

@@ -24,8 +24,8 @@ messages:
 
   validation:
     body: Missing or invalid body property '{{prop}}'.
-    params: Invalid path parameter '{{prop}}'.
-    query: Invalid query parameter '{{prop}}'.
+    params: Missing or invalid path parameter '{{prop}}'.
+    query: Missing or invalid query parameter '{{prop}}'.
 
 types:
 

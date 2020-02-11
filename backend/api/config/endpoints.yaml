@@ -162,3 +162,13 @@
     admin_required: false
     token_required: true
     paternity: true
+
+
+/misc:
+
+  - path: /weather/
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: true
+    paternity: false

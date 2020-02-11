@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { environment } from "../../../environments/environment";
 import { GenericApiResponse } from "../../shared/utils.interface";
@@ -23,6 +23,35 @@ export class ObservationsService {
 
     /** @ignore */
     constructor(private http: HttpClient) { }
+
+
+    /**
+     * Query the OSM Nominatim service to retrieve the address corresponding to a given set of coordinates.
+     *
+     * @param {Number[]} coords - The coordinates of the place in form [lat, long].
+     * @returns {Promise<String>} - The address.
+     */
+    async nominatimReverse(coords: Number[]) {
+
+        // Url of the request
+        const url = "https://nominatim.openstreetmap.org/reverse";
+
+        // Query parameters of the request
+        const qParams = new HttpParams()
+            .set("lat", coords[0].toString())
+            .set("lon", coords[1].toString())
+            .set("format", "json");
+
+        // Retrieve the data from the server and return them as a promise
+        const res = await this.http.get<any>(url, { params: qParams }).toPromise();
+
+        // If the response contains an error, throw it
+        if (res.error) throw new Error(res.error);
+
+        // Return the address
+        return res.display_name;
+
+    }
 
 
     async fetchObservations() {

@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-import { environment } from "../../../environments/environment.prod";
+import { environment } from "../../../environments/environment";
 import { AuthService } from "../../auth/auth.service";
 
 
@@ -22,7 +22,9 @@ export class AuthInterceptorService implements HttpInterceptor {
      */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        // console.log(req);
+        // If the request does not come from the API, skip the interceptor
+        if (`${req.url.split("/")[0]}//${req.url.split("/")[2]}` !== environment.apiBaseUrl)
+            return next.handle(req);
 
         // Clone the request and the set the headers
         const newReq = req.clone({

@@ -1,12 +1,12 @@
 import { LatLng } from 'leaflet';
 
 
-interface Position {
-    coordinates: LatLng,
-    accuracy: Number,
-    custom: Boolean,
-    address: String,
-    lake: String
+export interface Position {
+    coordinates?: Number[],
+    accuracy?: Number,
+    custom?: Boolean,
+    address?: String,
+    lake?: String
 }
 
 
@@ -17,7 +17,7 @@ interface Weather {
 }
 
 
-interface Details {
+export interface Details {
     algae?: { extension?: String, look?: String, colour?: String },
     foams?: { extension?: String, look?: String, height?: String },
     oils?: { extension?: String, type?: String },

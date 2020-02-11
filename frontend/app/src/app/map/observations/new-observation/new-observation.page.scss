@@ -1,22 +1,26 @@
 @import "../../../../theme/variables";
 
+$info-small-margin     : 18px;
+$section-margin-bottom : 32px;
+$heading-margin-bottom : 8px;
+
 
 .info-small {
   color         : $text-tertiary;
   font-size     : $font-body-small;
-  margin-bottom : 18px;
+  margin-bottom : $info-small-margin;
 }
 
 
-section {
-  margin-bottom : 32px;
+main section {
+  margin-bottom : $section-margin-bottom;
 
   .heading {
     display       : flex;
     align-items   : center;
     color         : $text-tertiary;
     font-size     : $font-body-lg;
-    margin-bottom : 8px;
+    margin-bottom : $heading-margin-bottom;
 
     ion-icon {
       font-size : $font-title;
@@ -27,6 +31,12 @@ section {
 
     }
 
+  }
+
+  .sub-heading {
+    color     : $text-tertiary;
+    font-size : $font-body;
+    margin    : 24px 0 8px 16px;
   }
 
   ion-card { margin-left : 16px }
@@ -44,7 +54,7 @@ section {
       padding         : 4px 8px 4px 16px;
 
       p {
-        font-size     : $font-body-lg;
+        font-size     : $font-body;
         margin        : 0;
         flex          : 1;
         white-space   : nowrap;
@@ -79,6 +89,40 @@ section {
 
     }
 
+    ion-textarea {
+      --background    : #FFFFFF;
+      border          : 1px solid #E1E1E1;
+      --border-radius : 5px;
+
+    }
+
   }
+
+}
+
+
+.skeleton {
+  border-radius : 5px;
+
+  .ske-info-sm {
+    width         : 40%;
+    margin-bottom : $info-small-margin;
+  }
+
+  .ske-section { margin-bottom : $section-margin-bottom }
+
+  .ske-heading {
+    width         : 50%;
+    margin-bottom : $heading-margin-bottom;
+    line-height   : $font-title;
+  }
+
+  .ske-card-sm { line-height : 60px }
+
+  .ske-card-md { line-height : 100px }
+
+  .ske-card-xl { line-height : 350px }
+
+  .ske-btn-block { line-height   : 45px }
 
 }

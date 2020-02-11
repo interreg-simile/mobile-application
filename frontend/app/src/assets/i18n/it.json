@@ -7,7 +7,8 @@
       "lake_lugano": "Lago di Lugano"
     },
     "alerts": {
-      "button-ok": "OK"
+      "btn-ok": "OK",
+      "btn-cancel": "Cancella"
     }
   },
   "drawer": {
@@ -26,7 +27,8 @@
     "title": "Nuova osservazione",
     "info-mandatory": "* indica un campo obbligatorio",
     "location": {
-      "title": "Luogo *"
+      "title": "Luogo *",
+      "not-recognized": "Posizione non riconosciuta"
     },
     "weather":{
       "title": "Meteo *"
@@ -53,8 +55,14 @@
       },
       "fauna": {
         "title": "Fauna"
-      }
-    }
+      },
+      "other-title": "Altri dettagli",
+      "other-ph": "Massimo 250 caratteri..."
+    },
+    "photos": {
+      "title": "Foto"
+    },
+    "btn-continue": "Continua"
   },
   "page-surveys": {
     "header-new": "Nuovo",
