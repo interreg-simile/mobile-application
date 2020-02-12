@@ -4,7 +4,11 @@ import { Details, Position, Weather } from "../observation.model";
 import { ObservationsService } from "../observations.service";
 import { AlertController, LoadingController, ModalController, PickerController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { ChoicesComponent } from "./choices/choices.component";
+import { ChoicesComponent } from "../choices/choices.component";
+import { AlgaeComponent } from "../details/algae/algae.component";
+import { FoamsComponent } from "../details/foams/foams.component";
+import { DomEvent } from "leaflet";
+import preventDefault = DomEvent.preventDefault;
 
 
 @Component({
@@ -37,8 +41,8 @@ export class NewObservationPage implements OnInit {
 
 
     private _details = {
-        algae  : { checked: false },
-        foams  : { checked: false },
+        algae  : { checked: false, component: AlgaeComponent },
+        foams  : { checked: false, component: FoamsComponent },
         oils   : { checked: false },
         litters: { checked: false },
         odours : { checked: false },
@@ -71,6 +75,8 @@ export class NewObservationPage implements OnInit {
         this._weather.temperature = 21.4;
         this._weather.sky         = { code: 1 };
         this._weather.wind        = 10;
+
+        this.openDetailModel(null, this._details.algae);
 
         // const nominatim = this.obsService.nominatimReverse(this._position.coordinates);
         //
@@ -186,6 +192,17 @@ export class NewObservationPage implements OnInit {
         });
 
         await picker.present();
+
+    }
+
+
+    async openDetailModel(ev, detail) {
+
+        if (ev) preventDefault(ev);
+
+        const modal = await this.modalCtr.create({ component: detail.component });
+
+        await modal.present();
 
     }
 

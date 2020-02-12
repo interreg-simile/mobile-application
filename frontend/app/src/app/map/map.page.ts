@@ -11,7 +11,7 @@ import { defaultMarkerIcon } from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { Event } from "../news/events/event.model";
-import { ObservationsService } from "./observations/observations.service";
+import { ObservationsService } from "../observations/observations.service";
 
 
 /** Storage key for the cached user position. */

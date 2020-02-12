@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewObservationPage } from './new-observation.page';
 import { TranslateModule } from "@ngx-translate/core";
-import { ChoicesComponent } from "./choices/choices.component";
+import { ChoicesComponent } from "../choices/choices.component";
+import { AlgaeComponent } from "../details/algae/algae.component";
+import { FoamsComponent } from "../details/foams/foams.component";
 
 
 const routes: Routes = [{ path: '', component: NewObservationPage }];
 
 @NgModule({
-    entryComponents: [ChoicesComponent],
+    entryComponents: [ChoicesComponent, AlgaeComponent, FoamsComponent],
     imports        : [
         CommonModule,
         FormsModule,
@@ -21,6 +23,6 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         RouterModule.forChild(routes),
         TranslateModule
     ],
-    declarations   : [NewObservationPage, ChoicesComponent]
+    declarations   : [NewObservationPage, ChoicesComponent, AlgaeComponent, FoamsComponent]
 })
 export class NewObservationPageModule {}

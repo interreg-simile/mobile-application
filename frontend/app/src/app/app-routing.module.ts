@@ -4,13 +4,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     { path: '', redirectTo: 'map', pathMatch: 'full' },
+    { path: 'map', loadChildren: './map/map.module#MapPageModule' },
     {
-        path: 'map', children: [
-            { path: "", loadChildren: './map/map.module#MapPageModule' },
+        path: 'observations', children: [
             {
-                path        : 'new-observation',
-                loadChildren: './map/observations/new-observation/new-observation.module#NewObservationPageModule'
-            }
+                path        : "new",
+                loadChildren: './observations/new-observation/new-observation.module#NewObservationPageModule'
+            },
         ]
     },
     {

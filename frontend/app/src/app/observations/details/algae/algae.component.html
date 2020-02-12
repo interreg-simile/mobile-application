@@ -1,0 +1,47 @@
+<ion-header>
+	
+	<ion-toolbar>
+		
+		<!-- Back button -->
+		<ion-buttons slot="start">
+			
+			<ion-button (click)="closeModal()">
+				
+				<ion-icon ios="ios-close" md="md-close"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+		
+		<!-- Title -->
+		<ion-title>{{"page-new-obs.details.algae.title" | translate}}</ion-title>
+		
+		<!-- Help button -->
+		<ion-buttons slot="end">
+			
+			<ion-button (click)="onHelpClick()">
+				
+				<ion-icon name="help-circle-outline"></ion-icon>
+			
+			</ion-button>
+			
+			<ion-button>
+				
+				<ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+	
+	</ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="bg-off-white custom-container">
+	
+	
+	<p class="card-header">{{"page-new-obs.details.algae.head-extension" | translate}}</p>
+
+
+</ion-content>

@@ -1,9 +1,11 @@
 <section class="ion-padding">
 	
 	
+	<!-- Heading -->
 	<p class="heading">{{"page-new-obs.modal-choices.heading" | translate}}</p>
 	
 	
+	<!-- Send button -->
 	<ion-button expand="block" color="primary">
 		
 		<ion-icon slot="start" name="ios-send"></ion-icon>
@@ -12,10 +14,10 @@
 	
 	</ion-button>
 	
-	
+	<!-- Or -->
 	<p class="or ion-margin">{{"page-new-obs.modal-choices.or" | translate}}</p>
 	
-	
+	<!-- Add measure button -->
 	<ion-button expand="block" color="primary">
 		
 		<ion-icon slot="start" name="ios-flask"></ion-icon>
@@ -25,15 +27,18 @@
 	</ion-button>
 	
 	
+	<!-- Call -->
 	<div>
 		
 		
 		<hr>
 		
 		
+		<!-- First part of the message -->
 		<p class="msg-call">{{"page-new-obs.modal-choices.msg-call-1" | translate}}</p>
 		
 		
+		<!-- Call button -->
 		<ion-button expand="block" color="primary" class="ion-margin" fill="outline">
 			
 			<ion-icon slot="start" ios="ios-call" md="md-call"></ion-icon>
@@ -43,16 +48,19 @@
 		</ion-button>
 		
 		
+		<!-- Second part of the message -->
 		<p class="msg-call ion-margin-bottom">{{"page-new-obs.modal-choices.msg-call-2" | translate:_msgParam}}</p>
 		
 		
+		<!-- Randomly generated code -->
 		<p class="code">1234</p>
 	
 	
 	</div>
 	
 	
-	<div class="btn-cancel-container">
+	<!-- Cancel button -->
+	<div class="btn-cancel-container" (click)="closeModal()">
 		
 		<ion-button size="small" color="primary" fill="clear">
 			{{"common.alerts.btn-cancel" | translate}}

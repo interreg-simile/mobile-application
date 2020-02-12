@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
-import { environment } from "../../../environments/environment";
-import { GenericApiResponse } from "../../shared/utils.interface";
+import { environment } from "../../environments/environment";
+import { GenericApiResponse } from "../shared/utils.interface";
 
 
 /**

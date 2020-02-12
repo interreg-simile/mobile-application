@@ -2,14 +2,17 @@
 	
 	<ion-toolbar>
 		
+		<!-- Back button -->
 		<ion-buttons slot="start">
 			
 			<ion-back-button class="back-button" defaultHref="map"></ion-back-button>
 		
 		</ion-buttons>
 		
+		<!-- Title -->
 		<ion-title>{{"page-new-obs.title" | translate}}</ion-title>
 		
+		<!-- Help button -->
 		<ion-buttons slot="end">
 			
 			<ion-button (click)="onHelpClick()">
@@ -24,9 +27,11 @@
 
 </ion-header>
 
+
 <ion-content class="bg-off-white custom-container">
 	
 	
+	<!-- If the loading is done -->
 	<main *ngIf="!_isLoading">
 		
 		
@@ -111,6 +116,7 @@
 		
 		<section id="details">
 			
+			
 			<div class="heading">
 				
 				<ion-icon name="ios-more" class="main"></ion-icon>
@@ -119,13 +125,17 @@
 			
 			</div>
 			
+			
 			<ion-card class="ion-no-margin">
 				
 				<ion-card-content class="ion-no-padding">
 					
 					<ion-list class="ion-no-padding">
 						
-						<ion-item *ngFor="let detail of _details | keyvalue: originalOrder" button detail="true">
+						<ion-item *ngFor="let detail of _details | keyvalue: originalOrder"
+								  button
+								  detail="true"
+								  (click)="openDetailModel($event, detail.value)">
 							
 							<ion-checkbox slot="start" [(ngModel)]="detail.value.checked"></ion-checkbox>
 							
@@ -145,10 +155,13 @@
 			
 			</ion-card>
 			
+			
 			<p class="sub-heading">{{"page-new-obs.details.other-title" | translate}}</p>
+			
 			
 			<ion-textarea placeholder="{{'page-new-obs.details.other-ph' | translate}}"
 						  maxlength="250"></ion-textarea>
+		
 		
 		</section>
 		
@@ -164,7 +177,7 @@
 			</div>
 			
 			<div class="photos-container">
-			
+				
 				<div class="photo">
 					
 					<i class="material-icons">add_a_photo</i>
@@ -196,6 +209,7 @@
 	</main>
 	
 	
+	<!-- Skeleton placeholder -->
 	<section *ngIf="_isLoading" class="skeleton">
 		
 		<ion-skeleton-text animated class="ske-info-sm"></ion-skeleton-text>

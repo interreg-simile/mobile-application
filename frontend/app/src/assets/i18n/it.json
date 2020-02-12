@@ -43,7 +43,8 @@
     "details": {
       "title": "Dettagli",
       "algae": {
-        "title": "Alghe"
+        "title": "Alghe",
+        "head-extension": "Estensione"
       },
       "foams": {
         "title": "Schiume"

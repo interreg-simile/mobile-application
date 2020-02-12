@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from "@ionic/angular";
 
 @Component({
     selector   : 'app-choices',
@@ -12,10 +13,13 @@ export class ChoicesComponent implements OnInit {
 
 
     /** @ignore */
-    constructor() { }
+    constructor(private modalCrt: ModalController) { }
 
 
     /** @ignore */
     ngOnInit() {}
+
+
+    async closeModal() { await this.modalCrt.dismiss() }
 
 }
