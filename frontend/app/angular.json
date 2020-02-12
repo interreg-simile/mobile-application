@@ -51,6 +51,9 @@
               },
               {
                 "input": "node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
+              },
+              {
+                "input": "node_modules/weather-icons/css/weather-icons.css"
               }
             ],
             "scripts": []

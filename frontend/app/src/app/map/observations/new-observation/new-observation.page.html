@@ -76,7 +76,33 @@
 			
 			<ion-card class="ion-no-margin">
 				
-				<ion-card-content></ion-card-content>
+				<ion-card-content>
+					
+					<div (click)="onWeatherClick('temperature')">
+						
+						<p class="label">{{"page-new-obs.weather.temperature" | translate}}</p>
+						
+						<p class="val">{{_weather.temperature}} °C</p>
+					
+					</div>
+					
+					<div (click)="onSkyClick()">
+						
+						<p class="label">{{"page-new-obs.weather.sky.title" | translate}}</p>
+						
+						<i class="wi {{skyIcons[_weather.sky.code]}}"></i>
+					
+					</div>
+					
+					<div (click)="onWeatherClick('wind')">
+						
+						<p class="label">{{"page-new-obs.weather.wind" | translate}}</p>
+						
+						<p class="val">{{_weather.wind}} m/s</p>
+					
+					</div>
+				
+				</ion-card-content>
 			
 			</ion-card>
 		
@@ -136,11 +162,33 @@
 				<p class="title">{{"page-new-obs.photos.title" | translate}}</p>
 			
 			</div>
+			
+			<div class="photos-container">
+			
+				<div class="photo">
+					
+					<i class="material-icons">add_a_photo</i>
+				
+				</div>
+				
+				<div class="photo">
+					
+					<i class="material-icons">add_a_photo</i>
+				
+				</div>
+				
+				<div class="photo">
+					
+					<i class="material-icons">add_a_photo</i>
+				
+				</div>
+			
+			</div>
 		
 		</section>
 		
 		
-		<ion-button color="primary" expand="block" class="ion-margin-bottom">
+		<ion-button color="primary" expand="block" class="ion-margin-bottom" (click)="onContinueClick()">
 			{{"page-new-obs.btn-continue" | translate}}
 		</ion-button>
 	

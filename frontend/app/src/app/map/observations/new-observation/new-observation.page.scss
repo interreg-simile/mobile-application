@@ -3,6 +3,7 @@
 $info-small-margin     : 18px;
 $section-margin-bottom : 32px;
 $heading-margin-bottom : 8px;
+$color-border          : #E1E1E1;
 
 
 .info-small {
@@ -39,8 +40,6 @@ main section {
     margin    : 24px 0 8px 16px;
   }
 
-  ion-card { margin-left : 16px }
-
 
   &#location {
 
@@ -73,6 +72,37 @@ main section {
   }
 
 
+  &#weather {
+
+    ion-card-content {
+      display         : flex;
+      justify-content : space-between;
+      align-items     : initial;
+
+      div {
+        width      : 33%;
+        text-align : center;
+        color      : $text-primary;
+
+        .label { margin-bottom : 8px }
+
+        .val {
+          font-size : $font-body-lg;
+          color     : var(--ion-color-primary);
+        }
+
+        i {
+          font-size : $font-title;
+          color     : var(--ion-color-primary);
+        }
+
+      }
+
+    }
+
+  }
+
+
   &#details {
 
     .heading { margin-bottom : 20px }
@@ -91,8 +121,37 @@ main section {
 
     ion-textarea {
       --background    : #FFFFFF;
-      border          : 1px solid #E1E1E1;
+      border          : 1px solid $color-border;
       --border-radius : 5px;
+
+    }
+
+  }
+
+
+  &#photos {
+    margin-bottom : 48px;
+
+    .heading { margin-bottom : 16px }
+
+    .photos-container {
+      width           : 100%;
+      display         : flex;
+      justify-content : space-around;
+      align-items     : center;
+
+      .photo {
+        width           : 80px;
+        height          : 80px;
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+        border          : 1px solid darken($color-border, 5);
+        border-radius   : 10px;
+
+        i { color : var(--ion-color-primary) }
+
+      }
 
     }
 
@@ -123,6 +182,6 @@ main section {
 
   .ske-card-xl { line-height : 350px }
 
-  .ske-btn-block { line-height   : 45px }
+  .ske-btn-block { line-height : 45px }
 
 }

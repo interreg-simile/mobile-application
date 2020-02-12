@@ -10,10 +10,10 @@ export interface Position {
 }
 
 
-interface Weather {
-    temperature: Number,
-    sky: String,
-    wind: Number
+export interface Weather {
+    temperature?: number,
+    sky?: { code?: number, description?: String },
+    wind?: number
 }
 
 

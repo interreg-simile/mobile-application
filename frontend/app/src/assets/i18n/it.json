@@ -8,7 +8,8 @@
     },
     "alerts": {
       "btn-ok": "OK",
-      "btn-cancel": "Cancella"
+      "btn-cancel": "Cancella",
+      "btn-confirm": "Conferma"
     }
   },
   "drawer": {
@@ -31,7 +32,13 @@
       "not-recognized": "Posizione non riconosciuta"
     },
     "weather":{
-      "title": "Meteo *"
+      "title": "Meteo *",
+      "temperature": "Temperatura",
+      "sky": {
+        "title": "Cielo",
+        "1": "Cielo limpido", "2": "Qualche nuvola", "3": "Nuvoloso", "4": "Pioggia", "5": "Neve", "6": "Nebbia"
+      },
+      "wind": "Vento"
     },
     "details": {
       "title": "Dettagli",
@@ -62,7 +69,15 @@
     "photos": {
       "title": "Foto"
     },
-    "btn-continue": "Continua"
+    "btn-continue": "Continua",
+    "modal-choices": {
+      "heading": "Cosa vuoi fare?",
+      "btn-send": "Invia l'osservazione",
+      "or": "- o -",
+      "btn-add": "Aggiungi una misura",
+      "msg-call-1": "Se pensi che sia necessario attivare un'intervento, chiama questo numero:",
+      "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
+    }
   },
   "page-surveys": {
     "header-new": "Nuovo",

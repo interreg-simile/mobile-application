@@ -10,6 +10,7 @@ $font-body-small  : 14px;
 
 // Colors
 $off-white        : #F7F7FA;
+$text-primary     : #000000;
 $text-secondary   : #666666;
 $text-tertiary    : #989AA2;
 $text-card-header : #737373;
@@ -88,22 +89,22 @@ $text-unfocused   : #DCDCDC;
 }
 
 @font-face {
-  font-family : 'Material Icons';
+  font-family : "Material Icons";
   font-style  : normal;
   font-weight : 400;
-  src         : url($font-path + '/MaterialIcons-Regular.eot'); /* For IE6-8 */
-  src         : local('Material Icons'),
-  local('MaterialIcons-Regular'),
-  url($font-path + '/MaterialIcons-Regular.woff2') format('woff2'),
-  url($font-path + '/MaterialIcons-Regular.woff') format('woff'),
-  url($font-path + '/MaterialIcons-Regular.ttf') format('truetype');
+  src         : url($font-path + "/MaterialIcons-Regular.eot");
+  src         : local("Material Icons"),
+  local("MaterialIcons-Regular"),
+  url($font-path + "/MaterialIcons-Regular.woff2") format("woff2"),
+  url($font-path + "/MaterialIcons-Regular.woff") format("woff"),
+  url($font-path + "/MaterialIcons-Regular.ttf") format("truetype");
 }
 
 .material-icons {
-  font-family             : 'Material Icons';
+  font-family             : "Material Icons";
   font-weight             : normal;
   font-style              : normal;
-  font-size               : 24px; /* Preferred icon size */
+  font-size               : 24px;
   display                 : inline-block;
   line-height             : 1;
   text-transform          : none;
@@ -111,7 +112,6 @@ $text-unfocused   : #DCDCDC;
   word-wrap               : normal;
   white-space             : nowrap;
   direction               : ltr;
-
   -webkit-font-smoothing  : antialiased;
   text-rendering          : optimizeLegibility;
   -moz-osx-font-smoothing : grayscale;

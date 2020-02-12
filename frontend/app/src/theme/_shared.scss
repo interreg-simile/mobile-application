@@ -92,3 +92,25 @@ ion-card {
   }
 
 }
+
+
+/* Modals */
+ion-modal.auto-height {
+  --height : auto;
+
+  .modal-wrapper {
+    width         : 90vw;
+    border-radius : 5px;
+
+    .ion-page {
+      position   : relative;
+      contain    : content;
+      max-height : 90vh;
+
+      .modal-content { overflow : auto }
+
+    }
+
+  }
+
+}

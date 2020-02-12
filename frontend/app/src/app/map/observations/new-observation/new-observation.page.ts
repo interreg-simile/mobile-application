@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Details, Position } from "../observation.model";
+import { Details, Position, Weather } from "../observation.model";
 import { ObservationsService } from "../observations.service";
-import { AlertController, LoadingController } from "@ionic/angular";
+import { AlertController, LoadingController, ModalController, PickerController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
+import { ChoicesComponent } from "./choices/choices.component";
 
 
 @Component({
@@ -22,6 +23,18 @@ export class NewObservationPage implements OnInit {
 
 
     private _position: Position = {};
+
+    private _weather: Weather = {};
+
+    private skyIcons = {
+        1: "wi-day-sunny",
+        2: "wi-day-cloudy",
+        3: "wi-cloudy",
+        4: "wi-rain",
+        5: "wi-snowflake-cold",
+        6: "wi-windy"
+    };
+
 
     private _details = {
         algae  : { checked: false },
@@ -42,6 +55,8 @@ export class NewObservationPage implements OnInit {
     constructor(private obsService: ObservationsService,
                 private alertCtr: AlertController,
                 private loadingCtr: LoadingController,
+                private pickerCtr: PickerController,
+                private modalCtr: ModalController,
                 private i18n: TranslateService) { }
 
 
@@ -52,6 +67,10 @@ export class NewObservationPage implements OnInit {
         this._position.coordinates = this.testCoordinates;
         this._position.accuracy    = 2.0;
         this._position.custom      = false;
+
+        this._weather.temperature = 21.4;
+        this._weather.sky         = { code: 1 };
+        this._weather.wind        = 10;
 
         // const nominatim = this.obsService.nominatimReverse(this._position.coordinates);
         //
@@ -74,9 +93,9 @@ export class NewObservationPage implements OnInit {
     }
 
 
-    onLocationEditClick() {
+    async onLocationEditClick() {
 
-        this.alertCtr.create({
+        const alert = await this.alertCtr.create({
             inputs : [
                 {
                     name : "address",
@@ -91,8 +110,9 @@ export class NewObservationPage implements OnInit {
                     handler: data => { this._position.address = data.address }
                 }
             ]
-        })
-            .then(alert => alert.present())
+        });
+
+        await alert.present();
 
     }
 
@@ -113,6 +133,74 @@ export class NewObservationPage implements OnInit {
                 this._position.address = null;
             })
             .finally(() => loading.dismiss())
+
+    }
+
+
+    async onWeatherClick(name: "temperature" | "wind") {
+
+        const alert = await this.alertCtr.create({
+            inputs : [
+                {
+                    name : "data",
+                    type : "number",
+                    value: this._weather[name] ? this._weather[name] : 0.0
+                }
+            ],
+            buttons: [
+                { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
+                {
+                    text   : this.i18n.instant("common.alerts.btn-ok"),
+                    handler: data => { this._weather[name] = data.data }
+                }
+            ]
+        });
+
+        await alert.present();
+
+    }
+
+
+    async onSkyClick() {
+
+        const getOpts = () => {
+
+            let opts = [];
+
+            for (let i = 1; i < 7; i++)
+                opts.push({ text: this.i18n.instant(`page-new-obs.weather.sky.${ i }`), value: i });
+
+            return opts;
+
+        };
+
+        const picker = await this.pickerCtr.create({
+            columns: [{ name: "data", options: getOpts(), selectedIndex: this._weather.sky.code - 1 }],
+            buttons: [
+                { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
+                {
+                    text   : this.i18n.instant("common.alerts.btn-confirm"),
+                    handler: data => this._weather.sky.code = data.data.value
+                }
+            ]
+        });
+
+        await picker.present();
+
+    }
+
+
+    async onContinueClick() {
+
+        const modal = await this.modalCtr.create(
+            {
+                component      : ChoicesComponent,
+                cssClass       : "auto-height",
+                backdropDismiss: false
+            }
+        );
+
+        await modal.present();
 
     }
 
