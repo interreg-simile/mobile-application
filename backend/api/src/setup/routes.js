@@ -3,8 +3,9 @@
 import { version } from "../middlewares/load-config";
 
 import authRouter from "../modules/auth/auth.route";
-import userRouter from "../modules/users/user.route";
-import eventRouter from "../modules/events/events.route";
+import usersRouter from "../modules/users/user.route";
+import roisRouter from "../modules/rois/rois.route";
+import eventsRouter from "../modules/events/events.route";
 import alertsRouter from "../modules/alerts/alerts.route";
 import obsRouter from "../modules/observations/observations.route";
 import miscRouter from "../modules/misc/misc.route";
@@ -23,8 +24,9 @@ export default function (server) {
 
     // Set up the routes
     server.use(`/${version}/auth`, authRouter);
-    server.use(`/${version}/users`, userRouter);
-    server.use(`/${version}/events`, eventRouter);
+    server.use(`/${version}/users`, usersRouter);
+    server.use(`/${version}/rois`, roisRouter);
+    server.use(`/${version}/events`, eventsRouter);
     server.use(`/${version}/alerts`, alertsRouter);
     server.use(`/${version}/observations`, obsRouter);
     server.use(`/${version}/misc`, miscRouter);

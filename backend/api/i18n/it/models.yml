@@ -1,14 +1,23 @@
 --- # Italian translation for resources related to the resources.
 
 
+rois:
+
+  country: { 1: "Italia", 2: "Svizzera" }
+
+  area: { 1: "Lombardia", 2: "Piemonte", 3: "Canton Ticino" }
+
+  lake: { 1: "Lago Maggiore", 2: "Lago di Como", 3: "Lago di Lugano" },
+
+
 alerts:
 
-  rois: { 1: "All", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
+  rois: { 1: "Tutti", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
 
 
 events:
 
-  rois: { 1: "All", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
+  rois: { 1: "Tutti", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
 
   countries: { 1: "Italia", 2: "Svizzera" }
 

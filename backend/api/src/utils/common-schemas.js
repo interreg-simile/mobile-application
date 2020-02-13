@@ -21,6 +21,14 @@ export const point = new Schema({
 });
 
 
+/** Schema of a polygon. */
+export const polygon = new Schema({
+    _id        : false,
+    type       : { type: String, enum: ["Polygon"], required: true, default: "Polygon" },
+    coordinates: { type: [[[Number]]], required: true }
+});
+
+
 /**
  * Generates the schema for a "dCode" property.
  *
