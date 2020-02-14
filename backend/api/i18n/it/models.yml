@@ -47,15 +47,15 @@ observations:
       type: { 1: "Superficiale", 2: "In profondità" } # Help
 
     litters:
-      quantity: { 1: "1", 2: "2-20", 3: ">20" }
+      quantity: { 1: "1", 2: "2 - 20", 3: "> 20" }
       type:
         1: "Plastica"
-        2: "Vetro/Ceramica"
+        2: "Vetro / Ceramica"
         3: "Metallo"
-        4: "Carta/Cartone"
+        4: "Carta / Cartone"
         5: "Tessili"
         6: "Gomma"
-        7: "Legno trattato/lavorato"
+        7: "Legno trattato / lavorato"
         8: "Laterizi"
         9: "Detriti vegetali"
         10: "Materiale organico in decomposizione"

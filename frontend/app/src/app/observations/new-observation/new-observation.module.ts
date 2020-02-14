@@ -11,12 +11,19 @@ import { ChoicesComponent } from "../choices/choices.component";
 import { AlgaeComponent } from "../details/algae/algae.component";
 import { FoamsComponent } from "../details/foams/foams.component";
 import { OilsComponent } from "../details/oils/oils.component";
+import { LittersComponent } from "../details/litters/litters.component";
 
 
 const routes: Routes = [{ path: '', component: NewObservationPage }];
 
 @NgModule({
-    entryComponents: [ChoicesComponent, AlgaeComponent, FoamsComponent, OilsComponent],
+    entryComponents: [
+        ChoicesComponent,
+        AlgaeComponent,
+        FoamsComponent,
+        OilsComponent,
+        LittersComponent
+    ],
     imports        : [
         CommonModule,
         FormsModule,
@@ -24,6 +31,13 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         RouterModule.forChild(routes),
         TranslateModule
     ],
-    declarations   : [NewObservationPage, ChoicesComponent, AlgaeComponent, FoamsComponent, OilsComponent]
+    declarations   : [
+        NewObservationPage,
+        ChoicesComponent,
+        AlgaeComponent,
+        FoamsComponent,
+        OilsComponent,
+        LittersComponent
+    ]
 })
 export class NewObservationPageModule {}

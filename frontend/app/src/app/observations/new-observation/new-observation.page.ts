@@ -61,7 +61,7 @@ export class NewObservationPage implements OnInit {
 
         this._newObservation = this.obsService.newObservation;
 
-        // this.openDetailModel(this._newObservation.details.oils.component);
+        this.openDetailModel(this._newObservation.details.litters.component);
 
         // const nominatim = this.obsService.nominatimReverse(this._position.coordinates);
         //

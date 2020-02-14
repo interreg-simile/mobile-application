@@ -1,6 +1,7 @@
 import { AlgaeComponent } from "./details/algae/algae.component";
 import { FoamsComponent } from "./details/foams/foams.component";
 import { OilsComponent } from "./details/oils/oils.component";
+import { LittersComponent } from "./details/litters/litters.component";
 
 
 export interface Position {
@@ -46,8 +47,8 @@ export interface Oils {
 export interface Litters {
     checked?: boolean,
     component?: Object,
-    quantity?: String,
-    type?: String[]
+    quantity?: number,
+    type?: number[]
 }
 
 export interface Odours {
@@ -163,10 +164,18 @@ export class Observation {
             type     : undefined
         };
 
+        const litters: Litters = {
+            checked  : false,
+            component: LittersComponent,
+            quantity : undefined,
+            type     : undefined
+        };
+
         this.details = {
-            algae: algae,
-            foams: foams,
-            oils : oils
+            algae  : algae,
+            foams  : foams,
+            oils   : oils,
+            litters: litters
         }
 
     }
