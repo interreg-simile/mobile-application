@@ -46,7 +46,7 @@ export function genDCode(path) {
     // Return the schema
     return {
         code: { type: Number, min: c.min, max: c.max },
-        path: {
+        dPath: {
             type     : String,
             default  : function () { return this.code ? p : undefined},
             immutable: true

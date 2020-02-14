@@ -7,7 +7,7 @@ rois:
 
   area: { 1: "Lombardia", 2: "Piemonte", 3: "Canton Ticino" }
 
-  lake: { 1: "Lago Maggiore", 2: "Lago di Como", 3: "Lago di Lugano" },
+  lake: { 1: "Lago Maggiore", 2: "Lago di Como", 3: "Lago di Lugano" }
 
 
 alerts:

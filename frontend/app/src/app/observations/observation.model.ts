@@ -22,9 +22,10 @@ export interface Weather {
 export interface Algae {
     checked?: boolean,
     component?: Object,
-    extension?: { dCode?: { code?: number }, description?: String },
-    look?: { dCode?: { code?: number }, description?: String },
-    colour?: { dCode?: { code?: number }, iridescent?: boolean, description?: String }
+    extension?: number,
+    colour?: number,
+    iridescent?: boolean,
+    look?: number
 }
 
 export interface Foams {
@@ -137,25 +138,22 @@ export class Observation {
 
     weather: Weather = {};
 
-    details: Details;
+    details: Details = {
+
+        algae: {
+            checked   : false,
+            component : AlgaeComponent,
+            extension : undefined,
+            look      : undefined,
+            colour    : undefined,
+            iridescent: undefined
+        }
+
+    };
 
     photos: [String];
 
     measures: Measures;
 
-
-    constructor() {
-
-        this.details = {
-            algae  : { checked: false, component: AlgaeComponent, extension: { dCode: { code: undefined } } },
-            foams  : { checked: false, component: FoamsComponent },
-            oils   : { checked: false },
-            litters: { checked: false },
-            odours : { checked: false },
-            outlets: { checked: false },
-            fauna  : { checked: false }
-        }
-
-    }
 
 }

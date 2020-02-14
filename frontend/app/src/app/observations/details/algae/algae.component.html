@@ -54,8 +54,7 @@
 				
 				<ion-radio-group allow-empty-selection="true"
 								 name="extension"
-								 [(ngModel)]="_data.extension.dCode.code">
-<!--								 (ionChange)="onPropChange($event, 'extension')">-->
+								 [(ngModel)]="_props.extension">
 					
 					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
 						
@@ -86,8 +85,7 @@
 				<div class="colour-container">
 					
 					<div *ngFor="let c of _colours | keyvalue: originalOrder"
-						 class="colour-box"
-						 [ngClass]="c.value.selected ? 'selected' : ''"
+						 class="colour-box" [ngClass]="c.value.selected ? 'selected' : ''"
 						 (click)="onColourClick(c)">
 						
 						<div class="colour" [ngStyle]="{'background-color': c.value.colour}"></div>
@@ -123,7 +121,7 @@
 				<ion-radio-group
 						allow-empty-selection="true"
 						name="look"
-						(ionChange)="onPropChange($event, 'look')">
+						[(ngModel)]="_props.look">
 					
 					<ion-item *ngFor="let i of [1,2,3,4]" [lines]="i === 4 ? 'none' : 'full'">
 						

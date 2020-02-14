@@ -5,9 +5,10 @@
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
 
+import _ from "lodash";
+
 import Observation from "./observations.model";
 import constructError from "../../utils/construct-error";
-import { populateObjDescriptions } from "../../utils/utils";
 
 
 /**
@@ -25,7 +26,7 @@ export async function getAll(filter, projection, options, t) {
     const obs = await Observation.find(filter, projection, { lean: true, ...options });
 
     // Populate the "description" fields of the observations
-    for (let i = 0; i < obs.length; i++) populateObjDescriptions(obs[i], t);
+    for (let i = 0; i < obs.length; i++) populateDescriptions(obs[i], t);
 
     // Return the observations
     return obs;
@@ -52,7 +53,7 @@ export async function getById(id, filter, projection, options, t) {
     if (!obs) throw constructError(404);
 
     // Populate the "description" fields of the observation
-    populateObjDescriptions(obs, t);
+    populateDescriptions(obs, t);
 
     // Return the data
     return obs;
@@ -111,5 +112,55 @@ export async function softDelete(id, isAdmin, reqUId) {
 
     // Save the change
     await obs.save();
+
+}
+
+
+/**
+ * Populates all the "description" fields of an observation.
+ *
+ * @param {Observation} obs - The observation.
+ * @param {Function} t - The i18next translation function fixed on the response language.
+ */
+export function populateDescriptions(obs, t) {
+
+    // Save the original object
+    const originalObs = obs;
+
+    /**
+     * Finds all the "dPath" properties in an object and adds to their same level a property description.
+     *
+     * @param {Object} o - The object.
+     */
+    const findAndSub = o => {
+
+        // For each of the keys of the object
+        for (const k in o) {
+
+            // If the key is a natural property and is not a Mongoose internal object
+            if (o.hasOwnProperty(k) && k !== "_id" && k !== "uid" && k !== "createdAt" && k !== "updatedAt") {
+
+                // If the key is "dPath", populate the "description" field
+                if (k === "dPath") {
+
+                    _.set(
+                        originalObs,
+                        `${o[k]}.description`,
+                        t(`models:observations.${o[k]}.${_.get(originalObs, `${o[k]}.code`)}`)
+                    );
+
+                }
+
+                // Else if the key corresponds to an object, call the function recursively
+                else if (typeof o[k] === "object") findAndSub(o[k]);
+
+            }
+
+        }
+
+    };
+
+    // Call the function
+    findAndSub(obs);
 
 }

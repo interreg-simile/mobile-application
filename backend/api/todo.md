@@ -44,3 +44,7 @@
 ##### Observations
 
 - Expiration date?
+
+- Try to remove dPath from returned objects.
+
+- Test if set description works with arrays.
