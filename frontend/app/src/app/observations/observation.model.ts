@@ -1,20 +1,19 @@
-import { LatLng } from 'leaflet';
 import { AlgaeComponent } from "./details/algae/algae.component";
 import { FoamsComponent } from "./details/foams/foams.component";
 
 
 export interface Position {
-    coordinates?: Number[],
-    accuracy?: Number,
-    custom?: Boolean,
-    address?: String,
-    lake?: String
+    coordinates?: number[],
+    accuracy?: number,
+    custom?: boolean,
+    // address?: string,
+    lake?: number
 }
 
 
 export interface Weather {
     temperature?: number,
-    sky?: { dCode?: { code?: number }, description?: String },
+    sky?: number,
     wind?: number
 }
 
@@ -31,9 +30,9 @@ export interface Algae {
 export interface Foams {
     checked?: boolean,
     component?: Object,
-    extension?: String,
-    look?: String,
-    height?: String
+    extension?: number,
+    look?: number,
+    height?: number
 }
 
 export interface Oils {
@@ -114,18 +113,6 @@ interface Measures {
 }
 
 
-// export interface Observation {
-//     id: String,
-//     createdAt: Date,
-//     uid: String,
-//     position: Position,
-//     weather: Weather,
-//     details?: Details,
-//     photos: [String],
-//     measures?: Measures
-// }
-
-
 export class Observation {
 
     id: String;
@@ -134,26 +121,46 @@ export class Observation {
 
     uid: String;
 
-    position: Position = {};
+    position: Position;
 
-    weather: Weather = {};
+    weather: Weather;
 
-    details: Details = {
+    details: Details;
 
-        algae: {
+    photos: [String];
+
+    measures: Measures;
+
+
+    constructor() {
+
+        this.position = {};
+
+        this.weather = {};
+
+        const algae: Algae = {
             checked   : false,
             component : AlgaeComponent,
             extension : undefined,
             look      : undefined,
             colour    : undefined,
             iridescent: undefined
+        };
+
+        const foams: Foams = {
+            checked  : false,
+            component: FoamsComponent,
+            extension: undefined,
+            look     : undefined,
+            height   : undefined
+        };
+
+        this.details = {
+            algae: algae,
+            foams: foams
         }
 
-    };
-
-    photos: [String];
-
-    measures: Measures;
+    }
 
 
 }

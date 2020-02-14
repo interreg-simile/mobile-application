@@ -35,38 +35,41 @@
 	<main *ngIf="!_isLoading">
 		
 		
+		<!-- Mandatory text -->
 		<p class="info-small">{{"page-new-obs.info-mandatory" | translate}}</p>
 		
 		
-		<section id="location">
-			
-			<div class="heading">
-				
-				<ion-icon ios="ios-pin" md="md-pin" class="main"></ion-icon>
-				
-				<p class="title">{{"page-new-obs.location.title" | translate}}</p>
-				
-				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
-			
-			</div>
-			
-			<ion-card class="ion-no-margin">
-				
-				<ion-card-content>
-					
-					<p>{{_newObservation.position.address || "page-new-obs.location.not-recognized" | translate }}</p>
-					
-					<ion-icon ios="ios-create" md="md-create" (click)="onLocationEditClick()"></ion-icon>
-					
-					<ion-icon ios="ios-locate" md="md-locate" (click)="onLocateClick()"></ion-icon>
-				
-				</ion-card-content>
-			
-			</ion-card>
+		<!-- Location -->
+<!--		<section id="location">-->
+<!--			-->
+<!--			<div class="heading">-->
+<!--				-->
+<!--				<ion-icon ios="ios-pin" md="md-pin" class="main"></ion-icon>-->
+<!--				-->
+<!--				<p class="title">{{"page-new-obs.location.title" | translate}}</p>-->
+<!--				-->
+<!--				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>-->
+<!--			-->
+<!--			</div>-->
+<!--			-->
+<!--			<ion-card class="ion-no-margin">-->
+<!--				-->
+<!--				<ion-card-content>-->
+<!--					-->
+<!--					<p>{{_newObservation.position.address || "page-new-obs.location.not-recognized" | translate }}</p>-->
+<!--					-->
+<!--					<ion-icon ios="ios-create" md="md-create" (click)="onLocationEditClick()"></ion-icon>-->
+<!--					-->
+<!--					<ion-icon ios="ios-locate" md="md-locate" (click)="onLocateClick()"></ion-icon>-->
+<!--				-->
+<!--				</ion-card-content>-->
+<!--			-->
+<!--			</ion-card>-->
+<!--		-->
+<!--		</section>-->
 		
-		</section>
 		
-		
+		<!-- Weather -->
 		<section id="weather">
 			
 			<div class="heading">
@@ -91,7 +94,7 @@
 						
 						<p class="label">{{"page-new-obs.weather.temperature" | translate}}</p>
 						
-						<p class="val">{{this._newObservation.weather.temperature}} °C</p>
+						<p class="val">{{this._newObservation.weather.temperature || "??"}} °C</p>
 					
 					</div>
 					
@@ -99,7 +102,7 @@
 						
 						<p class="label">{{"page-new-obs.weather.sky.title" | translate}}</p>
 						
-						<i class="wi {{skyIcons[this._newObservation.weather.sky.dCode.code]}}"></i>
+						<i class="wi {{skyIcons[this._newObservation.weather.sky || 1]}}"></i>
 					
 					</div>
 					
@@ -107,7 +110,7 @@
 						
 						<p class="label">{{"page-new-obs.weather.wind" | translate}}</p>
 						
-						<p class="val">{{this._newObservation.weather.wind}} m/s</p>
+						<p class="val">{{this._newObservation.weather.wind || "??"}} m/s</p>
 					
 					</div>
 				
@@ -118,6 +121,7 @@
 		</section>
 		
 		
+		<!-- Details -->
 		<section id="details">
 			
 			
@@ -151,7 +155,7 @@
 							<ion-icon name="ios-arrow-forward"></ion-icon>
 						
 						</ion-label>
-						
+					
 					</div>
 				
 				</ion-card-content>
@@ -169,6 +173,7 @@
 		</section>
 		
 		
+		<!-- Photos -->
 		<section id="photos">
 			
 			<div class="heading">
@@ -204,6 +209,7 @@
 		</section>
 		
 		
+		<!-- Continue button -->
 		<ion-button color="primary" expand="block" class="ion-margin-bottom" (click)="onContinueClick()">
 			{{"page-new-obs.btn-continue" | translate}}
 		</ion-button>

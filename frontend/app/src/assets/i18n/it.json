@@ -29,10 +29,11 @@
     "info-mandatory": "* indica un campo obbligatorio",
     "location": {
       "title": "Luogo *",
-      "not-recognized": "Posizione non riconosciuta"
+      "not-recognized": "Posizione non riconosciuta",
+      "msg-missing-address": "Devi specificare il nome del luogo."
     },
     "weather": {
-      "title": "Meteo *",
+      "title": "Meteo",
       "temperature": "Temperatura",
       "sky": {
         "title": "Cielo",
@@ -89,7 +90,7 @@
       "other-ph": "Massimo 250 caratteri..."
     },
     "photos": {
-      "title": "Foto"
+      "title": "Foto *"
     },
     "btn-continue": "Continua",
     "modal-choices": {

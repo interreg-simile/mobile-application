@@ -72,4 +72,11 @@ export class ObservationsService {
 
     }
 
+
+    async postObservation() {
+
+        console.log(this.newObservation);
+
+    }
+
 }
