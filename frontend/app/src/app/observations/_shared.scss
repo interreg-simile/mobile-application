@@ -25,3 +25,11 @@
   }
 
 }
+
+
+section {
+  margin-bottom : 32px;
+
+  &.last { margin-bottom : 24px }
+
+}

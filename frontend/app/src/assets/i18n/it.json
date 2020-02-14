@@ -69,7 +69,25 @@
         }
       },
       "foams": {
-        "title": "Schiume"
+        "title": "Schiume",
+        "extension": {
+          "head": "Estensione",
+          "1": "< 5 mq",
+          "2": "5 - 20 mq",
+          "3": "> 20 mq"
+        },
+        "look": {
+          "head": "Aspetto",
+          "1": "Disperse",
+          "2": "Compatte",
+          "3": "Lineari"
+        },
+        "height": {
+          "head": "Altezza",
+          "1": "< 3 cm",
+          "2": "3 - 20 cm",
+          "3": "> 20 cm"
+        }
       },
       "oils": {
         "title": "Macchie oleose"

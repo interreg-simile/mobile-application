@@ -17,7 +17,14 @@ export class FoamsComponent implements OnInit {
 
 
     /** @ignore */
-    ngOnInit() {}
+    ngOnInit() {
+
+        // Save the initial values of the settable properties
+        this._props.extension = this.obsService.newObservation.details.foams.extension;
+        this._props.look      = this.obsService.newObservation.details.foams.look;
+        this._props.height    = this.obsService.newObservation.details.foams.height;
+
+    }
 
 
     /**
@@ -28,15 +35,26 @@ export class FoamsComponent implements OnInit {
     async closeModal(save: boolean) {
 
         // If the modifications are to be saved
-        if (save) { }
+        if (save) {
+
+            // Set the detail as checked
+            this.obsService.newObservation.details.foams.checked = true;
+
+            // Save the new values
+            this.obsService.newObservation.details.foams.extension = this._props.extension;
+            this.obsService.newObservation.details.foams.look      = this._props.look;
+            this.obsService.newObservation.details.foams.height    = this._props.height;
+
+        }
 
         // ToDo remove
         console.log(this._props);
         console.log(this.obsService.newObservation);
 
         // Close the modal
-        // await this.modalCtr.dismiss();
+        await this.modalCtr.dismiss();
 
     }
+
 
 }
