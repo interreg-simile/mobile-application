@@ -1,0 +1,90 @@
+Observation:
+
+  id: Mongoose.id
+
+  uid: Mongoose.id
+
+  position:
+    type: "Point"
+    coordinates: [Number]
+    accuracy: Number
+    custom: Boolean
+    address: Number
+    lake:
+      dCode: { code: Number, path: String, description: String }
+
+  weather:
+    temperature: Number
+    sky:
+      dCode: { code: Number, path: String, description: String }
+    wind: Number
+
+  details:
+
+    algae:
+      extension:
+        dCode: { code: Number, path: String, description: String }
+      look:
+        dCode: { code: Number, path: String, description: String }
+      colour:
+        dCode: { code: Number, path: String, description: String }
+        iridescent: Boolean
+        
+    foams:
+      extension:
+        dCode: { code: Number, path: String, description: String }
+      look:
+        dCode: { code: Number, path: String, description: String }
+      heigh:
+        dCode: { code: Number, path: String, description: String }
+
+    oils:
+      extension:
+        dCode: { code: Number, path: String, description: String }
+      type:
+        dCode: { code: Number, path: String, description: String }
+
+    litters:
+      quantity:
+        dCode: { code: Number, path: String, description: String }
+      type:
+        dCode: { code: Number, path: String, description: String }
+
+    odours:
+      intensity:
+        dCode: { code: Number, path: String, description: String }
+      origin:
+        [dCode: { code: Number, path: String, description: String }]
+
+    outlets:
+      inPlace: Boolean,
+      terminal:
+        dCode: { code: Number, path: String, description: String },
+      colour:
+        dCode: { code: Number, path: String, description: String }
+      vapour: Boolean,
+      signage: Boolean,
+      signagePhoto: String,
+      prodActNearby: Boolean,
+      prodActNearbyDetails: String
+
+    fauna:
+      deceased: { fish: Boolean, birds: Boolean, other: String },
+      abnormal: { fish: Boolean, birds: Boolean, other: String, description: String },
+      alienSpecies:
+        crustaceans: { present: Boolean, details: String },
+        molluscs: { present: Boolean, details: String },
+        turtles: { present: Boolean, details: String },
+        fish: { present: Boolean, details: String },
+        birds: { present: Boolean, details: String },
+        other: String
+
+  photos: [String]
+
+  measures
+
+  markedForDeletion: Boolean
+
+  createdAt: Date
+
+  upadtedAt: Date

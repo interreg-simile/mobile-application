@@ -1,0 +1,27 @@
+@import "../../theme/variables";
+
+
+.label-icon {
+  display     : flex;
+  align-items : center;
+  margin      : 0;
+}
+
+
+.help-icon {
+  font-size : $font-title;
+  padding   : 12px;
+  color     : $text-tertiary;
+}
+
+
+.card-radio-list {
+
+  ion-card-content {
+    padding : 0 16px 0 0;
+
+    ion-radio { margin : 0 16px 0 0 }
+
+  }
+
+}

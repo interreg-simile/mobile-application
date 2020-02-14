@@ -31,12 +31,17 @@
       "title": "Luogo *",
       "not-recognized": "Posizione non riconosciuta"
     },
-    "weather":{
+    "weather": {
       "title": "Meteo *",
       "temperature": "Temperatura",
       "sky": {
         "title": "Cielo",
-        "1": "Cielo limpido", "2": "Qualche nuvola", "3": "Nuvoloso", "4": "Pioggia", "5": "Neve", "6": "Nebbia"
+        "1": "Cielo limpido",
+        "2": "Qualche nuvola",
+        "3": "Nuvoloso",
+        "4": "Pioggia",
+        "5": "Neve",
+        "6": "Nebbia"
       },
       "wind": "Vento"
     },
@@ -44,7 +49,23 @@
       "title": "Dettagli",
       "algae": {
         "title": "Alghe",
-        "head-extension": "Estensione"
+        "extension": {
+          "head": "Estensione",
+          "1": "< 5 mq",
+          "2": "5 - 20 mq",
+          "3": "> 20 mq"
+        },
+        "colour": {
+          "head": "Colore",
+          "iridescent": "Iridescente"
+        },
+        "look": {
+          "head": "Aspetto",
+          "1": "Disperse",
+          "2": "Compatte",
+          "3": "Raggruppamenti",
+          "4": "Striature superficiali"
+        }
       },
       "foams": {
         "title": "Schiume"

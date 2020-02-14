@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Details, Position, Weather } from "../observation.model";
-import { ObservationsService } from "../observations.service";
+import preventDefault = DomEvent.preventDefault;
+import { DomEvent } from "leaflet";
 import { AlertController, LoadingController, ModalController, PickerController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
+
+import { Details, Observation, Position, Weather } from "../observation.model";
+import { ObservationsService } from "../observations.service";
 import { ChoicesComponent } from "../choices/choices.component";
 import { AlgaeComponent } from "../details/algae/algae.component";
 import { FoamsComponent } from "../details/foams/foams.component";
-import { DomEvent } from "leaflet";
-import preventDefault = DomEvent.preventDefault;
 
 
 @Component({
@@ -25,10 +25,7 @@ export class NewObservationPage implements OnInit {
 
     private _isLoading = false;
 
-
-    private _position: Position = {};
-
-    private _weather: Weather = {};
+    private _newObservation: Observation;
 
     private skyIcons = {
         1: "wi-day-sunny",
@@ -37,17 +34,6 @@ export class NewObservationPage implements OnInit {
         4: "wi-rain",
         5: "wi-snowflake-cold",
         6: "wi-windy"
-    };
-
-
-    private _details = {
-        algae  : { checked: false, component: AlgaeComponent },
-        foams  : { checked: false, component: FoamsComponent },
-        oils   : { checked: false },
-        litters: { checked: false },
-        odours : { checked: false },
-        outlets: { checked: false },
-        fauna  : { checked: false },
     };
 
 
@@ -67,16 +53,20 @@ export class NewObservationPage implements OnInit {
     /** @ignore */
     ngOnInit() {
 
+        this.obsService.newObservation = new Observation();
+
         // ToDo change with real values
-        this._position.coordinates = this.testCoordinates;
-        this._position.accuracy    = 2.0;
-        this._position.custom      = false;
+        this.obsService.newObservation.position.coordinates = this.testCoordinates;
+        this.obsService.newObservation.position.accuracy    = 2.0;
+        this.obsService.newObservation.position.custom      = false;
 
-        this._weather.temperature = 21.4;
-        this._weather.sky         = { code: 1 };
-        this._weather.wind        = 10;
+        this.obsService.newObservation.weather.temperature = 21.4;
+        this.obsService.newObservation.weather.sky         = { dCode: { code: 1 } };
+        this.obsService.newObservation.weather.wind        = 10;
 
-        this.openDetailModel(null, this._details.algae);
+        this._newObservation = this.obsService.newObservation;
+
+        this.openDetailModel(this._newObservation.details.algae.component);
 
         // const nominatim = this.obsService.nominatimReverse(this._position.coordinates);
         //
@@ -94,7 +84,9 @@ export class NewObservationPage implements OnInit {
 
     onHelpClick() {
 
-        console.log(this._details);
+        console.log(this.obsService.newObservation);
+
+        console.log(this._newObservation);
 
     }
 
@@ -106,14 +98,14 @@ export class NewObservationPage implements OnInit {
                 {
                     name : "address",
                     type : "text",
-                    value: this._position.address ? this._position.address : this.i18n.instant("page-new-obs.location.not-recognized")
+                    value: this._newObservation.position.address ? this._newObservation.position.address : this.i18n.instant("page-new-obs.location.not-recognized")
                 }
             ],
             buttons: [
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
                 {
                     text   : this.i18n.instant("common.alerts.btn-ok"),
-                    handler: data => { this._position.address = data.address }
+                    handler: data => { this._newObservation.position.address = data.address }
                 }
             ]
         });
@@ -123,22 +115,16 @@ export class NewObservationPage implements OnInit {
     }
 
 
-    onLocateClick() {
+    async onLocateClick() {
 
-        let loading: HTMLIonLoadingElement;
+        const loading = await this.loadingCtr.create({ showBackdrop: false });
 
-        this.loadingCtr.create({ showBackdrop: false })
-            .then(l => {
-                loading = l;
-                return loading.present()
-            })
-            .then(() => this.obsService.nominatimReverse(this._position.coordinates))
-            .then(addr => this._position.address = addr)
-            .catch(err => {
-                console.error(err);
-                this._position.address = null;
-            })
-            .finally(() => loading.dismiss())
+        await loading.present();
+
+        this.obsService.nominatimReverse(this._newObservation.position.coordinates)
+            .then(addr => this._newObservation.position.address = addr)
+            .catch(() => this._newObservation.position.address = null)
+            .finally(() => loading.dismiss());
 
     }
 
@@ -150,19 +136,33 @@ export class NewObservationPage implements OnInit {
                 {
                     name : "data",
                     type : "number",
-                    value: this._weather[name] ? this._weather[name] : 0.0
+                    value: this._newObservation.weather[name] ? this._newObservation.weather[name] : 0.0
                 }
             ],
             buttons: [
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
                 {
                     text   : this.i18n.instant("common.alerts.btn-ok"),
-                    handler: data => { this._weather[name] = data.data }
+                    handler: data => { this._newObservation.weather[name] = data.data }
                 }
             ]
         });
 
         await alert.present();
+
+    }
+
+
+    // ToDo
+    async onRefreshWeatherClick() {
+
+        const loading = await this.loadingCtr.create({ showBackdrop: false });
+
+        await loading.present();
+
+        // Pull weather data...
+
+        loading.dismiss();
 
     }
 
@@ -181,12 +181,15 @@ export class NewObservationPage implements OnInit {
         };
 
         const picker = await this.pickerCtr.create({
-            columns: [{ name: "data", options: getOpts(), selectedIndex: this._weather.sky.code - 1 }],
+            columns: [{ name : "data",
+                options      : getOpts(),
+                selectedIndex: this._newObservation.weather.sky.dCode.code - 1
+            }],
             buttons: [
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
                 {
                     text   : this.i18n.instant("common.alerts.btn-confirm"),
-                    handler: data => this._weather.sky.code = data.data.value
+                    handler: data => this._newObservation.weather.sky.dCode.code = data.data.value
                 }
             ]
         });
@@ -196,11 +199,9 @@ export class NewObservationPage implements OnInit {
     }
 
 
-    async openDetailModel(ev, detail) {
+    async openDetailModel(component) {
 
-        if (ev) preventDefault(ev);
-
-        const modal = await this.modalCtr.create({ component: detail.component });
+        const modal = await this.modalCtr.create({ component: component });
 
         await modal.present();
 

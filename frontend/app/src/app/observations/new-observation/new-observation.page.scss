@@ -30,6 +30,8 @@ main section {
 
       &.btn-icon { padding : 12px }
 
+      &.icon-right { margin-left : auto }
+
     }
 
   }
@@ -107,14 +109,32 @@ main section {
 
     .heading { margin-bottom : 20px }
 
-    ion-label {
+    .detail-item {
       display     : flex;
       align-items : center;
+      padding     : 8px 16px 8px 24px;
+      width       : 100%;
 
-      ion-icon {
-        font-size : $font-title;
-        padding   : 12px;
-        color     : $text-tertiary;
+      ion-checkbox.md { width : 19.24px }
+
+      ion-checkbox.ios { width : 30.2px }
+
+      ion-label {
+        display       : flex;
+        align-items   : center;
+        width         : 100%;
+        margin-left   : 16px;
+        color         : $text-primary;
+
+        ion-icon {
+          font-size : $font-title;
+          padding   : 12px;
+          color     : $text-tertiary;
+
+          &[name=ios-arrow-forward] { margin-left : auto }
+
+        }
+
       }
 
     }

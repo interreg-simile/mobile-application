@@ -54,7 +54,7 @@
 				
 				<ion-card-content>
 					
-					<p>{{_position.address || "page-new-obs.location.not-recognized" | translate }}</p>
+					<p>{{_newObservation.position.address || "page-new-obs.location.not-recognized" | translate }}</p>
 					
 					<ion-icon ios="ios-create" md="md-create" (click)="onLocationEditClick()"></ion-icon>
 					
@@ -76,6 +76,10 @@
 				<p class="title">{{"page-new-obs.weather.title" | translate}}</p>
 				
 				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
+				
+				<ion-icon ios="ios-refresh" md="md-refresh"
+						  class="btn-icon icon-right"
+						  (click)="onRefreshWeatherClick()"></ion-icon>
 			
 			</div>
 			
@@ -87,7 +91,7 @@
 						
 						<p class="label">{{"page-new-obs.weather.temperature" | translate}}</p>
 						
-						<p class="val">{{_weather.temperature}} °C</p>
+						<p class="val">{{this._newObservation.weather.temperature}} °C</p>
 					
 					</div>
 					
@@ -95,7 +99,7 @@
 						
 						<p class="label">{{"page-new-obs.weather.sky.title" | translate}}</p>
 						
-						<i class="wi {{skyIcons[_weather.sky.code]}}"></i>
+						<i class="wi {{skyIcons[this._newObservation.weather.sky.dCode.code]}}"></i>
 					
 					</div>
 					
@@ -103,7 +107,7 @@
 						
 						<p class="label">{{"page-new-obs.weather.wind" | translate}}</p>
 						
-						<p class="val">{{_weather.wind}} m/s</p>
+						<p class="val">{{this._newObservation.weather.wind}} m/s</p>
 					
 					</div>
 				
@@ -130,26 +134,25 @@
 				
 				<ion-card-content class="ion-no-padding">
 					
-					<ion-list class="ion-no-padding">
+					<!--suppress TypeScriptValidateTypes -->
+					<div *ngFor="let detail of this._newObservation.details | keyvalue: originalOrder"
+						 class="detail-item">
 						
-						<ion-item *ngFor="let detail of _details | keyvalue: originalOrder"
-								  button
-								  detail="true"
-								  (click)="openDetailModel($event, detail.value)">
-							
-							<ion-checkbox slot="start" [(ngModel)]="detail.value.checked"></ion-checkbox>
-							
-							<ion-label class="ion-no-margin">
-								
-								{{"page-new-obs.details." + detail.key + ".title" | translate}}
-								
-								<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
-							
-							</ion-label>
+						<!--suppress TypeScriptUnresolvedVariable -->
+						<ion-checkbox [(ngModel)]="detail.value.checked"></ion-checkbox>
 						
-						</ion-item>
-					
-					</ion-list>
+						<!--suppress TypeScriptUnresolvedVariable -->
+						<ion-label class="ion-no-margin" (click)="openDetailModel(detail.value.component)">
+							
+							{{"page-new-obs.details." + detail.key + ".title" | translate}}
+							
+							<ion-icon name="help-circle-outline"></ion-icon>
+							
+							<ion-icon name="ios-arrow-forward"></ion-icon>
+						
+						</ion-label>
+						
+					</div>
 				
 				</ion-card-content>
 			

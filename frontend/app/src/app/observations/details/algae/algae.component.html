@@ -5,7 +5,7 @@
 		<!-- Back button -->
 		<ion-buttons slot="start">
 			
-			<ion-button (click)="closeModal()">
+			<ion-button (click)="closeModal(false)">
 				
 				<ion-icon ios="ios-close" md="md-close"></ion-icon>
 			
@@ -16,16 +16,18 @@
 		<!-- Title -->
 		<ion-title>{{"page-new-obs.details.algae.title" | translate}}</ion-title>
 		
-		<!-- Help button -->
+		<!-- Right buttons -->
 		<ion-buttons slot="end">
 			
+			<!-- Help button -->
 			<ion-button (click)="onHelpClick()">
 				
 				<ion-icon name="help-circle-outline"></ion-icon>
 			
 			</ion-button>
 			
-			<ion-button>
+			<!-- Check button -->
+			<ion-button (click)="closeModal(true)">
 				
 				<ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
 			
@@ -41,7 +43,109 @@
 <ion-content class="bg-off-white custom-container">
 	
 	
-	<p class="card-header">{{"page-new-obs.details.algae.head-extension" | translate}}</p>
+	<!-- Extension -->
+	<section id="extension">
+		
+		<p class="card-header">{{"page-new-obs.details.algae.extension.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-radio-group allow-empty-selection="true"
+								 name="extension"
+								 [(ngModel)]="_data.extension.dCode.code">
+<!--								 (ionChange)="onPropChange($event, 'extension')">-->
+					
+					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
+						
+						<ion-label>{{"page-new-obs.details.algae.extension." + i | translate}}</ion-label>
+						
+						<ion-radio slot="start" value="{{i}}"></ion-radio>
+					
+					</ion-item>
+				
+				</ion-radio-group>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Colour -->
+	<section id="colour">
+		
+		<p class="card-header">{{"page-new-obs.details.algae.colour.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content>
+				
+				<div class="colour-container">
+					
+					<div *ngFor="let c of _colours | keyvalue: originalOrder"
+						 class="colour-box"
+						 [ngClass]="c.value.selected ? 'selected' : ''"
+						 (click)="onColourClick(c)">
+						
+						<div class="colour" [ngStyle]="{'background-color': c.value.colour}"></div>
+					
+					</div>
+				
+				</div>
+				
+				<ion-item lines="none" class="iridescent">
+					
+					<ion-label>{{"page-new-obs.details.algae.colour.iridescent" | translate}}</ion-label>
+					
+					<ion-checkbox slot="start" [(ngModel)]="_props.iridescent"></ion-checkbox>
+				
+				</ion-item>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Look -->
+	<section id="look">
+		
+		<p class="card-header">{{"page-new-obs.details.algae.look.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-radio-group
+						allow-empty-selection="true"
+						name="look"
+						(ionChange)="onPropChange($event, 'look')">
+					
+					<ion-item *ngFor="let i of [1,2,3,4]" [lines]="i === 4 ? 'none' : 'full'">
+						
+						<ion-label class="label-icon">
+							
+							{{"page-new-obs.details.algae.look." + i | translate}}
+							
+							<ion-icon name="help-circle-outline" class="help-icon"></ion-icon>
+						
+						</ion-label>
+						
+						<ion-radio slot="start" value="{{i}}"></ion-radio>
+					
+					</ion-item>
+				
+				</ion-radio-group>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
 
 
 </ion-content>

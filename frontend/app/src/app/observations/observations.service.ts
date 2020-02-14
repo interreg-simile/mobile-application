@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
+import { Observation } from "./observation.model";
 
 
 /**
@@ -16,6 +17,9 @@ export class ObservationsService {
 
 
     /** @ignore */ private _obs = new BehaviorSubject<any[]>([]);
+
+
+    public newObservation: Observation;
 
 
     get observations() { return this._obs.asObservable() }

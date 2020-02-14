@@ -1,0 +1,53 @@
+@import "../../../../theme/variables";
+@import "../../shared";
+
+
+section { margin-bottom : 32px }
+
+
+#colour {
+
+  ion-card-content {
+    padding : 13px 16px 5px 16px;
+
+    .colour-container {
+      display         : flex;
+      justify-content : space-between;
+      align-items     : center;
+
+      .colour-box {
+        padding       : 4px;
+        border-radius : 5px;
+        border        : 1px solid transparent;
+
+        &.selected { border : 1px solid var(--ion-color-primary) }
+
+        .colour {
+          width         : 35px;
+          height        : 35px;
+          border-radius : 50%;
+        }
+
+      }
+
+    }
+
+    .iridescent {
+      --padding-start  : 5px;
+      --padding-bottom : 0;
+      margin-top       : 8px;
+
+      ion-label { margin : 0 }
+
+      ion-checkbox { margin : 0 16px 0 0 }
+
+    }
+
+  }
+
+}
+
+
+#look {
+  margin-bottom : 24px;
+}
