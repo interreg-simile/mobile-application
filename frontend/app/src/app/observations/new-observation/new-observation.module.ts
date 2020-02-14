@@ -10,12 +10,13 @@ import { TranslateModule } from "@ngx-translate/core";
 import { ChoicesComponent } from "../choices/choices.component";
 import { AlgaeComponent } from "../details/algae/algae.component";
 import { FoamsComponent } from "../details/foams/foams.component";
+import { OilsComponent } from "../details/oils/oils.component";
 
 
 const routes: Routes = [{ path: '', component: NewObservationPage }];
 
 @NgModule({
-    entryComponents: [ChoicesComponent, AlgaeComponent, FoamsComponent],
+    entryComponents: [ChoicesComponent, AlgaeComponent, FoamsComponent, OilsComponent],
     imports        : [
         CommonModule,
         FormsModule,
@@ -23,6 +24,6 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         RouterModule.forChild(routes),
         TranslateModule
     ],
-    declarations   : [NewObservationPage, ChoicesComponent, AlgaeComponent, FoamsComponent]
+    declarations   : [NewObservationPage, ChoicesComponent, AlgaeComponent, FoamsComponent, OilsComponent]
 })
 export class NewObservationPageModule {}

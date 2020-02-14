@@ -90,7 +90,18 @@
         }
       },
       "oils": {
-        "title": "Macchie oleose"
+        "title": "Macchie oleose",
+        "extension": {
+          "head": "Estensione",
+          "1": "< 5 mq",
+          "2": "5 - 20 mq",
+          "3": "> 20 mq"
+        },
+        "type": {
+          "head": "Tipologia",
+          "1": "Superficiale",
+          "2": "In profondità"
+        }
       },
       "litters": {
         "title": "Rifiuti"
