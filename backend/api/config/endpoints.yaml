@@ -11,6 +11,16 @@
     paternity: false
 
 
+/rois:
+
+  - path: /
+    method: GET
+    key_required: true
+    admin_required: false
+    token_required: false
+    paternity: false
+
+
 /events:
 
   - path: /

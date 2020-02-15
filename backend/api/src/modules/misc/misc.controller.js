@@ -6,8 +6,6 @@
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
 
-import fetch from "node-fetch";
-
 import { checkValidation } from "../../utils/common-checks";
 import { OPEN_WEATHER_KEY } from "../../setup/env";
 import * as miscService from "./misc.service";
@@ -37,13 +35,3 @@ export const getWeather = (req, res, next) => {
         .catch(err => next(err));
 
 };
-
-
-/**
- * Returns all the regions of interest saved in the database.
- *
- * @param {Object} req - The Express request object.
- * @param {Object} res - The Express response object.
- * @param {Function} next - The Express next middleware function.
- */
-export const getRois = (req, res, next) => {};

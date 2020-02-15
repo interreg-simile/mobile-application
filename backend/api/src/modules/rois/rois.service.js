@@ -1,48 +1,31 @@
 /**
- * @fileoverview This file contains the services for the miscellaneous endpoints. The services are workers which contain
+ * @fileoverview This file contains the services for the rois endpoints. The services are workers which contain
  * the business logic, directly communicates with the database and return to a controller the results of the operations.
  *
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
 
-import fetch from "node-fetch";
+import Roi from "./rois.model";
 
 
 /**
- * Fetches the current weather data for a given location from the OpenWeather API and return a subset of the result.
+ * Retrieves all the regions of interest in the database.
  *
- * @param {Object} query - The query parameters to apply to the request.
- * @return {Promise<{sky: number, temperature: number, wind: (number)}>} A Promise containing the weather data.
+ * @param {Object} filter - The filter to apply to the query.
+ * @param {Object} projection - The projection to apply to the query.
+ * @param {Object} options - The options of the query.
+ * @param {Function} t - The i18next translation function fixed on the response language.
+ * @returns {Promise<Roi[]>} A promise containing the result of the query.
  */
-export async function getWeather(query) {
+export async function getAll(filter, projection, options, t) {
 
-    // Save the base url
-    let url = "https://api.openweathermap.org/data/2.5/weather?";
+    // Retrieve the rois
+    const rois = await Roi.find(filter, projection, { lean: true, ...options });
 
-    // Append each query parameter to the url
-    for (const q in query) url += `${q}=${query[q]}&`;
+    // Populate the description fields of the events
+    // for (let i = 0; i < rois.length; i++) populateDescriptions(rois[i], t);
 
-    // Remove the last "&" or "?" from the url
-    url = url.slice(0, -1);
-
-    // Fetch the data from the OpenWeather API
-    const res = await fetch(url);
-
-    // Parse the response
-    const json = await res.json();
-
-    // Initialize the sky code
-    let skyCode = 1;
-
-    // Reduce the OpenWeather weather conditions to the one supported by the API
-    if (json.weather.id >= 200 && json.weather.id < 600) skyCode = 4;
-    else if (json.weather.id >= 600 && json.weather.id < 700) skyCode = 5;
-    else if (json.weather.id >= 700 && json.weather.id < 800) skyCode = 6;
-    else if (json.weather.id === 801) skyCode = 2;
-    else if (json.weather.id > 801) skyCode = 3;
-
-
-    // Return the weather data
-    return { sky: skyCode, temperature: json.main.temp, wind: json.wind.speed };
+    // Return the events
+    return rois;
 
 }

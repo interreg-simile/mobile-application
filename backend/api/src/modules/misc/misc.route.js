@@ -15,8 +15,5 @@ const router = Router();
 // GET - misc/weather/
 router.get("/weather", validator.weather, controller.getWeather);
 
-// GET - misc/rois/
-router.get("/rois", controller.getRois);
-
 // Export the router
 export default router;

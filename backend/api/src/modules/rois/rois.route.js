@@ -13,7 +13,7 @@ import * as controller from "./rois.controller";
 const router = Router();
 
 // GET - rois/
-router.get("/", controller.getRois);
+router.get("/", validator.getRois, controller.getRois);
 
 // Export the router
 export default router;
