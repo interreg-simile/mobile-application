@@ -200,10 +200,10 @@ export async function softDelete(id) {
  */
 function populateDescriptions(event, t) {
 
-    event.address.country["description"] = t(`models:events.countries.${event.address.country.code}`);
+    event.address.country["description"] = t(`models:events.country.${event.address.country.code}`);
 
-    event.rois["descriptions"] = [];
+    event.rois["description"] = [];
 
-    event.rois.codes.forEach(r => event.rois["descriptions"].push(t(`models:events.rois.${r}`)));
+    event.rois.codes.forEach(r => event.rois["description"].push(t(`models:events.rois.${r}`)));
 
 }

@@ -23,9 +23,24 @@ export async function getAll(filter, projection, options, t) {
     const rois = await Roi.find(filter, projection, { lean: true, ...options });
 
     // Populate the description fields of the events
-    // for (let i = 0; i < rois.length; i++) populateDescriptions(rois[i], t);
+    for (let i = 0; i < rois.length; i++) populateDescriptions(rois[i], t);
 
     // Return the events
     return rois;
+
+}
+
+
+/**
+ * Populates the description fields of a region of interest.
+ *
+ * @param {Roi} roi - The region of interest.
+ * @param {Function} t - The i18next translation function fixed on the response language.
+ */
+function populateDescriptions(roi, t) {
+
+    roi.country["description"] = t(`models:rois.country.${roi.country.code}`);
+    roi.area["description"]    = t(`models:rois.area.${roi.area.code}`);
+    roi.lake["description"]    = t(`models:rois.lake.${roi.lake.code}`);
 
 }

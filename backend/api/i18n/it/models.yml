@@ -19,7 +19,7 @@ events:
 
   rois: { 1: "Tutti", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
 
-  countries: { 1: "Italia", 2: "Svizzera" }
+  country: { 1: "Italia", 2: "Svizzera" }
 
 
 observations:
