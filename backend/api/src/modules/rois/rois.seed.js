@@ -4,6 +4,9 @@
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
 
+import path from "path";
+import fs from "fs";
+
 import Roi, { collection } from "./rois.model";
 import { dropCollection } from "../../setup/seeder";
 
@@ -20,8 +23,11 @@ export default async function () {
     // Drop the collection
     await dropCollection(collection);
 
-    // Create the dummy data
+    // Initialize the rois array
     const rois = [];
+
+    // Load all the json files in the "./data" folder
+    fs.readdirSync(path.resolve(__dirname, "data")).forEach(file => rois.push(require(`./data/${file}`)));
 
     // Save the rois
     for (const roi of rois) await Roi.create(roi);
