@@ -6,9 +6,7 @@
 
 - Explore response types (GeoJSON).
 
-- Use numbers instead of rois and countries (events + alerts).
-
-- Modify all the validation to be functions..
+- Modify all the validation to be functions.
 
 
 #### Auth
@@ -45,6 +43,4 @@
 
 - Expiration date?
 
-- Try to remove dPath from returned objects.
-
-- Test if set description works with arrays.
+- Try to remove dPath from returned objects (it needs another iteration. Worth it?).

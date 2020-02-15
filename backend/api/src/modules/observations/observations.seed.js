@@ -45,30 +45,30 @@ export default async function () {
             },
             photos  : ["observations/default.jpg"]
         },
-        // {
-        //     position: {
-        //         coordinates: [46.824735, 9.079017],
-        //         accuracy   : 20.86549,
-        //         custom     : false,
-        //         address    : "Piazzetta Felice Baratelli 22100 Como CO",
-        //         lake       : { code: 2, dPath: "position.lake" }
-        //     },
-        //     weather : {
-        //         temperature: 25.8,
-        //         sky        : { code: 3, dPath: "weather.sky" },
-        //         wind       : 32
-        //     },
-        //     details : {
-        //         litters: {
-        //             quantity: { code: 1, dPath: "details.litters.quantity" },
-        //             type    : [
-        //                 { code: 1, dPath: "details.litters.type" },
-        //                 { code: 2, dPath: "details.litters.type" }
-        //             ]
-        //         }
-        //     },
-        //     photos  : ["observations/default.jpg"]
-        // }
+        {
+            position: {
+                coordinates: [46.824735, 9.079017],
+                accuracy   : 20.86549,
+                custom     : false,
+                address    : "Piazzetta Felice Baratelli 22100 Como CO",
+                lake       : { code: 2, dPath: "position.lake" }
+            },
+            weather : {
+                temperature: 25.8,
+                sky        : { code: 3, dPath: "weather.sky" },
+                wind       : 32
+            },
+            details : {
+                litters: {
+                    quantity: { code: 1, dPath: "details.litters.quantity" },
+                    type    : [
+                        { code: 1, dPath: "details.litters.type" },
+                        { code: 2, dPath: "details.litters.type" }
+                    ]
+                }
+            },
+            photos  : ["observations/default.jpg"]
+        }
     ];
 
     // Retrieve the id of a user

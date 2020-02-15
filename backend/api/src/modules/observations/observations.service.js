@@ -131,8 +131,9 @@ export function populateDescriptions(obs, t) {
      * Finds all the "dPath" properties in an object and adds to their same level a property description.
      *
      * @param {Object} o - The object.
+     * @param {Number} [i] - The index of the array.
      */
-    const findAndSub = o => {
+    const findAndSub = (o, i) => {
 
         // For each of the keys of the object
         for (const k in o) {
@@ -140,16 +141,23 @@ export function populateDescriptions(obs, t) {
             // If the key is a natural property and is not a Mongoose internal object
             if (o.hasOwnProperty(k) && k !== "_id" && k !== "uid" && k !== "createdAt" && k !== "updatedAt") {
 
-                // If the key is "dPath", populate the "description" field
+                // If the key is "dPath"
                 if (k === "dPath") {
 
+                    // Compute the base path
+                    const basePath = `${o[k]}${i !== undefined ? `[${i}]` : ""}`;
+
+                    // Populate the description field
                     _.set(
                         originalObs,
-                        `${o[k]}.description`,
-                        t(`models:observations.${o[k]}.${_.get(originalObs, `${o[k]}.code`)}`)
+                        `${basePath}.description`,
+                        t(`models:observations.${o[k]}.${_.get(originalObs, `${basePath}.code`)}`)
                     );
 
                 }
+
+                // Else if the key corresponds to an array, call the function for each of the array elements
+                else if (Array.isArray(o[k])) o[k].forEach((e, i) => findAndSub(e, i));
 
                 // Else if the key corresponds to an object, call the function recursively
                 else if (typeof o[k] === "object") findAndSub(o[k]);
