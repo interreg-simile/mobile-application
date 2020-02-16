@@ -1,0 +1,126 @@
+{
+  "title": "Nuova osservazione",
+  "info-mandatory": "* indica un campo obbligatorio",
+  "location": {
+    "title": "Luogo *",
+    "not-recognized": "Posizione non riconosciuta",
+    "msg-missing-address": "Devi specificare il nome del luogo."
+  },
+  "weather": {
+    "title": "Meteo",
+    "temperature": "Temperatura",
+    "sky": {
+      "title": "Cielo",
+      "1": "Cielo limpido",
+      "2": "Qualche nuvola",
+      "3": "Nuvoloso",
+      "4": "Pioggia",
+      "5": "Neve",
+      "6": "Nebbia"
+    },
+    "wind": "Vento"
+  },
+  "details": {
+    "title": "Dettagli",
+    "algae": {
+      "title": "Alghe",
+      "extension": {
+        "head": "Estensione",
+        "1": "< 5 mq",
+        "2": "5 - 20 mq",
+        "3": "> 20 mq"
+      },
+      "colour": {
+        "head": "Colore",
+        "iridescent": "Iridescente"
+      },
+      "look": {
+        "head": "Aspetto",
+        "1": "Disperse",
+        "2": "Compatte",
+        "3": "Raggruppamenti",
+        "4": "Striature superficiali"
+      }
+    },
+    "foams": {
+      "title": "Schiume",
+      "extension": {
+        "head": "Estensione",
+        "1": "< 5 mq",
+        "2": "5 - 20 mq",
+        "3": "> 20 mq"
+      },
+      "look": {
+        "head": "Aspetto",
+        "1": "Disperse",
+        "2": "Compatte",
+        "3": "Lineari"
+      },
+      "height": {
+        "head": "Altezza",
+        "1": "< 3 cm",
+        "2": "3 - 20 cm",
+        "3": "> 20 cm"
+      }
+    },
+    "oils": {
+      "title": "Macchie oleose",
+      "extension": {
+        "head": "Estensione",
+        "1": "< 5 mq",
+        "2": "5 - 20 mq",
+        "3": "> 20 mq"
+      },
+      "type": {
+        "head": "Tipologia",
+        "1": "Superficiale",
+        "2": "In profondità"
+      }
+    },
+    "litters": {
+      "title": "Rifiuti",
+      "quantity": {
+        "head": "Quantità",
+        "1": "1",
+        "2": "2 - 20",
+        "3": "> 20"
+      },
+      "type": {
+        "head": "Tipologia",
+        "1": "Plastica",
+        "2": "Vetro / Ceramica",
+        "3": "Metallo",
+        "4": "Carta / Cartone",
+        "5": "Tessili",
+        "6": "Gomma",
+        "7": "Legno trattato / lavorato",
+        "8": "Laterizi",
+        "9": "Detriti vegetali",
+        "10": "Materiale organico in decomposizione"
+      }
+    },
+    "odours": {
+      "title": "Odori"
+    },
+    "outlets": {
+      "title": "Scarichi"
+    },
+    "fauna": {
+      "title": "Fauna"
+    },
+    "other-title": "Altri dettagli",
+    "other-ph": "Massimo 250 caratteri..."
+  },
+  "photos": {
+    "title": "Foto *"
+  },
+  "btn-continue": "Continua",
+  "modal-choices": {
+    "heading": "Cosa vuoi fare?",
+    "btn-send": "Invia l'osservazione",
+    "or": "- o -",
+    "btn-add": "Aggiungi una misura",
+    "msg-call-1": "Se pensi che sia necessario attivare un'intervento, chiama questo numero:",
+    "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
+  }
+}

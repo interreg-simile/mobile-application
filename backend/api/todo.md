@@ -6,8 +6,6 @@
 
 - Explore response types (GeoJSON).
 
-- Modify all the validation to be functions.
-
 
 #### Auth
 
