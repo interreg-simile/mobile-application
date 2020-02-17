@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
-import { Foams } from "../../observation.model";
+
+
+interface Props {
+    extension?: number,
+    look?: number,
+    height?: number
+}
 
 
 @Component({ selector: 'app-foams', templateUrl: './foams.component.html', styleUrls: ['./foams.component.scss'] })
@@ -9,7 +15,7 @@ export class FoamsComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Foams = {};
+    private _props: Props = {};
 
 
     /** @ignore */
@@ -20,9 +26,9 @@ export class FoamsComponent implements OnInit {
     ngOnInit() {
 
         // Save the initial values of the settable properties
-        this._props.extension = this.obsService.newObservation.details.foams.extension;
-        this._props.look      = this.obsService.newObservation.details.foams.look;
-        this._props.height    = this.obsService.newObservation.details.foams.height;
+        this._props.extension = this.obsService.newObservation.details.foams.extension.code;
+        this._props.look      = this.obsService.newObservation.details.foams.look.code;
+        this._props.height    = this.obsService.newObservation.details.foams.height.code;
 
     }
 
@@ -41,9 +47,9 @@ export class FoamsComponent implements OnInit {
             this.obsService.newObservation.details.foams.checked = true;
 
             // Save the new values
-            this.obsService.newObservation.details.foams.extension = this._props.extension;
-            this.obsService.newObservation.details.foams.look      = this._props.look;
-            this.obsService.newObservation.details.foams.height    = this._props.height;
+            this.obsService.newObservation.details.foams.extension.code = this._props.extension;
+            this.obsService.newObservation.details.foams.look.code      = this._props.look;
+            this.obsService.newObservation.details.foams.height.code    = this._props.height;
 
         }
 
@@ -56,5 +62,7 @@ export class FoamsComponent implements OnInit {
 
     }
 
+
+    onHelpClick() { }
 
 }

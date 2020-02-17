@@ -159,32 +159,32 @@ export class Observation {
         const algae: Algae = {
             checked   : false,
             component : AlgaeComponent,
-            extension : undefined,
-            look      : undefined,
-            colour    : undefined,
+            extension : { code: undefined },
+            look      : { code: undefined },
+            colour    : { code: undefined },
             iridescent: undefined
         };
 
         const foams: Foams = {
             checked  : false,
             component: FoamsComponent,
-            extension: undefined,
-            look     : undefined,
-            height   : undefined
+            extension: { code: undefined },
+            look     : { code: undefined },
+            height   : { code: undefined }
         };
 
         const oils: Oils = {
             checked  : false,
             component: OilsComponent,
-            extension: undefined,
-            type     : undefined
+            extension: { code: undefined },
+            type     : { code: undefined }
         };
 
         const litters: Litters = {
             checked  : false,
             component: LittersComponent,
-            quantity : undefined,
-            type     : undefined
+            quantity : { code: undefined },
+            type     : undefined,
         };
 
         this.details = {

@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
-import { Algae } from "../../observation.model";
+
+
+interface Props {
+    extension?: number,
+    colour?: number,
+    iridescent?: boolean,
+    look?: number
+}
 
 
 @Component({ selector: 'app-algae', templateUrl: './algae.component.html', styleUrls: ['./algae.component.scss'] })
@@ -9,7 +16,7 @@ export class AlgaeComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Algae = {};
+    private _props: Props = {};
 
     /** Selectable colours. */
     private _colours = {
@@ -33,10 +40,10 @@ export class AlgaeComponent implements OnInit {
     ngOnInit() {
 
         // Save the initial values of the settable properties
-        this._props.extension  = this.obsService.newObservation.details.algae.extension;
-        this._props.colour     = this.obsService.newObservation.details.algae.colour;
+        this._props.extension  = this.obsService.newObservation.details.algae.extension.code;
+        this._props.colour     = this.obsService.newObservation.details.algae.colour.code;
         this._props.iridescent = this.obsService.newObservation.details.algae.iridescent;
-        this._props.look       = this.obsService.newObservation.details.algae.look;
+        this._props.look       = this.obsService.newObservation.details.algae.look.code;
 
         // Select the right colour
         if (this._props.colour) this._colours[this._props.colour].selected = true;
@@ -61,10 +68,10 @@ export class AlgaeComponent implements OnInit {
             this.obsService.newObservation.details.algae.checked = true;
 
             // Save the new values
-            this.obsService.newObservation.details.algae.extension  = this._props.extension;
-            this.obsService.newObservation.details.algae.colour     = this._props.colour;
-            this.obsService.newObservation.details.algae.iridescent = this._props.iridescent;
-            this.obsService.newObservation.details.algae.look       = this._props.look;
+            this.obsService.newObservation.details.algae.extension.code = this._props.extension;
+            this.obsService.newObservation.details.algae.colour.code    = this._props.colour;
+            this.obsService.newObservation.details.algae.iridescent     = this._props.iridescent;
+            this.obsService.newObservation.details.algae.look.code      = this._props.look;
 
         }
 

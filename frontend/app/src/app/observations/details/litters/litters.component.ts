@@ -4,6 +4,12 @@ import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
 
 
+interface Props {
+    quantity?: number,
+    type?: number[]
+}
+
+
 @Component({
     selector   : 'app-litters',
     templateUrl: './litters.component.html',
@@ -13,7 +19,7 @@ export class LittersComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Litters = {};
+    private _props: Props = {};
 
 
     /** @ignore */
@@ -24,8 +30,8 @@ export class LittersComponent implements OnInit {
     ngOnInit() {
 
         // Save the initial values of the settable properties
-        this._props.quantity = this.obsService.newObservation.details.litters.quantity;
-        this._props.type     = this.obsService.newObservation.details.litters.type;
+        this._props.quantity = this.obsService.newObservation.details.litters.quantity.code;
+        // this._props.type     = this.obsService.newObservation.details.litters.type.code;
 
     }
 
@@ -54,8 +60,8 @@ export class LittersComponent implements OnInit {
             this.obsService.newObservation.details.litters.checked = true;
 
             // Save the new values
-            this.obsService.newObservation.details.litters.quantity = this._props.quantity;
-            this.obsService.newObservation.details.litters.type     = this._props.type;
+            this.obsService.newObservation.details.litters.quantity.code = this._props.quantity;
+            // this.obsService.newObservation.details.litters.type     = this._props.type;
 
         }
 

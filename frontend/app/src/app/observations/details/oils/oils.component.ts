@@ -4,12 +4,18 @@ import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
 
 
+interface Props {
+    extension?: number,
+    type?: number
+}
+
+
 @Component({ selector: 'app-oils', templateUrl: './oils.component.html', styleUrls: ['./oils.component.scss'] })
 export class OilsComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Oils = {};
+    private _props: Props = {};
 
 
     /** @ignore */
@@ -20,8 +26,8 @@ export class OilsComponent implements OnInit {
     ngOnInit() {
 
         // Save the initial values of the settable properties
-        this._props.extension = this.obsService.newObservation.details.oils.extension;
-        this._props.type      = this.obsService.newObservation.details.oils.type;
+        this._props.extension = this.obsService.newObservation.details.oils.extension.code;
+        this._props.type      = this.obsService.newObservation.details.oils.type.code;
 
     }
 
@@ -43,8 +49,8 @@ export class OilsComponent implements OnInit {
             this.obsService.newObservation.details.oils.checked = true;
 
             // Save the new values
-            this.obsService.newObservation.details.oils.extension = this._props.extension;
-            this.obsService.newObservation.details.oils.type      = this._props.type;
+            this.obsService.newObservation.details.oils.extension.code = this._props.extension;
+            this.obsService.newObservation.details.oils.type.code      = this._props.type;
 
         }
 
