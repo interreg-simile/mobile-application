@@ -28,56 +28,43 @@
                     <ion-item lines="none" routerLink="/map" routerLinkActive="active-link">
 
                         <ion-icon name="map" slot="start"></ion-icon>
-                        <ion-label>{{"drawer.item-map" | translate}}</ion-label>
+                        <ion-label>{{"page-map.title" | translate}}</ion-label>
 
                     </ion-item>
 
                 </ion-menu-toggle>
-
-                <!-- Thematic maps -->
-                <ion-menu-toggle menu="main">
-
-                    <ion-item button lines="none" (click)="onThematicMap()">
-
-                        <ion-icon name="image" slot="start"></ion-icon>
-                        <ion-label>{{"drawer.item-thematic-maps" | translate}}</ion-label>
-                        <ion-icon name="open" slot="end"></ion-icon>
-
-                    </ion-item>
-
-                </ion-menu-toggle>
-
-                <!-- Surveys -->
-                <ion-menu-toggle menu="main">
-
-                    <ion-item lines="none" routerLink="/surveys" routerLinkActive="active-link">
-
-                        <ion-icon name="help-circle" slot="start"></ion-icon>
-                        <ion-label>{{"drawer.item-surveys" | translate}}</ion-label>
-
-                    </ion-item>
-
-                </ion-menu-toggle>
-
+    
                 <!-- News -->
                 <ion-menu-toggle menu="main">
-
+        
                     <ion-item lines="none" routerLink="/news" routerLinkActive="active-link">
-
+            
                         <ion-icon name="calendar" slot="start"></ion-icon>
-                        <ion-label>{{"drawer.item-news" | translate}}</ion-label>
+                        <ion-label>{{"page-news.title" | translate}}</ion-label>
+        
+                    </ion-item>
+    
+                </ion-menu-toggle>
+
+                <!-- Quiz -->
+                <ion-menu-toggle menu="main">
+
+                    <ion-item lines="none" routerLink="/quiz" routerLinkActive="active-link">
+
+                        <ion-icon name="help-circle" slot="start"></ion-icon>
+                        <ion-label>{{"page-quiz.title" | translate}}</ion-label>
 
                     </ion-item>
 
                 </ion-menu-toggle>
 
-                <!-- Info -->
+                <!-- Project -->
                 <ion-menu-toggle menu="main">
 
-                    <ion-item lines="none" routerLink="/info" routerLinkActive="active-link">
+                    <ion-item lines="none" routerLink="/project" routerLinkActive="active-link">
 
                         <ion-icon name="information-circle" slot="start"></ion-icon>
-                        <ion-label>{{"drawer.item-info" | translate}}</ion-label>
+                        <ion-label>{{"page-project.title" | translate}}</ion-label>
 
                     </ion-item>
 
@@ -89,7 +76,7 @@
                     <ion-item lines="none" routerLink="/settings" routerLinkActive="active-link">
 
                         <ion-icon name="settings" slot="start"></ion-icon>
-                        <ion-label>{{"drawer.item-settings" | translate}}</ion-label>
+                        <ion-label>{{"page-settings.title" | translate}}</ion-label>
 
                     </ion-item>
 

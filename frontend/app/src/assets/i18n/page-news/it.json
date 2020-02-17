@@ -1,0 +1,12 @@
+{
+  "title": "Novità",
+  "segment-alerts": "Avvisi",
+  "segment-events": "Eventi",
+  "no-alerts": "Nessun avviso.",
+  "no-events": "Nessun evento.",
+  "page-single-event": {
+    "header-details": "dettagli",
+    "header-contacts": "contatti",
+    "at": "Alle"
+  }
+}

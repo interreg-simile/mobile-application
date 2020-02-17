@@ -1,0 +1,13 @@
+{
+  "error-occurred": "Errore!",
+  "rois": {
+    "lake_como": "Lago di Como",
+    "lake_maggiore": "Lago Maggiore",
+    "lake_lugano": "Lago di Lugano"
+  },
+  "alerts": {
+    "btn-ok": "OK",
+    "btn-cancel": "Cancella",
+    "btn-confirm": "Conferma"
+  }
+}

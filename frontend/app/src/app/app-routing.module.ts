@@ -3,38 +3,34 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'map', pathMatch: 'full' },
-    { path: 'map', loadChildren: './map/map.module#MapPageModule' },
+    { path: "", redirectTo: "map", pathMatch: "full" },
+    { path: "auth", loadChildren: "./auth/auth.module#AuthPageModule" },
+    { path: "map", loadChildren: "./map/map.module#MapPageModule" },
     {
-        path: 'observations', children: [
+        path: "observations", children: [
             {
                 path        : "new",
-                loadChildren: './observations/new-observation/new-observation.module#NewObservationPageModule'
+                loadChildren: "./observations/new-observation/new-observation.module#NewObservationPageModule"
             },
         ]
     },
     {
-        path: 'surveys', children: [
-            { path: "", loadChildren: './surveys/surveys.module#SurveysPageModule' },
-            { path: ":surveyId", loadChildren: './surveys/survey/survey.module#SurveyPageModule' }
-        ]
-    },
-    {
-        path: 'news', children: [
-            { path: "", loadChildren: './news/news.module#NewsPageModule' },
+        path: "news", children: [
+            { path: "", loadChildren: "./news/news.module#NewsPageModule" },
             {
-                path        : 'alert/:id',
-                loadChildren: './news/alerts/single-alert/single-alert.module#SingleAlertPageModule'
+                path        : "alert/:id",
+                loadChildren: "./news/alerts/single-alert/single-alert.module#SingleAlertPageModule"
             },
             {
-                path        : 'event/:id',
-                loadChildren: './news/events/single-event/single-event.module#SingleEventPageModule'
+                path        : "event/:id",
+                loadChildren: "./news/events/single-event/single-event.module#SingleEventPageModule"
             }
         ]
     },
-    { path: 'info', loadChildren: './info/info.module#InfoPageModule' },
-    { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
-    { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' }
+    { path: "quiz", loadChildren: "./quiz/quiz.module#QuizPageModule" },
+    { path: "project", loadChildren: "./project/project.module#ProjectPageModule" },
+    { path: "settings", loadChildren: "./settings/settings.module#SettingsPageModule" },
+
 ];
 
 

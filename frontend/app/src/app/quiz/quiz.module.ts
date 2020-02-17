@@ -5,20 +5,24 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SurveysPage } from './surveys.page';
+import { QuizPage } from './quiz.page';
 import { TranslateModule } from "@ngx-translate/core";
-import { SurveyItemComponent } from "./survey-item/survey-item.component";
 
-const routes: Routes = [{ path: '', component: SurveysPage }];
+const routes: Routes = [
+  {
+    path: '',
+    component: QuizPage
+  }
+];
 
 @NgModule({
-    imports     : [
+    imports: [
         CommonModule,
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
         TranslateModule
     ],
-    declarations: [SurveysPage, SurveyItemComponent]
+  declarations: [QuizPage]
 })
-export class SurveysPageModule {}
+export class QuizPageModule {}
