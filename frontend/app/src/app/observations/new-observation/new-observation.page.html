@@ -40,33 +40,33 @@
 		
 		
 		<!-- Location -->
-<!--		<section id="location">-->
-<!--			-->
-<!--			<div class="heading">-->
-<!--				-->
-<!--				<ion-icon ios="ios-pin" md="md-pin" class="main"></ion-icon>-->
-<!--				-->
-<!--				<p class="title">{{"page-new-obs.location.title" | translate}}</p>-->
-<!--				-->
-<!--				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>-->
-<!--			-->
-<!--			</div>-->
-<!--			-->
-<!--			<ion-card class="ion-no-margin">-->
-<!--				-->
-<!--				<ion-card-content>-->
-<!--					-->
-<!--					<p>{{_newObservation.position.address || "page-new-obs.location.not-recognized" | translate }}</p>-->
-<!--					-->
-<!--					<ion-icon ios="ios-create" md="md-create" (click)="onLocationEditClick()"></ion-icon>-->
-<!--					-->
-<!--					<ion-icon ios="ios-locate" md="md-locate" (click)="onLocateClick()"></ion-icon>-->
-<!--				-->
-<!--				</ion-card-content>-->
-<!--			-->
-<!--			</ion-card>-->
-<!--		-->
-<!--		</section>-->
+		<!--		<section id="location">-->
+		<!--			-->
+		<!--			<div class="heading">-->
+		<!--				-->
+		<!--				<ion-icon ios="ios-pin" md="md-pin" class="main"></ion-icon>-->
+		<!--				-->
+		<!--				<p class="title">{{"page-new-obs.location.title" | translate}}</p>-->
+		<!--				-->
+		<!--				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>-->
+		<!--			-->
+		<!--			</div>-->
+		<!--			-->
+		<!--			<ion-card class="ion-no-margin">-->
+		<!--				-->
+		<!--				<ion-card-content>-->
+		<!--					-->
+		<!--					<p>{{_newObservation.position.address || "page-new-obs.location.not-recognized" | translate }}</p>-->
+		<!--					-->
+		<!--					<ion-icon ios="ios-create" md="md-create" (click)="onLocationEditClick()"></ion-icon>-->
+		<!--					-->
+		<!--					<ion-icon ios="ios-locate" md="md-locate" (click)="onLocateClick()"></ion-icon>-->
+		<!--				-->
+		<!--				</ion-card-content>-->
+		<!--			-->
+		<!--			</ion-card>-->
+		<!--		-->
+		<!--		</section>-->
 		
 		
 		<!-- Weather -->
@@ -102,7 +102,7 @@
 						
 						<p class="label">{{"page-new-obs.weather.sky.title" | translate}}</p>
 						
-						<i class="wi {{skyIcons[this._newObservation.weather.sky || 1]}}"></i>
+						<i class="wi {{skyIcons[this._newObservation.weather.sky.code || 1]}}"></i>
 					
 					</div>
 					
@@ -139,22 +139,25 @@
 				<ion-card-content class="ion-no-padding">
 					
 					<!--suppress TypeScriptValidateTypes -->
-					<div *ngFor="let detail of this._newObservation.details | keyvalue: originalOrder"
-						 class="detail-item">
+					<div *ngFor="let detail of this._newObservation.details | keyvalue: originalOrder">
 						
-						<!--suppress TypeScriptUnresolvedVariable -->
-						<ion-checkbox [(ngModel)]="detail.value.checked"></ion-checkbox>
+						<div *ngIf="detail.key != 'other'" class="detail-item">
+							
+							<!--suppress TypeScriptUnresolvedVariable -->
+							<ion-checkbox [(ngModel)]="detail.value.checked"></ion-checkbox>
+							
+							<!--suppress TypeScriptUnresolvedVariable -->
+							<ion-label class="ion-no-margin" (click)="openDetailModel(detail.value.component)">
+								
+								{{"page-new-obs.details." + detail.key + ".title" | translate}}
+								
+								<ion-icon name="help-circle-outline"></ion-icon>
+								
+								<ion-icon name="ios-arrow-forward"></ion-icon>
+							
+							</ion-label>
 						
-						<!--suppress TypeScriptUnresolvedVariable -->
-						<ion-label class="ion-no-margin" (click)="openDetailModel(detail.value.component)">
-							
-							{{"page-new-obs.details." + detail.key + ".title" | translate}}
-							
-							<ion-icon name="help-circle-outline"></ion-icon>
-							
-							<ion-icon name="ios-arrow-forward"></ion-icon>
-						
-						</ion-label>
+						</div>
 					
 					</div>
 				

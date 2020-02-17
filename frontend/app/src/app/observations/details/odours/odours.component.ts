@@ -26,12 +26,29 @@ export class OdoursComponent implements OnInit {
 
         // Save the initial values of the settable properties
         this._props.intensity = this.obsService.newObservation.details.odours.intensity.code;
-        // this._props.origin    = this.obsService.newObservation.details.odours.origin;
+        this._props.origin     = [];
+        this.obsService.newObservation.details.odours.origin.forEach(t => this._props.origin.push(t.code))
 
     }
 
 
     onHelpClick() { }
+
+
+    /**
+     * Fired when a change event is fired by the origin checkbox group.
+     *
+     * @param {CustomEvent} e - The change event.
+     */
+    onTypeChange(e) {
+
+        // If the checkbox has been checked, push its value to the type array
+        if (e.detail.checked) this._props.origin.push(parseInt(e.detail.value));
+
+        // Else, remove the element from the array
+        else this._props.origin = this._props.origin.filter(t => t !== parseInt(e.detail.value));
+
+    }
 
 
     /**
@@ -49,7 +66,8 @@ export class OdoursComponent implements OnInit {
 
             // Save the new values
             this.obsService.newObservation.details.odours.intensity.code = this._props.intensity;
-            // this.obsService.newObservation.details.odours.origin    = this._props.origin;
+            this.obsService.newObservation.details.odours.origin = [];
+            this._props.origin.forEach(t => this.obsService.newObservation.details.odours.origin.push({code: t}));
 
         }
 

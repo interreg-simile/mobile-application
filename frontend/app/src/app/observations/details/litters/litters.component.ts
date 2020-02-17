@@ -31,14 +31,24 @@ export class LittersComponent implements OnInit {
 
         // Save the initial values of the settable properties
         this._props.quantity = this.obsService.newObservation.details.litters.quantity.code;
-        // this._props.type     = this.obsService.newObservation.details.litters.type.code;
+        this._props.type     = [];
+        this.obsService.newObservation.details.litters.type.forEach(t => this._props.type.push(t.code))
 
     }
 
 
+    /**
+     * Fired when a change event is fired by the type checkbox group.
+     *
+     * @param {CustomEvent} e - The change event.
+     */
     onTypeChange(e) {
 
-        console.log(e.detail.checked, e.detail.value);
+        // If the checkbox has been checked, push its value to the type array
+        if (e.detail.checked) this._props.type.push(parseInt(e.detail.value));
+
+        // Else, remove the element from the array
+        else this._props.type = this._props.type.filter(t => t !== parseInt(e.detail.value));
 
     }
 
@@ -61,7 +71,8 @@ export class LittersComponent implements OnInit {
 
             // Save the new values
             this.obsService.newObservation.details.litters.quantity.code = this._props.quantity;
-            // this.obsService.newObservation.details.litters.type     = this._props.type;
+            this.obsService.newObservation.details.litters.type = [];
+            this._props.type.forEach(t => this.obsService.newObservation.details.litters.type.push({code: t}));
 
         }
 

@@ -51,14 +51,14 @@ export interface Litters {
     checked: boolean,
     component: Object,
     quantity: { code: number },
-    type: [{ code: number }]
+    type: any[]
 }
 
 export interface Odours {
     checked: boolean,
     component: Object,
     intensity: { code: number },
-    origin: [{ code: number }]
+    origin: any[]
 }
 
 export interface Outlets {
@@ -144,7 +144,7 @@ export class Observation {
      * @param {number} accuracy - The accuracy of the coordinates.
      * @param {boolean} custom - True is the user has chosen the observation position long tapping on the map.
      */
-    constructor(coords, accuracy, custom) {
+    constructor(coords: number[], accuracy: number, custom: boolean) {
 
         this.position = {
             coordinates: coords,
@@ -187,14 +187,14 @@ export class Observation {
             checked  : false,
             component: LittersComponent,
             quantity : { code: undefined },
-            type     : undefined,
+            type     : [],
         };
 
         const odours: Odours = {
             checked  : false,
             component: OdoursComponent,
             intensity: { code: undefined },
-            origin   : undefined
+            origin   : []
         };
 
         const outlets: Outlets = {

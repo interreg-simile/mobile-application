@@ -44,7 +44,7 @@
 	
 	
 	<!-- Quantity -->
-	<section id="extension">
+	<section>
 		
 		<p class="card-header">{{"page-new-obs.details.litters.quantity.head" | translate}}</p>
 		
@@ -74,7 +74,7 @@
 	
 	
 	<!-- Type -->
-	<section id="type" class="last">
+	<section class="last">
 		
 		<p class="card-header">{{"page-new-obs.details.litters.type.head" | translate}}</p>
 		
@@ -86,7 +86,10 @@
 					
 					<ion-label>{{"page-new-obs.details.litters.type." + i | translate}}</ion-label>
 					
-					<ion-checkbox slot="start" value="{{i}}" (ionChange)="onTypeChange($event)"></ion-checkbox>
+					<ion-checkbox slot="start"
+								  value="{{i}}"
+								  [checked]="_props.type.includes(i)"
+								  (ionChange)="onTypeChange($event)"></ion-checkbox>
 				
 				</ion-item>
 			

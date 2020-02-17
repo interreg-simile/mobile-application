@@ -45,7 +45,7 @@ export class NewObservationPage implements OnInit {
     ngOnInit() {
 
         // ToDo change with real values and move initialization to map page
-        this.obsService.initNewObs([45.860442, 9.383371], 2.0, false);
+        this.obsService.newObservation = new Observation([45.860442, 9.383371], 2.0, false);
 
         this.obsService.newObservation.weather.temperature = 21.4;
         this.obsService.newObservation.weather.sky.code    = 1;
@@ -53,7 +53,7 @@ export class NewObservationPage implements OnInit {
 
         this._newObservation = this.obsService.newObservation;
 
-        // this.openDetailModel(this._newObservation.details.litters.component);
+        this.openDetailModel(this._newObservation.details.outlets.component);
 
         // const nominatim = this.obsService.nominatimReverse(this._position.coordinates);
         //

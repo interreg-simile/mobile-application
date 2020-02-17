@@ -100,10 +100,40 @@
       }
     },
     "odours": {
-      "title": "Odori"
+      "title": "Odori",
+      "intensity": {
+        "head": "Intensità",
+        "1": "Lieve",
+        "2": "Medio",
+        "3": "Forte"
+      },
+      "origin": {
+        "head": "Origine",
+        "1": "Pesce",
+        "2": "Muffa",
+        "3": "Idrocarburi",
+        "4": "Solventi",
+        "5": "Fogna",
+        "6": "Materiale in decomposizione"
+      }
     },
     "outlets": {
-      "title": "Scarichi"
+      "title": "Scarichi",
+      "terminal": {
+        "head": "Terminale",
+        "1": "Visibile",
+        "2": "Sommerso"
+      },
+      "colour": {
+        "head": "Colore",
+        "1": "Rosso",
+        "2": "Blu",
+        "3": "Verde",
+        "4": "Grigio",
+        "5": "Marrone",
+        "6": "Giallo",
+        "7": "Bianco"
+      }
     },
     "fauna": {
       "title": "Fauna"
