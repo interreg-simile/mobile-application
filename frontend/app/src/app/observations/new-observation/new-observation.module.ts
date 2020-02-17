@@ -12,6 +12,9 @@ import { AlgaeComponent } from "../details/algae/algae.component";
 import { FoamsComponent } from "../details/foams/foams.component";
 import { OilsComponent } from "../details/oils/oils.component";
 import { LittersComponent } from "../details/litters/litters.component";
+import { OdoursComponent } from "../details/odours/odours.component";
+import { OutletsComponent } from "../details/outlets/outlets.component";
+import { FaunaComponent } from "../details/fauna/fauna.component";
 
 
 const routes: Routes = [{ path: '', component: NewObservationPage }];
@@ -22,7 +25,10 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         AlgaeComponent,
         FoamsComponent,
         OilsComponent,
-        LittersComponent
+        LittersComponent,
+        OdoursComponent,
+        OutletsComponent,
+        FaunaComponent
     ],
     imports        : [
         CommonModule,
@@ -37,7 +43,10 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         AlgaeComponent,
         FoamsComponent,
         OilsComponent,
-        LittersComponent
+        LittersComponent,
+        OdoursComponent,
+        OutletsComponent,
+        FaunaComponent
     ]
 })
 export class NewObservationPageModule {}

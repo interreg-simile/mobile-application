@@ -1,0 +1,43 @@
+<ion-header>
+  
+  <ion-toolbar>
+    
+    <!-- Back button -->
+    <ion-buttons slot="start">
+      
+      <ion-button (click)="closeModal(false)">
+        
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      
+      </ion-button>
+    
+    </ion-buttons>
+    
+    <!-- Title -->
+    <ion-title>{{"page-new-obs.details.odours.title" | translate}}</ion-title>
+    
+    <!-- Right buttons -->
+    <ion-buttons slot="end">
+      
+      <!-- Help button -->
+      <ion-button (click)="onHelpClick()">
+        
+        <ion-icon name="help-circle-outline"></ion-icon>
+      
+      </ion-button>
+      
+      <!-- Check button -->
+      <ion-button (click)="closeModal(true)">
+        
+        <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+      
+      </ion-button>
+    
+    </ion-buttons>
+  
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="bg-off-white custom-container"></ion-content>

@@ -2,6 +2,9 @@ import { AlgaeComponent } from "./details/algae/algae.component";
 import { FoamsComponent } from "./details/foams/foams.component";
 import { OilsComponent } from "./details/oils/oils.component";
 import { LittersComponent } from "./details/litters/litters.component";
+import { OdoursComponent } from "./details/odours/odours.component";
+import { OutletsComponent } from "./details/outlets/outlets.component";
+import { FaunaComponent } from "./details/fauna/fauna.component";
 
 
 export interface Position {
@@ -53,49 +56,49 @@ export interface Litters {
 
 export interface Odours {
     checked: boolean,
-    component?: Object,
-    intensity?: String,
-    origin?: String[]
+    component: Object,
+    intensity: { code: number },
+    origin: [{ code: number }]
 }
 
 export interface Outlets {
-    checked?: boolean,
-    component?: Object,
-    inPlace?: Boolean,
-    terminal?: String,
-    colour?: String,
-    vapour?: Boolean,
-    signage?: Boolean,
-    signagePhoto?: String,
-    prodActNearby?: Boolean,
-    prodActNearbyDetails?: String
+    checked: boolean,
+    component: Object,
+    inPlace: boolean,
+    terminal: { code: number },
+    colour: { code: number },
+    vapour: boolean,
+    signage: boolean,
+    signagePhoto: string,
+    prodActNearby: boolean,
+    prodActNearbyDetails: string
 }
 
 export interface Fauna {
-    checked?: boolean,
-    component?: Object,
-    deceased?: { fish?: Boolean, birds?: Boolean, other?: String },
-    abnormal?: { fish?: Boolean, birds?: Boolean, other?: String },
-    alienSpecies?: {
-        crustaceans?: Boolean,
-        molluscs?: Boolean,
-        turtles?: Boolean,
-        fish?: Boolean,
-        birds?: Boolean,
-        other?: String,
+    checked: boolean,
+    component: Object,
+    deceased: { fish: boolean, birds: boolean, other: string },
+    abnormal: { fish: boolean, birds: boolean, other: string },
+    alienSpecies: {
+        crustaceans: boolean,
+        molluscs: boolean,
+        turtles: boolean,
+        fish: boolean,
+        birds: boolean,
+        other: string,
     }
 }
 
 
 export interface Details {
-    algae?: Algae,
-    foams?: Foams,
-    oils?: Oils,
-    litters?: Litters,
-    odours?: Odours,
-    outlets?: Outlets,
-    fauna?: Fauna,
-    other?: string
+    algae: Algae,
+    foams: Foams,
+    oils: Oils,
+    litters: Litters,
+    odours: Odours,
+    outlets: Outlets,
+    fauna: Fauna,
+    other: string
 }
 
 
@@ -187,11 +190,50 @@ export class Observation {
             type     : undefined,
         };
 
+        const odours: Odours = {
+            checked  : false,
+            component: OdoursComponent,
+            intensity: { code: undefined },
+            origin   : undefined
+        };
+
+        const outlets: Outlets = {
+            checked             : false,
+            component           : OutletsComponent,
+            inPlace             : undefined,
+            terminal            : { code: undefined },
+            colour              : { code: undefined },
+            vapour              : undefined,
+            signage             : undefined,
+            signagePhoto        : undefined,
+            prodActNearby       : undefined,
+            prodActNearbyDetails: undefined
+        };
+
+        const fauna: Fauna = {
+            checked     : false,
+            component   : FaunaComponent,
+            deceased    : { fish: undefined, birds: undefined, other: undefined },
+            abnormal    : { fish: undefined, birds: undefined, other: undefined },
+            alienSpecies: {
+                crustaceans: undefined,
+                molluscs   : undefined,
+                turtles    : undefined,
+                fish       : undefined,
+                birds      : undefined,
+                other      : undefined,
+            }
+        };
+
         this.details = {
             algae  : algae,
             foams  : foams,
             oils   : oils,
-            litters: litters
+            litters: litters,
+            odours : odours,
+            outlets: outlets,
+            fauna  : fauna,
+            other  : undefined
         }
 
     }
