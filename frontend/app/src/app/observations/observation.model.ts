@@ -5,54 +5,54 @@ import { LittersComponent } from "./details/litters/litters.component";
 
 
 export interface Position {
-    coordinates?: number[],
-    accuracy?: number,
-    custom?: boolean,
+    coordinates: number[],
+    accuracy: number,
+    custom: boolean,
     // address?: string,
-    lake?: number
+    lake: { code: number }
 }
 
 
 export interface Weather {
-    temperature?: number,
-    sky?: number,
-    wind?: number
+    temperature: number,
+    sky: { code: number },
+    wind: number
 }
 
 
 export interface Algae {
-    checked?: boolean,
-    component?: Object,
-    extension?: number,
-    colour?: number,
-    iridescent?: boolean,
-    look?: number
+    checked: boolean,
+    component: Object,
+    extension: { code: number },
+    colour: { code: number },
+    iridescent: boolean,
+    look: { code: number },
 }
 
 export interface Foams {
-    checked?: boolean,
-    component?: Object,
-    extension?: number,
-    look?: number,
-    height?: number
+    checked: boolean,
+    component: Object,
+    extension: { code: number },
+    look: { code: number },
+    height: { code: number }
 }
 
 export interface Oils {
-    checked?: boolean,
-    component?: Object,
-    extension?: number,
-    type?: number
+    checked: boolean,
+    component: Object,
+    extension: { code: number },
+    type: { code: number }
 }
 
 export interface Litters {
-    checked?: boolean,
-    component?: Object,
-    quantity?: number,
-    type?: number[]
+    checked: boolean,
+    component: Object,
+    quantity: { code: number },
+    type: [{ code: number }]
 }
 
 export interface Odours {
-    checked?: boolean,
+    checked: boolean,
     component?: Object,
     intensity?: String,
     origin?: String[]
@@ -110,8 +110,8 @@ interface Measures {
     transparency?: { val: Number, instrument: Instrument },
     temperature?: { multiple: Boolean, val: { depth: Number, val: Number }[], instrument: Instrument },
     ph?: { multiple: Boolean, val: { depth: Number, val: Number }[], instrument: Instrument },
-    oxygen?: { multiple: Boolean, val: { depth: Number, concentration?: Number, percentage?: Number }[], instrument: Instrument },
-    bacteria?: { escherichiaColi?: Number, enterococci?: Number }
+    oxygen?: { multiple: Boolean, val: { depth: Number, concentration: { code: number }, percentage: { code: number } }[], instrument: Instrument },
+    bacteria?: { escherichiaColi: { code: number }, enterococci: { code: number } }
 }
 
 
@@ -134,11 +134,27 @@ export class Observation {
     measures: Measures;
 
 
-    constructor() {
+    /**
+     * Create a new observation and initializes all the values except for the passed ones to undefined.
+     *
+     * @param {number[]} coords - The coordinated of the new observation in form [lat, lon].
+     * @param {number} accuracy - The accuracy of the coordinates.
+     * @param {boolean} custom - True is the user has chosen the observation position long tapping on the map.
+     */
+    constructor(coords, accuracy, custom) {
 
-        this.position = {};
+        this.position = {
+            coordinates: coords,
+            accuracy   : accuracy,
+            custom     : custom,
+            lake       : { code: undefined }
+        };
 
-        this.weather = {};
+        this.weather = {
+            temperature: undefined,
+            sky        : { code: undefined },
+            wind       : undefined
+        };
 
         const algae: Algae = {
             checked   : false,

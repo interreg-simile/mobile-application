@@ -73,6 +73,16 @@ export class ObservationsService {
     }
 
 
+    /**
+     * Initialize the new observation.
+     *
+     * @param {number[]} coords - The coordinated of the new observation in form [lat, lon].
+     * @param {number} accuracy - The accuracy of the coordinates.
+     * @param {boolean} custom - True is the user has chosen the observation position long tapping on the map.
+     */
+    initNewObs(coords, accuracy, custom) { this.newObservation = new Observation(coords, accuracy, custom) }
+
+
     async postObservation() {
 
         console.log(this.newObservation);

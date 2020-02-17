@@ -14,10 +14,6 @@ import { ObservationsService } from "../observations.service";
 export class NewObservationPage implements OnInit {
 
 
-    // ToDo delete
-    private testCoordinates = [45.860442, 9.383371];
-
-
     private _isLoading = false;
 
     private _newObservation: Observation;
@@ -48,15 +44,11 @@ export class NewObservationPage implements OnInit {
     /** @ignore */
     ngOnInit() {
 
-        this.obsService.newObservation = new Observation();
-
-        // ToDo change with real values
-        this.obsService.newObservation.position.coordinates = this.testCoordinates;
-        this.obsService.newObservation.position.accuracy    = 2.0;
-        this.obsService.newObservation.position.custom      = false;
+        // ToDo change with real values and move initialization to map page
+        this.obsService.initNewObs([45.860442, 9.383371], 2.0, false);
 
         this.obsService.newObservation.weather.temperature = 21.4;
-        this.obsService.newObservation.weather.sky         = 1;
+        this.obsService.newObservation.weather.sky.code    = 1;
         this.obsService.newObservation.weather.wind        = 10;
 
         this._newObservation = this.obsService.newObservation;
@@ -119,7 +111,7 @@ export class NewObservationPage implements OnInit {
 
         // Pull weather data...
 
-        loading.dismiss();
+        await loading.dismiss();
 
     }
 
@@ -141,13 +133,13 @@ export class NewObservationPage implements OnInit {
             columns: [{
                 name         : "data",
                 options      : getOpts(),
-                selectedIndex: this._newObservation.weather.sky - 1
+                selectedIndex: this._newObservation.weather.sky.code - 1
             }],
             buttons: [
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
                 {
                     text   : this.i18n.instant("common.alerts.btn-confirm"),
-                    handler: data => this._newObservation.weather.sky = data.data.value
+                    handler: data => this._newObservation.weather.sky.code = data.data.value
                 }
             ]
         });
