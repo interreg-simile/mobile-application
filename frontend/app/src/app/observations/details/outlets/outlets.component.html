@@ -1,43 +1,221 @@
 <ion-header>
-  
-  <ion-toolbar>
-    
-    <!-- Back button -->
-    <ion-buttons slot="start">
-      
-      <ion-button (click)="closeModal(false)">
-        
-        <ion-icon ios="ios-close" md="md-close"></ion-icon>
-      
-      </ion-button>
-    
-    </ion-buttons>
-    
-    <!-- Title -->
-    <ion-title>{{"page-new-obs.details.outlets.title" | translate}}</ion-title>
-    
-    <!-- Right buttons -->
-    <ion-buttons slot="end">
-      
-      <!-- Help button -->
-      <ion-button (click)="onHelpClick()">
-        
-        <ion-icon name="help-circle-outline"></ion-icon>
-      
-      </ion-button>
-      
-      <!-- Check button -->
-      <ion-button (click)="closeModal(true)">
-        
-        <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
-      
-      </ion-button>
-    
-    </ion-buttons>
-  
-  </ion-toolbar>
+	
+	<ion-toolbar>
+		
+		<!-- Back button -->
+		<ion-buttons slot="start">
+			
+			<ion-button (click)="closeModal(false)">
+				
+				<ion-icon ios="ios-close" md="md-close"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+		
+		<!-- Title -->
+		<ion-title>{{"page-new-obs.details.outlets.title" | translate}}</ion-title>
+		
+		<!-- Right buttons -->
+		<ion-buttons slot="end">
+			
+			<!-- Help button -->
+			<ion-button (click)="onHelpClick()">
+				
+				<ion-icon name="help-circle-outline"></ion-icon>
+			
+			</ion-button>
+			
+			<!-- Check button -->
+			<ion-button (click)="closeModal(true)">
+				
+				<ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+	
+	</ion-toolbar>
 
 </ion-header>
 
 
-<ion-content class="bg-off-white custom-container"></ion-content>
+<ion-content class="bg-off-white custom-container">
+	
+	
+	<!-- In place -->
+	<section id="inPlace">
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-item lines="none" class="no-bg">
+					
+					<ion-label>{{"page-new-obs.details.outlets.inPlace" | translate}}</ion-label>
+					
+					<ion-toggle slot="start" color="primary" [(ngModel)]="_props.inPlace"></ion-toggle>
+				
+				</ion-item>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Terminal -->
+	<section>
+		
+		<p class="card-header">{{"page-new-obs.details.outlets.terminal.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-radio-group
+						allow-empty-selection="true"
+						name="terminal"
+						[(ngModel)]="_props.terminal">
+					
+					<ion-item *ngFor="let i of [1,2]" [lines]="i === 2 ? 'none' : 'full'">
+						
+						<ion-label class="label-icon">
+							
+							{{"page-new-obs.details.outlets.terminal." + i | translate}}
+							
+							<ion-icon name="help-circle-outline" class="help-icon"></ion-icon>
+						
+						</ion-label>
+						
+						<ion-radio slot="start" value="{{i}}"></ion-radio>
+					
+					</ion-item>
+				
+				</ion-radio-group>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Colour -->
+	<section *ngIf="_props.inPlace" class="colours">
+		
+		<p class="card-header">{{"page-new-obs.details.outlets.colour.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content>
+				
+				<div class="colour-container">
+					
+					<div *ngFor="let c of _colours | keyvalue: originalOrder"
+						 class="colour-box" [ngClass]="c.value.selected ? 'selected' : ''"
+						 (click)="onColourClick(c)">
+						
+						<div class="colour"
+							 [ngStyle]="{'background-color': c.value.colour}"
+							 [ngClass]="c.value.colour === '#FFFFFF' ? 'border' : ''"></div>
+					
+					</div>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Vapour -->
+	<section>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-item lines="none" class="no-bg">
+					
+					<ion-label>{{"page-new-obs.details.outlets.vapour" | translate}}</ion-label>
+					
+					<ion-toggle slot="start" color="primary" [(ngModel)]="_props.vapour"></ion-toggle>
+				
+				</ion-item>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Signage -->
+	<section id="signage">
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-item lines="none" class="no-bg">
+					
+					<ion-label>{{"page-new-obs.details.outlets.signage.head" | translate}}</ion-label>
+					
+					<ion-toggle slot="start" color="primary" [(ngModel)]="_props.signage"></ion-toggle>
+				
+				</ion-item>
+				
+				<p class="photo" *ngIf="_props.signage" (click)="onSignagePhotoClick()">
+					
+					<span *ngIf="_props.signagePhoto === undefined">
+						{{"page-new-obs.details.outlets.signage.photo-add" | translate }}
+					</span>
+					
+					<span *ngIf="_props.signagePhoto !== undefined">
+						{{"page-new-obs.details.outlets.signage.photo-edit" | translate }}
+					</span>
+				
+				</p>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Product activities nearby -->
+	<section id="prod">
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-item lines="none" class="no-bg">
+					
+					<ion-label>{{"page-new-obs.details.outlets.prodActNearby.head" | translate}}</ion-label>
+					
+					<ion-toggle slot="start" color="primary" [(ngModel)]="_props.prodActNearby"></ion-toggle>
+				
+				</ion-item>
+				
+				<div *ngIf="_props.prodActNearby" class="text-area">
+					
+					<ion-textarea placeholder="{{'page-new-obs.details.outlets.prodActNearby.ph' | translate}}"
+								  maxlength="250"
+								  [(ngModel)]="_props.prodActNearbyDetails"></ion-textarea>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+
+
+</ion-content>

@@ -119,6 +119,7 @@
     },
     "outlets": {
       "title": "Scarichi",
+      "inPlace": "In atto",
       "terminal": {
         "head": "Terminale",
         "1": "Visibile",
@@ -133,6 +134,16 @@
         "5": "Marrone",
         "6": "Giallo",
         "7": "Bianco"
+      },
+      "vapour": "Vapore",
+      "signage": {
+        "head": "Segnaletica",
+        "photo-add": "Aggiungi una foto",
+        "photo-edit": "Modifica la foto"
+      },
+      "prodActNearby": {
+        "head": "Attività produttive nelle vicinanze",
+        "ph": "Dettagli (max 250 characters)..."
       }
     },
     "fauna": {

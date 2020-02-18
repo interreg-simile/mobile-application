@@ -1,0 +1,47 @@
+@import "../../shared";
+
+
+$color-border : #E1E1E1;
+
+
+.no-bg { --background : transparent }
+
+
+#inPlace { margin-top : 8px }
+
+
+.colours ion-card-content .colour-container .colour-box .colour {
+  width  : 30px;
+  height : 30px;
+}
+
+
+#signage {
+
+  .photo {
+    color   : var(--ion-color-primary);
+    padding : 8px 0 16px 22px;
+  }
+
+}
+
+
+#prod {
+
+  ion-card-content {
+    padding : 0;
+
+    .text-area {
+      margin : 0 16px 16px 16px;
+
+      ion-textarea {
+        --background    : #FFFFFF;
+        border          : 1px solid $color-border;
+        --border-radius : 5px;
+      }
+
+    }
+
+  }
+
+}

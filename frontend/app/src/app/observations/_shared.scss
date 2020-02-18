@@ -1,6 +1,9 @@
 @import "../../theme/variables";
 
 
+ion-label { white-space : normal !important }
+
+
 .label-icon {
   display     : flex;
   align-items : center;
@@ -31,5 +34,40 @@ section {
   margin-bottom : 32px;
 
   &.last { margin-bottom : 24px }
+
+}
+
+
+.colours {
+
+  ion-card-content {
+    padding : 13px 16px;
+
+    .colour-container {
+      display         : flex;
+      justify-content : space-between;
+      align-items     : center;
+
+      .colour-box {
+        padding       : 4px;
+        border-radius : 5px;
+        border        : 1px solid transparent;
+
+        &.selected { border : 1px solid var(--ion-color-primary) }
+
+        .colour {
+          width         : 35px;
+          height        : 35px;
+          border-radius : 50%;
+
+          &.border { border : .5px solid #878787 }
+
+        }
+
+      }
+
+    }
+
+  }
 
 }
