@@ -12,6 +12,8 @@ import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { Event } from "../news/events/event.model";
 import { ObservationsService } from "../observations/observations.service";
+import { CameraService } from "../shared/camera.service";
+import { Router } from "@angular/router";
 
 
 /** Storage key for the cached user position. */
@@ -89,10 +91,12 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** @ignore */
-    constructor(private changeRef: ChangeDetectorRef,
+    constructor(private router: Router,
+                private changeRef: ChangeDetectorRef,
                 private platform: Platform,
                 private mapService: MapService,
                 private obsService: ObservationsService,
+                private cameraService: CameraService,
                 private diagnostic: Diagnostic,
                 private storage: Storage,
                 private newsService: NewsService,
@@ -208,8 +212,8 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Start the position watcher
         // this.startWatcher()
-            // .catch(err => console.error(err))
-            // .finally(() => this.populateMap());
+        // .catch(err => console.error(err))
+        // .finally(() => this.populateMap());
 
     }
 
@@ -384,6 +388,16 @@ export class MapPage implements OnInit, OnDestroy {
     onSyncClick() {
 
         this.mapService.pointInRois();
+
+    }
+
+
+    onAddClick() {
+
+        this.cameraService.takePicture()
+            .then(url => console.log(url))
+            .catch(err => console.error(err))
+            .finally(() => this.router.navigate(["/observations/new"])) // ToDo
 
     }
 

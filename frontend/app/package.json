@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@ionic-native/call-number": "^5.18.0",
+    "@ionic-native/camera": "^5.21.5",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/diagnostic": "^5.19.1",
     "@ionic-native/geolocation": "^5.19.1",
@@ -33,6 +34,7 @@
     "@turf/turf": "^5.1.6",
     "call-number": "^1.0.1",
     "cordova-android": "8.1.0",
+    "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-geolocation": "^4.0.2",
     "cordova-sqlite-storage": "^4.0.0",
     "cordova.plugins.diagnostic": "^5.0.1",
@@ -95,6 +97,9 @@
       "call-number": {},
       "cordova.plugins.diagnostic": {
         "ANDROID_SUPPORT_VERSION": "28.+"
+      },
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
       }
     },
     "platforms": [

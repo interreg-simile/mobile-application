@@ -113,7 +113,7 @@
 				
 				<div class="colour-container">
 					
-					<div *ngFor="let c of _colours | keyvalue: originalOrder"
+					<div *ngFor="let c of _colours | keyvalue: _originalOrder"
 						 class="colour-box" [ngClass]="c.value.selected ? 'selected' : ''"
 						 (click)="onColourClick(c)">
 						
@@ -189,7 +189,7 @@
 	
 	
 	<!-- Product activities nearby -->
-	<section id="prod">
+	<section id="prod" class="last">
 		
 		<ion-card class="ion-no-margin card-radio-list">
 			
@@ -197,7 +197,7 @@
 				
 				<ion-item lines="none" class="no-bg">
 					
-					<ion-label>{{"page-new-obs.details.outlets.prodActNearby.head" | translate}}</ion-label>
+					<ion-label>{{"page-new-obs.details.outlets.prod-act.head" | translate}}</ion-label>
 					
 					<ion-toggle slot="start" color="primary" [(ngModel)]="_props.prodActNearby"></ion-toggle>
 				
@@ -205,7 +205,7 @@
 				
 				<div *ngIf="_props.prodActNearby" class="text-area">
 					
-					<ion-textarea placeholder="{{'page-new-obs.details.outlets.prodActNearby.ph' | translate}}"
+					<ion-textarea placeholder="{{'page-new-obs.details.outlets.prod-act.ph' | translate}}"
 								  maxlength="250"
 								  [(ngModel)]="_props.prodActNearbyDetails"></ion-textarea>
 				

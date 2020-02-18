@@ -40,7 +40,7 @@ export class OutletsComponent implements OnInit {
 
 
     // Utility function to keep the original key order when iterating on an object using ngFor
-    originalOrder = (a, b) => { return 0 };
+    private _originalOrder = (a, b) => { return 0 };
 
 
     /** @ignore */

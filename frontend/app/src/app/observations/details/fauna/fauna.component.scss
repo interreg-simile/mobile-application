@@ -1,0 +1,11 @@
+@import "../../shared";
+
+
+.item-container {
+  padding-left : 16px;
+
+  ion-item { --padding-start : 0 }
+
+  ion-textarea { margin-top : 0 }
+
+}

@@ -141,13 +141,28 @@
         "photo-add": "Aggiungi una foto",
         "photo-edit": "Modifica la foto"
       },
-      "prodActNearby": {
+      "prod-act": {
         "head": "Attività produttive nelle vicinanze",
         "ph": "Dettagli (max 250 characters)..."
       }
     },
     "fauna": {
-      "title": "Fauna"
+      "title": "Fauna",
+      "fish": "Pesci",
+      "birds": "Uccelli",
+      "other": "Altro",
+      "spec-ph": "Dettagli...",
+      "deceased": "Animali deceduti",
+      "abnormal": "Comportamenti anomali",
+      "alien": {
+        "head": "Specie aliene",
+        "crustaceans": "Crostacei",
+        "molluscs": "Molluschi",
+        "turtles": "Tartarughe",
+        "fish": "Pesci",
+        "birds": "Uccelli",
+        "other": "Altro"
+      }
     },
     "other-title": "Altri dettagli",
     "other-ph": "Massimo 250 caratteri..."

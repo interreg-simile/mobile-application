@@ -31,16 +31,7 @@ $color-border : #E1E1E1;
   ion-card-content {
     padding : 0;
 
-    .text-area {
-      margin : 0 16px 16px 16px;
-
-      ion-textarea {
-        --background    : #FFFFFF;
-        border          : 1px solid $color-border;
-        --border-radius : 5px;
-      }
-
-    }
+    .text-area { margin : 0 16px 16px 16px }
 
   }
 

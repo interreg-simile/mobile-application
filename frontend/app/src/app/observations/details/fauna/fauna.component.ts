@@ -1,27 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
+import { $e } from "codelyzer/angular/styles/chars";
 
 
 interface Props {
-    deceased?: { fish: boolean, birds: boolean, other: string },
-    abnormal?: { fish: boolean, birds: boolean, other: string },
+    deceased?: {
+        fish: { checked: boolean, details: string },
+        birds: { checked: boolean, details: string },
+        other: { checked: boolean, details: string }
+    },
+    abnormal?: {
+        fish: { checked: boolean, details: string },
+        birds: { checked: boolean, details: string },
+        other: { checked: boolean, details: string }
+    },
     alienSpecies?: {
-        crustaceans: boolean, molluscs: boolean, turtles: boolean, fish: boolean, birds: boolean, other: string
+        crustaceans: { checked: boolean, details: string },
+        molluscs: { checked: boolean, details: string },
+        turtles: { checked: boolean, details: string },
+        fish: { checked: boolean, details: string },
+        birds: { checked: boolean, details: string },
+        other: { checked: boolean, details: string }
     }
 }
 
 
-@Component({
-    selector   : 'app-fauna',
-    templateUrl: './fauna.component.html',
-    styleUrls  : ['./fauna.component.scss'],
-})
+@Component({ selector: 'app-fauna', templateUrl: './fauna.component.html', styleUrls: ['./fauna.component.scss'] })
 export class FaunaComponent implements OnInit {
 
 
     /** Settable properties. */
     private _props: Props = {};
+
+
+    private _objKeys = Object.keys;
+
+    // Utility function to keep the original key order when iterating on an object using ngFor
+    private _originalOrder = (a, b) => { return 0 };
 
 
     /** @ignore */
@@ -43,6 +59,15 @@ export class FaunaComponent implements OnInit {
 
 
     /**
+     * Fired when there is a change in the checkboxes of one of the properties.
+     *
+     * @param {CustomEvent} e - The event.
+     * @param {Object} props - The changed property.
+     */
+    onPropChange(e: CustomEvent, props) { props[e.detail.value].checked = e.detail.checked }
+
+
+    /**
      * Closes the modal and handle the data saving process.
      *
      * @param {Boolean} save - True if the modifications done in the modal are to be saved.
@@ -56,9 +81,18 @@ export class FaunaComponent implements OnInit {
             this.obsService.newObservation.details.fauna.checked = true;
 
             // Save the new values
-            this.obsService.newObservation.details.fauna.deceased     = this._props.deceased;
-            this.obsService.newObservation.details.fauna.abnormal     = this._props.abnormal;
-            this.obsService.newObservation.details.fauna.alienSpecies = this._props.alienSpecies;
+            Object.keys(this._props).forEach(p => {
+
+                Object.keys(this._props[p]).forEach(k => {
+
+                    this.obsService.newObservation.details.fauna[p][k].checked = this._props[p][k].checked;
+
+                    this.obsService.newObservation.details.fauna[p][k].details =
+                        this._props[p][k].checked ? this._props[p][k].details : undefined
+
+                })
+
+            });
 
         }
 
@@ -70,5 +104,6 @@ export class FaunaComponent implements OnInit {
         await this.modalCtr.dismiss();
 
     }
+
 
 }

@@ -15,6 +15,7 @@ import { IonicStorageModule } from "@ionic/storage";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
 
 import { interceptorProviders } from "./shared/interceptors/interceptors";
@@ -39,6 +40,7 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
         CallNumber,
         Geolocation,
         Diagnostic,
+        Camera,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         interceptorProviders
     ],

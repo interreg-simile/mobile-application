@@ -1,43 +1,154 @@
 <ion-header>
-  
-  <ion-toolbar>
-    
-    <!-- Back button -->
-    <ion-buttons slot="start">
-      
-      <ion-button (click)="closeModal(false)">
-        
-        <ion-icon ios="ios-close" md="md-close"></ion-icon>
-      
-      </ion-button>
-    
-    </ion-buttons>
-    
-    <!-- Title -->
-    <ion-title>{{"page-new-obs.details.fauna.title" | translate}}</ion-title>
-    
-    <!-- Right buttons -->
-    <ion-buttons slot="end">
-      
-      <!-- Help button -->
-      <ion-button (click)="onHelpClick()">
-        
-        <ion-icon name="help-circle-outline"></ion-icon>
-      
-      </ion-button>
-      
-      <!-- Check button -->
-      <ion-button (click)="closeModal(true)">
-        
-        <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
-      
-      </ion-button>
-    
-    </ion-buttons>
-  
-  </ion-toolbar>
+	
+	<ion-toolbar>
+		
+		<!-- Back button -->
+		<ion-buttons slot="start">
+			
+			<ion-button (click)="closeModal(false)">
+				
+				<ion-icon ios="ios-close" md="md-close"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+		
+		<!-- Title -->
+		<ion-title>{{"page-new-obs.details.fauna.title" | translate}}</ion-title>
+		
+		<!-- Right buttons -->
+		<ion-buttons slot="end">
+			
+			<!-- Help button -->
+			<ion-button (click)="onHelpClick()">
+				
+				<ion-icon name="help-circle-outline"></ion-icon>
+			
+			</ion-button>
+			
+			<!-- Check button -->
+			<ion-button (click)="closeModal(true)">
+				
+				<ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+	
+	</ion-toolbar>
 
 </ion-header>
 
 
-<ion-content class="bg-off-white custom-container"></ion-content>
+<ion-content class="bg-off-white custom-container">
+	
+	
+	<!-- Deceased -->
+	<section>
+		
+		<p class="card-header">{{"page-new-obs.details.fauna.deceased" | translate}}</p>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<div *ngFor="let i of _objKeys(_props.deceased) | keyvalue: _originalOrder" class="item-container">
+					
+					<ion-item [lines]="(_props.deceased[i.value].checked || i.value === 'other') ? 'none' : 'full'">
+						
+						<ion-label>{{"page-new-obs.details.fauna." + i.value | translate}}</ion-label>
+						
+						<ion-checkbox slot="start"
+									  value="{{i.value}}"
+									  [checked]="_props.deceased[i.value].checked"
+									  (ionChange)="onPropChange($event, _props.deceased)"></ion-checkbox>
+					
+					</ion-item>
+					
+					<ion-textarea *ngIf="_props.deceased[i.value].checked"
+								  placeholder="{{'page-new-obs.details.fauna.spec-ph' | translate}}"
+								  [ngClass]="i.value === 'other' ? 'ion-margin-bottom' : ''"
+								  [(ngModel)]="_props.deceased[i.value].details"></ion-textarea>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Abnormal -->
+	<section>
+		
+		<p class="card-header">{{"page-new-obs.details.fauna.abnormal" | translate}}</p>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<div *ngFor="let i of _objKeys(_props.abnormal) | keyvalue: _originalOrder" class="item-container">
+					
+					<ion-item [lines]="(_props.abnormal[i.value].checked || i.value === 'other') ? 'none' : 'full'">
+						
+						<ion-label>{{"page-new-obs.details.fauna." + i.value | translate}}</ion-label>
+						
+						<ion-checkbox slot="start"
+									  value="{{i.value}}"
+									  [checked]="_props.abnormal[i.value].checked"
+									  (ionChange)="onPropChange($event, _props.abnormal)"></ion-checkbox>
+					
+					</ion-item>
+					
+					<ion-textarea *ngIf="_props.abnormal[i.value].checked"
+								  placeholder="{{'page-new-obs.details.fauna.spec-ph' | translate}}"
+								  [ngClass]="i.value === 'other' ? 'ion-margin-bottom' : ''"
+								  [(ngModel)]="_props.abnormal[i.value].details"></ion-textarea>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Alien -->
+	<section class="last">
+		
+		<p class="card-header">{{"page-new-obs.details.fauna.alien.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<div *ngFor="let i of _objKeys(_props.alienSpecies) | keyvalue: _originalOrder" class="item-container">
+					
+					<ion-item [lines]="(_props.alienSpecies[i.value].checked || i.value === 'other') ? 'none' : 'full'">
+						
+						<ion-label>{{"page-new-obs.details.fauna.alien." + i.value | translate}}</ion-label>
+						
+						<ion-checkbox slot="start"
+									  value="{{i.value}}"
+									  [checked]="_props.alienSpecies[i.value].checked"
+									  (ionChange)="onPropChange($event, _props.alienSpecies)"></ion-checkbox>
+					
+					</ion-item>
+					
+					<ion-textarea *ngIf="_props.alienSpecies[i.value].checked"
+								  placeholder="{{'page-new-obs.details.fauna.spec-ph' | translate}}"
+								  [ngClass]="i.value === 'other' ? 'ion-margin-bottom' : ''"
+								  [(ngModel)]="_props.alienSpecies[i.value].details"></ion-textarea>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+</ion-content>

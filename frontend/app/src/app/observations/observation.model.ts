@@ -11,7 +11,6 @@ export interface Position {
     coordinates: number[],
     accuracy: number,
     custom: boolean,
-    // address?: string,
     lake: { code: number }
 }
 
@@ -77,15 +76,23 @@ export interface Outlets {
 export interface Fauna {
     checked: boolean,
     component: Object,
-    deceased: { fish: boolean, birds: boolean, other: string },
-    abnormal: { fish: boolean, birds: boolean, other: string },
+    deceased: {
+        fish: { checked: boolean, details: string },
+        birds: { checked: boolean, details: string },
+        other: { checked: boolean, details: string }
+    },
+    abnormal: {
+        fish: { checked: boolean, details: string },
+        birds: { checked: boolean, details: string },
+        other: { checked: boolean, details: string }
+    },
     alienSpecies: {
-        crustaceans: boolean,
-        molluscs: boolean,
-        turtles: boolean,
-        fish: boolean,
-        birds: boolean,
-        other: string,
+        crustaceans: { checked: boolean, details: string },
+        molluscs: { checked: boolean, details: string },
+        turtles: { checked: boolean, details: string },
+        fish: { checked: boolean, details: string },
+        birds: { checked: boolean, details: string },
+        other: { checked: boolean, details: string },
     }
 }
 
@@ -213,15 +220,23 @@ export class Observation {
         const fauna: Fauna = {
             checked     : false,
             component   : FaunaComponent,
-            deceased    : { fish: undefined, birds: undefined, other: undefined },
-            abnormal    : { fish: undefined, birds: undefined, other: undefined },
+            deceased    : {
+                fish : { checked: undefined, details: undefined },
+                birds: { checked: undefined, details: undefined },
+                other: { checked: undefined, details: undefined }
+            },
+            abnormal    : {
+                fish : { checked: undefined, details: undefined },
+                birds: { checked: undefined, details: undefined },
+                other: { checked: undefined, details: undefined }
+            },
             alienSpecies: {
-                crustaceans: undefined,
-                molluscs   : undefined,
-                turtles    : undefined,
-                fish       : undefined,
-                birds      : undefined,
-                other      : undefined,
+                crustaceans: { checked: undefined, details: undefined },
+                molluscs   : { checked: undefined, details: undefined },
+                turtles    : { checked: undefined, details: undefined },
+                fish       : { checked: undefined, details: undefined },
+                birds      : { checked: undefined, details: undefined },
+                other      : { checked: undefined, details: undefined },
             }
         };
 

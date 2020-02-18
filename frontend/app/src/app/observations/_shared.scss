@@ -1,5 +1,7 @@
 @import "../../theme/variables";
 
+$color-border : #E1E1E1;
+
 
 ion-label { white-space : normal !important }
 
@@ -15,6 +17,13 @@ ion-label { white-space : normal !important }
   font-size : $font-title;
   padding   : 12px;
   color     : $text-tertiary;
+}
+
+
+ion-textarea {
+  --background    : #FFFFFF;
+  border          : 1px solid $color-border;
+  --border-radius : 5px;
 }
 
 
