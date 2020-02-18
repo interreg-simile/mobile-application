@@ -20,6 +20,8 @@ const server = express();
 // Setup the middlewares
 setupMiddlewares(server);
 
+// Set up mail service
+
 // Setup the routes
 setupRoutes(server);
 

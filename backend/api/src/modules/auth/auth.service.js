@@ -9,6 +9,7 @@ import crypto from "crypto";
 
 import Key from "./keys.model";
 import constructError from "../../utils/construct-error";
+import { sendEmail } from "../emails/email.service";
 
 
 /**
@@ -47,3 +48,6 @@ export async function createKey(data) {
     return key.save();
 
 }
+
+
+export async function register() { }

@@ -15,7 +15,10 @@ import { vPath } from "../../utils/common-validations";
 const router = Router();
 
 // POST /auth/keys/
-router.post("/keys/", validator.apiKey,controller.createApiKey);
+router.post("/keys/", validator.apiKey, controller.createApiKey);
+
+// GET /auth/register/
+router.post("/register/", controller.register);
 
 // Export the router
 export default router;

@@ -29,3 +29,12 @@ export const createApiKey = (req, res, next) => {
 
 };
 
+
+export const register = (req, res, next) => {
+
+    authService.register()
+        .then(() => res.status(201).json({ meta: { code: 201 } }))
+        .catch(err => next(err))
+
+};
+

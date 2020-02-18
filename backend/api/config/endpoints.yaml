@@ -10,6 +10,13 @@
     token_required: false
     paternity: false
 
+  - path: /register/
+    method: POST
+    key_required: true
+    admin_required: false
+    token_required: false
+    paternity: false
+
 
 /rois:
 
