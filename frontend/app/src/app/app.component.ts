@@ -5,6 +5,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from "@ngx-translate/core";
 
 
+export const statusBarColor = "#00515f";
+
+
 @Component({ selector: 'app-root', templateUrl: 'app.component.html', styleUrls: ['app.component.scss'] })
 export class AppComponent {
 
@@ -25,7 +28,7 @@ export class AppComponent {
         this.platform.ready().then(() => {
 
             // Set bg and color of the status bar
-            this.statusBar.backgroundColorByHexString("#00515f");
+            this.statusBar.backgroundColorByHexString(statusBarColor);
             this.statusBar.styleLightContent();
 
             // Hide the splash screen

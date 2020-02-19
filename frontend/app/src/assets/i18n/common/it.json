@@ -1,5 +1,8 @@
 {
   "error-occurred": "Errore!",
+  "errors": {
+    "photo": "Errore durante la foto."
+  },
   "rois": {
     "lake_como": "Lago di Como",
     "lake_maggiore": "Lago Maggiore",

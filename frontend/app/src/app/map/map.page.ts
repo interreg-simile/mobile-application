@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController, Platform } from "@ionic/angular";
-import { latLng, Map, Marker, TileLayer, CircleMarker, LatLng } from 'leaflet';
+import { CircleMarker, latLng, LatLng, Map, Marker, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
 import { Diagnostic } from "@ionic-native/diagnostic/ngx";
+import { File } from '@ionic-native/file/ngx';
 
 import { MapService } from "./map.service";
 import { defaultMarkerIcon } from "../shared/utils";
@@ -12,8 +13,9 @@ import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { Event } from "../news/events/event.model";
 import { ObservationsService } from "../observations/observations.service";
-import { CameraService } from "../shared/camera.service";
+import { CameraService, PicResult } from "../shared/camera.service";
 import { Router } from "@angular/router";
+import { Observation } from "../observations/observation.model";
 
 
 /** Storage key for the cached user position. */
@@ -100,7 +102,8 @@ export class MapPage implements OnInit, OnDestroy {
                 private diagnostic: Diagnostic,
                 private storage: Storage,
                 private newsService: NewsService,
-                private loadingCtr: LoadingController) { }
+                private loadingCtr: LoadingController,
+                private file: File) { }
 
 
     /** @ignore */
@@ -211,8 +214,8 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         // Start the position watcher
-        // this.startWatcher()
-        // .catch(err => console.error(err))
+        this.startWatcher()
+            .catch(err => console.error(err))
         // .finally(() => this.populateMap());
 
     }
@@ -266,7 +269,7 @@ export class MapPage implements OnInit, OnDestroy {
         this.position.lon      = data.coords.longitude;
         this.position.accuracy = data.coords.accuracy;
 
-        console.log(`[${ this.position.lat }, ${ this.position.lon }] (${ this.position.accuracy })`);
+        // console.log(`[${ this.position.lat }, ${ this.position.lon }] (${ this.position.accuracy })`);
 
         // If the map is set to follow the user position
         if (this._isMapFollowing) {
@@ -392,12 +395,29 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    onAddClick() {
+    async onAddClick() {
 
-        this.cameraService.takePicture()
-            .then(url => console.log(url))
-            .catch(err => console.error(err))
-            .finally(() => this.router.navigate(["/observations/new"])) // ToDo
+        // Check if the point is in a supported location
+
+        // If not, alert the user
+
+        // Take a picture
+        const pic = await this.cameraService.takePicture();
+
+        if (pic === PicResult.NO_IMAGE) return;
+
+        // Create a new observation
+        this.obsService.newObservation = new Observation(
+            [this.position.lat, this.position.lon],
+            this.position.accuracy,
+            false // ToDo
+        );
+
+        // Save the photo
+        if (pic !== PicResult.ERROR && pic !== undefined) this.obsService.newObservation.photos[0] = pic;
+
+        // Open the new observation page
+        await this.router.navigate(["/observations/new"])
 
     }
 

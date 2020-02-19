@@ -36,7 +36,7 @@
 		
 		
 		<!-- Mandatory text -->
-		<p class="info-small">{{"page-new-obs.info-mandatory" | translate}}</p>
+<!--		<p class="info-small">{{"page-new-obs.info-mandatory" | translate}}</p>-->
 		
 		
 		<!-- Weather -->
@@ -117,7 +117,7 @@
 							<ion-checkbox [(ngModel)]="detail.value.checked"></ion-checkbox>
 							
 							<!--suppress TypeScriptUnresolvedVariable -->
-							<ion-label class="ion-no-margin" (click)="openDetailModel(detail.value.component)">
+							<ion-label class="ion-no-margin" (click)="openDetailModal(detail.value.component)">
 								
 								{{"page-new-obs.details." + detail.key + ".title" | translate}}
 								
@@ -159,21 +159,15 @@
 			
 			<div class="photos-container">
 				
-				<div class="photo">
+				<div *ngFor="let i of [0,1,2]" class="photo" (click)="onThumbnailClick(_imageSrc[i], i)">
 					
-					<i class="material-icons">add_a_photo</i>
-				
-				</div>
-				
-				<div class="photo">
+					<ion-thumbnail *ngIf="_imageSrc[i]">
+						
+						<img [src]="_imageSrc[i]" alt="Photo">
 					
-					<i class="material-icons">add_a_photo</i>
-				
-				</div>
-				
-				<div class="photo">
+					</ion-thumbnail>
 					
-					<i class="material-icons">add_a_photo</i>
+					<i *ngIf="_imageSrc[i] === undefined" class="material-icons">add_a_photo</i>
 				
 				</div>
 			
@@ -194,7 +188,7 @@
 	<!-- Skeleton placeholder -->
 	<section *ngIf="_isLoading" class="skeleton">
 		
-		<ion-skeleton-text animated class="ske-info-sm"></ion-skeleton-text>
+<!--		<ion-skeleton-text animated class="ske-info-sm"></ion-skeleton-text>-->
 		
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		

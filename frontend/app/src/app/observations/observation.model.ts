@@ -139,7 +139,7 @@ export class Observation {
 
     details: Details;
 
-    photos: [String];
+    photos: String[];
 
     measures: Measures;
 
@@ -249,7 +249,9 @@ export class Observation {
             outlets: outlets,
             fauna  : fauna,
             other  : undefined
-        }
+        };
+
+        this.photos = [undefined, undefined, undefined];
 
     }
 

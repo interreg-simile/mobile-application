@@ -1,0 +1,47 @@
+<ion-header>
+	
+	<ion-toolbar color="dark">
+		
+		<!-- Back button -->
+		<ion-buttons slot="start">
+			
+			<ion-button (click)="onCLoseClick()">
+				
+				<ion-icon name="arrow-back"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+		
+		<!-- Edit and delete buttons -->
+		<ion-buttons slot="end">
+			
+			<ion-button *ngIf="edit" (click)="onEditClick()">
+				
+				<ion-icon name="create"></ion-icon>
+			
+			</ion-button>
+			
+			<ion-button *ngIf="delete" (click)="onDeleteClick()">
+				
+				<ion-icon name="trash"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+	
+	</ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+	
+	<!-- Image container -->
+	<div class="img-container">
+		
+		<img src="{{src}}" alt="Picture">
+	
+	</div>
+
+</ion-content>

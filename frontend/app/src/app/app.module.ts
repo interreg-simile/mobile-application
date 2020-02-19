@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { registerLocaleData } from "@angular/common";
 import localeIt from "@angular/common/locales/it";
 import { IonicStorageModule } from "@ionic/storage";
@@ -16,14 +15,16 @@ import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
 
+import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
 import { interceptorProviders } from "./shared/interceptors/interceptors";
 
 
 @NgModule({
-    declarations   : [AppComponent],
-    entryComponents: [],
+    declarations   : [AppComponent, PhotoViewerComponent],
+    entryComponents: [PhotoViewerComponent],
     imports        : [
         BrowserModule,
         IonicModule.forRoot(),
@@ -41,6 +42,7 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
         Geolocation,
         Diagnostic,
         Camera,
+        File,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         interceptorProviders
     ],

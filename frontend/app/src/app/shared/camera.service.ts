@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 
+export enum PicResult {
+    NO_IMAGE,
+    ERROR
+}
+
+
 @Injectable({ providedIn: "root" })
 export class CameraService {
 
@@ -22,7 +28,18 @@ export class CameraService {
     constructor(private camera: Camera) { }
 
 
-    takePicture() { return this.camera.getPicture(this.opts) }
+    /**
+     * @return {Promise<String | PicResult>}
+     */
+    async takePicture() {
+
+        let [pic, err] = await this.camera.getPicture(this.opts).then(v => [v, undefined]).catch(e => [undefined, e]);
+
+        if (err !== undefined) return err === "No Image Selected" ? PicResult.NO_IMAGE : PicResult.ERROR;
+
+        return pic;
+
+    }
 
 
     async cleanUp() { await this.camera.cleanup() }

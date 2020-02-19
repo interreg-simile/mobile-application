@@ -42,128 +42,134 @@ main section {
     margin    : 24px 0 8px 16px;
   }
 
+}
 
-  &#location {
 
-    ion-card-content {
-      display         : flex;
-      flex-direction  : row;
-      justify-content : space-between;
-      align-items     : center;
-      min-width       : 0;
-      color           : #000000;
-      padding         : 4px 8px 4px 16px;
+#location {
 
-      p {
-        font-size     : $font-body;
-        margin        : 0;
-        flex          : 1;
-        white-space   : nowrap;
-        overflow      : hidden;
-        text-overflow : ellipsis;
+  ion-card-content {
+    display         : flex;
+    flex-direction  : row;
+    justify-content : space-between;
+    align-items     : center;
+    min-width       : 0;
+    color           : #000000;
+    padding         : 4px 8px 4px 16px;
+
+    p {
+      font-size     : $font-body;
+      margin        : 0;
+      flex          : 1;
+      white-space   : nowrap;
+      overflow      : hidden;
+      text-overflow : ellipsis;
+    }
+
+    ion-icon {
+      font-size : $font-title;
+      color     : $text-tertiary;
+      padding   : 12px 8px;
+    }
+
+  }
+
+}
+
+
+#weather {
+
+  ion-card-content {
+    display         : flex;
+    justify-content : space-between;
+    align-items     : initial;
+
+    div {
+      width      : 33%;
+      text-align : center;
+      color      : $text-primary;
+
+      .label { margin-bottom : 8px }
+
+      .val {
+        font-size : $font-body-lg;
+        color     : var(--ion-color-primary);
       }
+
+      i {
+        font-size : $font-title;
+        color     : var(--ion-color-primary);
+      }
+
+    }
+
+  }
+
+}
+
+
+#details {
+
+  .heading { margin-bottom : 20px }
+
+  .detail-item {
+    display     : flex;
+    align-items : center;
+    padding     : 8px 16px 8px 24px;
+    width       : 100%;
+
+    ion-checkbox.md { width : 19.24px }
+
+    ion-checkbox.ios { width : 30.2px }
+
+    ion-label {
+      display     : flex;
+      align-items : center;
+      width       : 100%;
+      margin-left : 16px;
+      color       : $text-primary;
 
       ion-icon {
         font-size : $font-title;
+        padding   : 12px;
         color     : $text-tertiary;
-        padding   : 12px 8px;
+
+        &[name=ios-arrow-forward] { margin-left : auto }
+
       }
 
     }
 
   }
 
+}
 
-  &#weather {
 
-    ion-card-content {
+#photos {
+  margin-bottom : 48px;
+
+  .heading { margin-bottom : 16px }
+
+  .photos-container {
+    width           : 100%;
+    display         : flex;
+    justify-content : space-around;
+    align-items     : center;
+
+    .photo {
+      width           : 80px;
+      height          : 80px;
       display         : flex;
-      justify-content : space-between;
-      align-items     : initial;
-
-      div {
-        width      : 33%;
-        text-align : center;
-        color      : $text-primary;
-
-        .label { margin-bottom : 8px }
-
-        .val {
-          font-size : $font-body-lg;
-          color     : var(--ion-color-primary);
-        }
-
-        i {
-          font-size : $font-title;
-          color     : var(--ion-color-primary);
-        }
-
-      }
-
-    }
-
-  }
-
-
-  &#details {
-
-    .heading { margin-bottom : 20px }
-
-    .detail-item {
-      display     : flex;
-      align-items : center;
-      padding     : 8px 16px 8px 24px;
-      width       : 100%;
-
-      ion-checkbox.md { width : 19.24px }
-
-      ion-checkbox.ios { width : 30.2px }
-
-      ion-label {
-        display       : flex;
-        align-items   : center;
-        width         : 100%;
-        margin-left   : 16px;
-        color         : $text-primary;
-
-        ion-icon {
-          font-size : $font-title;
-          padding   : 12px;
-          color     : $text-tertiary;
-
-          &[name=ios-arrow-forward] { margin-left : auto }
-
-        }
-
-      }
-
-    }
-
-  }
-
-
-  &#photos {
-    margin-bottom : 48px;
-
-    .heading { margin-bottom : 16px }
-
-    .photos-container {
-      width           : 100%;
-      display         : flex;
-      justify-content : space-around;
+      justify-content : center;
       align-items     : center;
+      border          : 1px solid darken($color-border, 5);
+      border-radius   : 10px;
+      overflow        : hidden;
 
-      .photo {
-        width           : 80px;
-        height          : 80px;
-        display         : flex;
-        justify-content : center;
-        align-items     : center;
-        border          : 1px solid darken($color-border, 5);
-        border-radius   : 10px;
+      i { color : var(--ion-color-primary) }
 
-        i { color : var(--ion-color-primary) }
-
+      ion-thumbnail{
+        width  : 100%;
+        height : 100%;
       }
 
     }

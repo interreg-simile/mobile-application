@@ -50,4 +50,8 @@ export async function createKey(data) {
 }
 
 
-export async function register() { }
+export async function register() {
+
+    // await sendEmail();
+
+}
