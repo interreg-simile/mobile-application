@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController, Platform } from "@ionic/angular";
-import { CircleMarker, latLng, LatLng, Map, Marker, TileLayer } from 'leaflet';
+import { CircleMarker, latLng, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
@@ -58,18 +58,23 @@ export class MapPage implements OnInit, OnDestroy {
     /** Leaflet map object. */
     private _map: Map;
 
-    private mapHoldTimeout: number;
 
     /** Marker for the user position. */
     private _userMarker: Marker;
 
+    /** Circle marker that represents the position accuracy. */
     private _accuracyCircle: CircleMarker;
+
+    /** Marker to sign a custom location selected by a long tap. */
+    private _customMarker: Marker;
+
 
     /** Flag that states if the position found is the first. */
     private _isFirstPosition = true;
 
     /** Flag that states if the map center is following the user position. */
     private _isMapFollowing = false;
+
 
     /** Local instantiation of the LocationErrors enum. */
     private _locationErrors = LocationErrors;
@@ -135,13 +140,8 @@ export class MapPage implements OnInit, OnDestroy {
         });
 
 
-        // Restore the cached position and init the map
-        this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
-
         this._eventMarkers = new MarkerClusterGroup();
-
-        this._obsMarkers = new MarkerClusterGroup();
-
+        this._obsMarkers   = new MarkerClusterGroup();
 
         this._eventsSub = this.newsService.events.subscribe(events => {
 
@@ -181,6 +181,10 @@ export class MapPage implements OnInit, OnDestroy {
 
         });
 
+
+        // Restore the cached position and init the map
+        this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
+
     }
 
 
@@ -205,6 +209,10 @@ export class MapPage implements OnInit, OnDestroy {
             { attribution: '&copy; OpenStreetMap contributors' }).addTo(this._map);
 
 
+        // If a view is provided, create the user marker
+        if (view) this.createUserMarker(view);
+
+
         this._eventMarkers.addTo(this._map);
         this._obsMarkers.addTo(this._map);
 
@@ -213,19 +221,78 @@ export class MapPage implements OnInit, OnDestroy {
         this._map.on("dragstart", () => this._isMapFollowing = false);
 
 
+        // Fired when the user taps on the map for more than one second
+        this._map.on("contextmenu", (ev: LeafletMouseEvent) => {
+
+            // If no custom marker is present, create it
+            if (!this._customMarker)
+                this._customMarker = new Marker(ev.latlng, { icon: defaultMarkerIcon() }).addTo(this._map);
+
+            // Else, update its position
+            else this._customMarker.setLatLng(ev.latlng);
+
+            // Pan the map to the custom location
+            this._map.panTo(ev.latlng);
+
+            // Set the following flag to false
+            this._isMapFollowing = false;
+
+        });
+
+
+        // Fired when the user taps on the map
+        this._map.on("click", () => {
+
+            // If no custom marker is present, return
+            if (!this._customMarker) return;
+
+            // Remove the custom marker
+            this._map.removeLayer(this._customMarker);
+
+            // Set the custom marker to null
+            this._customMarker = null;
+
+        });
+
+
         // Start the position watcher
         this.startWatcher()
             .catch(err => console.error(err))
         // .finally(() => this.populateMap());
 
+
     }
 
 
-    /** Starts the position watcher. */
-    async startWatcher() {
+    /**
+     * Creates and adds to the map a marker at the user position and a circle marker to symbolize the position
+     * accuracy.
+     *
+     * @param {LatLng} latLng - The coordinates of the marker.
+     */
+    createUserMarker(latLng: LatLng) {
+
+        // Create the user marker and add it to the map
+        this._userMarker = new Marker(latLng, { icon: defaultMarkerIcon() })
+            .addTo(this._map);
+
+        // Create teh accuracy circle and add it to the map
+        this._accuracyCircle = new CircleMarker(latLng, { radius: 0, color: "green", opacity: .5 })
+            .addTo(this._map);
+
+    }
+
+
+    /**
+     * Starts the position watcher.
+     *
+     * @param {boolean} fromClick - True if the request to start the watcher comes from a click action.
+     * @return {Promise<>} - An empty promise.
+     */
+    async startWatcher(fromClick = false) {
 
         // Start the position watcher
-        const status = await this.mapService.checkPositionAvailability();
+        const status = await this.mapService.checkPositionAvailability(fromClick);
 
         console.log(`Trying to start position watching. Status: ${ LocationErrors[status] }`);
 
@@ -242,20 +309,17 @@ export class MapPage implements OnInit, OnDestroy {
         this._isMapFollowing = true;
         this.changeRef.detectChanges();
 
-        // Add the user marker to the map
-        this._userMarker = new Marker([45.466342, 9.185291], { icon: defaultMarkerIcon() }).addTo(this._map);
-
-        // Add the accuracy circle to the map
-        this._accuracyCircle = new CircleMarker([45.466342, 9.185291],
-            { radius: 0, color: "green", opacity: .5 }).addTo(this._map);
-
-
         // Subscribe to the location watcher
         this._positionSub = this.mapService.watchLocation().subscribe(data => this.onPositionReceived(data));
 
     }
 
 
+    /**
+     * Reacts to a new position saving it and updating the map and the user marker.
+     *
+     * @param {Object} data - The position data received.
+     */
     onPositionReceived(data) {
 
         // If the data does not contain any coordinate, raise an error and return
@@ -284,13 +348,21 @@ export class MapPage implements OnInit, OnDestroy {
 
         }
 
-        // Set the position of the user marker
-        this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+        // If there is no user marker, create it
+        if (!this._userMarker) this.createUserMarker(new LatLng(this.position.lat, this.position.lon));
 
-        // Set the position and the radius of the accuracy circle
-        this._accuracyCircle
-            .setLatLng([this.position.lat, this.position.lon])
-            .setRadius(this.position.accuracy / 2);
+        // Else
+        else {
+
+            // Set the position of the user marker
+            this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+
+            // Set the position and the radius of the accuracy circle
+            this._accuracyCircle
+                .setLatLng([this.position.lat, this.position.lon])
+                .setRadius(this.position.accuracy / 2);
+
+        }
 
         // Set the first position flag to false
         this._isFirstPosition = false;
@@ -353,11 +425,17 @@ export class MapPage implements OnInit, OnDestroy {
     /** Response to the user action of clicking on the GPS button. */
     onGPSClick() {
 
+        // If a custom marker is present, remove it
+        if (this._customMarker) {
+            this._map.removeLayer(this._customMarker);
+            this._customMarker = null;
+        }
+
         // If there is an error
         if (this._locationStatus !== LocationErrors.NO_ERROR) {
 
             // Start the position watcher
-            this.mapService.checkPositionAvailability(true).catch(err => console.error(err));
+            this.startWatcher(true).catch(err => console.error(err));
 
             // Return
             return;
@@ -388,11 +466,7 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    onSyncClick() {
-
-        this.mapService.pointInRois();
-
-    }
+    onSyncClick() { }
 
 
     async onAddClick() {
