@@ -162,7 +162,7 @@ export class Observation {
 
         this.weather = {
             temperature: undefined,
-            sky        : { code: undefined },
+            sky        : { code: 1 },
             wind       : undefined
         };
 

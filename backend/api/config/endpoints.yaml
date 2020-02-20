@@ -183,7 +183,7 @@
 
 /misc:
 
-  - path: /weather/
+  - path: /weather
     method: GET
     key_required: true
     admin_required: false

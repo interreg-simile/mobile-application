@@ -39,9 +39,9 @@ export class MapService {
      * Checks if the app can retrieve the user position in terms of permissions and of GPS availability.
      *
      * @param {boolean} [fromClick=false] - True if the check is triggered from a user action.
-     * @returns {LocationErrors} The location status.
+     * @returns {Promise<LocationErrors>} A promise containing the location status.
      */
-    async checkPositionAvailability(fromClick = false) {
+    async checkPositionAvailability(fromClick = false): Promise<LocationErrors> {
 
         // Get the location authorization status
         const authStatus = await this.diagnostic.getLocationAuthorizationStatus();
@@ -90,8 +90,9 @@ export class MapService {
      * Opens an alert to communicate an error to the user.
      *
      * @param {LocationErrors} errType - The type of the error.
+     * @returns {Promise<>} An empty promise.
      */
-    async presetErrAlert(errType: LocationErrors) {
+    async presetErrAlert(errType: LocationErrors): Promise<void> {
 
         // Translation key of the alert message
         const mKey = errType === LocationErrors.AUTH_ERROR ? "page-map.alert-message-auth" : "page-map.alert-message-gps";
@@ -114,12 +115,10 @@ export class MapService {
      * @param {LatLng} coords - The coordinates of the point.
      * @returns {Promise<number>} - The code of the region of interest in which the point falls.
      */
-    async pointInRoi(coords: LatLng) {
+    async pointInRoi(coords: LatLng): Promise<number> {
 
         // Url of the request
         const url = `${ environment.apiUrl }/rois/`;
-
-        console.log(url);
 
         // Query parameters of the request
         const qParams = new HttpParams()

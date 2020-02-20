@@ -34,11 +34,6 @@
 	<!-- If the loading is done -->
 	<main *ngIf="!_isLoading">
 		
-		
-		<!-- Mandatory text -->
-<!--		<p class="info-small">{{"page-new-obs.info-mandatory" | translate}}</p>-->
-		
-		
 		<!-- Weather -->
 		<section id="weather">
 			
@@ -70,7 +65,7 @@
 					
 					<div (click)="onSkyClick()">
 						
-						<p class="label">{{"page-new-obs.weather.sky.title" | translate}}</p>
+						<p class="label sky">{{"page-new-obs.weather.sky.title" | translate}}</p>
 						
 						<i class="wi {{skyIcons[this._newObservation.weather.sky.code || 1]}}"></i>
 					

@@ -35,12 +35,11 @@ export async function getWeather(query) {
     let skyCode = 1;
 
     // Reduce the OpenWeather weather conditions to the one supported by the API
-    if (json.weather.id >= 200 && json.weather.id < 600) skyCode = 4;
-    else if (json.weather.id >= 600 && json.weather.id < 700) skyCode = 5;
-    else if (json.weather.id >= 700 && json.weather.id < 800) skyCode = 6;
-    else if (json.weather.id === 801) skyCode = 2;
-    else if (json.weather.id > 801) skyCode = 3;
-
+    if (json.weather[0].id >= 200 && json.weather[0].id < 600) skyCode = 4;
+    else if (json.weather[0].id >= 600 && json.weather[0].id < 700) skyCode = 5;
+    else if (json.weather[0].id >= 700 && json.weather[0].id < 800) skyCode = 6;
+    else if (json.weather[0].id === 801) skyCode = 2;
+    else if (json.weather[0].id > 801) skyCode = 3;
 
     // Return the weather data
     return { sky: skyCode, temperature: json.main.temp, wind: json.wind.speed };

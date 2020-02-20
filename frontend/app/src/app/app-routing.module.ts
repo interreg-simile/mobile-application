@@ -3,11 +3,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-    { path: "", redirectTo: "map", pathMatch: "full" },
+    { path: "", redirectTo: "observations/new", pathMatch: "full" },
     { path: "auth", loadChildren: "./auth/auth.module#AuthPageModule" },
     { path: "map", loadChildren: "./map/map.module#MapPageModule" },
     {
         path: "observations", children: [
+            { path: "", redirectTo: "/observations/new", pathMatch: "full" },
             {
                 path        : "new",
                 loadChildren: "./observations/new-observation/new-observation.module#NewObservationPageModule"

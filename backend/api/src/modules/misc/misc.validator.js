@@ -18,6 +18,3 @@ export const weather = [
     query("lat").not().isEmpty().isFloat(),
     query("lon").not().isEmpty().isFloat(),
 ];
-
-
-export const rois = [];

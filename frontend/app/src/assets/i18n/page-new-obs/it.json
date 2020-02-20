@@ -18,7 +18,8 @@
       "5": "Neve",
       "6": "Nebbia"
     },
-    "wind": "Vento"
+    "wind": "Vento",
+    "err": "Errore nella richista dei dati meteo."
   },
   "details": {
     "title": "Dettagli",

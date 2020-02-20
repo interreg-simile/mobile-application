@@ -88,7 +88,12 @@ main section {
       text-align : center;
       color      : $text-primary;
 
-      .label { margin-bottom : 8px }
+      .label {
+        margin-bottom : 8px;
+
+        &.sky { margin-bottom : 12px }
+
+      }
 
       .val {
         font-size : $font-body-lg;
@@ -167,7 +172,7 @@ main section {
 
       i { color : var(--ion-color-primary) }
 
-      ion-thumbnail{
+      ion-thumbnail {
         width  : 100%;
         height : 100%;
       }

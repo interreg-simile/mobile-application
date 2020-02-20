@@ -116,7 +116,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** @ignore */
-    ngOnInit() {
+    ngOnInit(): void {
 
         this._pauseSub = this.platform.pause.subscribe(() => {
 
@@ -197,7 +197,7 @@ export class MapPage implements OnInit, OnDestroy {
      *
      * @param {Number[]} view - The coordinated on which the map should be centered on creation.
      */
-    initMap(view) {
+    initMap(view): void {
 
         // Create the map
         this._map = new Map("map", { zoomControl: false });
@@ -274,7 +274,7 @@ export class MapPage implements OnInit, OnDestroy {
      *
      * @param {LatLng} latLng - The coordinates of the marker.
      */
-    createUserMarker(latLng: LatLng) {
+    createUserMarker(latLng: LatLng): void {
 
         // Create the user marker and add it to the map
         this._userMarker = new Marker(latLng, { icon: defaultMarkerIcon() })
@@ -293,7 +293,7 @@ export class MapPage implements OnInit, OnDestroy {
      * @param {boolean} fromClick - True if the request to start the watcher comes from a click action.
      * @returns {Promise<>} - An empty promise.
      */
-    async startWatcher(fromClick = false) {
+    async startWatcher(fromClick = false): Promise<void> {
 
         // Start the position watcher
         const status = await this.mapService.checkPositionAvailability(fromClick);
@@ -324,7 +324,7 @@ export class MapPage implements OnInit, OnDestroy {
      *
      * @param {Object} data - The position data received.
      */
-    onPositionReceived(data) {
+    onPositionReceived(data): void {
 
         // If the data does not contain any coordinate, raise an error and return
         if (!data.coords) {
@@ -375,7 +375,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Stops the position watcher. */
-    stopWatcher() {
+    stopWatcher(): void {
 
         console.log("Position watcher stopped");
 
@@ -401,7 +401,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Saves the current position of the user in the local storage of the phone. */
-    async cachePosition() {
+    async cachePosition(): Promise<void> {
 
         console.log("Caching position...");
 
@@ -411,7 +411,8 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    async populateMap() {
+    // ToDo
+    async populateMap(): Promise<void> {
 
         this.presentLoading();
 
@@ -470,6 +471,7 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
+    // ToDo
     onSyncClick() { }
 
 
@@ -479,7 +481,7 @@ export class MapPage implements OnInit, OnDestroy {
      *
      * @returns {Promise<>} - An empty promise.
      */
-    async onAddClick() {
+    async onAddClick(): Promise<void> {
 
         // Present the loading dialog
         await this.presentLoading();
@@ -517,6 +519,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Dismiss the loading dialog
         await this.dismissLoading();
+
 
         // If no roi is found and the user clicks on the "cancel" button in the subsequent alert, return
         if (!roi && await this.presentRoiAlert(!!roiErr) === "cancel") return;
@@ -584,7 +587,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Create the loading dialog
         this.loading = await this.loadingCtr.create({
-            message     : this.i18n.instant("common.wait"),
+            message: this.i18n.instant("common.wait"),
             showBackdrop: false
         });
 
@@ -610,7 +613,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** @ignore */
-    ngOnDestroy() {
+    ngOnDestroy(): void {
 
         console.log("View destroyed");
 
