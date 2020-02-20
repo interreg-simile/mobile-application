@@ -104,7 +104,7 @@ const fauna = new Schema({
 const details = new Schema({
     _id    : false,
     algae  : algae,
-    foams  : foams,
+    foams  : Schema.Types.Mixed,
     oils   : oils,
     litters: litters,
     odours : odours,

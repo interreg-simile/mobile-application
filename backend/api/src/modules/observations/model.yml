@@ -27,8 +27,7 @@ Observation:
       look:
         { code: Number, path: String, description: String }
       colour:
-        { code: Number, path: String, description: String }
-        iridescent: Boolean
+        { code: Number, path: String, description: String, iridescent: Boolean }
         
     foams:
       extension:

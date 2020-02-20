@@ -172,3 +172,47 @@ export function populateDescriptions(obs, t) {
     findAndSub(obs);
 
 }
+
+
+// function findPaths(obj, path) {
+//
+//     if (!path) path = [];
+//
+//     Object.keys(obj).forEach(k => {
+//
+//         console.log(k);
+//
+//         path.push(k);
+//
+//         if (typeof obj[k] === "object") {
+//
+//             findPaths(obj[k], path);
+//
+//         }
+//
+//         else if (k === "code") {
+//
+//             console.log(path);
+//
+//             console.log(`Code found: ${obj[k]}`)
+//
+//         }
+//
+//         path.pop()
+//
+//     });
+//
+// }
+//
+//
+// const object = {
+//     position: { coordinates: [0.0, 0.0], custom: true, accuracy: 20 },
+//     weather: { temperature: 21.0,  sky: { code: 1 }, wind: 23 },
+//     details: {
+//         algae: { colour: { code: 2 }, look: { code: 1 }, iridescent: false }
+//     }
+// }
+//
+// findPaths(object);
+//
+

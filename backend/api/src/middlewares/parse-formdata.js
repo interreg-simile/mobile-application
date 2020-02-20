@@ -21,21 +21,44 @@ export default function (req, res, next) {
     // Parse each of the JSON fields in the body of the request
     for (const field in req.body) {
 
+        // console.log(field);
+
         // noinspection JSUnfilteredForInLoop
         if (req.body[field][0] === "{" || req.body[field][0] === "[")
 
             // Try to parse the json and catch any error
             try {
-                req.body[field] = JSON.parse(req.body[field])
-            } catch (e) {
-                next(constructError(422));
-                return;
-            }
 
+                req.body[field] = JSON.parse(req.body[field])
+
+            } catch (e) {
+
+                next(constructError(422));
+
+                return;
+
+            }
 
     }
 
+
+    handleUndefined(req.body);
+
+
     // Call the next middleware
     next();
+
+}
+
+
+function handleUndefined(obj) {
+
+    Object.keys(obj).forEach(k => {
+
+        if (typeof obj[k] === "object") handleUndefined(obj[k]);
+
+        else if (obj[k] === "undefined") obj[k] = undefined;
+
+    });
 
 }
