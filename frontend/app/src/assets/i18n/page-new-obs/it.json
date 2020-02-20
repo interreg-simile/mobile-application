@@ -1,4 +1,9 @@
 {
+  "close": {
+    "msg": "Annullare le modifiche apportate?",
+    "btn-continue": "Continua a modificare",
+    "btn-cancel": "Annulla"
+  },
   "title": "Nuova osservazione",
   "info-mandatory": "* indica un campo obbligatorio",
   "location": {
@@ -168,9 +173,7 @@
     "other-title": "Altri dettagli",
     "other-ph": "Massimo 250 caratteri..."
   },
-  "photos": {
-    "title": "Foto"
-  },
+  "photos": "Foto",
   "btn-continue": "Continua",
   "modal-choices": {
     "heading": "Cosa vuoi fare?",

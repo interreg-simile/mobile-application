@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
+import * as cloneDeep from "lodash/cloneDeep";
 
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
 import { Observation } from "./observation.model";
 import { LatLng } from "leaflet";
+import { isEmpty } from "rxjs/operators";
 
 
 /**
@@ -53,7 +55,7 @@ export class ObservationsService {
      * @param {LatLng} coords - The coordinates of the point.
      * @returns {Promise<Object>} - The weather data.
      */
-    async getWeatherData(coords: LatLng): Promise<{sky: number, temperature: number, wind: number}> {
+    async getWeatherData(coords: LatLng): Promise<{ sky: number, temperature: number, wind: number }> {
 
         // Url of the request
         const url = `${ environment.apiUrl }/misc/weather`;
@@ -72,9 +74,101 @@ export class ObservationsService {
     }
 
 
+    /**
+     * Sends a new observation to the server-
+     */
     async postObservation() {
 
-        console.log(this.newObservation);
+        // Deep clone the new observation
+        const obs = cloneDeep(this.newObservation);
+
+
+        const deleteUndefined = obj => {
+
+            console.log("================", obj);
+
+            Object.keys(obj).forEach(k => {
+
+                console.log("------------", k, obj[k]);
+
+                if (obj[k] === undefined) {
+
+                    console.log(`${k} deleted`);
+
+                    delete obj[k];
+
+                }
+
+                else if (typeof obj[k] === "object") {
+
+                    console.log(`${k} is object`);
+
+                    deleteUndefined(obj[k]);
+
+                    console.log(`${k} has this many keys: ${Object.keys(obj[k]).length}`);
+
+                    if (Object.keys(obj[k]).length === 0) {
+
+                        delete obs[k];
+
+                        console.log(`${k} object deleted`)
+
+                    }
+
+                }
+
+            });
+
+        };
+
+
+
+
+
+        // console.log(obs);
+
+
+        // For each of the details
+        Object.keys(obs.details).forEach(k => {
+
+            // console.log(k, obs.details[k]);
+
+            if (k === "other") {
+
+                if (!obs.details.other) {
+
+                    delete obs.details[k];
+
+                    return;
+
+                }
+
+            }
+
+            if (!obs.details[k].checked) {
+
+                delete obs.details[k];
+
+                return;
+
+            }
+
+            delete obs.details[k].checked;
+            delete obs.details[k].component;
+
+        });
+
+        console.log(obs.details["algae"]);
+
+        deleteUndefined(obs.details["algae"]);
+
+        console.log(obs.details["algae"]);
+
+        // Of the details object is empty, remove it
+        if (Object.keys(obs.details).length === 0) delete obs.details;
+
+
+        console.log(obs);
 
     }
 

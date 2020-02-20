@@ -20,7 +20,7 @@ export class NewObservationPage implements OnInit {
 
 
     /** Flag that states if the page is loading somethign. */
-    private _isLoading = false;
+    private _isLoading = true;
 
     /** A copy of the new observation created in the ObservationService. */
     private _newObservation: Observation;
@@ -67,9 +67,16 @@ export class NewObservationPage implements OnInit {
         this._newObservation = this.obsService.newObservation;
 
         // Get a source from the initial photo
-        this.getImgSrc(this._newObservation.photos[0], 0);
+        const imgPromise = this.getImgSrc(this._newObservation.photos[0], 0);
 
-        this.getWeatherData(false);
+        // Retrieve the weather data
+        const weatherPromise = this.getWeatherData(false);
+
+        // Wait for the two promises to resolve (the catch blocks are there to interrupt the fail-fast behaviour)
+        Promise.all([
+            imgPromise.catch(() => {}),
+            weatherPromise.catch(() => {})
+        ]).finally(() => this._isLoading = false);
 
     }
 
@@ -117,7 +124,7 @@ export class NewObservationPage implements OnInit {
 
         // Create a loading dialog
         const loading = await this.loadingCtr.create({
-            message: this.i18n.instant("common.wait"),
+            message     : this.i18n.instant("common.wait"),
             showBackdrop: false
         });
 

@@ -135,7 +135,8 @@
 			
 			
 			<ion-textarea placeholder="{{'page-new-obs.details.other-ph' | translate}}"
-						  maxlength="250"></ion-textarea>
+						  maxlength="250"
+						  [(ngModel)]="_newObservation.details.other"></ion-textarea>
 		
 		
 		</section>
@@ -148,7 +149,7 @@
 				
 				<ion-icon ios="ios-camera" md="md-camera" class="main"></ion-icon>
 				
-				<p class="title">{{"page-new-obs.photos.title" | translate}}</p>
+				<p class="title">{{"page-new-obs.photos" | translate}}</p>
 			
 			</div>
 			
@@ -182,8 +183,6 @@
 	
 	<!-- Skeleton placeholder -->
 	<section *ngIf="_isLoading" class="skeleton">
-		
-<!--		<ion-skeleton-text animated class="ske-info-sm"></ion-skeleton-text>-->
 		
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		

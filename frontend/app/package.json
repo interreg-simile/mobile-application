@@ -43,6 +43,7 @@
     "core-js": "^2.5.4",
     "leaflet": "^1.5.1",
     "leaflet.markercluster": "^1.4.1",
+    "lodash.clonedeep": "^4.5.0",
     "mx.ferreyra.callnumber": "0.0.2",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
