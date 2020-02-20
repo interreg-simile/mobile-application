@@ -6,7 +6,7 @@ export const environment = {
 
     apiVersion: "v1",
 
-    apiUrl: `http://localhost:8000/v1`,
+    apiUrl: "http://localhost:8000/v1",
 
     apiKey    : "testApiKey"
 

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from "@ionic-native/geolocation/ngx";
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { AlertController } from "@ionic/angular";
-import { point, multiPolygon } from "@turf/helpers";
-import { booleanPointInPolygon } from "@turf/turf";
 
 import { LocationErrors } from "../shared/common.enum";
 import { TranslateService } from "@ngx-translate/core";
+import { LatLng } from "leaflet";
+import { environment } from "../../environments/environment";
+import { GenericApiResponse } from "../shared/utils.interface";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 
 /**
@@ -20,7 +22,8 @@ export class MapService {
 
 
     /** @ignore */
-    constructor(private translate: TranslateService,
+    constructor(private http: HttpClient,
+                private translate: TranslateService,
                 private geolocation: Geolocation,
                 private diagnostic: Diagnostic,
                 private alertCtrl: AlertController) { }
@@ -101,6 +104,36 @@ export class MapService {
 
         // Present the alert
         await alert.present();
+
+    }
+
+
+    /**
+     * Calls the API to check in which region of interest the point with the given coordinates falls.
+     *
+     * @param {LatLng} coords - The coordinates of the point.
+     * @returns {Promise<number>} - The code of the region of interest in which the point falls.
+     */
+    async pointInRoi(coords: LatLng) {
+
+        // Url of the request
+        const url = `${ environment.apiUrl }/rois/`;
+
+        console.log(url);
+
+        // Query parameters of the request
+        const qParams = new HttpParams()
+            .set("lat", coords.lat.toString())
+            .set("lon", coords.lng.toString());
+
+        // Retrieve the data from the server and return them as a promise
+        const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
+
+        // If at least one roi has been found, return its id
+        if (res.data.rois.length) return res.data.rois[0]._id;
+
+        // Return undefined
+        return;
 
     }
 

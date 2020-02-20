@@ -5,13 +5,14 @@ import { LittersComponent } from "./details/litters/litters.component";
 import { OdoursComponent } from "./details/odours/odours.component";
 import { OutletsComponent } from "./details/outlets/outlets.component";
 import { FaunaComponent } from "./details/fauna/fauna.component";
+import { LatLng } from "leaflet";
 
 
 export interface Position {
-    coordinates: number[],
+    coordinates: LatLng,
     accuracy: number,
     custom: boolean,
-    lake: { code: number }
+    roi?: string // MongooseId: valid roi, undefined: cannot get, not passed: point in no roi
 }
 
 
@@ -147,17 +148,16 @@ export class Observation {
     /**
      * Create a new observation and initializes all the values except for the passed ones to undefined.
      *
-     * @param {number[]} coords - The coordinated of the new observation in form [lat, lon].
+     * @param {LatLng} coords - The coordinated of the new observation.
      * @param {number} accuracy - The accuracy of the coordinates.
      * @param {boolean} custom - True is the user has chosen the observation position long tapping on the map.
      */
-    constructor(coords: number[], accuracy: number, custom: boolean) {
+    constructor(coords: LatLng, accuracy: number, custom: boolean) {
 
         this.position = {
             coordinates: coords,
             accuracy   : accuracy,
-            custom     : custom,
-            lake       : { code: undefined }
+            custom     : custom
         };
 
         this.weather = {

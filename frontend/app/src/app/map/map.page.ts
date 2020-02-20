@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingController, Platform } from "@ionic/angular";
+import { AlertController, LoadingController, Platform } from "@ionic/angular";
 import { CircleMarker, latLng, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
@@ -16,6 +16,7 @@ import { ObservationsService } from "../observations/observations.service";
 import { CameraService, PicResult } from "../shared/camera.service";
 import { Router } from "@angular/router";
 import { Observation } from "../observations/observation.model";
+import { TranslateService } from "@ngx-translate/core";
 
 
 /** Storage key for the cached user position. */
@@ -52,6 +53,7 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */ private _obsSub;
 
 
+    /** A loading dialog. */
     private loading: HTMLIonLoadingElement;
 
 
@@ -99,6 +101,7 @@ export class MapPage implements OnInit, OnDestroy {
 
     /** @ignore */
     constructor(private router: Router,
+                private i18n: TranslateService,
                 private changeRef: ChangeDetectorRef,
                 private platform: Platform,
                 private mapService: MapService,
@@ -108,6 +111,7 @@ export class MapPage implements OnInit, OnDestroy {
                 private storage: Storage,
                 private newsService: NewsService,
                 private loadingCtr: LoadingController,
+                private alertCtr: AlertController,
                 private file: File) { }
 
 
@@ -287,7 +291,7 @@ export class MapPage implements OnInit, OnDestroy {
      * Starts the position watcher.
      *
      * @param {boolean} fromClick - True if the request to start the watcher comes from a click action.
-     * @return {Promise<>} - An empty promise.
+     * @returns {Promise<>} - An empty promise.
      */
     async startWatcher(fromClick = false) {
 
@@ -469,26 +473,70 @@ export class MapPage implements OnInit, OnDestroy {
     onSyncClick() { }
 
 
+    /**
+     * Fired when the user clicks on the "add" button. It starts the process of inseting a new observation into the
+     * system.
+     *
+     * @returns {Promise<>} - An empty promise.
+     */
     async onAddClick() {
 
-        // Check if the point is in a supported location
+        // Present the loading dialog
+        await this.presentLoading();
 
-        // If not, alert the user
+
+        // Initialize the position data
+        let pos, accuracy, custom;
+
+        // If there is a custom marker
+        if (this._customMarker) {
+            pos      = this._customMarker.getLatLng(); // Set the position from the custom marker location
+            accuracy = 0;                              // Set the accuracy to 0
+            custom   = true;                           // Set the custom flag to true
+        }
+
+        // Else if there is no user marker
+        else if (!this._userMarker) {
+            pos      = this._map.getCenter(); // Set the position from the map center
+            accuracy = 0;                     // Set the accuracy to 0
+            custom   = true;                  // Set the custom flag to true
+        }
+
+        // Else if there is a user marker
+        else {
+            pos      = new LatLng(this.position.lat, this.position.lon); // Set the position from the current user position
+            accuracy = this.position.accuracy;                           // Set the accuracy to the current accuracy
+            custom   = false;                                            // Set the custom flag to false
+        }
+
+
+        // Check if the point is in a supported location
+        const [roi, roiErr] = await this.mapService.pointInRoi(pos)
+            .then(v => [v, undefined]).catch(e => [undefined, e]);
+
+
+        // Dismiss the loading dialog
+        await this.dismissLoading();
+
+        // If no roi is found and the user clicks on the "cancel" button in the subsequent alert, return
+        if (!roi && await this.presentRoiAlert(!!roiErr) === "cancel") return;
+
+
+        // Create a new observation
+        this.obsService.newObservation = new Observation(pos, accuracy, custom);
+
+        // If there is a roi error or if the error is not undefined (i.e. not in the case no roi has been found)
+        if (!!roiErr || roi !== undefined) this.obsService.newObservation.position.roi = roi;
+
 
         // Take a picture
         const pic = await this.cameraService.takePicture();
 
         if (pic === PicResult.NO_IMAGE) return;
 
-        // Create a new observation
-        this.obsService.newObservation = new Observation(
-            [this.position.lat, this.position.lon],
-            this.position.accuracy,
-            false // ToDo
-        );
-
         // Save the photo
         if (pic !== PicResult.ERROR && pic !== undefined) this.obsService.newObservation.photos[0] = pic;
+
 
         // Open the new observation page
         await this.router.navigate(["/observations/new"])
@@ -496,18 +544,66 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    async presentLoading() {
+    /**
+     * Presents an alert to warn the user that the roi in which the point falls is undefined.
+     *
+     * @param {boolean} isError - True if the alert is undefined because of an error.
+     * @returns {Promise<string>} A promise containing the role of the button clicked.
+     */
+    async presentRoiAlert(isError: boolean): Promise<string> {
 
-        this.loading = await this.loadingCtr.create({ message: "Test", showBackdrop: false });
+        // Create the alert
+        const roiAlert = await this.alertCtr.create({
+            header         : this.i18n.instant("common.alerts.header-warning"),
+            message        : this.i18n.instant(`page-map.alert-message-roi-${ isError ? 'error' : 'undefined' }`),
+            buttons        : [
+                { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel" },
+                { text: this.i18n.instant("common.alerts.btn-continue"), role: "continue" }
+            ],
+            backdropDismiss: false
+        });
 
+        // Present the alert
+        await roiAlert.present();
+
+        // Save the data returned by the alert on dismiss
+        const data = await roiAlert.onDidDismiss();
+
+        // Return the role of the clicked button
+        return data.role
+
+    }
+
+
+    /**
+     * Shows the loading dialog.
+     *
+     * @returns {Promise<>} - An empty promise.
+     */
+    async presentLoading(): Promise<void> {
+
+        // Create the loading dialog
+        this.loading = await this.loadingCtr.create({
+            message     : this.i18n.instant("common.wait"),
+            showBackdrop: false
+        });
+
+        // Present the loading dialog
         await this.loading.present();
 
     }
 
-    async dismissLoading() {
+    /**
+     * Dismisses the loading dialog.
+     *
+     * @returns {Promise<>} - An empty promise.
+     */
+    async dismissLoading(): Promise<void> {
 
+        // If the dialog is open, dismiss it
         if (this.loading) await this.loading.dismiss();
 
+        // Set the dialog to null
         this.loading = null;
 
     }

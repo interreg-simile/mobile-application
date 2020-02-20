@@ -3,14 +3,17 @@
   "errors": {
     "photo": "Errore durante la foto."
   },
+  "wait": "Attendi...",
   "rois": {
     "lake_como": "Lago di Como",
     "lake_maggiore": "Lago Maggiore",
     "lake_lugano": "Lago di Lugano"
   },
   "alerts": {
+    "header-warning": "Attenzione",
     "btn-ok": "OK",
     "btn-cancel": "Cancella",
-    "btn-confirm": "Conferma"
+    "btn-confirm": "Conferma",
+    "btn-continue": "Continua"
   }
 }
