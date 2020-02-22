@@ -2,8 +2,6 @@
 
 - Write and set up API documentation.
 
-- Add right status code if route exists but verb is not allowed.
-
 - Explore response types (GeoJSON).
 
 
@@ -40,5 +38,3 @@
 ##### Observations
 
 - Expiration date?
-
-- Try to remove dPath from returned objects (it needs another iteration. Worth it?).
