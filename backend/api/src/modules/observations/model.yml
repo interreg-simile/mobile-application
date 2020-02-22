@@ -4,85 +4,77 @@ Observation:
 
   uid: Mongoose.id
 
+  photos: [string]
+
   position:
     type: "Point"
-    coordinates: [Number]
-    accuracy: Number
-    custom: Boolean
-    address: Number
-    lake:
-      { code: Number, path: String, description: String }
+    coordinates: [number]
+    accuracy: number
+    custom: boolean
+    address: number
+    roi: Mongoose.id
 
   weather:
-    temperature: Number
-    sky:
-      { code: Number, path: String, description: String }
-    wind: Number
+    temperature: number
+    sky: { code: number, description: string }
+    wind: number
 
   details:
 
     algae:
-      extension:
-        { code: Number, path: String, description: String }
-      look:
-        { code: Number, path: String, description: String }
-      colour:
-        { code: Number, path: String, description: String, iridescent: Boolean }
-        
+      extension: { code: number, description: string }
+      look: { code: number, description: string }
+      colour: { code: number, description: string}
+      iridescent: boolean 
+
     foams:
-      extension:
-        { code: Number, path: String, description: String }
-      look:
-        { code: Number, path: String, description: String }
-      heigh:
-        { code: Number, path: String, description: String }
+      extension: { code: number, description: string }
+      look: { code: number, description: string }
+      heigh: { code: number, description: string }
 
     oils:
-      extension:
-        { code: Number, path: String, description: String }
-      type:
-        { code: Number, path: String, description: String }
+      extension: { code: number, description: string }
+      type: { code: number, description: string }
 
     litters:
-      quantity:
-        { code: Number, path: String, description: String }
-      type:
-        { code: Number, path: String, description: String }
+      quantity: { code: number, description: string }
+      type: [{ code: number, description: string }]
 
     odours:
-      intensity:
-        { code: Number, path: String, description: String }
-      origin:
-        [{ code: Number, path: String, description: String }]
+      intensity: { code: number, description: string }
+      origin: [{ code: number, description: string }]
 
     outlets:
-      inPlace: Boolean,
-      terminal:
-        { code: Number, path: String, description: String },
-      colour:
-        { code: Number, path: String, description: String }
-      vapour: Boolean,
-      signage: Boolean,
-      signagePhoto: String,
-      prodActNearby: Boolean,
-      prodActNearbyDetails: String
+      inPlace: boolean,
+      terminal: { code: number, description: string }
+      colour: { code: number, description: string }
+      vapour: boolean,
+      signage: boolean,
+      signagePhoto: string,
+      prodActNearby: boolean,
+      prodActNearbyDetails: string
 
     fauna:
-      deceased: { fish: Boolean, birds: Boolean, other: String },
-      abnormal: { fish: Boolean, birds: Boolean, other: String, description: String },
+      deceased:
+        fish: { checked: boolean, details: string }
+        birds: { checked: boolean, details: string }
+        other: { checked: boolean, details: string }
+      abnormal:
+        fish: { checked: boolean, details: string },
+        birds: { checked: boolean, details: string },
+        other: { checked: boolean, details: string }
       alienSpecies:
-        crustaceans: { present: Boolean, details: String },
-        molluscs: { present: Boolean, details: String },
-        turtles: { present: Boolean, details: String },
-        fish: { present: Boolean, details: String },
-        birds: { present: Boolean, details: String },
-        other: String
+        crustaceans: { checked: boolean, details: string }
+        molluscs: { checked: boolean, details: string }
+        turtles: { checked: boolean, details: string }
+        fish: { checked: boolean, details: string }
+        other: { checked: boolean, details: string }
 
-  photos: [String]
+    other: string
 
-  measures
+  measures:
 
-  markedForDeletion: Boolean
+  markedForDeletion: boolean
 
   createdAt: Date
 

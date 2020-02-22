@@ -180,7 +180,10 @@
     "btn-send": "Invia l'osservazione",
     "or": "- o -",
     "btn-add": "Aggiungi una misura",
+    "btn-call": "Contatta le autorità",
     "msg-call-1": "Se pensi che sia necessario attivare un'intervento, chiama questo numero:",
     "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
-  }
+  },
+  "err-title": "Oops!",
+  "err-msg": "Qualcosa è andato storto, ci scusiamo per il disagio."
 }

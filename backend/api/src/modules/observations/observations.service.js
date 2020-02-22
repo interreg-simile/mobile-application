@@ -9,6 +9,7 @@ import _ from "lodash";
 
 import Observation from "./observations.model";
 import constructError from "../../utils/construct-error";
+import { getIdByCoords } from "../rois/rois.service";
 
 
 /**
@@ -65,9 +66,21 @@ export async function getById(id, filter, projection, options, t) {
  * Creates a new observation and saves it in the database.
  *
  * @param {Object} data - The observation data.
- * @returns {Promise<Observation>} A promise containing the newly created observation.
+ * @returns {Promise<Object>} A promise containing the newly created observation.
  */
 export async function create(data) {
+
+    // If no region of interest has been passed
+    if (!data.position.roi) {
+
+        // Find a roi in which the observation falls
+        const roi = await getIdByCoords(data.position.coordinates[0], data.position.coordinates[1])
+            .catch(err => console.error(err));
+
+        // If a roi is found, save it
+        if (roi) data.position.roi = roi._id;
+
+    }
 
     // Create the new observation
     const obs = new Observation({
@@ -122,97 +135,64 @@ export async function softDelete(id, isAdmin, reqUId) {
  * @param {Observation} obs - The observation.
  * @param {Function} t - The i18next translation function fixed on the response language.
  */
-export function populateDescriptions(obs, t) {
+function populateDescriptions(obs, t) {
 
-    // Save the original object
-    const originalObs = obs;
+    // Save the original observation
+    const originalObj = obs;
+
 
     /**
-     * Finds all the "dPath" properties in an object and adds to their same level a property description.
+     * Utility function that finds all the "code" fields and adds a "description" field on their same level.
      *
-     * @param {Object} o - The object.
-     * @param {Number} [i] - The index of the array.
+     * @param {Object} obj - The object to manipulate.
+     * @param {Array<string>} path - The current path of the sub-property.
      */
-    const findAndSub = (o, i) => {
+    const findAndPopulate = (obj, path) => {
 
         // For each of the keys of the object
-        for (const k in o) {
+        Object.keys(obj).forEach(k => {
 
-            // If the key is a natural property and is not a Mongoose internal object
-            if (o.hasOwnProperty(k) && k !== "_id" && k !== "uid" && k !== "createdAt" && k !== "updatedAt") {
+            // If the key is one of the internal Mongoose properties, return
+            if (k === "_id" || k === "uid" || k === "createdAt" || k === "updatedAt") return;
 
-                // If the key is "dPath"
-                if (k === "dPath") {
+            // Push the key into the path
+            path.push(k);
 
-                    // Compute the base path
-                    const basePath = `${o[k]}${i !== undefined ? `[${i}]` : ""}`;
+            // If the property is an object, call the function recursively
+            if (typeof obj[k] === "object") findAndPopulate(obj[k], path);
 
-                    // Populate the description field
-                    _.set(
-                        originalObs,
-                        `${basePath}.description`,
-                        t(`models:observations.${o[k]}.${_.get(originalObs, `${basePath}.code`)}`)
-                    );
+            // Else if the key is "code"
+            else if (k === "code") {
 
-                }
+                // Pop the last segment of the path
+                path.pop();
 
-                // Else if the key corresponds to an array, call the function for each of the array elements
-                else if (Array.isArray(o[k])) o[k].forEach((e, i) => findAndSub(e, i));
+                // Clone the path
+                const keyPath = [...path];
 
-                // Else if the key corresponds to an object, call the function recursively
-                else if (typeof o[k] === "object") findAndSub(o[k]);
+                // If the object is in an array, remove the index from the key path
+                if (!isNaN(keyPath[keyPath.length - 1])) keyPath.pop();
+
+                // Set the description field
+                _.set(
+                    originalObj,
+                    [...path, "description"],
+                    t(`models:observations.${keyPath.join(".")}.${_.get(originalObj, [...path, "code"])}`)
+                );
+
+                // Re-put the lat segment of the path
+                path.push(k);
 
             }
 
-        }
+            // Pop the last segment of the path
+            path.pop();
+
+        });
 
     };
 
     // Call the function
-    findAndSub(obs);
+    findAndPopulate(obs, []);
 
 }
-
-
-// function findPaths(obj, path) {
-//
-//     if (!path) path = [];
-//
-//     Object.keys(obj).forEach(k => {
-//
-//         console.log(k);
-//
-//         path.push(k);
-//
-//         if (typeof obj[k] === "object") {
-//
-//             findPaths(obj[k], path);
-//
-//         }
-//
-//         else if (k === "code") {
-//
-//             console.log(path);
-//
-//             console.log(`Code found: ${obj[k]}`)
-//
-//         }
-//
-//         path.pop()
-//
-//     });
-//
-// }
-//
-//
-// const object = {
-//     position: { coordinates: [0.0, 0.0], custom: true, accuracy: 20 },
-//     weather: { temperature: 21.0,  sky: { code: 1 }, wind: 23 },
-//     details: {
-//         algae: { colour: { code: 2 }, look: { code: 1 }, iridescent: false }
-//     }
-// }
-//
-// findPaths(object);
-//
-

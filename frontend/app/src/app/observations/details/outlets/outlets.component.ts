@@ -48,7 +48,7 @@ export class OutletsComponent implements OnInit {
 
 
     /** @ignore */
-    ngOnInit() {
+    ngOnInit(): void {
 
         // Save the initial values of the settable properties
         this._props.inPlace              = this.obsService.newObservation.details.outlets.inPlace;

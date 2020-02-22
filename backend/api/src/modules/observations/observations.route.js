@@ -18,8 +18,7 @@ const router = Router();
 router.get("/", validator.getAllQuery, controller.getAll);
 
 // POST - /observations/
-// router.post("/", validator.observation, controller.create);
-router.post("/", controller.create);
+router.post("/", validator.observation, controller.create);
 
 // GET - /observations/{obs_id}
 router.get("/:id", vPath.id, controller.getById);

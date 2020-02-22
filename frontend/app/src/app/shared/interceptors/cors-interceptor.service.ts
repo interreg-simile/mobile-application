@@ -23,7 +23,6 @@ export class CorsInterceptorService implements HttpInterceptor {
         const newReq = req.clone({
             headers: req.headers
                 .append("Access-Control-Allow-Origin", "*")
-                .append("Content-Type", "application/json")
                 .append("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE")
                 .append( "Access-Control-Allow-Headers", "origin, x-requested-with")
         });

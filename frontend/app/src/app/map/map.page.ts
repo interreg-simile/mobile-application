@@ -514,7 +514,8 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Check if the point is in a supported location
         const [roi, roiErr] = await this.mapService.pointInRoi(pos)
-            .then(v => [v, undefined]).catch(e => [undefined, e]);
+            .then(v => [v, undefined])
+            .catch(e => [undefined, e]);
 
 
         // Dismiss the loading dialog
@@ -528,12 +529,14 @@ export class MapPage implements OnInit, OnDestroy {
         // Create a new observation
         this.obsService.newObservation = new Observation(pos, accuracy, custom);
 
-        // If there is a roi error or if the error is not undefined (i.e. not in the case no roi has been found)
-        if (!!roiErr || roi !== undefined) this.obsService.newObservation.position.roi = roi;
+        // Save the roi
+        this.obsService.newObservation.position.roi = roi;
 
 
         // Take a picture
         const pic = await this.cameraService.takePicture();
+
+        console.log(pic);
 
         if (pic === PicResult.NO_IMAGE) return;
 
@@ -542,7 +545,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         // Open the new observation page
-        await this.router.navigate(["/observations/new"])
+        // await this.router.navigate(["/observations/new"])
 
     }
 

@@ -168,59 +168,59 @@ export class Observation {
         const algae: Algae = {
             checked   : true,
             component : AlgaeComponent,
-            extension : { code: 2 },
+            extension : { code: 1 },
             look      : { code: undefined },
-            colour    : { code: 1 },
+            colour    : { code: undefined },
             iridescent: undefined
         };
 
         const foams: Foams = {
-            checked  : true,
+            checked  : false,
             component: FoamsComponent,
-            extension: { code: 4 },
-            look     : { code: 1 },
+            extension: { code: undefined },
+            look     : { code: undefined },
             height   : { code: undefined }
         };
 
         const oils: Oils = {
-            checked  : true,
+            checked  : false,
             component: OilsComponent,
             extension: { code: undefined },
             type     : { code: undefined }
         };
 
         const litters: Litters = {
-            checked  : true,
+            checked  : false,
             component: LittersComponent,
             quantity : { code: undefined },
-            type     : [{ code: 1 }, { code: 3 }],
+            type     : [],
         };
 
         const odours: Odours = {
-            checked  : true,
+            checked  : false,
             component: OdoursComponent,
-            intensity: { code: 2 },
-            origin   : [{ code: undefined }, { code: 3 }]
+            intensity: { code: undefined },
+            origin   : []
         };
 
         const outlets: Outlets = {
-            checked             : true,
+            checked             : false,
             component           : OutletsComponent,
-            inPlace             : true,
+            inPlace             : undefined,
             terminal            : { code: undefined },
-            colour              : { code: 1 },
+            colour              : { code: undefined },
             vapour              : undefined,
             signage             : undefined,
             signagePhoto        : undefined,
-            prodActNearby       : true,
-            prodActNearbyDetails: "sdfgasdfg"
+            prodActNearby       : undefined,
+            prodActNearbyDetails: undefined
         };
 
         const fauna: Fauna = {
-            checked     : true,
+            checked     : false,
             component   : FaunaComponent,
             deceased    : {
-                fish : { checked: true, details: "asdfg" },
+                fish : { checked: undefined, details: undefined },
                 birds: { checked: undefined, details: undefined },
                 other: { checked: undefined, details: undefined }
             },
@@ -230,10 +230,10 @@ export class Observation {
                 other: { checked: undefined, details: undefined }
             },
             alienSpecies: {
-                crustaceans: { checked: true, details: "asdf" },
+                crustaceans: { checked: undefined, details: undefined },
                 molluscs   : { checked: undefined, details: undefined },
                 turtles    : { checked: undefined, details: undefined },
-                fish       : { checked: true, details: "asdfg" },
+                fish       : { checked: undefined, details: undefined },
                 other      : { checked: undefined, details: undefined },
             }
         };
@@ -255,78 +255,3 @@ export class Observation {
 
 
 }
-
-
-// const algae: Algae = {
-//     checked   : false,
-//     component : AlgaeComponent,
-//     extension : { code: undefined },
-//     look      : { code: undefined },
-//     colour    : { code: undefined },
-//     iridescent: undefined
-// };
-//
-// const foams: Foams = {
-//     checked  : false,
-//     component: FoamsComponent,
-//     extension: { code: undefined },
-//     look     : { code: undefined },
-//     height   : { code: undefined }
-// };
-//
-// const oils: Oils = {
-//     checked  : false,
-//     component: OilsComponent,
-//     extension: { code: undefined },
-//     type     : { code: undefined }
-// };
-//
-// const litters: Litters = {
-//     checked  : false,
-//     component: LittersComponent,
-//     quantity : { code: undefined },
-//     type     : [],
-// };
-//
-// const odours: Odours = {
-//     checked  : false,
-//     component: OdoursComponent,
-//     intensity: { code: undefined },
-//     origin   : []
-// };
-//
-// const outlets: Outlets = {
-//     checked             : false,
-//     component           : OutletsComponent,
-//     inPlace             : undefined,
-//     terminal            : { code: undefined },
-//     colour              : { code: undefined },
-//     vapour              : undefined,
-//     signage             : undefined,
-//     signagePhoto        : undefined,
-//     prodActNearby       : undefined,
-//     prodActNearbyDetails: undefined
-// };
-//
-// const fauna: Fauna = {
-//     checked     : false,
-//     component   : FaunaComponent,
-//     deceased    : {
-//         fish : { checked: undefined, details: undefined },
-//         birds: { checked: undefined, details: undefined },
-//         other: { checked: undefined, details: undefined }
-//     },
-//     abnormal    : {
-//         fish : { checked: undefined, details: undefined },
-//         birds: { checked: undefined, details: undefined },
-//         other: { checked: undefined, details: undefined }
-//     },
-//     alienSpecies: {
-//         crustaceans: { checked: undefined, details: undefined },
-//         molluscs   : { checked: undefined, details: undefined },
-//         turtles    : { checked: undefined, details: undefined },
-//         fish       : { checked: undefined, details: undefined },
-//         birds      : { checked: undefined, details: undefined },
-//         other      : { checked: undefined, details: undefined },
-//     }
-// };

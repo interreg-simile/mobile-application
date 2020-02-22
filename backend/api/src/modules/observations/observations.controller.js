@@ -51,28 +51,12 @@ export const create = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
-    console.log(req.body.details.foams);
-
     // Create the data
     const data = {
         uid   : req.userId,
         ...req.body,
         // photos: req.files.photos.map(p => p.path)
     };
-
-    // If the signage photo has been provided, set signage to true
-    // if (req.files.signage[0]) {
-    //
-    //     if (data.details && data.details.outlets) {
-    //         data.details.outlets.signage      = true;
-    //         data.details.outlets.signagePhoto = req.files.signage[0].path;
-    //     } else if (data.details) {
-    //         data.details.outlets = { signage: true, signagePhoto: req.files.signage[0].path }
-    //     } else {
-    //         data.details = { outlets: { signage: true, signagePhoto: req.files.signage[0].path } }
-    //     }
-    //
-    // }
 
     // Create the new observation
     observationService.create(data)

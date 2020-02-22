@@ -7,6 +7,7 @@
 import mongoose, { Schema } from "mongoose";
 
 import { collection as User } from "../users/user.model";
+import { collection as Rois } from "../rois/rois.model";
 import { genDCode } from "../../utils/common-schemas";
 
 
@@ -20,9 +21,8 @@ const position = new Schema({
     type       : { type: String, enum: ["Point"], required: true, default: "Point" },
     coordinates: { type: [Number], required: true },
     accuracy   : { type: Number, required: false },
-    custom     : { type: Boolean, required: true }, // True means that the user has selected the point on the map
-    address    : { type: String, required: true },
-    lake       : { type: genDCode("observations:position.lake"), required: true }
+    custom     : { type: Boolean, required: true },
+    roi        : { type: mongoose.Schema.Types.ObjectId, ref: Rois, required: false },
 });
 
 
@@ -30,7 +30,7 @@ const position = new Schema({
 const weather = new Schema({
     _id        : false,
     temperature: { type: Number, required: true },
-    sky        : { type: genDCode("observations:weather.sky"), required: true },
+    sky        : { type: { code: Number }, required: true },
     wind       : { type: Number, required: true }
 });
 
@@ -103,14 +103,14 @@ const fauna = new Schema({
 /** Schema of the observation details. */
 const details = new Schema({
     _id    : false,
-    algae  : algae,
+    algae  : Schema.Types.Mixed,
     foams  : Schema.Types.Mixed,
-    oils   : oils,
-    litters: litters,
-    odours : odours,
-    outlets: outlets,
-    fauna  : fauna,
-    other  : String
+    oils   : Schema.Types.Mixed,
+    litters: Schema.Types.Mixed,
+    odours : Schema.Types.Mixed,
+    outlets: Schema.Types.Mixed,
+    fauna  : Schema.Types.Mixed,
+    other  : Schema.Types.Mixed
 });
 
 
@@ -177,8 +177,8 @@ const schema = new Schema({
     uid              : { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
     position         : { type: position, required: true },
     weather          : { type: weather, required: true },
-    details          : { type: details, required: false },
-    photos           : { type: [String], required: true },
+    details          : { type: Schema.Types.Mixed, required: false },
+    photos           : { type: [String], required: false },
     measures         : { type: measures, required: false },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: true });

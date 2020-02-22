@@ -23,10 +23,10 @@ export class MapService {
 
     /** @ignore */
     constructor(private http: HttpClient,
-                private translate: TranslateService,
+                private i18n: TranslateService,
                 private geolocation: Geolocation,
                 private diagnostic: Diagnostic,
-                private alertCtrl: AlertController) { }
+                private alertCtr: AlertController) { }
 
 
     /** Starts registering the user location. */
@@ -98,9 +98,9 @@ export class MapService {
         const mKey = errType === LocationErrors.AUTH_ERROR ? "page-map.alert-message-auth" : "page-map.alert-message-gps";
 
         // Create the alert
-        const alert = await this.alertCtrl.create({
-            subHeader: this.translate.instant(mKey),
-            buttons  : [this.translate.instant("common.alerts.button-ok")]
+        const alert = await this.alertCtr.create({
+            subHeader: this.i18n.instant(mKey),
+            buttons  : [this.i18n.instant("common.alerts.btn-ok")]
         });
 
         // Present the alert

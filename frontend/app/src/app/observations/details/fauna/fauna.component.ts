@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
-import { $e } from "codelyzer/angular/styles/chars";
 
 
 interface Props {
@@ -20,7 +19,6 @@ interface Props {
         molluscs: { checked: boolean, details: string },
         turtles: { checked: boolean, details: string },
         fish: { checked: boolean, details: string },
-        birds: { checked: boolean, details: string },
         other: { checked: boolean, details: string }
     }
 }

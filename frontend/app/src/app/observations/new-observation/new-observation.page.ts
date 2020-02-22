@@ -9,6 +9,8 @@ import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.com
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { LatLng } from "leaflet";
+import { Choices, ChoicesComponent } from "../choices/choices.component";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -44,7 +46,8 @@ export class NewObservationPage implements OnInit {
 
 
     /** @ignore */
-    constructor(private obsService: ObservationsService,
+    constructor(private router: Router,
+                private obsService: ObservationsService,
                 private alertCtr: AlertController,
                 private loadingCtr: LoadingController,
                 private pickerCtr: PickerController,
@@ -59,7 +62,7 @@ export class NewObservationPage implements OnInit {
     ngOnInit(): void {
 
         // ToDo remove
-        this.obsService.newObservation              = new Observation(new LatLng(45.860442, 9.383371), 2.0, false);
+        this.obsService.newObservation              = new Observation(new LatLng(45.95389, 8.95853), 2.0, false);
         this.obsService.newObservation.position.roi = undefined;
         this.obsService.newObservation.photos[0]    = "https://media.istockphoto.com/photos/lake-water-pollution-picture-id1026572746";
 
@@ -338,19 +341,96 @@ export class NewObservationPage implements OnInit {
     }
 
 
-    /** Called when the user clicks on the "continue" button. */ // ToDo
+    /** Called when the user clicks on the "continue" button. */
     async onContinueClick(): Promise<void> {
 
-        this.obsService.postObservation()
-            .catch(err => console.error(err));
+        // Create the choices modal
+        const modal = await this.modalCtr.create({
+            component      : ChoicesComponent,
+            cssClass       : "auto-height",
+            backdropDismiss: false
+        });
 
-        // const modal = await this.modalCtr.create({
-        //     component      : ChoicesComponent,
-        //     cssClass       : "auto-height",
-        //     backdropDismiss: false
-        // });
-        //
-        // await modal.present();
+        // Present the modal
+        await modal.present();
+
+        // Get the user choice
+        const choice = (await modal.onDidDismiss()).data;
+
+        // Switch on the choices
+        switch (choice) {
+
+            case Choices.SEND:
+                this.postObservation();
+                return;
+
+            // ToDo
+            case Choices.ADD_MEASURE:
+                await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
+                return;
+
+            // ToDo
+            case Choices.CALL_AUTH:
+                await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
+                return;
+
+        }
+
+    }
+
+
+    /**
+     * Posts the new observation.
+     *
+     * @return {Promise<>} An empty promise.
+     */
+    async postObservation(): Promise<void> {
+
+        // Create a loading dialog
+        const loading = await this.loadingCtr.create({
+            message     : this.i18n.instant("common.wait"),
+            showBackdrop: false
+        });
+
+        // Present the dialog
+        await loading.present();
+
+        // Post the observation
+        const [res, err] = await this.obsService.postObservation()
+            .then(res => [res, undefined])
+            .catch(err => [undefined, err]);
+
+        // Dismiss the loading dialog
+        await loading.dismiss();
+
+        // If there was an error
+        if (err) {
+
+            // ToDo give user the possibility to save offline
+            // Create an error alert
+            const alert = await this.alertCtr.create({
+                header : this.i18n.instant("page-new-obs.err-title"),
+                message: this.i18n.instant("page-new-obs.err-msg"),
+                buttons: [this.i18n.instant("common.alerts.btn-ok")]
+            });
+
+            // Present the alert
+            await alert.present();
+
+            // Return
+            return;
+
+        }
+
+        console.log(res);
+
+        // ToDo add the observation to the map
+
+        // Navigate to the map page
+        await this.router.navigate(["map"]);
+
+        // Reset the new observation
+        this.obsService.resetNewObservation();
 
     }
 

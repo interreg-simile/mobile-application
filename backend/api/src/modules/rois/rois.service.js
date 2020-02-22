@@ -32,6 +32,24 @@ export async function getAll(filter, projection, options, t) {
 
 
 /**
+ * Returns the id of the region of interest in which the given point falls.
+ *
+ * @param {number} lon - The longitude of the point.
+ * @param {number} lat - The latitude of the point.
+ * @return {Promise<{_id: string}>} A promise containing the id of the roi.
+ */
+export async function getIdByCoords(lon, lat) {
+
+    // Compute the spatial filter
+    const filter = { geometry: { $geoIntersects: { $geometry: { type: "Point", coordinates: [lon, lat] } } } };
+
+    // Find the roi
+    return Roi.findOne(filter, { _id: 1 }, { lean: true });
+
+}
+
+
+/**
  * Populates the description fields of a region of interest.
  *
  * @param {Roi} roi - The region of interest.

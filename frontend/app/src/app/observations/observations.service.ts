@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import * as cloneDeep from "lodash/cloneDeep";
 
 import { environment } from "../../environments/environment";
@@ -79,97 +79,57 @@ export class ObservationsService {
      */
     async postObservation() {
 
-        // Deep clone the new observation
+        // Deep clone the observation
         const obs = cloneDeep(this.newObservation);
 
+        // ToDo handle photos
+        delete obs.photos;
 
-        const deleteUndefined = obj => {
-
-            console.log("================", obj);
-
-            Object.keys(obj).forEach(k => {
-
-                console.log("------------", k, obj[k]);
-
-                if (obj[k] === undefined) {
-
-                    console.log(`${k} deleted`);
-
-                    delete obj[k];
-
-                }
-
-                else if (typeof obj[k] === "object") {
-
-                    console.log(`${k} is object`);
-
-                    deleteUndefined(obj[k]);
-
-                    console.log(`${k} has this many keys: ${Object.keys(obj[k]).length}`);
-
-                    if (Object.keys(obj[k]).length === 0) {
-
-                        delete obs[k];
-
-                        console.log(`${k} object deleted`)
-
-                    }
-
-                }
-
-            });
-
-        };
-
-
-
-
-
-        // console.log(obs);
-
+        // Put the coordinates in an array
+        obs.position.coordinates = [obs.position.coordinates.lng, obs.position.coordinates.lat];
 
         // For each of the details
         Object.keys(obs.details).forEach(k => {
 
-            // console.log(k, obs.details[k]);
+            // If the key is other, return
+            if (k === "other") return;
 
-            if (k === "other") {
-
-                if (!obs.details.other) {
-
-                    delete obs.details[k];
-
-                    return;
-
-                }
-
-            }
-
-            if (!obs.details[k].checked) {
-
-                delete obs.details[k];
-
-                return;
-
-            }
-
+            // Remove the checked and component properties
             delete obs.details[k].checked;
             delete obs.details[k].component;
 
+            // If the key is odours and the origin array is empty, set it to undefined
+            if (k === "odours" && obs.details[k].origin.length === 0) obs.details[k].origin = undefined;
+
+            // If the key is litters and the type array is empty, set it to undefined
+            if (k === "litters" && obs.details[k].type.length === 0) obs.details[k].type = undefined;
+
         });
 
-        console.log(obs.details["algae"]);
+        // Create a new FormData
+        const formData = new FormData();
 
-        deleteUndefined(obs.details["algae"]);
+        // Put all the observation data into the FormData
+        Object.keys(obs).forEach(k => formData.append(k, JSON.stringify(obs[k])));
 
-        console.log(obs.details["algae"]);
-
-        // Of the details object is empty, remove it
-        if (Object.keys(obs.details).length === 0) delete obs.details;
+        // ToDo remove
+        formData.forEach(d => console.log(d));
 
 
-        console.log(obs);
+        // Url of the request
+        const url = `${ environment.apiUrl }/observations/`;
+
+        // Send the post request
+        const res = await this.http.post<GenericApiResponse>(url, formData).toPromise();
+
+        // Return the new observation
+        return res.data;
 
     }
+
+
+    /** Sets the new observation to null. */
+    resetNewObservation() { this.newObservation = null }
+
 
 }

@@ -6,7 +6,7 @@
 
 import { body } from "express-validator";
 
-import { vQuery, vBody, vDCode, vArrayDCode } from "../../utils/common-validations";
+import { vQuery } from "../../utils/common-validations";
 import yaml from "yamljs";
 import path from "path";
 

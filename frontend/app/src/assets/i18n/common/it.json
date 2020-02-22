@@ -1,5 +1,6 @@
 {
   "error-occurred": "Errore!",
+  "msg-to-be-implemented": "Funzione non ancora implementata...",
   "errors": {
     "photo": "Errore durante la foto."
   },

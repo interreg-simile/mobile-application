@@ -6,6 +6,7 @@
 
 import { body, param, query, ValidationChain } from "express-validator";
 
+
 /** Validation chains for common path parameters */
 export const vPath = {
 
@@ -90,8 +91,8 @@ export function vSort(val, allowedFields) {
 /**
  * Creates a validation chain for a generic coordinates field.
  *
- * @param {String} field - The chain that brings to the field.
- * @param {Boolean} opt - True if the field could be optional.
+ * @param {string} field - The chain that brings to the field.
+ * @param {boolean} opt - True if the field could be optional.
  * @return {ValidationChain[]} The validation chain.
  */
 export function vCoords(field, opt) {
@@ -116,53 +117,24 @@ export function vCoords(field, opt) {
 
 
 /**
- * Creates a validation chain for a generic dCode field.
+ * Creates a validation chain for a generic "code" field.
  *
- * @param {String} field - The name of the field.
- * @param {Number} min - The minimum accepted value.
- * @param {Number} max - The maximum accepted value.
- * @param {Boolean} [opt=false] - True if the field can be optional
- * @return {ValidationChain[]} The validation chain.
+ * @param {string} field - The name of the field.
+ * @param {number} min - The minimum accepted value.
+ * @param {number} max - The maximum accepted value.
+ * @param {boolean} [isArray=true] - True if the field is an array.
+ * @param {boolean} [opt=true] - True if the field can be optional
+ * @return {Array<ValidationChain>} The validation chain.
  */
-export function vDCode(field, min, max, opt = false) {
+export function vCode(field, min, max, isArray = false, opt = true) {
 
     // Save the validation of the field
-    const validation = body(`${field}.dCode.code`);
+    const validation = body(`${field}.${isArray ? "*." : ""}code`);
 
     // If the field is optional, append the optional validation
     if (opt) validation.optional();
 
     // Return the field validation
-    return [validation.not().isEmpty().isInt({ min: min, max: max, allow_leading_zeroes: false })]
+    return [validation.not().isEmpty().isInt({ min: min, max: max, allow_leading_zeroes: false })];
 
 }
-
-
-/**
- * Creates a validation chain for an array of dCode fields.
- *
- * @param {String} field - The name of the field.
- * @param {Number} min - The minimum accepted value.
- * @param {Number} max - The maximum accepted value.
- * @param {Boolean} [opt=false] - True if the fields can be optional
- * @return {ValidationChain[]} The validation chain.
- */
-export function vArrayDCode(field, min, max, opt = false) {
-
-    // Save the validation of the field
-    const validation = body(field);
-
-    // If the field is optional, append the optional validation
-    if (opt) validation.optional();
-
-    // Return the field validation
-    return [
-
-        validation.isArray(),
-
-        ...vDCode(`${field}.*`, min, max, opt)
-
-    ]
-
-}
-
