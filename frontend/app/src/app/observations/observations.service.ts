@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import * as cloneDeep from "lodash/cloneDeep";
+import { File, FileEntry } from "@ionic-native/file/ngx";
 
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
 import { Observation } from "./observation.model";
 import { LatLng } from "leaflet";
-import { isEmpty } from "rxjs/operators";
 
 
 /**
@@ -31,13 +31,13 @@ export class ObservationsService {
 
 
     /** @ignore */
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private file: File) { }
 
 
     async fetchObservations() {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/observations/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
 
         // Retrieve the data from the server and return them as a promise
         const res = await this.http.get<GenericApiResponse>(url).toPromise();
@@ -58,7 +58,7 @@ export class ObservationsService {
     async getWeatherData(coords: LatLng): Promise<{ sky: number, temperature: number, wind: number }> {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/misc/weather`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/misc/weather`;
 
         // Query parameters of the request
         const qParams = new HttpParams()
@@ -75,15 +75,42 @@ export class ObservationsService {
 
 
     /**
-     * Sends a new observation to the server-
+     * Sends a new observation to the server.
+     *
+     * @return {Promise<{id: string, coords: number[]}>} A promise containing the id and the coordinates of the newly
+     *     created observation.
      */
-    async postObservation() {
+    async postObservation(): Promise<{ id: string, coords: Array<number> }> {
 
         // Deep clone the observation
         const obs = cloneDeep(this.newObservation);
 
-        // ToDo handle photos
+        // Create a new FormData
+        const formData = new FormData();
+
+
+        // For each of the photos
+        for (let i = 0; i < obs.photos.length; i++) {
+
+            // If the photo is provided, append it to the formData
+            if (obs.photos[i]) await this.appendImage(formData, obs.photos[i], "photos");
+
+        }
+
+        // Delete the photos
         delete obs.photos;
+
+        // If a signage photo is provided
+        if (obs.details.signagePhoto) {
+
+            // Append it to the formData
+            await this.appendImage(formData, obs.details.signagePhoto, "signage");
+
+            // Set it to undefined
+            obs.details.signagePhoto = undefined;
+
+        }
+
 
         // Put the coordinates in an array
         obs.position.coordinates = [obs.position.coordinates.lng, obs.position.coordinates.lat];
@@ -106,24 +133,75 @@ export class ObservationsService {
 
         });
 
-        // Create a new FormData
-        const formData = new FormData();
-
         // Put all the observation data into the FormData
         Object.keys(obs).forEach(k => formData.append(k, JSON.stringify(obs[k])));
+
 
         // ToDo remove
         formData.forEach(d => console.log(d));
 
 
         // Url of the request
-        const url = `${ environment.apiUrl }/observations/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
 
         // Send the post request
         const res = await this.http.post<GenericApiResponse>(url, formData).toPromise();
 
         // Return the new observation
-        return res.data;
+        return { id: res.data._id, coords: res.data.position.coordinates };
+
+    }
+
+
+    /**
+     * Appends an image to a given formData.
+     *
+     * @param {FormData} formData - The formData.
+     * @param {string} url - The url of the photo.
+     * @param {string} field - The name of the field.
+     * @return {Promise<>} An empty promise.
+     */
+    appendImage(formData: FormData, url: string, field: string): Promise<void> {
+
+        // Return a promise
+        return new Promise((resolve, reject) => {
+
+            // Resolve the url of the image
+            this.file.resolveLocalFilesystemUrl(url)
+                .then((entry: FileEntry) => {
+
+                    // Resolve the file
+                    entry.file(file => {
+
+                        // Create a new reader
+                        const reader = new FileReader();
+
+                        // When the reader has finished loading the file
+                        reader.onloadend = () => {
+
+                            // Create a blob
+                            const imgBlob = new Blob([reader.result], { type: "image/jpeg" });
+
+                            // Append it to the formData
+                            formData.append(field, imgBlob, file.name);
+
+                            // Resolve the promise
+                            resolve()
+
+                        };
+
+                        // If there is an error, reject the promise
+                        reader.onerror = err => reject(err);
+
+                        // Read the file
+                        reader.readAsArrayBuffer(file);
+
+                    }, err => reject(err));
+
+                })
+                .catch(err => reject(err));
+
+        });
 
     }
 

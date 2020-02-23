@@ -12,7 +12,10 @@ export enum PicResult {
 export class CameraService {
 
 
-    private opts: CameraOptions = {
+    private _win: any = window;
+
+
+    private _opts: CameraOptions = {
         quality           : 50,
         destinationType   : this.camera.DestinationType.FILE_URI,
         encodingType      : this.camera.EncodingType.JPEG,
@@ -33,7 +36,7 @@ export class CameraService {
      */
     async takePicture() {
 
-        let [pic, err] = await this.camera.getPicture(this.opts).then(v => [v, undefined]).catch(e => [undefined, e]);
+        let [pic, err] = await this.camera.getPicture(this._opts).then(v => [v, undefined]).catch(e => [undefined, e]);
 
         if (err !== undefined) return err === "No Image Selected" ? PicResult.NO_IMAGE : PicResult.ERROR;
 
@@ -43,5 +46,24 @@ export class CameraService {
 
 
     async cleanUp() { await this.camera.cleanup() }
+
+
+    /**
+     * Resolves the file corresponded to an image url.
+     *
+     * @param {string} url - The image url.
+     * @return {string} The resolved file path.
+     */
+    getImgSrc(url: string): string {
+
+        // If no user is provided, return
+        if (!url) return;
+
+        console.log(typeof this._win.Ionic.WebView.convertFileSrc(url), this._win.Ionic.WebView.convertFileSrc(url));
+
+        // Resolve the file
+        return this._win.Ionic.WebView.convertFileSrc(url);
+
+    }
 
 }

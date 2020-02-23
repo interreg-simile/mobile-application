@@ -118,7 +118,7 @@ export class MapService {
     async pointInRoi(coords: LatLng): Promise<number> {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/rois/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/rois/`;
 
         // Query parameters of the request
         const qParams = new HttpParams()

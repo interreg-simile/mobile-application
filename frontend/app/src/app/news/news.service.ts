@@ -152,7 +152,7 @@ export class NewsService {
     async fetchAlerts() {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/alerts/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/alerts/`;
 
         // Query parameters of the request
         const qParams = new HttpParams()
@@ -209,7 +209,7 @@ export class NewsService {
     async fetchEvents() {
 
         // Url of the request
-        const url = `${ environment.apiUrl }/events/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/events/`;
 
         // Query parameters of the request
         const qParams = new HttpParams()

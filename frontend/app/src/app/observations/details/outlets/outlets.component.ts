@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
+import { CameraService, PicResult } from "../../../shared/camera.service";
+import { Duration, ToastService } from "../../../shared/toast.service";
+import { PhotoViewerComponent } from "../../../shared/photo-viewer/photo-viewer.component";
 
 
 interface Props {
@@ -44,7 +47,10 @@ export class OutletsComponent implements OnInit {
 
 
     /** @ignore */
-    constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
+    constructor(private modalCtr: ModalController,
+                private obsService: ObservationsService,
+                private cameraService: CameraService,
+                private toastService: ToastService) { }
 
 
     /** @ignore */
@@ -70,11 +76,91 @@ export class OutletsComponent implements OnInit {
 
 
     /**
+     * Handles a change in the selected colour.
+     *
+     * @param {Object} colour - The selected colour.
+     */
+    onColourClick(colour: any): void {
+
+        // Set the property to undefined
+        this._props.colour = undefined;
+
+        // For each of the possible colours
+        Object.keys(this._colours).forEach(c => {
+
+            // If the colours has not been selected or if it was already selected
+            if (c !== colour.key || (c === colour.key && this._colours[colour.key].selected)) {
+
+                // Deselect the colour
+                this._colours[c].selected = false;
+
+                // Return
+                return;
+
+            }
+
+            // Select the colour
+            this._colours[c].selected = true;
+
+            // Set the property value
+            this._props.colour = colour.key;
+
+        });
+
+    }
+
+
+    /**
+     * Fired when the user click on the signage photo button.
+     */
+    async onSignagePhotoClick(): Promise<void> {
+
+        if (this._props.signagePhoto) {
+
+            const src = this.cameraService.getImgSrc(this._props.signagePhoto);
+
+            // Open the image views model
+            const modal = await this.modalCtr.create({
+                component     : PhotoViewerComponent,
+                componentProps: { src: src, edit: true, delete: true }
+            });
+
+            // Show the modal
+            await modal.present();
+
+
+            // Get the data passed by the modal dismiss
+            const data = await modal.onDidDismiss();
+
+            console.log(data);
+
+            return;
+
+        }
+
+
+        // Take a picture
+        const pic = await this.cameraService.takePicture();
+
+        // If no image has been chosen, return
+        if (pic === PicResult.NO_IMAGE) return;
+
+        // If there is an error, alter the user
+        if (pic === PicResult.ERROR) await this.toastService.presentToast("common.errors.photo", Duration.short);
+
+        // Else, save the photo
+        else this._props.signagePhoto = pic;
+
+    }
+
+
+    /**
      * Closes the modal and handle the data saving process.
      *
-     * @param {Boolean} save - True if the modifications done in the modal are to be saved.
+     * @param {boolean} save - True if the modifications done in the modal are to be saved.
+     * @return {Promise<>} An empty promise.
      */
-    async closeModal(save: boolean) {
+    async closeModal(save: boolean): Promise<void> {
 
         // If the modifications are to be saved
         if (save) {
@@ -108,48 +194,6 @@ export class OutletsComponent implements OnInit {
 
         // Close the modal
         await this.modalCtr.dismiss();
-
-    }
-
-
-    /**
-     * Handles a change in the selected colour.
-     *
-     * @param {Object} colour - The selected colour.
-     */
-    onColourClick(colour) {
-
-        // Set the property to undefined
-        this._props.colour = undefined;
-
-        // For each of the possible colours
-        Object.keys(this._colours).forEach(c => {
-
-            // If the colours has not been selected or if it was already selected
-            if (c !== colour.key || (c === colour.key && this._colours[colour.key].selected)) {
-
-                // Deselect the colour
-                this._colours[c].selected = false;
-
-                // Return
-                return;
-
-            }
-
-            // Select the colour
-            this._colours[c].selected = true;
-
-            // Set the property value
-            this._props.colour = colour.key;
-
-        });
-
-    }
-
-
-    onSignagePhotoClick() {
-
-        console.log("Photo click")
 
     }
 

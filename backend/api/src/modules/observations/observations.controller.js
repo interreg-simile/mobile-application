@@ -55,7 +55,7 @@ export const create = (req, res, next) => {
     const data = {
         uid   : req.userId,
         ...req.body,
-        // photos: req.files.photos.map(p => p.path)
+        photos: req.files.photos.map(p => p.path)
     };
 
     // Create the new observation

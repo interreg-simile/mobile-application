@@ -17,6 +17,7 @@ import { CameraService, PicResult } from "../shared/camera.service";
 import { Router } from "@angular/router";
 import { Observation } from "../observations/observation.model";
 import { TranslateService } from "@ngx-translate/core";
+import { Duration, ToastService } from "../shared/toast.service";
 
 
 /** Storage key for the cached user position. */
@@ -112,6 +113,7 @@ export class MapPage implements OnInit, OnDestroy {
                 private newsService: NewsService,
                 private loadingCtr: LoadingController,
                 private alertCtr: AlertController,
+                private toastService: ToastService,
                 private file: File) { }
 
 
@@ -387,8 +389,14 @@ export class MapPage implements OnInit, OnDestroy {
         this.changeRef.detectChanges();
 
         // Remove the user marker and the accuracy circle
-        if (this._userMarker) this._map.removeLayer(this._userMarker);
-        if (this._accuracyCircle) this._map.removeLayer(this._accuracyCircle);
+        if (this._userMarker) {
+            this._map.removeLayer(this._userMarker);
+            this._userMarker = null;
+        }
+        if (this._accuracyCircle) {
+            this._map.removeLayer(this._accuracyCircle);
+            this._accuracyCircle = null;
+        }
 
         // Set the following flag to false
         this._isMapFollowing = false;
@@ -483,10 +491,6 @@ export class MapPage implements OnInit, OnDestroy {
      */
     async onAddClick(): Promise<void> {
 
-        // Present the loading dialog
-        await this.presentLoading();
-
-
         // Initialize the position data
         let pos, accuracy, custom;
 
@@ -506,10 +510,20 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Else if there is a user marker
         else {
+
+            if (!this.position.lat || !this.position.lon) {
+                await this.toastService.presentToast("page-map.msg-wait-position", Duration.short);
+                return;
+            }
+
             pos      = new LatLng(this.position.lat, this.position.lon); // Set the position from the current user position
             accuracy = this.position.accuracy;                           // Set the accuracy to the current accuracy
             custom   = false;                                            // Set the custom flag to false
         }
+
+
+        // Present the loading dialog
+        await this.presentLoading();
 
 
         // Check if the point is in a supported location
@@ -538,14 +552,18 @@ export class MapPage implements OnInit, OnDestroy {
 
         console.log(pic);
 
+        // If no image has been chosen, return
         if (pic === PicResult.NO_IMAGE) return;
 
-        // Save the photo
-        if (pic !== PicResult.ERROR && pic !== undefined) this.obsService.newObservation.photos[0] = pic;
+        // If there is an error, alter the user
+        if (pic === PicResult.ERROR) await this.toastService.presentToast("common.errors.photo", Duration.short);
+
+        // Else, save the photo
+        else this.obsService.newObservation.photos[0] = pic;
 
 
         // Open the new observation page
-        // await this.router.navigate(["/observations/new"])
+        await this.router.navigate(["/observations/new"]);
 
     }
 
@@ -590,7 +608,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Create the loading dialog
         this.loading = await this.loadingCtr.create({
-            message: this.i18n.instant("common.wait"),
+            message     : this.i18n.instant("common.wait"),
             showBackdrop: false
         });
 

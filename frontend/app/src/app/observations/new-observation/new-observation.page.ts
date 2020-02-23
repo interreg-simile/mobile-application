@@ -1,16 +1,15 @@
 import { Component, ComponentRef, OnInit } from '@angular/core';
 import { AlertController, LoadingController, ModalController, PickerController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { File } from '@ionic-native/file/ngx';
+import { Router } from "@angular/router";
 
 import { Observation } from "../observation.model";
 import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { LatLng } from "leaflet";
 import { Choices, ChoicesComponent } from "../choices/choices.component";
-import { Router } from "@angular/router";
+import { LatLng } from "leaflet";
 
 
 @Component({
@@ -38,7 +37,10 @@ export class NewObservationPage implements OnInit {
     };
 
     /** An array containing the sources for the images. */
-    private _imageSrc: String[] = [undefined, undefined, undefined];
+    private _imageSrc: Array<string> = [undefined, undefined, undefined];
+
+    /** Window object. */
+    private _win: any = window;
 
 
     // Utility function to keep the original key order when iterating on an object using ngFor
@@ -54,8 +56,7 @@ export class NewObservationPage implements OnInit {
                 private modalCtr: ModalController,
                 private i18n: TranslateService,
                 private cameraService: CameraService,
-                private toastService: ToastService,
-                private file: File) { }
+                private toastService: ToastService) { }
 
 
     /** @ignore */
@@ -64,28 +65,24 @@ export class NewObservationPage implements OnInit {
         // ToDo remove
         this.obsService.newObservation              = new Observation(new LatLng(45.95389, 8.95853), 2.0, false);
         this.obsService.newObservation.position.roi = undefined;
-        this.obsService.newObservation.photos[0]    = "https://media.istockphoto.com/photos/lake-water-pollution-picture-id1026572746";
+        // this.obsService.newObservation.photos[0]    = "https://media.istockphoto.com/photos/lake-water-pollution-picture-id1026572746";
 
         // Copy the new observation created in the ObservationService
         this._newObservation = this.obsService.newObservation;
 
         // Get a source from the initial photo
-        const imgPromise = this.getImgSrc(this._newObservation.photos[0], 0);
+        this._imageSrc[0] = this.cameraService.getImgSrc(this._newObservation.photos[0]);
 
-        // Retrieve the weather data
-        const weatherPromise = this.getWeatherData(false);
-
-        // Wait for the two promises to resolve (the catch blocks are there to interrupt the fail-fast behaviour)
-        Promise.all([
-            imgPromise.catch(() => {}),
-            weatherPromise.catch(() => {})
-        ]).finally(() => this._isLoading = false);
+            // Retrieve the weather data
+        this.getWeatherData(false)
+            .catch(() => this.toastService.presentToast("page-map.msg-weather-error", Duration.short))
+            .finally(() => this._isLoading = false);
 
     }
 
 
     // ToDo
-    onHelpClick() { console.log(this.obsService.newObservation) }
+    onHelpClick() {}
 
 
     /**
@@ -315,28 +312,8 @@ export class NewObservationPage implements OnInit {
         this._newObservation.photos[idx] = pic;
 
         // Compute the source for the thumbnail
-        await this.getImgSrc(this._newObservation.photos[idx], idx)
-
-    }
-
-    /**
-     * Resolves the file corresponded to an image url, computes an image source for the thumbnail and pushes it in the
-     * sources array.
-     *
-     * @param {string} url - The image url.
-     * @param {number} idx - The position in the source array.
-     */
-    async getImgSrc(url, idx): Promise<void> {
-
-        // If a valid url and index have not been passed, return
-        if (!url || !idx) return;
-
-        // Extract the file name and the path
-        const fileName = url.substring(url.lastIndexOf('/') + 1),
-              path     = url.substring(0, url.lastIndexOf('/') + 1);
-
-        // Get the source from the url
-        this._imageSrc[idx] = await this.file.readAsDataURL(path, fileName);
+        // await this.getImgSrc(this._newObservation.photos[idx], idx)
+        this._imageSrc[idx] = this.cameraService.getImgSrc(this._newObservation.photos[idx]);
 
     }
 
@@ -426,11 +403,11 @@ export class NewObservationPage implements OnInit {
 
         // ToDo add the observation to the map
 
-        // Navigate to the map page
-        await this.router.navigate(["map"]);
-
-        // Reset the new observation
-        this.obsService.resetNewObservation();
+        // // Navigate to the map page
+        // await this.router.navigate(["map"]);
+        //
+        // // Reset the new observation
+        // this.obsService.resetNewObservation();
 
     }
 

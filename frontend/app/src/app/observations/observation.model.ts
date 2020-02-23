@@ -139,7 +139,7 @@ export class Observation {
 
     details: Details;
 
-    photos: String[];
+    photos: Array<string>;
 
     measures: Measures;
 

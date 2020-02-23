@@ -99,7 +99,7 @@
       "cordova-plugin-geolocation": {},
       "call-number": {},
       "cordova.plugins.diagnostic": {
-        "ANDROID_SUPPORT_VERSION": "28.+"
+        "ANDROID_SUPPORT_VERSION": "23.+"
       },
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
