@@ -6,6 +6,8 @@
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
 
+import _ from "lodash";
+
 import { checkValidation } from "../../utils/common-checks";
 import * as observationService from "./observations.service";
 
@@ -23,7 +25,9 @@ export const getAll = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Retrieve the query parameters
-    const includeDeleted = req.query.includeDeleted || "false";
+    const includeDeleted   = req.query.includeDeleted || "false",
+          minimalRes       = req.query.minimalRes || "false",
+          excludeOutOfRois = req.query.excludeOutOfRois || "false";
 
     // Set the parameters for the mongo query
     const filter = {}, projection = {}, options = {};
@@ -31,9 +35,18 @@ export const getAll = (req, res, next) => {
     // Exclude the events marked for deletion
     if (includeDeleted === "false") filter.markedForDeletion = false;
 
+    if (excludeOutOfRois === "true") filter["position.roi"] = { $exists: true };
+
+    if (minimalRes === "true") {
+        projection._id                     = 1;
+        projection.uid                     = 1;
+        projection["position.coordinates"] = 1;
+        projection["position.roi"]         = 1;
+    }
+
     // Find the observations
     observationService.getAll(filter, projection, options, req.t)
-        .then(observations => res.status(200).json({ meta: { code: 200 }, data: { observations } }))
+        .then(observations => res.status(200).json({ meta: { code: 200 }, data: observations }))
         .catch(err => next(err));
 
 };
@@ -51,6 +64,9 @@ export const create = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
+    // Retrieve the query parameters
+    const minimalRes = req.query.minimalRes || "false";
+
     // Create the data
     const data = {
         uid   : req.userId,
@@ -58,9 +74,35 @@ export const create = (req, res, next) => {
         photos: req.files.photos.map(p => p.path)
     };
 
+    // If the signage photo has been provided, add it to the data
+    if (req.files.signage) _.set(data, ["details", "outlets", "signagePhoto"], req.files.signage[0].path);
+
     // Create the new observation
     observationService.create(data)
-        .then(observation => res.status(201).json({ meta: { code: 201 }, data: { observation } }))
+        .then(observation => {
+
+            // Initialize the response object
+            let resData;
+
+            // If the response has to be minimal, return only the id, uid and coordinates of the observation
+            if (minimalRes === "true")
+                resData = {
+                    _id     : observation._id,
+                    uid     : observation.uid,
+                    position: {
+                        coordinates: observation.position.coordinates,
+                        roi        : observation.position.roi
+                    }
+                };
+
+            // Else, return the whole observation
+            else
+                resData = observation;
+
+            // Send the response
+            res.status(201).json({ meta: { code: 201 }, data: resData });
+
+        })
         .catch(err => next(err));
 
 };

@@ -7,7 +7,7 @@
 import path from "path";
 import yaml from "yamljs";
 
-import { body, oneOf } from "express-validator";
+import { body, oneOf, query } from "express-validator";
 import { vQuery, vCoords, vCode } from "../../utils/common-validations";
 
 
@@ -17,9 +17,13 @@ const conf = yaml.load(path.resolve("./config/models.yaml")).observations;
 
 // Validation chain for the query parameters of the "get all" route
 export const getAllQuery = [
-    ...vQuery.includePast,
     ...vQuery.includeDeletedAdmin,
+    query("minimalRes").optional().isBoolean(),
+    query("excludeOutOfRois").optional().isBoolean()
 ];
+
+// Validation chain for the query parameters of the "post" route
+const postQuery = [query("minimalRes").optional().isBoolean()];
 
 
 const vPosition = [
@@ -39,7 +43,7 @@ const vPosition = [
 
 const vWeather = [
 
-    body("weather.temperature").isFloat(),
+    body("weather.temperature").optional().isFloat(),
 
     ...vCode("weather.sky", conf.weather.sky.min, conf.weather.sky.max, false, false),
 
@@ -118,7 +122,7 @@ const vFauna = [
 
     body("details.fauna.deceased.fish.checked").optional().isBoolean(),
     body("details.fauna.deceased.fish.details").optional().isAscii().escape().trim(),
-    
+
     body("details.fauna.deceased.birds.checked").optional().isBoolean(),
     body("details.fauna.deceased.birds.details").optional().isAscii().escape().trim(),
 
@@ -272,6 +276,7 @@ function vBacteria() {
 
 // Validation chain for the body of the "post" and "put" requests
 export const observation = [
+    ...postQuery,
     body("_id").isEmpty(),
     body("uid").isEmpty(),
     body("photos").isEmpty(),

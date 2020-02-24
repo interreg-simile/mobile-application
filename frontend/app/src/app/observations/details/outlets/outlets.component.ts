@@ -112,6 +112,8 @@ export class OutletsComponent implements OnInit {
 
     /**
      * Fired when the user click on the signage photo button.
+     *
+     * @return {Promise<>} An empty promise.
      */
     async onSignagePhotoClick(): Promise<void> {
 
@@ -128,16 +130,32 @@ export class OutletsComponent implements OnInit {
             // Show the modal
             await modal.present();
 
-
             // Get the data passed by the modal dismiss
-            const data = await modal.onDidDismiss();
+            const data = (await modal.onDidDismiss()).data;
 
-            console.log(data);
+            // If no action is selected, return
+            if (!data) return;
 
-            return;
+            // If "delete" is selected, set the photo to undefined and return
+            if (data.delete) {
+                this._props.signagePhoto = undefined;
+                return;
+            }
 
         }
 
+        // Take the picture
+        this.takePicture();
+
+    }
+
+
+    /**
+     * Takes a picture.
+     *
+     * @return {Promise<>} An empty promise.
+     */
+    async takePicture(): Promise<void> {
 
         // Take a picture
         const pic = await this.cameraService.takePicture();

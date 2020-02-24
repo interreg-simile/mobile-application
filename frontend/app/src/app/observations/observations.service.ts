@@ -10,6 +10,13 @@ import { Observation } from "./observation.model";
 import { LatLng } from "leaflet";
 
 
+export interface MinimalObservation {
+    _id: string,
+    uid: string,
+    position: { coordinates: Array<number>, roi?: string }
+}
+
+
 /**
  * Service to handle the observations.
  *
@@ -19,7 +26,7 @@ import { LatLng } from "leaflet";
 export class ObservationsService {
 
 
-    /** @ignore */ private _obs = new BehaviorSubject<any[]>([]);
+    /** @ignore */ private _obs = new BehaviorSubject<Array<MinimalObservation>>([]);
 
 
     /** The current observation that is being created. */
@@ -34,17 +41,26 @@ export class ObservationsService {
     constructor(private http: HttpClient, private file: File) { }
 
 
-    async fetchObservations() {
+    /**
+     * Retrieves all the observations from the server,
+     *
+     * @return {Promise<>} An empty promise.
+     */
+    async fetchObservations(): Promise<void> {
 
         // Url of the request
         const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
 
+        // Query parameters of the request
+        const qParams = new HttpParams()
+            .set("minimalRes", "true")
+            .set("excludeOutOfRois", "true");
+
         // Retrieve the data from the server and return them as a promise
-        const res = await this.http.get<GenericApiResponse>(url).toPromise();
+        const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
 
-        const data = res.data.observations;
-
-        this._obs.next(data);
+        // Emit the data
+        this._obs.next(res.data);
 
     }
 
@@ -77,10 +93,9 @@ export class ObservationsService {
     /**
      * Sends a new observation to the server.
      *
-     * @return {Promise<{id: string, coords: number[]}>} A promise containing the id and the coordinates of the newly
-     *     created observation.
+     * @return {Promise<>} An empty promise.
      */
-    async postObservation(): Promise<{ id: string, coords: Array<number> }> {
+    async postObservation(): Promise<void> {
 
         // Deep clone the observation
         const obs = cloneDeep(this.newObservation);
@@ -101,13 +116,13 @@ export class ObservationsService {
         delete obs.photos;
 
         // If a signage photo is provided
-        if (obs.details.signagePhoto) {
+        if (obs.details.outlets.signagePhoto) {
 
             // Append it to the formData
-            await this.appendImage(formData, obs.details.signagePhoto, "signage");
+            await this.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
 
             // Set it to undefined
-            obs.details.signagePhoto = undefined;
+            obs.details.outlets.signagePhoto = undefined;
 
         }
 
@@ -137,18 +152,20 @@ export class ObservationsService {
         Object.keys(obs).forEach(k => formData.append(k, JSON.stringify(obs[k])));
 
 
-        // ToDo remove
-        formData.forEach(d => console.log(d));
-
-
         // Url of the request
         const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
 
-        // Send the post request
-        const res = await this.http.post<GenericApiResponse>(url, formData).toPromise();
+        // Query parameters of the request
+        const qParams = new HttpParams().set("minimalRes", "true");
 
-        // Return the new observation
-        return { id: res.data._id, coords: res.data.position.coordinates };
+        // Send the post request
+        const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
+
+        // Save the new observation
+        const data = <MinimalObservation> res.data;
+
+        // Emit the new observation
+        this._obs.next([...this._obs.value, data]);
 
     }
 
@@ -207,7 +224,7 @@ export class ObservationsService {
 
 
     /** Sets the new observation to null. */
-    resetNewObservation() { this.newObservation = null }
+    resetNewObservation(): void { this.newObservation = null }
 
 
 }

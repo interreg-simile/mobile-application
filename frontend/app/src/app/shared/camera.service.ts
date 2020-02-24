@@ -59,8 +59,6 @@ export class CameraService {
         // If no user is provided, return
         if (!url) return;
 
-        console.log(typeof this._win.Ionic.WebView.convertFileSrc(url), this._win.Ionic.WebView.convertFileSrc(url));
-
         // Resolve the file
         return this._win.Ionic.WebView.convertFileSrc(url);
 

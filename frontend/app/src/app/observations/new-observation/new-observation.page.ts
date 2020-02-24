@@ -9,7 +9,6 @@ import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.com
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { Choices, ChoicesComponent } from "../choices/choices.component";
-import { LatLng } from "leaflet";
 
 
 @Component({
@@ -63,8 +62,8 @@ export class NewObservationPage implements OnInit {
     ngOnInit(): void {
 
         // ToDo remove
-        this.obsService.newObservation              = new Observation(new LatLng(45.95389, 8.95853), 2.0, false);
-        this.obsService.newObservation.position.roi = undefined;
+        // this.obsService.newObservation              = new Observation(new LatLng(45.95389, 8.95853), 2.0, false);
+        // this.obsService.newObservation.position.roi = undefined;
         // this.obsService.newObservation.photos[0]    = "https://media.istockphoto.com/photos/lake-water-pollution-picture-id1026572746";
 
         // Copy the new observation created in the ObservationService
@@ -321,6 +320,12 @@ export class NewObservationPage implements OnInit {
     /** Called when the user clicks on the "continue" button. */
     async onContinueClick(): Promise<void> {
 
+        // If no photo has been provided, alert the user and return
+        if (this._newObservation.photos.every(p => p === undefined)) {
+            await this.toastService.presentToast("page-new-obs.msg-no-photo", Duration.short);
+            return;
+        }
+
         // Create the choices modal
         const modal = await this.modalCtr.create({
             component      : ChoicesComponent,
@@ -372,16 +377,19 @@ export class NewObservationPage implements OnInit {
         // Present the dialog
         await loading.present();
 
+        // Initialize the observation error
+        let obsErr = undefined;
+
         // Post the observation
-        const [res, err] = await this.obsService.postObservation()
-            .then(res => [res, undefined])
-            .catch(err => [undefined, err]);
+        await this.obsService.postObservation().catch(err => obsErr = err);
 
         // Dismiss the loading dialog
         await loading.dismiss();
 
         // If there was an error
-        if (err) {
+        if (obsErr) {
+
+            console.log(obsErr);
 
             // ToDo give user the possibility to save offline
             // Create an error alert
@@ -399,15 +407,11 @@ export class NewObservationPage implements OnInit {
 
         }
 
-        console.log(res);
+        // Navigate to the map page
+        await this.router.navigate(["map"]);
 
-        // ToDo add the observation to the map
-
-        // // Navigate to the map page
-        // await this.router.navigate(["map"]);
-        //
-        // // Reset the new observation
-        // this.obsService.resetNewObservation();
+        // Reset the new observation
+        this.obsService.resetNewObservation();
 
     }
 

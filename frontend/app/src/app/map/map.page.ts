@@ -5,10 +5,15 @@ import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
 import { Diagnostic } from "@ionic-native/diagnostic/ngx";
-import { File } from '@ionic-native/file/ngx';
 
 import { MapService } from "./map.service";
-import { defaultMarkerIcon } from "../shared/utils";
+import {
+    customMarkerIcon,
+    defaultMarkerIcon,
+    observationMarkerIcon,
+    userMarkerIcon,
+    userObservationMarkerIcon
+} from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { Event } from "../news/events/event.model";
@@ -18,6 +23,7 @@ import { Router } from "@angular/router";
 import { Observation } from "../observations/observation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../shared/toast.service";
+import { AuthService } from "../auth/auth.service";
 
 
 /** Storage key for the cached user position. */
@@ -31,7 +37,7 @@ const INITIAL_LATLNG = latLng(45.95388572325957, 8.958533937111497);
 const INITIAL_ZOOM = 9;
 
 /** Default zoom level of the map. */
-const DEFAULT_ZOOM = 18;
+const DEFAULT_ZOOM = 16;
 
 /** Minimum level of zoom below which the map is reset to the default level when the GPS button is clicked. */
 const MIN_ZOOM = 14;
@@ -95,11 +101,6 @@ export class MapPage implements OnInit, OnDestroy {
     public position = { lat: undefined, lon: undefined, accuracy: undefined };
 
 
-    public events: Event[];
-
-    public obs: any[];
-
-
     /** @ignore */
     constructor(private router: Router,
                 private i18n: TranslateService,
@@ -114,7 +115,7 @@ export class MapPage implements OnInit, OnDestroy {
                 private loadingCtr: LoadingController,
                 private alertCtr: AlertController,
                 private toastService: ToastService,
-                private file: File) { }
+                private authService: AuthService) { }
 
 
     /** @ignore */
@@ -146,42 +147,48 @@ export class MapPage implements OnInit, OnDestroy {
         });
 
 
+        // Initialize the marker clusters
         this._eventMarkers = new MarkerClusterGroup();
         this._obsMarkers   = new MarkerClusterGroup();
 
+        // ToDo
         this._eventsSub = this.newsService.events.subscribe(events => {
 
             // console.log(events);
 
-            this.events = events;
-
-            this._eventMarkers.clearLayers();
-
-            this.events.forEach(e => {
-
-                new Marker(
-                    new LatLng(e.position.coordinates[0], e.position.coordinates[1]),
-                    { icon: defaultMarkerIcon() }
-                ).addTo(this._eventMarkers);
-
-            })
+            // this._eventMarkers.clearLayers();
+            //
+            // events.forEach(e => {
+            //
+            //     new Marker(
+            //         new LatLng(e.position.coordinates[0], e.position.coordinates[1]),
+            //         { icon: defaultMarkerIcon() }
+            //     ).addTo(this._eventMarkers);
+            //
+            // })
 
         });
 
+        // Subscribe to the new observations
         this._obsSub = this.obsService.observations.subscribe(obs => {
 
-            // console.log(obs);
-
-            this.obs = obs;
-
+            // Remove the previous markers
             this._obsMarkers.clearLayers();
 
-            this.obs.forEach(o => {
+            // For each observation
+            obs.forEach(o => {
 
-                new Marker(
-                    new LatLng(o.position.coordinates[0], o.position.coordinates[1]),
-                    { icon: defaultMarkerIcon() }
-                ).addTo(this._obsMarkers);
+                // Create a new marker
+                const marker = new Marker(
+                    new LatLng(o.position.coordinates[1], o.position.coordinates[0]),
+                    {
+                        icon        : this.authService.userId === o.uid ? userObservationMarkerIcon() : observationMarkerIcon(),
+                        zIndexOffset: 2
+                    }
+                );
+
+                // Add the marker to the cluser
+                marker.addTo(this._obsMarkers);
 
             })
 
@@ -232,7 +239,7 @@ export class MapPage implements OnInit, OnDestroy {
 
             // If no custom marker is present, create it
             if (!this._customMarker)
-                this._customMarker = new Marker(ev.latlng, { icon: defaultMarkerIcon() }).addTo(this._map);
+                this._customMarker = new Marker(ev.latlng, { icon: customMarkerIcon() }).addTo(this._map);
 
             // Else, update its position
             else this._customMarker.setLatLng(ev.latlng);
@@ -264,7 +271,7 @@ export class MapPage implements OnInit, OnDestroy {
         // Start the position watcher
         this.startWatcher()
             .catch(err => console.error(err))
-        // .finally(() => this.populateMap());
+            .finally(() => this.populateMap());
 
 
     }
@@ -279,11 +286,11 @@ export class MapPage implements OnInit, OnDestroy {
     createUserMarker(latLng: LatLng): void {
 
         // Create the user marker and add it to the map
-        this._userMarker = new Marker(latLng, { icon: defaultMarkerIcon() })
+        this._userMarker = new Marker(latLng, { icon: userMarkerIcon(), zIndexOffset: 3 })
             .addTo(this._map);
 
         // Create teh accuracy circle and add it to the map
-        this._accuracyCircle = new CircleMarker(latLng, { radius: 0, color: "green", opacity: .5 })
+        this._accuracyCircle = new CircleMarker(latLng, { radius: 0, color: "blu", opacity: .5 })
             .addTo(this._map);
 
     }
@@ -419,17 +426,32 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    // ToDo
+    /**
+     * Fetches the events and the observations to visualize on the map.
+     *
+     * @return {Promise<>} An empty promise.
+     */
     async populateMap(): Promise<void> {
 
-        this.presentLoading();
+        // Present the loading alert
+        await this.presentLoading();
 
+        // Fetche all the events
         const pEvents = this.newsService.fetchEvents();
+
+        // Fetch all the observations
         const pObs    = this.obsService.fetchObservations();
 
+        // Wait for the two calls to finish
         Promise.all([pEvents, pObs])
-            .then(() => console.log("Done!"))
-            .catch(err => console.error(err))
+            .catch(err => {
+
+                console.error(err);
+
+                // Alert the user
+                this.toastService.presentToast("page-map.fetch-error", Duration.short);
+
+            })
             .finally(() => this.dismissLoading());
 
     }
@@ -499,6 +521,10 @@ export class MapPage implements OnInit, OnDestroy {
             pos      = this._customMarker.getLatLng(); // Set the position from the custom marker location
             accuracy = 0;                              // Set the accuracy to 0
             custom   = true;                           // Set the custom flag to true
+
+            // Remove the custom marker
+            this._map.removeLayer(this._customMarker);
+            this._customMarker = null;
         }
 
         // Else if there is no user marker
@@ -520,6 +546,7 @@ export class MapPage implements OnInit, OnDestroy {
             accuracy = this.position.accuracy;                           // Set the accuracy to the current accuracy
             custom   = false;                                            // Set the custom flag to false
         }
+
 
 
         // Present the loading dialog
@@ -549,8 +576,6 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Take a picture
         const pic = await this.cameraService.takePicture();
-
-        console.log(pic);
 
         // If no image has been chosen, return
         if (pic === PicResult.NO_IMAGE) return;

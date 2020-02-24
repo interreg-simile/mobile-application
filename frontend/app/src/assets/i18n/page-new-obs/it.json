@@ -185,5 +185,7 @@
     "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
   },
   "err-title": "Oops!",
-  "err-msg": "Qualcosa è andato storto, ci scusiamo per il disagio."
+  "err-msg": "Qualcosa è andato storto, ci scusiamo per il disagio.",
+  "msg-no-photo": "È richiesta almeno una foto.",
+  "msg-weather-error": "Errore durante la richiesta dei dati meteo."
 }

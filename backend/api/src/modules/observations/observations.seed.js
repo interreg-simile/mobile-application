@@ -25,8 +25,9 @@ export default async function () {
     // Create the dummy data
     const observations = [
         {
+            uid: "5dd7bbe0701d5bdd685c1f19", // User 2
             position: {
-                coordinates: [45.824735, 9.079017],
+                coordinates: [9.079017, 45.824735],
                 accuracy   : 20.86549,
                 custom     : false,
                 address    : "Piazzetta Felice Baratelli 22100 Como CO"
@@ -44,17 +45,11 @@ export default async function () {
         }
     ];
 
-    // Retrieve the id of a user
-    const userId = await User.findOne({ email: "user1@example.com" }, "_id");
-
     // Retrieve the id of an arbitrary region of interest
     const roiId = await Roi.findOne({}, "_id");
 
     // For each dummy data
     for (const obs of observations) {
-
-        // Save the user id as uid
-        obs.uid = userId;
 
         // Save the roi id as roi
         obs.position.roi = roiId;
