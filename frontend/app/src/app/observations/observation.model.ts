@@ -166,9 +166,9 @@ export class Observation {
         };
 
         const algae: Algae = {
-            checked   : true,
+            checked   : false,
             component : AlgaeComponent,
-            extension : { code: 1 },
+            extension : { code: undefined },
             look      : { code: undefined },
             colour    : { code: undefined },
             iridescent: undefined

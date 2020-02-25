@@ -42,7 +42,7 @@ const schema = new Schema({
     descriptionIta   : { type: String, required: true },
     descriptionEng   : { type: String, required: false },
     position         : { type: point, required: true },
-    address          : { type: address, required: true },
+    address          : { type: String, required: true },
     rois             : { type: { _id: false, codes: [Number] }, required: true },
     date             : { type: Date, required: true },
     cover            : { type: String, required: true },

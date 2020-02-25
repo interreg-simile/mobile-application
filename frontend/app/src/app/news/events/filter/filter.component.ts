@@ -12,7 +12,7 @@ export class FilterComponent implements OnInit {
 
 
     /** @ignore */
-    constructor(private newsService: NewsService) { }
+    constructor(public newsService: NewsService) { }
 
     /** @ignore */
     ngOnInit() { }

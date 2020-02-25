@@ -27,11 +27,11 @@ export class OutletsComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Props = {};
+    public _props: Props = {};
 
 
     /** Selectable colours. */
-    private _colours = {
+    public _colours = {
         1: { selected: false, colour: "#D64818" },
         2: { selected: false, colour: "#1060B0" },
         3: { selected: false, colour: "#1F7F16" },
@@ -43,7 +43,7 @@ export class OutletsComponent implements OnInit {
 
 
     // Utility function to keep the original key order when iterating on an object using ngFor
-    private _originalOrder = (a, b) => { return 0 };
+    _originalOrder = (a, b) => { return 0 };
 
 
     /** @ignore */
@@ -205,10 +205,6 @@ export class OutletsComponent implements OnInit {
                 this._props.prodActNearby ? this._props.prodActNearbyDetails.trim() : undefined;
 
         }
-
-        // ToDo remove
-        console.log(this._props);
-        console.log(this.obsService.newObservation);
 
         // Close the modal
         await this.modalCtr.dismiss();

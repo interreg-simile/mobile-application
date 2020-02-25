@@ -29,13 +29,13 @@ export class FaunaComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Props = {};
+    public _props: Props = {};
 
 
-    private _objKeys = Object.keys;
+    public _objKeys = Object.keys;
 
     // Utility function to keep the original key order when iterating on an object using ngFor
-    private _originalOrder = (a, b) => { return 0 };
+    public _originalOrder = (a, b) => { return 0 };
 
 
     /** @ignore */
@@ -93,10 +93,6 @@ export class FaunaComponent implements OnInit {
             });
 
         }
-
-        // ToDo remove
-        console.log(this._props);
-        console.log(this.obsService.newObservation);
 
         // Close the modal
         await this.modalCtr.dismiss();

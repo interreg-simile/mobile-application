@@ -15,7 +15,7 @@ export class OilsComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Props = {};
+    public _props: Props = {};
 
 
     /** @ignore */
@@ -53,10 +53,6 @@ export class OilsComponent implements OnInit {
             this.obsService.newObservation.details.oils.type.code      = this._props.type;
 
         }
-
-        // ToDo remove
-        console.log(this._props);
-        console.log(this.obsService.newObservation);
 
         // Close the modal
         await this.modalCtr.dismiss();

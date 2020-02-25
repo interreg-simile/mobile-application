@@ -15,7 +15,7 @@ export class FoamsComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Props = {};
+    public _props: Props = {};
 
 
     /** @ignore */
@@ -52,10 +52,6 @@ export class FoamsComponent implements OnInit {
             this.obsService.newObservation.details.foams.height.code    = this._props.height;
 
         }
-
-        // ToDo remove
-        console.log(this._props);
-        console.log(this.obsService.newObservation);
 
         // Close the modal
         await this.modalCtr.dismiss();

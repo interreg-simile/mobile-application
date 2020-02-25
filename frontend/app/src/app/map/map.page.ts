@@ -81,14 +81,14 @@ export class MapPage implements OnInit, OnDestroy {
     private _isFirstPosition = true;
 
     /** Flag that states if the map center is following the user position. */
-    private _isMapFollowing = false;
+    public _isMapFollowing = false;
 
 
     /** Local instantiation of the LocationErrors enum. */
-    private _locationErrors = LocationErrors;
+    public _locationErrors = LocationErrors;
 
     /** Current status of the location. */
-    private _locationStatus = LocationErrors.NO_ERROR;
+    public _locationStatus = LocationErrors.NO_ERROR;
 
 
     private _eventMarkers: MarkerClusterGroup;
@@ -523,10 +523,6 @@ export class MapPage implements OnInit, OnDestroy {
             pos      = this._customMarker.getLatLng(); // Set the position from the custom marker location
             accuracy = 0;                              // Set the accuracy to 0
             custom   = true;                           // Set the custom flag to true
-
-            // Remove the custom marker
-            this._map.removeLayer(this._customMarker);
-            this._customMarker = null;
         }
 
         // Else if there is no user marker
@@ -590,6 +586,13 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Open the new observation page
         await this.router.navigate(["/observations/new"]);
+
+
+        // Remove the custom marker if present
+        if (this._customMarker) {
+            this._map.removeLayer(this._customMarker);
+            this._customMarker = null;
+        }
 
     }
 

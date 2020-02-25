@@ -8,6 +8,7 @@
   },
   "scripts": {
     "seed": "babel-node src/setup/seeder.js",
+    "seed:prod": "babel-node build/setup/seeder.js",
     "start": "nodemon src/app.js --exec babel-node",
     "start:prod": "npm run build:prod && npm run start:server",
     "build:prod": "babel src -s -D -d build",

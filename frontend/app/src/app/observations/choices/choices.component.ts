@@ -19,7 +19,7 @@ export enum Choices {
 export class ChoicesComponent implements OnInit {
 
 
-    private _choices = Choices;
+    public _choices = Choices;
 
 
     /** @ignore */

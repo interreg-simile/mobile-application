@@ -14,7 +14,7 @@ export class OdoursComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Props = {};
+    public _props: Props = {};
 
 
     /** @ignore */
@@ -70,10 +70,6 @@ export class OdoursComponent implements OnInit {
             this._props.origin.forEach(t => this.obsService.newObservation.details.odours.origin.push({code: t}));
 
         }
-
-        // ToDo remove
-        console.log(this._props);
-        console.log(this.obsService.newObservation);
 
         // Close the modal
         await this.modalCtr.dismiss();

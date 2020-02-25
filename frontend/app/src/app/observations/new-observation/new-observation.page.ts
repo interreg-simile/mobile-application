@@ -20,13 +20,13 @@ export class NewObservationPage implements OnInit {
 
 
     /** Flag that states if the page is loading somethign. */
-    private _isLoading = true;
+    public _isLoading = true;
 
     /** A copy of the new observation created in the ObservationService. */
-    private _newObservation: Observation;
+    public _newObservation;
 
     /** A collection of the possible sky icons. */
-    private skyIcons = {
+    public skyIcons = {
         1: "wi-day-sunny",
         2: "wi-day-cloudy",
         3: "wi-cloudy",
@@ -36,10 +36,7 @@ export class NewObservationPage implements OnInit {
     };
 
     /** An array containing the sources for the images. */
-    private _imageSrc: Array<string> = [undefined, undefined, undefined];
-
-    /** Window object. */
-    private _win: any = window;
+    public _imageSrc: Array<string> = [undefined, undefined, undefined];
 
 
     // Utility function to keep the original key order when iterating on an object using ngFor
@@ -60,11 +57,6 @@ export class NewObservationPage implements OnInit {
 
     /** @ignore */
     ngOnInit(): void {
-
-        // ToDo remove
-        // this.obsService.newObservation              = new Observation(new LatLng(45.95389, 8.95853), 2.0, false);
-        // this.obsService.newObservation.position.roi = undefined;
-        // this.obsService.newObservation.photos[0]    = "https://media.istockphoto.com/photos/lake-water-pollution-picture-id1026572746";
 
         // Copy the new observation created in the ObservationService
         this._newObservation = this.obsService.newObservation;

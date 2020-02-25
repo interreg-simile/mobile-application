@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Litters } from "../../observation.model";
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
 
@@ -19,7 +18,7 @@ export class LittersComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Props = {};
+    public _props: Props = {};
 
 
     /** @ignore */
@@ -75,10 +74,6 @@ export class LittersComponent implements OnInit {
             this._props.type.forEach(t => this.obsService.newObservation.details.litters.type.push({code: t}));
 
         }
-
-        // ToDo remove
-        console.log(this._props);
-        console.log(this.obsService.newObservation);
 
         // Close the modal
         await this.modalCtr.dismiss();

@@ -16,10 +16,10 @@ export class AlgaeComponent implements OnInit {
 
 
     /** Settable properties. */
-    private _props: Props = {};
+    public _props: Props = {};
 
     /** Selectable colours. */
-    private _colours = {
+    public _colours = {
         1: { selected: false, colour: "#D64818" },
         2: { selected: false, colour: "#1060B0" },
         3: { selected: false, colour: "#1F7F16" },
@@ -74,10 +74,6 @@ export class AlgaeComponent implements OnInit {
             this.obsService.newObservation.details.algae.look.code      = this._props.look;
 
         }
-
-        // ToDo remove
-        console.log(this._props);
-        console.log(this.obsService.newObservation);
 
         // Close the modal
         await this.modalCtr.dismiss();
