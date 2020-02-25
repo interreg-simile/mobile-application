@@ -13,6 +13,10 @@ const routes: Routes = [
                 path        : "new",
                 loadChildren: "./observations/new-observation/new-observation.module#NewObservationPageModule"
             },
+            {
+                path        : ":id",
+                loadChildren: "./observations/info/info.module#InfoPageModule"
+            }
         ]
     },
     {
@@ -30,8 +34,7 @@ const routes: Routes = [
     },
     { path: "quiz", loadChildren: "./quiz/quiz.module#QuizPageModule" },
     { path: "project", loadChildren: "./project/project.module#ProjectPageModule" },
-    { path: "settings", loadChildren: "./settings/settings.module#SettingsPageModule" },
-
+    { path: "settings", loadChildren: "./settings/settings.module#SettingsPageModule" }
 ];
 
 

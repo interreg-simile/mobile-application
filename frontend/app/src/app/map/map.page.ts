@@ -9,7 +9,6 @@ import { Diagnostic } from "@ionic-native/diagnostic/ngx";
 import { MapService } from "./map.service";
 import {
     customMarkerIcon,
-    defaultMarkerIcon,
     observationMarkerIcon,
     userMarkerIcon,
     userObservationMarkerIcon
@@ -187,7 +186,10 @@ export class MapPage implements OnInit, OnDestroy {
                     }
                 );
 
-                // Add the marker to the cluser
+                // When the user clicks the marker, navigate to the info page
+                marker.on("click", () => this.router.navigate(["/observations", o._id]));
+
+                // Add the marker to the cluster
                 marker.addTo(this._obsMarkers);
 
             })
@@ -440,7 +442,7 @@ export class MapPage implements OnInit, OnDestroy {
         const pEvents = this.newsService.fetchEvents();
 
         // Fetch all the observations
-        const pObs    = this.obsService.fetchObservations();
+        const pObs = this.obsService.fetchObservations();
 
         // Wait for the two calls to finish
         Promise.all([pEvents, pObs])
@@ -546,7 +548,6 @@ export class MapPage implements OnInit, OnDestroy {
             accuracy = this.position.accuracy;                           // Set the accuracy to the current accuracy
             custom   = false;                                            // Set the custom flag to false
         }
-
 
 
         // Present the loading dialog
