@@ -8,7 +8,7 @@ import { Diagnostic } from "@ionic-native/diagnostic/ngx";
 
 import { MapService } from "./map.service";
 import {
-    customMarkerIcon,
+    customMarkerIcon, eventMarkerIcon,
     observationMarkerIcon,
     userMarkerIcon,
     userObservationMarkerIcon
@@ -150,21 +150,25 @@ export class MapPage implements OnInit, OnDestroy {
         this._eventMarkers = new MarkerClusterGroup();
         this._obsMarkers   = new MarkerClusterGroup();
 
-        // ToDo
+        // Subscribe to new events
         this._eventsSub = this.newsService.events.subscribe(events => {
 
-            // console.log(events);
+            // Remove the previous markers
+            this._eventMarkers.clearLayers();
 
-            // this._eventMarkers.clearLayers();
-            //
-            // events.forEach(e => {
-            //
-            //     new Marker(
-            //         new LatLng(e.position.coordinates[0], e.position.coordinates[1]),
-            //         { icon: defaultMarkerIcon() }
-            //     ).addTo(this._eventMarkers);
-            //
-            // })
+            // Create a new marker
+            events.forEach(e => {
+
+                const marker = new Marker(e.coordinates, { icon: eventMarkerIcon(), zIndexOffset: 1 });
+
+                // ToDo
+                // When the user clicks the marker, navigate to the event page
+                marker.on("click", () => this.router.navigate(["news/events/", e.id]));
+
+                // Add the marker to the cluster
+                marker.addTo(this._eventMarkers);
+
+            })
 
         });
 
@@ -438,7 +442,7 @@ export class MapPage implements OnInit, OnDestroy {
         // Present the loading alert
         await this.presentLoading();
 
-        // Fetche all the events
+        // Fetch all the events
         const pEvents = this.newsService.fetchEvents();
 
         // Fetch all the observations
@@ -665,14 +669,14 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */
     ngOnDestroy(): void {
 
-        console.log("View destroyed");
-
         // Stop the position watcher
         this.stopWatcher();
 
         // Unsubscribe
+        if (this._positionSub) this._positionSub.unsubscribe();
         if (this._pauseSub) this._pauseSub.unsubscribe();
-        // if (this._eventsSub) this._eventsSub.unsubscribe();
+        if (this._eventsSub) this._eventsSub.unsubscribe();
+        if (this._obsSub) this._obsSub.unsubscribe();
 
         // Remove the map
         this._map.remove();

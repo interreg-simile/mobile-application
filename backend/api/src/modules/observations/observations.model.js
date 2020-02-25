@@ -35,85 +35,6 @@ const weather = new Schema({
 });
 
 
-/** Schema of the details about algae. */
-const algae = new Schema({
-    _id      : false,
-    extension: genDCode("observations:details.algae.extension"),
-    look     : genDCode("observations:details.algae.look"),
-    colour   : { ...genDCode("observations:details.algae.colour"), iridescent: Boolean }
-});
-
-/** Schema of the details about foams. */
-const foams = new Schema({
-    _id      : false,
-    extension: genDCode("observations:details.foams.extension"),
-    look     : genDCode("observations:details.foams.look"),
-    height   : genDCode("observations:details.foams.height")
-});
-
-/** Schema of the details about oils. */
-const oils = new Schema({
-    _id      : false,
-    extension: genDCode("observations:details.oils.extension"),
-    type     : genDCode("observations:details.oils.type")
-});
-
-/** Schema of the details about litter. */
-const litters = new Schema({
-    _id     : false,
-    quantity: genDCode("observations:details.litters.quantity"),
-    type    : [{ _id: false, ...genDCode("observations:details.litters.type") }]
-});
-
-/** Schema of the details about odours. */
-const odours = new Schema({
-    _id      : false,
-    intensity: genDCode("observations:details.odours.intensity"),
-    origin   : [{ _id: false, ...genDCode("observations:details.odours.origin") }]
-});
-
-/** Schema of the details about outlets. */
-const outlets = new Schema({
-    _id                 : false,
-    inPlace             : Boolean,
-    terminal            : genDCode("observations:details.outlets.terminal"),
-    colour              : genDCode("observations:details.outlets.colour"),
-    vapour              : Boolean,
-    signage             : Boolean,
-    signagePhoto        : String,
-    prodActNearby       : Boolean,
-    prodActNearbyDetails: String
-});
-
-/** Schema of the details about the fauna. */
-const fauna = new Schema({
-    _id         : false,
-    deceased    : { fish: Boolean, birds: Boolean, other: String },
-    abnormal    : { fish: Boolean, birds: Boolean, other: String, description: String },
-    alienSpecies: {
-        crustaceans: { present: Boolean, details: String },
-        molluscs   : { present: Boolean, details: String },
-        turtles    : { present: Boolean, details: String },
-        fish       : { present: Boolean, details: String },
-        birds      : { present: Boolean, details: String },
-        other      : String
-    }
-});
-
-/** Schema of the observation details. */
-const details = new Schema({
-    _id    : false,
-    algae  : Schema.Types.Mixed,
-    foams  : Schema.Types.Mixed,
-    oils   : Schema.Types.Mixed,
-    litters: Schema.Types.Mixed,
-    odours : Schema.Types.Mixed,
-    outlets: Schema.Types.Mixed,
-    fauna  : Schema.Types.Mixed,
-    other  : Schema.Types.Mixed
-});
-
-
 /** Schema of an instrument. */
 const instrument = new Schema({
     _id         : false,
@@ -174,7 +95,7 @@ const measures = new Schema({
 
 /** Schema of an observation. */
 const schema = new Schema({
-    uid              : { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
+    uid              : { type: Schema.Types.ObjectId, ref: User, required: true },
     position         : { type: position, required: true },
     weather          : { type: weather, required: true },
     details          : { type: Schema.Types.Mixed, required: false },

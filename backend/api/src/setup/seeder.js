@@ -32,9 +32,9 @@ async function seeder() {
         // await apiKeys();
         // await users();
         // await rois();
-        // await events();
+        await events();
         // await alerts();
-        await observations();
+        // await observations();
 
         // Close the connection
         await mongoose.connection.close();

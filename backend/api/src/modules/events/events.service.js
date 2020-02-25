@@ -16,19 +16,12 @@ import { removeFile } from "../../utils/utils";
  * @param {Object} filter - The filter to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Event[]>} A promise containing the result of the query.
  */
-export async function getAll(filter, projection, options, t) {
+export async function getAll(filter, projection, options) {
 
     // Retrieve the events
-    const events = await Event.find(filter, projection, { lean: true, ...options });
-
-    // Populate the description fields of the events
-    for (let i = 0; i < events.length; i++) populateDescriptions(events[i], t);
-
-    // Return the events
-    return events;
+    return Event.find(filter, projection, { lean: true, ...options });
 
 }
 
@@ -40,19 +33,15 @@ export async function getAll(filter, projection, options, t) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Event>} A promise containing the result of the query.
  */
-export async function getById(id, filter, projection, options, t) {
+export async function getById(id, filter, projection, options) {
 
     // Find the data
     const event = await Event.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
 
     // If no data is found, throw an error
     if (!event) throw constructError(404);
-
-    // Populate the description fields of the event
-    populateDescriptions(event, t);
 
     // Return the data
     return event;
@@ -70,18 +59,14 @@ export async function create(data) {
 
     // Create the new event
     const event = new Event({
-        uid           : data.uid,
-        titleIta      : data.titleIta,
-        titleEng      : data.titleEng,
-        descriptionIta: data.descriptionIta,
-        descriptionEng: data.descriptionEng,
-        position      : { type: "Point", coordinates: data.coordinates },
-        address       : data.address,
-        rois          : data.rois,
-        date          : data.date,
-        cover         : data.cover,
-        contacts      : data.contacts,
-        participants  : data.participants
+        uid         : data.uid,
+        title       : data.title,
+        description : data.description,
+        position    : { type: "Point", ...data.position },
+        rois        : data.rois,
+        date        : data.date,
+        contacts    : data.contacts,
+        participants: data.participants
     });
 
     // If the event id is provided, set it
@@ -113,17 +98,12 @@ export async function update(id, data) {
     const oldImg = event.cover;
 
     // Update the values
-    event.titleIta       = data.titleIta;
-    event.titleEng       = data.titleEng;
-    event.descriptionIta = data.descriptionIta;
-    event.descriptionEng = data.descriptionEng;
-    event.position       = { type: "Point", coordinates: data.coordinates };
-    event.address        = data.address;
-    event.rois           = data.rois;
-    event.date           = data.date;
-    event.cover          = data.cover;
-    event.contacts       = data.contacts;
-    event.participants   = data.participants;
+    event.description  = data.description;
+    event.position     = { type: "Point", ...data.position };
+    event.rois         = data.rois;
+    event.date         = data.date;
+    event.contacts     = data.contacts;
+    event.participants = data.participants;
 
     // Save the event
     const newEvent = await event.save();
@@ -151,20 +131,11 @@ export async function patch(id, data) {
     // If no data is found, throw an error
     if (!event) throw constructError(404);
 
-    // Save the old image url
-    const oldImg = event.cover;
-
     // Change the value of the given properties
     for (const k of Object.keys(data)) event[k] = data[k];
 
     // Save the event
-    const newEvent = await event.save();
-
-    // If a new image has been provided, delete the old image
-    if (data.cover) removeFile(oldImg);
-
-    // Return the new event
-    return newEvent;
+    return event.save();
 
 }
 
@@ -188,22 +159,5 @@ export async function softDelete(id) {
 
     // Save the change
     await event.save();
-
-}
-
-
-/**
- * Populates the description fields of an event.
- *
- * @param {Event} event - The event.
- * @param {Function} t - The i18next translation function fixed on the response language.
- */
-function populateDescriptions(event, t) {
-
-    event.address.country["description"] = t(`models:events.country.${event.address.country.code}`);
-
-    event.rois["description"] = [];
-
-    event.rois.codes.forEach(r => event.rois["description"].push(t(`models:events.rois.${r}`)));
 
 }

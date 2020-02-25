@@ -9,6 +9,8 @@ import { AuthService } from "../auth/auth.service";
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
 import { Rois } from "../shared/common.enum";
+import { TranslateService } from "@ngx-translate/core";
+import { LatLng } from "leaflet";
 
 
 export const STORAGE_KEY_ALERTS = "alerts";
@@ -24,7 +26,7 @@ export class NewsService {
 
 
     /** @ignore */ private _alerts = new BehaviorSubject<Alert[]>([]);
-    /** @ignore */ private _events = new BehaviorSubject<Event[]>([]);
+    /** @ignore */ private _events = new BehaviorSubject<Array<Event>>([]);
 
     /** @ignore */ private _newAlerts = new BehaviorSubject<Boolean>(false);
     /** @ignore */ private _newEvents = new BehaviorSubject<Boolean>(false);
@@ -51,7 +53,10 @@ export class NewsService {
 
 
     /** @ignore */
-    constructor(private http: HttpClient, private storage: Storage, private auth: AuthService) {
+    constructor(private http: HttpClient,
+                private storage: Storage,
+                private auth: AuthService,
+                private i18n: TranslateService) {
 
         this.storage.get(STORAGE_KEY_ALERTS_NEW)
             .then(res => {
@@ -212,50 +217,46 @@ export class NewsService {
         const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/events/`;
 
         // Query parameters of the request
-        const qParams = new HttpParams()
-            .set("sort", "date:desc")
-            .set("rois", this.getSelectedRois());
+        const qParams = new HttpParams().set("sort", "date:desc");
 
         // Retrieve the data from the server and return them as a promise
-        const res = await this.http.get<GenericApiResponse>(url).toPromise();
+        const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
 
         // Extract the events from the server
-        const data = res.data.events;
+        const data = res.data;
 
         // Retrieve the id of the read events form the local storage
-        const read = <string[]>await this.storage.get(STORAGE_KEY_EVENTS) || [];
+        // const read = <string[]>await this.storage.get(STORAGE_KEY_EVENTS) || [];
 
         // Initialize the events array
-        const events: Event[] = [];
+        const events: Array<Event> = [];
 
         // For each alert, create a new instance and push it into the array
         for (const event of data) {
 
-            events.push(new Event(
-                event._id,
-                event.titleIta,
-                event.titleEng,
-                event.descriptionIta,
-                event.descriptionEng,
-                event.position,
-                event.address,
-                event.rois,
-                new Date(event.date),
-                event.imageUrl,
-                event.contacts,
-                read.includes(event._id)
-            ))
+            events.push({
+                id         : event._id,
+                title      : event.title[this.i18n.currentLang] || event.title.it,
+                description: event.description[this.i18n.currentLang] || event.description.it,
+                coordinates: new LatLng(event.position.coordinates[1], event.position.coordinates[0]),
+                address    : event.position.address,
+                rois       : event.rois,
+                date       : new Date(event.date),
+                contacts   : event.contacts,
+                // read: read.includes(event._id)
+                read       : false
+            })
 
         }
 
         // Clean the saved alerts
-        await this.cleanSavedData(STORAGE_KEY_EVENTS, events.map(e => e.id));
+        // await this.cleanSavedData(STORAGE_KEY_EVENTS, events.map(e => e.id));
 
         // Update the events subject
         this._events.next(events);
 
         // Check for unread events
-        await this.checkNewEvents();
+        // await this.checkNewEvents();
 
     }
 

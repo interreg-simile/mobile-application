@@ -6,4 +6,5 @@ app:
   port: 8000        # API port
   lngs:             # Supported languages
     - it
+    - en
   defaultLng: it    # Default language

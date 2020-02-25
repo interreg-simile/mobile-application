@@ -45,12 +45,6 @@
     admin_required: true
     token_required: true
     paternity: false
-    upload:
-      dest: ./uploads/events
-      fields:
-        - min: 1
-          max: 1
-          name: cover
 
   - path: /:id
     method: GET
@@ -65,12 +59,6 @@
     admin_required: true
     token_required: true
     paternity: false
-    upload:
-      dest: ./uploads/events
-      fields:
-        - min: 1
-          max: 1
-          name: cover
 
   - path: /:id
     method: PATCH
@@ -78,12 +66,6 @@
     admin_required: true
     token_required: true
     paternity: false
-    upload:
-      dest: ./uploads/events
-      fields:
-        - min: 0
-          max: 1
-          name: cover
 
   - path: /:id
     method: DELETE

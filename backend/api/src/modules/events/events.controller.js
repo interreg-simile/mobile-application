@@ -6,7 +6,8 @@
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
 
-import constructError from "../../utils/construct-error";
+import mongoose from "mongoose";
+
 import { checkValidation } from "../../utils/common-checks";
 import * as eventService from "./events.service";
 import { getQuerySorting } from "../../utils/utils";
@@ -28,17 +29,7 @@ export const getAll = (req, res, next) => {
     const includePast    = req.query.includePast || "true",
           includeDeleted = req.query.includeDeleted || "false",
           sort           = req.query.sort,
-          rois           = req.query.rois,
-          city           = req.query.city,
-          postalCode     = req.query.postalCode,
-          coords         = req.query.coords,
-          buffer         = req.query.buffer || 1;
-
-    // Check that the use has passed no more than one geographical filter
-    if ([rois, city, postalCode, coords].filter(e => e !== undefined).length > 1) {
-        next(constructError(422, `messages.validation.query;{"prop":"rois/city/postalCode/coords"}`));
-        return;
-    }
+          rois           = req.query.rois;
 
     // Set the parameters for the mongo query
     const filter = {}, projection = {}, options = {};
@@ -50,23 +41,7 @@ export const getAll = (req, res, next) => {
     if (includePast === "false") filter.date = { $gte: new Date() };
 
     // Filter by regions of interest
-    if (rois) filter["rois.codes"] = { $in: [1, ...rois.split(",").map(r => parseInt(r))] };
-
-    // Filter by city
-    if (city) filter["address.city"] = { $eq: city.toLocaleLowerCase() };
-
-    // Filter by postal code
-    if (postalCode) filter["address.postalCode"] = { $eq: postalCode };
-
-    // Filter by coordinates buffer
-    if (coords) {
-
-        const lat = parseFloat(coords.split(",")[0].trim()),
-              lon = parseFloat(coords.split(",")[1].trim());
-
-        filter["position.coordinates"] = { $geoWithin: { $centerSphere: [[lon, lat], buffer / 6378.1] } };
-
-    }
+    if (rois) filter["rois"] = { $in: rois.split(",").map(r => new mongoose.mongo.ObjectId(r)) };
 
     // If the request does not come from an admin, project out the uid
     if (!req.isAdmin) projection.uid = 0;
@@ -75,8 +50,8 @@ export const getAll = (req, res, next) => {
     if (sort) options.sort = getQuerySorting(sort);
 
     // Find the events
-    eventService.getAll(filter, projection, options, req.t)
-        .then(events => res.status(200).json({ meta: { code: 200 }, data: { events } }))
+    eventService.getAll(filter, projection, options)
+        .then(events => res.status(200).json({ meta: { code: 200 }, data: events }))
         .catch(err => next(err));
 
 };
@@ -95,8 +70,8 @@ export const create = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Create the event
-    eventService.create({ uid: req.userId, ...req.body, cover: req.files.cover[0].path })
-        .then(event => res.status(201).json({ meta: { code: 201 }, data: { event } }))
+    eventService.create({ uid: req.userId, ...req.body })
+        .then(event => res.status(201).json({ meta: { code: 201 }, data: event }))
         .catch(err => next(err));
 
 };
@@ -129,8 +104,8 @@ export const getById = (req, res, next) => {
     }
 
     // Find the data
-    eventService.getById(req.params.id, filter, projection, {}, req.t)
-        .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
+    eventService.getById(req.params.id, filter, projection, {})
+        .then(event => res.status(200).json({ meta: { code: 200 }, data: event }))
         .catch(err => next(err));
 
 };
@@ -149,9 +124,9 @@ export const update = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Update the event
-    eventService.update(req.params.id, { uid: req.userId, ...req.body, cover: req.files.cover[0].path })
+    eventService.update(req.params.id, { uid: req.userId, ...req.body })
         .then(result => res.status(200).json(
-            { meta: { code: result.created ? 201 : 200 }, data: { event: result.newEvent } }
+            { meta: { code: result.created ? 201 : 200 }, data: result.newEvent }
         ))
         .catch(err => next(err));
 
@@ -170,14 +145,8 @@ export const patch = (req, res, next) => {
     // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
-    // Save the body in the data to patch
-    const data = { ...req.body };
-
-    // If an image has been provided, add its path to the data
-    if (req.files) data.cover = req.files.cover[0].path;
-
     // Patch the event
-    eventService.patch(req.params.id, data)
+    eventService.patch(req.params.id, ...req.body)
         .then(event => res.status(200).json({ meta: { code: 200 }, data: { event } }))
         .catch(err => next(err));
 

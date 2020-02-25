@@ -15,13 +15,6 @@ alerts:
   rois: { min: 1, max: 4 }
 
 
-events:
-
-  rois: { min: 1, max: 4 }
-
-  countries: { min: 1, max: 2 }
-
-
 observations:
 
   position:

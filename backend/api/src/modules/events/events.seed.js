@@ -26,38 +26,42 @@ export default async function () {
     // Create the dummy data
     const events = [
         {
-            titleIta      : "Evento futuro",
-            descriptionIta: new LoremIpsum().generateParagraphs(1),
-            position      : { type: "Point", coordinates: [45.912573, 8.504056] },
-            address       : {
-                main      : "Corso Giuseppe Garibaldi",
-                civic     : "23",
-                city      : "baveno",
-                postalCode: 28831,
-                province  : "vb",
-                country   : { code: [1] }
+            title      : { it: "Evento futuro", en: "Future event" },
+            description: { it: new LoremIpsum().generateParagraphs(1), en: new LoremIpsum().generateParagraphs(1) },
+            position   : {
+                type       : "Point",
+                coordinates: [8.504056, 45.912573],
+                address    : "Corso Giuseppe Garibaldi 23, Baveno (VB), Italia"
             },
-            rois          : { codes: [1] },
-            date          : new Date("2020-12-30T15:24:00"),
-            cover         : "events/default.jpg",
-            contacts      : { mail: "info@simile.it", phone: "+393349969525" }
+            rois       : ["000000000000000000000002", "000000000000000000000003", "000000000000000000000004"],
+            date       : new Date().setMonth(new Date().getMonth() + 1),
+            contacts   : { email: "info@simile.it", phone: "+393349969525" }
         },
         {
-            titleIta      : "Evento futuro 2",
-            descriptionIta: new LoremIpsum().generateParagraphs(1),
-            position      : { type: "Point", coordinates: [45.852352, 9.389224] },
-            address       : {
-                main      : "Largo Fratelli Calvi",
-                civic     : "2",
-                city      : "lecco",
-                postalCode: 23900,
-                province  : "lc",
-                country   : { code: 2 }
+            title      : { it: "Evento futuro 2" },
+            description: { it: new LoremIpsum().generateParagraphs(1) },
+            position   : {
+                type       : "Point",
+                coordinates: [9.389224, 45.852352],
+                address    : "Largo Fratelli Calvi 2, Lecco (LC), Italia"
             },
-            rois          : { codes: [2, 3] },
-            date          : new Date("2020-10-13T09:10:00"),
-            cover         : "events/default.jpg",
-            contacts      : { mail: "info@simile.it" }
+            rois       : ["000000000000000000000001"],
+            date       : new Date().setMonth(new Date().getMonth() + 3),
+            contacts   : { phone: "+393349969525" }
+        },
+        {
+            title       : { it: "Evento passato" },
+            description : { it: new LoremIpsum().generateParagraphs(1) },
+            position    : {
+                type       : "Point",
+                coordinates: [8.948400, 45.991756],
+                address    : "Riva Paradiso 1, Paradiso, Svizzera"
+            },
+            rois        : ["000000000000000000000005", "000000000000000000000006", "000000000000000000000007", "000000000000000000000008"],
+            date        : new Date().setMonth(new Date().getMonth() - 2),
+            cover       : "events/default.jpg",
+            contacts    : { mail: "info@simile.it" },
+            participants: 20
         }
     ];
 

@@ -4,9 +4,10 @@
   "segment-events": "Eventi",
   "no-alerts": "Nessun avviso.",
   "no-events": "Nessun evento.",
-  "page-single-event": {
+  "single-event": {
+    "header-description": "Descrizione",
     "header-details": "dettagli",
     "header-contacts": "contatti",
-    "at": "Alle"
+    "at": "alle"
   }
 }

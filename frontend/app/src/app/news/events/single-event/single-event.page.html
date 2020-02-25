@@ -7,100 +7,99 @@
 			<ion-back-button class="back-button" defaultHref="news"></ion-back-button>
 		
 		</ion-buttons>
+		
+		<!-- Title -->
+		<ion-title>{{ event.title }}</ion-title>
 	
 	</ion-toolbar>
 
 </ion-header>
 
 
-<ion-content class="bg-off-white">
+<ion-content class="bg-off-white custom-container">
 	
-	<!-- Image -->
-	<ion-img src="{{ event.imageUrl }}" alt="Event image"></ion-img>
-	
-	
-	<section class="custom-container">
+	<!-- Description -->
+	<section class="description">
 		
+		<div class="card-header">{{"page-news.single-event.header-description" | translate}}</div>
 		
-		<!-- Title -->
-		<div class="title">{{ locale === "en" && event.titleEng ? event.titleEng : event.titleIta }}</div>
-		
-		
-		<!-- Description -->
-		<div class="description">{{ locale === "en" && event.descriptionEng ? event.descriptionEng : event.descriptionIta }}</div>
-		
-		
-		<!-- Details -->
-		<section class="details">
+		<ion-card class="ion-no-margin">
 			
-			<div class="card-header">{{"page-single-event.header-details" | translate}}</div>
+			<ion-card-content>{{ event.description }}</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Details -->
+	<section class="details">
+		
+		<div class="card-header">{{"page-news.single-event.header-details" | translate}}</div>
+		
+		<ion-card class="ion-no-margin">
 			
-			<ion-card class="ion-no-margin" color="#000">
+			<ion-card-content>
 				
-				<!-- Map -->
-				<div id="map">
+				<!-- Address -->
+				<div class="row ion-padding-bottom">
 					
-					<ion-fab vertical="top" horizontal="end" slot="fixed" (click)="onOpenMapClick()">
-						
-						<ion-fab-button color="light" size="small">
-							
-							<ion-icon name="share-alt"></ion-icon>
-						
-						</ion-fab-button>
+					<ion-icon name="navigate"></ion-icon>
 					
-					</ion-fab>
+					<div>{{ event.address }}</div>
 				
 				</div>
 				
 				<!-- Time -->
-				<ion-card-content class="row">
+				<div class="row">
 					
 					<ion-icon name="calendar"></ion-icon>
 					
-					<div class="date">
+					<div>
+						
 						{{ event.date | date:"fullDate":undefined:locale | titlecase }}
-						<br>
-						{{"page-single-event.at" | translate}}
+						{{"page-news.single-event.at" | translate}}
 						{{ event.date | date:"shortTime":undefined:locale }}
-					</div>
-				
-				</ion-card-content>
-			
-			</ion-card>
-		
-		</section>
-		
-		
-		<!-- Contacts -->
-		<section class="contacts" *ngIf="event.contacts">
-			
-			<div class="card-header">{{"page-single-event.header-contacts" | translate}}</div>
-			
-			<ion-card class="ion-no-margin" color="#000">
-				
-				<ion-card-content>
-					
-					<div *ngIf="event.contacts.mail" class="row ion-padding-bottom">
-						
-						<ion-icon name="mail"></ion-icon>
-						
-						<div>{{ event.contacts.mail }}</div>
-					
-					</div>
-					
-					<div *ngIf="event.contacts.phone" class="row" (click)="onPhoneClick()">
-						
-						<ion-icon name="call"></ion-icon>
-						
-						<div>{{ event.contacts.phone }}</div>
 					
 					</div>
 				
-				</ion-card-content>
+				</div>
 			
-			</ion-card>
+			</ion-card-content>
 		
-		</section>
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Contacts -->
+	<section class="contacts">
+		
+		<div class="card-header">{{"page-news.single-event.header-contacts" | translate}}</div>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content>
+				
+				<div *ngIf="event.contacts.email" class="row ion-padding-bottom">
+					
+					<ion-icon name="mail"></ion-icon>
+					
+					<div>{{ event.contacts.email }}</div>
+				
+				</div>
+				
+				<div *ngIf="event.contacts.phone" class="row" (click)="onPhoneClick()">
+					
+					<ion-icon name="call"></ion-icon>
+					
+					<div>{{ event.contacts.phone }}</div>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
 	
 	</section>
 

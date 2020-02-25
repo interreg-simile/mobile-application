@@ -23,11 +23,11 @@ const routes: Routes = [
         path: "news", children: [
             { path: "", loadChildren: "./news/news.module#NewsPageModule" },
             {
-                path        : "alert/:id",
+                path        : "alerts/:id",
                 loadChildren: "./news/alerts/single-alert/single-alert.module#SingleAlertPageModule"
             },
             {
-                path        : "event/:id",
+                path        : "events/:id",
                 loadChildren: "./news/events/single-event/single-event.module#SingleEventPageModule"
             }
         ]
