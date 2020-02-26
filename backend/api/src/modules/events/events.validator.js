@@ -50,6 +50,8 @@ export const event = [
 
     body("position.address").trim().escape().not().isEmpty(),
 
+    body("position.city").trim().escape().not().isEmpty(),
+
     body("rois")
         .not().isEmpty()
         .isArray({ min: 1 })
@@ -76,4 +78,4 @@ export const event = [
 
 
 // Validation chain for the body of the "patch" requests
-export const patch = [];
+export const patch = []; // ToDo

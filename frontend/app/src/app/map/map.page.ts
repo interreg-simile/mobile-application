@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController, Platform } from "@ionic/angular";
-import { CircleMarker, latLng, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
+import { CircleMarker, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
@@ -30,7 +30,7 @@ const STORAGE_KEY_POSITION = "position";
 
 
 /** Initial coordinates of the center of the map. */
-const INITIAL_LATLNG = latLng(45.95388572325957, 8.958533937111497);
+const INITIAL_LATLNG = new LatLng(45.95388572325957, 8.958533937111497);
 
 /** Initial zoom level of the map.  */
 const INITIAL_ZOOM = 9;
@@ -57,6 +57,8 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */ private _pauseSub: Subscription;
     /** @ignore */ private _eventsSub;
     /** @ignore */ private _obsSub;
+    /** @ignore */ private _newEventsSub;
+    /** @ignore */ private _newAlertsSub;
 
 
     /** A loading dialog. */
@@ -92,8 +94,11 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     private _eventMarkers: MarkerClusterGroup;
-
+    private _userObsMarkers: MarkerClusterGroup;
     private _obsMarkers: MarkerClusterGroup;
+
+    public _areNewEvents: boolean;
+    public _areNewAlerts: boolean;
 
 
     /** User position. */
@@ -120,6 +125,7 @@ export class MapPage implements OnInit, OnDestroy {
     /** @ignore */
     ngOnInit(): void {
 
+        // Register to any application pause event
         this._pauseSub = this.platform.pause.subscribe(() => {
 
             console.log("App paused");
@@ -147,8 +153,9 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         // Initialize the marker clusters
-        this._eventMarkers = new MarkerClusterGroup();
-        this._obsMarkers   = new MarkerClusterGroup();
+        this._eventMarkers   = new MarkerClusterGroup();
+        this._userObsMarkers = new MarkerClusterGroup();
+        this._obsMarkers     = new MarkerClusterGroup();
 
         // Subscribe to new events
         this._eventsSub = this.newsService.events.subscribe(events => {
@@ -161,7 +168,6 @@ export class MapPage implements OnInit, OnDestroy {
 
                 const marker = new Marker(e.coordinates, { icon: eventMarkerIcon(), zIndexOffset: 1 });
 
-                // ToDo
                 // When the user clicks the marker, navigate to the event page
                 marker.on("click", () => this.router.navigate(["news/events/", e.id]));
 
@@ -176,6 +182,7 @@ export class MapPage implements OnInit, OnDestroy {
         this._obsSub = this.obsService.observations.subscribe(obs => {
 
             // Remove the previous markers
+            this._userObsMarkers.clearLayers();
             this._obsMarkers.clearLayers();
 
             // For each observation
@@ -194,12 +201,15 @@ export class MapPage implements OnInit, OnDestroy {
                 marker.on("click", () => this.router.navigate(["/observations", o._id]));
 
                 // Add the marker to the cluster
-                marker.addTo(this._obsMarkers);
+                marker.addTo(this.authService.userId === o.uid ? this._userObsMarkers : this._obsMarkers);
 
             })
 
         });
 
+        // Subscribe to any new alert or event
+        this._newEventsSub = this.newsService.areNewEvents.subscribe(v => this._areNewEvents = v);
+        this._newAlertsSub = this.newsService.areNewAlerts.subscribe(v => this._areNewAlerts = v);
 
         // Restore the cached position and init the map
         this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
@@ -233,6 +243,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         this._eventMarkers.addTo(this._map);
+        this._userObsMarkers.addTo(this._map);
         this._obsMarkers.addTo(this._map);
 
 
@@ -445,11 +456,14 @@ export class MapPage implements OnInit, OnDestroy {
         // Fetch all the events
         const pEvents = this.newsService.fetchEvents();
 
+        // Fetch all the alert
+        const pAlerts = this.newsService.fetchAlerts();
+
         // Fetch all the observations
         const pObs = this.obsService.fetchObservations();
 
         // Wait for the two calls to finish
-        Promise.all([pEvents, pObs])
+        Promise.all([pEvents, pAlerts, pObs])
             .catch(err => {
 
                 console.error(err);
@@ -464,7 +478,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Response to the user action of clicking on the GPS button. */
-    onGPSClick() {
+    onGPSClick(): void {
 
         // If a custom marker is present, remove it
         if (this._customMarker) {
@@ -677,11 +691,12 @@ export class MapPage implements OnInit, OnDestroy {
         if (this._pauseSub) this._pauseSub.unsubscribe();
         if (this._eventsSub) this._eventsSub.unsubscribe();
         if (this._obsSub) this._obsSub.unsubscribe();
+        if (this._newAlertsSub) this._newAlertsSub.unsubscribe();
+        if (this._newEventsSub) this._newEventsSub.unsubscribe();
 
         // Remove the map
         this._map.remove();
 
     }
-
 
 }

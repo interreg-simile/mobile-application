@@ -63,7 +63,6 @@ export async function create(data) {
         title       : data.title,
         description : data.description,
         position    : { type: "Point", ...data.position },
-        rois        : data.rois,
         date        : data.date,
         contacts    : data.contacts,
         participants: data.participants
@@ -100,7 +99,6 @@ export async function update(id, data) {
     // Update the values
     event.description  = data.description;
     event.position     = { type: "Point", ...data.position };
-    event.rois         = data.rois;
     event.date         = data.date;
     event.contacts     = data.contacts;
     event.participants = data.participants;

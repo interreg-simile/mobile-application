@@ -17,13 +17,9 @@ export const collection = "Alerts";
 /** Schema of an alert. */
 const schema = new Schema({
     uid              : { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
-    titleIta         : { type: String, required: true },
-    titleEng         : { type: String, required: false },
-    contentIta       : { type: String, required: true },
-    contentEng       : { type: String, required: false },
-    dateStart        : { type: Date, required: true },
+    title            : { type: Schema.Types.Mixed, required: true },
+    content          : { type: Schema.Types.Mixed, required: true },
     dateEnd          : { type: Date, required: true },
-    rois             : { type: { _id: false, codes: [Number] }, required: true },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: true });
 

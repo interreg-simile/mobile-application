@@ -54,24 +54,19 @@ export class SingleEventPage implements OnInit {
         // If no event id found, navigate back
         if (!this.event) this.navCtr.back();
 
-        console.log(this.event);
 
+        // Add the event to the array of read alert in local memory
+        this.newsService.saveData(STORAGE_KEY_EVENTS, this.event.id)
+            .then(() => {
 
-        // ToDo
-        // Add the alert to the array of read alert in local memory
-        //     this.newsService.saveData(STORAGE_KEY_EVENTS, this.event.id)
-        //         .then(() => {
-        //
-        //             // Set the alert as read
-        //             this.event.read = true;
-        //
-        //             // Check if there are some unread events
-        //             return this.newsService.checkNewEvents();
-        //
-        //         })
-        //         .catch(err => console.error(err));
-        //
-        // });
+                // Set the alert as read
+                this.event.read = true;
+
+                // Check if there are some unread events
+                return this.newsService.checkNewEvents();
+
+            })
+            .catch(err => console.error(err));
 
     }
 

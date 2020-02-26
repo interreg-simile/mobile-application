@@ -26,8 +26,7 @@ export const getAll = (req, res, next) => {
     // Retrieve the query parameters
     const includePast    = req.query.includePast || "true",
           includeDeleted = req.query.includeDeleted || "false",
-          sort           = req.query.sort,
-          rois           = req.query.rois;
+          sort           = req.query.sort;
 
     // Set the parameters for the mongo query
     const filter = {}, projection = {}, options = {};
@@ -38,9 +37,6 @@ export const getAll = (req, res, next) => {
     // Take the surveys with expireDate greater or equal to the current date
     if (includePast === "false") filter.dateEnd = { $gte: new Date() };
 
-    // Filter by regions of interest
-    if (rois) filter["rois.codes"] = { $in: [1, ...rois.split(",").map(r => parseInt(r))] };
-
     // If the request does not come from an admin, project out the uid
     if (!req.isAdmin) projection.uid = 0;
 
@@ -48,8 +44,8 @@ export const getAll = (req, res, next) => {
     if (sort) options.sort = getQuerySorting(sort);
 
     // Find the events
-    alertService.getAll(filter, projection, options, req.t)
-        .then(alerts => res.status(200).json({ meta: { code: 200 }, data: { alerts } }))
+    alertService.getAll(filter, projection, options)
+        .then(alerts => res.status(200).json({ meta: { code: 200 }, data: alerts }))
         .catch(err => next(err));
 
 };
@@ -69,7 +65,7 @@ export const create = (req, res, next) => {
 
     // Create the event
     alertService.create({ uid: req.userId, ...req.body })
-        .then(alert => res.status(201).json({ meta: { code: 201 }, data: { alert } }))
+        .then(alert => res.status(201).json({ meta: { code: 201 }, data: alert }))
         .catch(err => next(err));
 
 };
@@ -102,8 +98,8 @@ export const getById = (req, res, next) => {
     }
 
     // Get the communication
-    alertService.getById(req.params.id, filter, projection, {}, req.t)
-        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert } }))
+    alertService.getById(req.params.id, filter, projection, {})
+        .then(alert => res.status(200).json({ meta: { code: 200 }, data: alert }))
         .catch(err => next(err));
 
 };
@@ -124,7 +120,7 @@ export const update = (req, res, next) => {
     // Update the event
     alertService.update(req.params.id, { uid: req.userId, ...req.body })
         .then(result => res.status(200).json(
-            { meta: { code: result.created ? 201 : 200 }, data: { alert: result.newAlert } }
+            { meta: { code: result.created ? 201 : 200 }, data: result.newAlert }
         ))
         .catch(err => next(err));
 
@@ -145,7 +141,7 @@ export const patch = (req, res, next) => {
 
     // Patch the alert
     alertService.patch(req.params.id, req.body)
-        .then(alert => res.status(200).json({ meta: { code: 200 }, data: { alert } }))
+        .then(alert => res.status(200).json({ meta: { code: 200 }, data: alert }))
         .catch(err => next(err));
 
 };

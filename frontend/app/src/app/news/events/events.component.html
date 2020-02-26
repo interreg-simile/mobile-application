@@ -1,14 +1,5 @@
-<!-- Error -->
-<section *ngIf="hasError" class="on-page-message">
-	
-	<ion-icon name="sad"></ion-icon>
-	
-	<p class="ion-no-margin">{{ "common.error-occurred" | translate }}</p>
-
-</section>
-
 <!-- No data -->
-<section *ngIf="!hasError && events.length === 0" class="on-page-message">
+<section *ngIf="events.length === 0" class="on-page-message">
 	
 	<ion-icon name="calendar"></ion-icon>
 	
@@ -16,12 +7,13 @@
 
 </section>
 
+
 <!-- Data -->
-<ion-list *ngIf="!hasError && events.length > 0" class="ion-no-padding">
+<ion-list *ngIf="events.length > 0" class="ion-no-padding">
 	
 	<ion-item *ngFor="let event of events"
 			  button detail="false"
-			  [routerLink]="['/', 'news', 'event', event.id]">
+			  [routerLink]="['/', 'news', 'events', event.id]">
 		
 		<section class="container ion-padding-vertical">
 			
@@ -34,13 +26,13 @@
 			<section class="content">
 				
 				<div class="title">
-					<span>{{ locale === "en" && event.titleEng ? event.titleEng : event.titleIta }}</span>
+					<span>{{ event.title }}</span>
 				</div>
 				
 				<div class="bottom-row">
 					
 					<div class="city">
-						{{ event.address.city | titlecase }}
+						{{ event.city | titlecase }}
 					</div>
 					
 					<div class="date">

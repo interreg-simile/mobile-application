@@ -3,7 +3,6 @@ import { AlertController, LoadingController, ModalController, PickerController }
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 
-import { Observation } from "../observation.model";
 import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";

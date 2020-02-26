@@ -14,18 +14,20 @@ import { collection as Roi } from "../rois/rois.model";
 export const collection = "Events";
 
 
+/** Schema of the position. */
 const position = new Schema({
     _id        : false,
     type       : { type: String, enum: ["Point"], required: true, default: "Point" },
     coordinates: { type: [Number], required: true },
-    address    : { type: String, required: true }
+    address    : { type: String, required: true },
+    city       : { type: String, required: true }
 });
 
 
 /** Schema of the contacts. */
 const contacts = new Schema({
     _id  : false,
-    email : String,
+    email: String,
     phone: String
 });
 
@@ -36,7 +38,6 @@ const schema = new Schema({
     title            : { type: Schema.Types.Mixed, required: true },
     description      : { type: Schema.Types.Mixed, required: true },
     position         : { type: position, required: true },
-    rois             : { type: [{ type: mongoose.Schema.Types.ObjectId, ref: Roi }], required: true },
     date             : { type: Date, required: true },
     contacts         : { type: contacts, required: true },
     participants     : { type: Number, required: false },

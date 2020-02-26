@@ -12,6 +12,14 @@
 		
 		<ion-buttons slot="end">
 			
+			<ion-button [routerLink]="['/', 'news']">
+				
+				<div *ngIf="_areNewAlerts || _areNewEvents" class="icon-notification-dot"></div>
+				
+				<ion-icon slot="icon-only" name="notifications"></ion-icon>
+			
+			</ion-button>
+			
 			<ion-button (click)="onSyncClick()">
 				
 				<ion-icon slot="icon-only" name="sync"></ion-icon>

@@ -26,18 +26,14 @@ export default async function () {
     // Create the dummy data
     const alerts = [
         {
-            titleIta  : "Comunicazione 1",
-            contentIta: new LoremIpsum().generateParagraphs(1),
-            dateStart : new Date("2020-01-08T00:00:00"),
-            dateEnd   : new Date("2020-12-30T00:00:00"),
-            rois      : { codes: [1] },
+            title    : { it: "Comunicazione 1", en: "Communication 1" },
+            content  : { it: new LoremIpsum().generateParagraphs(1), en: new LoremIpsum().generateParagraphs(1) },
+            dateEnd  : new Date().setMonth(new Date().getMonth() + 1)
         },
         {
-            titleIta  : "Comunicazione 2",
-            contentIta: new LoremIpsum().generateParagraphs(1),
-            dateStart : new Date("2020-10-09T00:00:00"),
-            dateEnd   : new Date("2020-12-30T00:00:00"),
-            rois      : { codes: [2,3] },
+            title    : { it: "Comunicazione 2" },
+            content  : { it: new LoremIpsum().generateParagraphs(1) },
+            dateEnd  : new Date().setMonth(new Date().getMonth() + 3)
         }
     ];
 

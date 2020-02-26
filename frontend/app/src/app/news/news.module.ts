@@ -8,7 +8,6 @@ import { TranslateModule } from "@ngx-translate/core";
 import { NewsPage } from './news.page';
 import { AlertsComponent } from "./alerts/alerts.component";
 import { EventsComponent } from "./events/events.component";
-import { FilterComponent } from "./events/filter/filter.component";
 
 
 const routes: Routes = [{ path: '', component: NewsPage }];
@@ -22,7 +21,6 @@ const routes: Routes = [{ path: '', component: NewsPage }];
         RouterModule.forChild(routes),
         TranslateModule
     ],
-    entryComponents: [FilterComponent],
-    declarations   : [NewsPage, AlertsComponent, EventsComponent, FilterComponent]
+    declarations   : [NewsPage, AlertsComponent, EventsComponent]
 })
 export class NewsPageModule {}

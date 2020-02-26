@@ -10,9 +10,6 @@ export class EventsComponent implements OnInit {
     /** Array of alerts to display. */
     @Input() events: Event[];
 
-    /** Flag that states if an error occurred. */
-    @Input() hasError: boolean;
-
     /** Current locale of the application. */
     public locale: string;
 
@@ -22,7 +19,7 @@ export class EventsComponent implements OnInit {
 
 
     /** @ignore */
-    ngOnInit() {
+    ngOnInit(): void {
 
         // Retrieve the current locale
         this.locale = this.i18n.currentLang;

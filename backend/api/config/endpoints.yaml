@@ -84,7 +84,7 @@
     token_required: false
     paternity: false
     sort:
-      - dateStart
+      - createdAt
       - dateEnd
 
   - path: /

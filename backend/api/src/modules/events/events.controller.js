@@ -28,8 +28,7 @@ export const getAll = (req, res, next) => {
     // Retrieve the query parameters
     const includePast    = req.query.includePast || "true",
           includeDeleted = req.query.includeDeleted || "false",
-          sort           = req.query.sort,
-          rois           = req.query.rois;
+          sort           = req.query.sort;
 
     // Set the parameters for the mongo query
     const filter = {}, projection = {}, options = {};
@@ -39,9 +38,6 @@ export const getAll = (req, res, next) => {
 
     // Take the events with expireDate greater than or equal to the current date
     if (includePast === "false") filter.date = { $gte: new Date() };
-
-    // Filter by regions of interest
-    if (rois) filter["rois"] = { $in: rois.split(",").map(r => new mongoose.mongo.ObjectId(r)) };
 
     // If the request does not come from an admin, project out the uid
     if (!req.isAdmin) projection.uid = 0;

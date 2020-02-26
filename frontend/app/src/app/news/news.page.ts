@@ -5,7 +5,7 @@ import { PopoverController } from "@ionic/angular";
 import { NewsService } from "./news.service";
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
-import { FilterComponent } from "./events/filter/filter.component";
+import { Duration, ToastService } from "../shared/toast.service";
 
 
 enum Segments { ALERTS, EVENTS}
@@ -25,39 +25,25 @@ export class NewsPage implements OnInit, OnDestroy {
     public segmentsEnum = Segments;
 
     /** Currently selected segment. */
-    public selectedSegment: Segments = this.segmentsEnum.ALERTS;
+    public selectedSegment: Segments = this.segmentsEnum.EVENTS;
 
     /** Flag that states if the app is waiting data form the server. */
     public isLoading = false;
 
-    /** Flag that states if an error related to the alerts occurred. */
-    public alertError = false;
 
-    /** Flag that states if an error related to the events occurred. */
-    public eventError = false;
-
-    /** Array of alerts retrieved from the server. */
     public alerts: Alert[];
-
-    /** Array of events retrieved from the server. */
     public events: Event[];
 
-    /** Flag that states if there are unread alerts. */
-    public newAlerts: Boolean;
-
-    /** Flag that states if there are unread events. */
-    public newEvents: Boolean;
-
-
-    public navError;
+    public newAlerts: boolean;
+    public newEvents: boolean;
 
 
     /** @ignore */
-    constructor(private newsService: NewsService, private popoverCtrl: PopoverController) { }
+    constructor(private newsService: NewsService, private toastService: ToastService) { }
 
 
     /** @ignore */
-    ngOnInit() {
+    ngOnInit(): void {
 
         // Subscribe to the changes of the alerts array in the newsService
         this._alertsSub = this.newsService.alerts.subscribe(alerts => this.alerts = alerts);
@@ -67,27 +53,6 @@ export class NewsPage implements OnInit, OnDestroy {
         this._newAlertsSub = this.newsService.areNewAlerts.subscribe(v => this.newAlerts = v);
         this._newEventsSub = this.newsService.areNewEvents.subscribe(v => this.newEvents = v);
 
-        // Extract the navigation errors
-        this.navError = window.history.state.error;
-
-    }
-
-
-    /** @ignore */
-    ionViewWillEnter() {
-
-        // // Set is loading to true
-        // this.isLoading = true;
-        //
-        // // Fetch all the alerts
-        // this.newsService.fetchAlerts()
-        //     .then(() => this.alertError = false)
-        //     .catch(err => {
-        //         console.error(err);
-        //         this.alertError = true;
-        //     })
-        //     .finally(() => this.isLoading = false)
-
     }
 
 
@@ -95,98 +60,35 @@ export class NewsPage implements OnInit, OnDestroy {
      * Called when the user changes the segment. If it is the first time the user visits the event page, it fetches the
      * events form the server.
      *
-     * @param {CustomEvent} $event - The Ionic change event
+     * @param {CustomEvent} e - The Ionic change event.
      */
-    onSegmentChange($event: CustomEvent) {
-
-        // Save the selected segment
-        this.selectedSegment = +$event.detail.value;
-
-        // If it is the first time the user goes to the events page
-        if (this.selectedSegment === Segments.EVENTS && !this.events) {
-
-            this.isLoading = true;
-
-            // Subscribe to the changes of the events array in the newsService
-            this._eventsSub = this.newsService.events.subscribe(events => this.events = events);
-
-            // Fetch all the events
-            this.newsService.fetchEvents()
-                .then(() => this.eventError = false)
-                .catch(err => {
-                    console.error(err);
-                    this.eventError = true;
-                })
-                .finally(() => this.isLoading = false)
-
-        }
-
-    }
-
-
-    onRefresh($event) {
-
-        if (this.selectedSegment === Segments.ALERTS) {
-
-            this.newsService.fetchAlerts()
-                .then(() => this.alertError = false)
-                .catch(err => {
-                    console.error(err);
-                    this.alertError = true;
-                })
-                .finally(() => $event.target.complete())
-
-        }
-
-        if (this.selectedSegment === Segments.EVENTS) {
-
-            this.newsService.fetchEvents()
-                .then(() => this.eventError = false)
-                .catch(err => {
-                    console.error(err);
-                    this.eventError = true;
-                })
-                .finally(() => $event.target.complete())
-
-        }
-
-    }
+    onSegmentChange(e: CustomEvent): void { this.selectedSegment = +e.detail.value }
 
 
     /**
-     * Open the events filter popover.
+     * Called when the user scrolls down to refresh. It fetches the events and the alerts from the server.
      *
-     * @param event - The click event.
+     * @param {CustomEvent} e - The refresh event.
      */
-    async filterPopover(event) {
+    onRefresh(e): void {
 
-        // Create the popover
-        const popover = await this.popoverCtrl.create({
-            component: FilterComponent,
-            event    : event
-        });
+        // Fetch all the events
+        const pEvents = this.newsService.fetchEvents();
 
-        // Called when the popover is closed
-        popover.onWillDismiss().then(() => {
+        // Fetch all the alert
+        const pAlerts = this.newsService.fetchAlerts();
 
-            if (this.newsService.compareRois()) return;
+        // Wait for the two calls to finish
+        Promise.all([pEvents, pAlerts])
+            .catch(err => {
 
-            // Set is loading to true
-            this.isLoading = true;
+                console.error(err);
 
-            // Fetch all the events
-            this.newsService.fetchEvents()
-                .then(() => this.eventError = false)
-                .catch(err => {
-                    console.error(err);
-                    this.eventError = true;
-                })
-                .finally(() => this.isLoading = false)
+                // Alert the user
+                this.toastService.presentToast("page-news.fetch-error", Duration.short);
 
-        });
-
-        // Open the popover
-        return await popover.present();
+            })
+            .finally(() =>e.target.complete());
 
     }
 

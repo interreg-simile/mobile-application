@@ -2,8 +2,9 @@
   "title": "Novità",
   "segment-alerts": "Avvisi",
   "segment-events": "Eventi",
-  "no-alerts": "Nessun avviso.",
-  "no-events": "Nessun evento.",
+  "no-alerts": "Nessun avviso",
+  "no-events": "Nessun evento",
+  "fetch-error": "Errore durante la richiesta dei dati.",
   "single-event": {
     "header-description": "Descrizione",
     "header-details": "dettagli",

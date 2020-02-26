@@ -31,9 +31,9 @@ export default async function () {
             position   : {
                 type       : "Point",
                 coordinates: [8.504056, 45.912573],
-                address    : "Corso Giuseppe Garibaldi 23, Baveno (VB), Italia"
+                address    : "Corso Giuseppe Garibaldi 23, Baveno (VB), Italia",
+                city       : "Baveno"
             },
-            rois       : ["000000000000000000000002", "000000000000000000000003", "000000000000000000000004"],
             date       : new Date().setMonth(new Date().getMonth() + 1),
             contacts   : { email: "info@simile.it", phone: "+393349969525" }
         },
@@ -43,9 +43,9 @@ export default async function () {
             position   : {
                 type       : "Point",
                 coordinates: [9.389224, 45.852352],
-                address    : "Largo Fratelli Calvi 2, Lecco (LC), Italia"
+                address    : "Largo Fratelli Calvi 2, Lecco (LC), Italia",
+                city       : "Lecco"
             },
-            rois       : ["000000000000000000000001"],
             date       : new Date().setMonth(new Date().getMonth() + 3),
             contacts   : { phone: "+393349969525" }
         },
@@ -55,9 +55,9 @@ export default async function () {
             position    : {
                 type       : "Point",
                 coordinates: [8.948400, 45.991756],
-                address    : "Riva Paradiso 1, Paradiso, Svizzera"
+                address    : "Riva Paradiso 1, Paradiso, Svizzera",
+                city       : "Paradiso"
             },
-            rois        : ["000000000000000000000005", "000000000000000000000006", "000000000000000000000007", "000000000000000000000008"],
             date        : new Date().setMonth(new Date().getMonth() - 2),
             cover       : "events/default.jpg",
             contacts    : { mail: "info@simile.it" },

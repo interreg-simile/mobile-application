@@ -1,0 +1,21 @@
+Event:
+
+  _id: Mongoose.id
+
+  uid: Mongoose.id # Id of the user who has inserted the event
+
+  title:
+    it: string
+    # Any other language...
+
+  content:
+    it: string
+    # Any other language...
+
+  dateEnd: Date
+
+  markedForDeletion: boolean
+
+  createdAt: Date
+
+  upadtedAt: Date

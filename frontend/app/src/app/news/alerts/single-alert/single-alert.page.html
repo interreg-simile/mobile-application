@@ -15,11 +15,11 @@
 
 <ion-content class="bg-off-white custom-container">
 	
-	<div class="title">{{ locale === "en" && alert.titleEng ? alert.titleEng : alert.titleIta }}</div>
+	<div class="title">{{ alert.title }}</div>
 	
-	<div class="date">{{ alert.dateStart | date:undefined:undefined:locale}}</div>
+	<div class="date">{{ alert.createdAt | date:undefined:undefined:locale }}</div>
 	
-	<div class="content">{{ locale === "en" && alert.contentEng ? alert.contentEng : alert.contentIta }}</div>
+	<div class="content">{{ alert.content }}</div>
 
 </ion-content>
 

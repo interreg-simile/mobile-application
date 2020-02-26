@@ -4,7 +4,7 @@ import { NavController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Alert } from "../alert.model";
-import { NewsService, STORAGE_KEY_ALERTS } from "../../news.service";
+import { NewsService, STORAGE_KEY_ALERTS, STORAGE_KEY_EVENTS } from "../../news.service";
 
 
 @Component({
@@ -25,50 +25,43 @@ export class SingleAlertPage implements OnInit {
     /** @ignore */
     constructor(
         private newsService: NewsService,
-        private route: ActivatedRoute,
-        private navCtrl: NavController,
+        private activatedRoute: ActivatedRoute,
+        private navCtr: NavController,
         private i18n: TranslateService
     ) { }
 
 
     /** @ignore */
-    ngOnInit() {
+    ngOnInit(): void {
 
         // Retrieve the current locale
         this.locale = this.i18n.currentLang;
 
-        // Extract the id from the route
-        this.route.paramMap.subscribe(params => {
+        // Extract the event id
+        const id = this.activatedRoute.snapshot.paramMap.get("id");
 
-            // If there is no id, navigate back
-            if (!params.has("id")) {
-                this.navCtrl.navigateBack("/news", { state: { error: true } });
-                return;
-            }
+        // If no id is passed, navigate back
+        if (!id) this.navCtr.back();
 
-            // Get the alert
-            this.alert = this.newsService.getAlertById(params.get("id"));
+        // Find the event
+        this.alert = this.newsService.getAlertById(id);
 
-            // If there is no alert, navigate back
-            if (!this.alert) {
-                this.navCtrl.navigateBack("/news", { state: { error: true } });
-                return;
-            }
+        // If no event id found, navigate back
+        if (!this.alert) this.navCtr.back();
 
-            // Add the alert to the array of read alert in local memory
-            this.newsService.saveData(STORAGE_KEY_ALERTS, this.alert.id)
-                .then(() => {
 
-                    // Set the alert as read
-                    this.alert.read = true;
+        // Add the alert to the array of read alert in local memory
+        this.newsService.saveData(STORAGE_KEY_ALERTS, this.alert.id)
+            .then(() => {
 
-                    // Check if there are some unread alerts
-                    return this.newsService.checkNewAlerts();
+                // Set the alert as read
+                this.alert.read = true;
 
-                })
-                .catch(err => console.error(err));
+                // Check if there are some unread events
+                return this.newsService.checkNewAlerts();
 
-        });
+            })
+            .catch(err => console.error(err));
 
     }
 

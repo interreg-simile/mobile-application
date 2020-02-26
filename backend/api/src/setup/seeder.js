@@ -33,7 +33,7 @@ async function seeder() {
         // await users();
         // await rois();
         await events();
-        // await alerts();
+        await alerts();
         // await observations();
 
         // Close the connection
