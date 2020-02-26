@@ -238,10 +238,6 @@ export class MapPage implements OnInit, OnDestroy {
             { attribution: '&copy; OpenStreetMap contributors' }).addTo(this._map);
 
 
-        // If a view is provided, create the user marker
-        if (view) this.createUserMarker(view);
-
-
         this._eventMarkers.addTo(this._map);
         this._userObsMarkers.addTo(this._map);
         this._obsMarkers.addTo(this._map);
@@ -543,24 +539,17 @@ export class MapPage implements OnInit, OnDestroy {
             custom   = true;                           // Set the custom flag to true
         }
 
-        // Else if there is no user marker
-        else if (!this._userMarker) {
-            pos      = this._map.getCenter(); // Set the position from the map center
-            accuracy = 0;                     // Set the accuracy to 0
-            custom   = true;                  // Set the custom flag to true
-        }
-
         // Else if there is a user marker
-        else {
-
-            if (!this.position.lat || !this.position.lon) {
-                await this.toastService.presentToast("page-map.msg-wait-position", Duration.short);
-                return;
-            }
-
+        else if (this._userMarker) {
             pos      = new LatLng(this.position.lat, this.position.lon); // Set the position from the current user position
             accuracy = this.position.accuracy;                           // Set the accuracy to the current accuracy
             custom   = false;                                            // Set the custom flag to false
+        }
+
+        // Else
+        else {
+            await this.toastService.presentToast("page-map.msg-wait-position", Duration.short);
+            return;
         }
 
 

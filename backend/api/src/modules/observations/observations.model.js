@@ -29,9 +29,9 @@ const position = new Schema({
 /** Schema of the weather. */
 const weather = new Schema({
     _id        : false,
-    temperature: { type: Number, required: true },
+    temperature: { type: Number, required: false },
     sky        : { type: { code: Number }, required: true },
-    wind       : { type: Number, required: true }
+    wind       : { type: Number, required: false }
 });
 
 

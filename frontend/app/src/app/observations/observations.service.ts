@@ -165,7 +165,7 @@ export class ObservationsService {
         const data = <MinimalObservation> res.data;
 
         // Emit the new observation
-        this._obs.next([...this._obs.value, data]);
+        if (data.position.roi) this._obs.next([...this._obs.value, data]);
 
     }
 

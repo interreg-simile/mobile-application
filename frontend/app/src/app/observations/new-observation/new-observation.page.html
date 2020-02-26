@@ -5,7 +5,11 @@
 		<!-- Back button -->
 		<ion-buttons slot="start">
 			
-			<ion-back-button class="back-button" defaultHref="map"></ion-back-button>
+			<ion-button (click)="onClose()">
+				
+				<ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+			
+			</ion-button>
 		
 		</ion-buttons>
 		
@@ -17,7 +21,7 @@
 			
 			<ion-button (click)="onHelpClick()">
 				
-				<ion-icon name="help-circle-outline"></ion-icon>
+				<ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
 			
 			</ion-button>
 		
@@ -181,10 +185,6 @@
 	
 	<!-- Skeleton placeholder -->
 	<section *ngIf="_isLoading" class="skeleton">
-		
-		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
-		
-		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
 		
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		

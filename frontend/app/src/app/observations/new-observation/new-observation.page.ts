@@ -1,5 +1,5 @@
-import { Component, ComponentRef, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController, PickerController } from "@ionic/angular";
+import { Component, ComponentRef, OnDestroy, OnInit } from '@angular/core';
+import { AlertController, LoadingController, ModalController, PickerController, Platform } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 
@@ -15,10 +15,10 @@ import { Choices, ChoicesComponent } from "../choices/choices.component";
     templateUrl: './new-observation.page.html',
     styleUrls  : ['./new-observation.page.scss']
 })
-export class NewObservationPage implements OnInit {
+export class NewObservationPage implements OnInit, OnDestroy {
 
 
-    /** Flag that states if the page is loading somethign. */
+    /** Flag that states if the page is loading something. */
     public _isLoading = true;
 
     /** A copy of the new observation created in the ObservationService. */
@@ -51,7 +51,8 @@ export class NewObservationPage implements OnInit {
                 private modalCtr: ModalController,
                 private i18n: TranslateService,
                 private cameraService: CameraService,
-                private toastService: ToastService) { }
+                private toastService: ToastService,
+                private platform: Platform) { }
 
 
     /** @ignore */
@@ -63,10 +64,14 @@ export class NewObservationPage implements OnInit {
         // Get a source from the initial photo
         this._imageSrc[0] = this.cameraService.getImgSrc(this._newObservation.photos[0]);
 
-            // Retrieve the weather data
+        // Retrieve the weather data
         this.getWeatherData(false)
             .catch(() => this.toastService.presentToast("page-map.msg-weather-error", Duration.short))
             .finally(() => this._isLoading = false);
+
+
+        // When the user click the hardware back button, call the onClose method
+        this.platform.backButton.subscribeWithPriority(9999, async () => await this.onClose())
 
     }
 
@@ -151,7 +156,7 @@ export class NewObservationPage implements OnInit {
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
                 {
                     text   : this.i18n.instant("common.alerts.btn-ok"),
-                    handler: data => { this._newObservation.weather[name] = data.data }
+                    handler: data => { if (data.data) this._newObservation.weather[name] = data.data }
                 }
             ]
         });
@@ -400,6 +405,38 @@ export class NewObservationPage implements OnInit {
 
         // Navigate to the map page
         await this.router.navigate(["map"]);
+
+    }
+
+
+    /**
+     * Called when the user wants to close the page without saving the data.
+     *
+     * @return {Promise<>} An empty promise.
+     */
+    async onClose(): Promise<void> {
+
+        // Create the alert
+        const alert = await this.alertCtr.create({
+            message        : this.i18n.instant("page-new-obs.alert-message-cancel"),
+            buttons        : [
+                {
+                    text   : this.i18n.instant("page-new-obs.alert-btn-cancel"),
+                    handler: () => this.router.navigate(["map"])
+                },
+                { text: this.i18n.instant("page-new-obs.alert-btn-continue"), role: "cancel" }
+            ],
+            backdropDismiss: false
+        });
+
+        // Present the alert
+        await alert.present();
+
+    }
+
+
+    /** @ignore */
+    ngOnDestroy(): void {
 
         // Reset the new observation
         this.obsService.resetNewObservation();
