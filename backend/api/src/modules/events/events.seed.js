@@ -26,6 +26,7 @@ export default async function () {
     // Create the dummy data
     const events = [
         {
+            uid        : "5dd7bbe0701d5bdd685c1f17",
             title      : { it: "Evento futuro", en: "Future event" },
             description: { it: new LoremIpsum().generateParagraphs(1), en: new LoremIpsum().generateParagraphs(1) },
             position   : {
@@ -38,6 +39,7 @@ export default async function () {
             contacts   : { email: "info@simile.it", phone: "+393349969525" }
         },
         {
+            uid        : "5dd7bbe0701d5bdd685c1f17",
             title      : { it: "Evento futuro 2" },
             description: { it: new LoremIpsum().generateParagraphs(1) },
             position   : {
@@ -50,6 +52,7 @@ export default async function () {
             contacts   : { phone: "+393349969525" }
         },
         {
+            uid         : "5dd7bbe0701d5bdd685c1f17",
             title       : { it: "Evento passato" },
             description : { it: new LoremIpsum().generateParagraphs(1) },
             position    : {
@@ -65,18 +68,8 @@ export default async function () {
         }
     ];
 
-    // Retrieve the id of the admin
-    const adminId = await User.findOne({ email: "admin@example.com" }, "_id");
 
     // For each dummy data
-    for (const event of events) {
-
-        // Save the admin id as uid
-        event.uid = adminId;
-
-        // Save the event
-        await Event.create(event);
-
-    }
+    for (const event of events) await Event.create(event);
 
 }

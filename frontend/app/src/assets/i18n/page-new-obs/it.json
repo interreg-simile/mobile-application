@@ -190,5 +190,26 @@
   "msg-weather-error": "Errore durante la richiesta dei dati meteo.",
   "alert-message-cancel": "Annullare le modifiche apportate?",
   "alert-btn-continue": "Continua a modificare",
-  "alert-btn-cancel": "Annulla"
+  "alert-btn-cancel": "Annulla",
+  "measures": {
+    "hub": {
+      "title": "Nuova misura",
+      "head": "Tipi di misure"
+    },
+    "transparency": {
+      "title": "Trasparenza"
+    },
+    "temperature":  {
+      "title": "Temperatura"
+    },
+    "ph":  {
+      "title": "Ph"
+    },
+    "oxygen":  {
+      "title": "Ossigeno"
+    },
+    "bacteria":  {
+      "title": "Batteri"
+    }
+  }
 }

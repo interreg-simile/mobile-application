@@ -6,13 +6,18 @@ import { OdoursComponent } from "./details/odours/odours.component";
 import { OutletsComponent } from "./details/outlets/outlets.component";
 import { FaunaComponent } from "./details/fauna/fauna.component";
 import { LatLng } from "leaflet";
+import { TransparencyComponent } from "./measures/transparency/transparency.component";
+import { TemperatureComponent } from "./measures/temperature/temperature.component";
+import { PhComponent } from "./measures/ph/ph.component";
+import { OxygenComponent } from "./measures/oxygen/oxygen.component";
+import { BacteriaComponent } from "./measures/bacteria/bacteria.component";
 
 
 export interface Position {
     coordinates: LatLng,
     accuracy: number,
     custom: boolean,
-    roi?: string // MongooseId: valid roi, undefined: cannot get, not passed: point in no roi
+    roi?: string
 }
 
 
@@ -96,7 +101,6 @@ export interface Fauna {
     }
 }
 
-
 export interface Details {
     algae: Algae,
     foams: Foams,
@@ -110,18 +114,56 @@ export interface Details {
 
 
 interface Instrument {
-    professional?: Boolean,
-    brand?: String,
-    precision?: String,
-    details?: String
+    professional: boolean,
+    brand: string,
+    precision: string,
+    details: string
 }
 
-interface Measures {
-    transparency?: { val: Number, instrument: Instrument },
-    temperature?: { multiple: Boolean, val: { depth: Number, val: Number }[], instrument: Instrument },
-    ph?: { multiple: Boolean, val: { depth: Number, val: Number }[], instrument: Instrument },
-    oxygen?: { multiple: Boolean, val: { depth: Number, concentration: { code: number }, percentage: { code: number } }[], instrument: Instrument },
-    bacteria?: { escherichiaColi: { code: number }, enterococci: { code: number } }
+export interface Transparency {
+    checked: boolean,
+    component: Object,
+    val: string,
+    instrument: Instrument
+}
+
+export interface Temperature {
+    checked: boolean,
+    component: Object,
+    multiple: boolean,
+    val: any[],
+    instrument: Instrument
+}
+
+export interface Ph {
+    checked: boolean,
+    component: Object,
+    multiple: boolean,
+    val: any[],
+    instrument: Instrument
+}
+
+export interface Oxygen {
+    checked: boolean,
+    component: Object,
+    multiple: boolean,
+    val: any[],
+    instrument: Instrument
+}
+
+export interface Bacteria {
+    checked: boolean,
+    component: Object,
+    escherichiaColi: number
+    enterococci: number
+}
+
+export interface Measures {
+    transparency: Transparency,
+    temperature: Temperature,
+    ph: Ph,
+    oxygen: Oxygen,
+    bacteria: Bacteria
 }
 
 
@@ -153,6 +195,7 @@ export class Observation {
      */
     constructor(coords: LatLng, accuracy: number, custom: boolean) {
 
+
         this.position = {
             coordinates: coords,
             accuracy   : accuracy,
@@ -164,6 +207,9 @@ export class Observation {
             sky        : { code: 1 },
             wind       : undefined
         };
+
+        this.photos = [undefined, undefined, undefined];
+
 
         const algae: Algae = {
             checked   : false,
@@ -249,7 +295,52 @@ export class Observation {
             other  : undefined
         };
 
-        this.photos = [undefined, undefined, undefined];
+
+        const transparency: Transparency = {
+            checked   : false,
+            component : TransparencyComponent,
+            val       : undefined,
+            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        const temperature: Temperature = {
+            checked   : false,
+            component : TemperatureComponent,
+            multiple  : undefined,
+            val       : [],
+            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        const ph: Ph = {
+            checked   : false,
+            component : PhComponent,
+            multiple  : undefined,
+            val       : [],
+            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        const oxygen: Oxygen = {
+            checked   : false,
+            component : OxygenComponent,
+            multiple  : undefined,
+            val       : [],
+            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        const bacteria: Bacteria = {
+            checked        : false,
+            component      : BacteriaComponent,
+            escherichiaColi: undefined,
+            enterococci    : undefined
+        };
+
+        this.measures = {
+            transparency: transparency,
+            temperature : temperature,
+            ph          : ph,
+            oxygen      : oxygen,
+            bacteria    : bacteria
+        }
 
     }
 

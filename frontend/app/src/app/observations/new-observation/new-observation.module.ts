@@ -15,6 +15,12 @@ import { LittersComponent } from "../details/litters/litters.component";
 import { OdoursComponent } from "../details/odours/odours.component";
 import { OutletsComponent } from "../details/outlets/outlets.component";
 import { FaunaComponent } from "../details/fauna/fauna.component";
+import { HubComponent } from "../measures/hub/hub.component";
+import { BacteriaComponent } from "../measures/bacteria/bacteria.component";
+import { OxygenComponent } from "../measures/oxygen/oxygen.component";
+import { PhComponent } from "../measures/ph/ph.component";
+import { TemperatureComponent } from "../measures/temperature/temperature.component";
+import { TransparencyComponent } from "../measures/transparency/transparency.component";
 
 
 const routes: Routes = [{ path: '', component: NewObservationPage }];
@@ -28,7 +34,13 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         LittersComponent,
         OdoursComponent,
         OutletsComponent,
-        FaunaComponent
+        FaunaComponent,
+        HubComponent,
+        BacteriaComponent,
+        OxygenComponent,
+        PhComponent,
+        TemperatureComponent,
+        TransparencyComponent
     ],
     imports        : [
         CommonModule,
@@ -46,7 +58,13 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         LittersComponent,
         OdoursComponent,
         OutletsComponent,
-        FaunaComponent
+        FaunaComponent,
+        HubComponent,
+        BacteriaComponent,
+        OxygenComponent,
+        PhComponent,
+        TemperatureComponent,
+        TransparencyComponent
     ]
 })
 export class NewObservationPageModule {}

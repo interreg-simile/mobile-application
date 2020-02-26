@@ -8,6 +8,9 @@ import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.com
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { Choices, ChoicesComponent } from "../choices/choices.component";
+import { Observation } from "../observation.model";
+import { LatLng } from "leaflet";
+import { HubComponent } from "../measures/hub/hub.component";
 
 
 @Component({
@@ -58,6 +61,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /** @ignore */
     ngOnInit(): void {
 
+        // ToDo remove
+        this.obsService.newObservation = new Observation(new LatLng(0.0, 0.0), 20, true);
+
         // Copy the new observation created in the ObservationService
         this._newObservation = this.obsService.newObservation;
 
@@ -71,7 +77,10 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
 
         // When the user click the hardware back button, call the onClose method
-        this.platform.backButton.subscribeWithPriority(9999, async () => await this.onClose())
+        this.platform.backButton.subscribeWithPriority(9999, () => this.onClose());
+
+        // ToDo remove
+        this.modalCtr.create({ component: HubComponent }).then(modal => modal.present());
 
     }
 
@@ -219,9 +228,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
      * Opens a modal for editing a detail.
      *
      * @param {ComponentRef} component - The component to be used as template for the modal.
-     * @returns {Promise<>} - An empty promise.
+     * @returns {Promise<>} An empty promise.
      */
-    async openDetailModal(component): Promise<void> {
+    async openDetailModal(component: any): Promise<void> {
 
         // Create the modal
         const modal = await this.modalCtr.create({ component: component });
@@ -342,9 +351,11 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 this.postObservation();
                 return;
 
-            // ToDo
             case Choices.ADD_MEASURE:
-                await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
+                const measuresModal = await this.modalCtr.create({ component: HubComponent });
+                await measuresModal.present();
+                const toSend = await measuresModal.onDidDismiss();
+                console.log("To send: " + toSend);
                 return;
 
             // ToDo

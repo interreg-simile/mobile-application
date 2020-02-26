@@ -91,7 +91,7 @@
 		
 		
 		<!-- Details -->
-		<section id="details">
+		<section id="details" class="options-list">
 			
 			
 			<div class="heading">
@@ -113,7 +113,6 @@
 							
 							<ion-checkbox [(ngModel)]="detail.value.checked"></ion-checkbox>
 							
-							<!--suppress TypeScriptUnresolvedVariable -->
 							<ion-label class="ion-no-margin" (click)="openDetailModal(detail.value.component)">
 								
 								{{"page-new-obs.details." + detail.key + ".title" | translate}}

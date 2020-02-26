@@ -1,0 +1,73 @@
+<ion-header>
+	
+	<ion-toolbar>
+		
+		<!-- Back button -->
+		<ion-buttons slot="start">
+			
+			<ion-button (click)="closeModal(false)">
+				
+				<ion-icon slot="icon-only" name="close"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+		
+		<!-- Title -->
+		<ion-title>{{"page-new-obs.measures.hub.title" | translate}}</ion-title>
+	
+	</ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="bg-off-white custom-container">
+	
+	
+	<!-- Measure types -->
+	<section class="options-list">
+		
+		<p class="card-header">{{"page-new-obs.measures.hub.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content class="ion-no-padding">
+				
+				<div *ngFor="let measure of measures | keyvalue: originalOrder">
+					
+					<div class="detail-item">
+						
+						<ion-checkbox [(ngModel)]="measure.value.checked"></ion-checkbox>
+						
+						<ion-label class="ion-no-margin" (click)="openMeasureModal(measure.value)">
+							
+							{{"page-new-obs.measures." + measure.key + ".title" | translate}}
+							
+							<ion-icon name="help-circle-outline" (click)="onHelpClick()"></ion-icon>
+							
+							<ion-icon name="ios-arrow-forward"></ion-icon>
+						
+						</ion-label>
+					
+					</div>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Send button -->
+	<ion-button expand="block" color="primary" (click)="closeModal(true)">
+		
+		<ion-icon slot="start" name="ios-send"></ion-icon>
+		
+		{{"page-new-obs.modal-choices.btn-send" | translate}}
+	
+	</ion-button>
+
+
+</ion-content>

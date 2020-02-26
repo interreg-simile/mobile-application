@@ -30,11 +30,11 @@ async function seeder() {
 
         // Seed the data
         // await apiKeys();
-        // await users();
+        await users();
         // await rois();
         await events();
         await alerts();
-        // await observations();
+        await observations();
 
         // Close the connection
         await mongoose.connection.close();

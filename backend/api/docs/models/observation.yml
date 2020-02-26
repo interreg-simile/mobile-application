@@ -74,6 +74,29 @@ Observation:
 
   measures:
 
+    transparency:
+      val: number
+      instrument: { professional: boolean, brand: string, precision: string, details: string }
+
+    temperature:
+      multiple: boolean
+      val: [{depth: number, val: number}]
+      instrument: { professional: boolean, brand: string, precision: string, details: string }
+
+    ph:
+      multiple: boolean
+      val: [{depth: number, val: number}]
+      instrument: { professional: boolean, brand: string, precision: string, details: string }
+
+    oxygen:
+      multiple: boolean
+      val: [{depth: number, concentration: number, percentage: number}]
+      instrument: { professional: boolean, brand: string, precision: string, details: string }
+
+   bacteria:
+     escherichiaColi: number
+     enterococci: number
+
   markedForDeletion: boolean
 
   createdAt: Date

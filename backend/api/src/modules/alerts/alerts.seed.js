@@ -26,14 +26,16 @@ export default async function () {
     // Create the dummy data
     const alerts = [
         {
-            title    : { it: "Comunicazione 1", en: "Communication 1" },
-            content  : { it: new LoremIpsum().generateParagraphs(1), en: new LoremIpsum().generateParagraphs(1) },
-            dateEnd  : new Date().setMonth(new Date().getMonth() + 1)
+            uid    : "5dd7bbe0701d5bdd685c1f17",
+            title  : { it: "Comunicazione 1", en: "Communication 1" },
+            content: { it: new LoremIpsum().generateParagraphs(1), en: new LoremIpsum().generateParagraphs(1) },
+            dateEnd: new Date().setMonth(new Date().getMonth() + 1)
         },
         {
-            title    : { it: "Comunicazione 2" },
-            content  : { it: new LoremIpsum().generateParagraphs(1) },
-            dateEnd  : new Date().setMonth(new Date().getMonth() + 3)
+            uid    : "5dd7bbe0701d5bdd685c1f17",
+            title  : { it: "Comunicazione 2" },
+            content: { it: new LoremIpsum().generateParagraphs(1) },
+            dateEnd: new Date().setMonth(new Date().getMonth() + 3)
         }
     ];
 
@@ -41,14 +43,6 @@ export default async function () {
     const adminId = await User.findOne({ email: "admin@example.com" }, "_id");
 
     // For each dummy data
-    for (const alert of alerts) {
-
-        // Save the admin id as uid
-        alert.uid = adminId;
-
-        // Save the alert
-        await Alert.create(alert);
-
-    }
+    for (const alert of alerts) await Alert.create(alert);
 
 }

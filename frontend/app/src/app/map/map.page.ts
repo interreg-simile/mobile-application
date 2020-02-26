@@ -595,7 +595,7 @@ export class MapPage implements OnInit, OnDestroy {
         await this.router.navigate(["/observations/new"]);
 
 
-        // Remove the custom marker if present
+        // Remove the custom marker if present // ToDo do this after completion
         if (this._customMarker) {
             this._map.removeLayer(this._customMarker);
             this._customMarker = null;
