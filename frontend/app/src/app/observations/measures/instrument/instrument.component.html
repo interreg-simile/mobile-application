@@ -1,0 +1,54 @@
+<p class="card-header">{{"page-new-obs.measures.instrument.head" | translate}}</p>
+
+<ion-card class="ion-no-margin">
+	
+	<ion-card-content>
+		
+		
+		<!-- Type -->
+		<section class="type">
+			
+			<p class="label">{{"page-new-obs.measures.instrument.type.label" | translate}}</p>
+			
+			<ion-radio-group [(ngModel)]="instrument.type">
+				
+				<ion-item *ngFor="let i of [1,2]" [lines]="'none'">
+					
+					<ion-label>{{"page-new-obs.measures.instrument.type." + i | translate}}</ion-label>
+					
+					<ion-radio slot="start" value="{{i}}"></ion-radio>
+				
+				</ion-item>
+			
+			</ion-radio-group>
+		
+		</section>
+		
+		
+		<!-- Precision -->
+		<section class="precision value-single">
+			
+			<p>{{"page-new-obs.measures.instrument.precision.label" | translate}}</p>
+			
+			<ion-input class="val-input"
+					   placeholder="{{'page-new-obs.measures.instrument.precision.placeholder' | translate}}"
+					   type="text" [(ngModel)]="instrument.precision"></ion-input>
+		
+		</section>
+		
+		
+		<!-- Precision -->
+		<section class="details last">
+			
+			<p>{{"page-new-obs.measures.instrument.details.label" | translate}}</p>
+			
+			<ion-textarea placeholder="{{'page-new-obs.measures.instrument.details.placeholder' | translate}}"
+						  type="text" maxlength="500" rows="3"
+						  [(ngModel)]="instrument.details"></ion-textarea>
+		
+		</section>
+	
+	
+	</ion-card-content>
+
+</ion-card>

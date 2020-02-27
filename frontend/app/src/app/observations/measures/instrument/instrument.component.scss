@@ -1,0 +1,53 @@
+@import "../../../../theme/variables";
+@import "../../shared";
+
+
+section {
+  margin-bottom : 20px;
+
+  &.last {margin-bottom : 0}
+
+}
+
+
+ion-card { --color : #{$text-secondary} }
+
+
+.type {
+
+  .label { margin-bottom : 4px }
+
+
+  ion-radio-group {
+
+    ion-item {
+      --background    : transparent;
+      --padding-start : 0;
+    }
+
+    ion-radio { margin : 0 16px 0 0 }
+
+  }
+
+}
+
+
+.precision {
+
+  ion-input {
+    --padding-top    : 5px;
+    --padding-bottom : 5px;
+  }
+
+}
+
+
+.details {
+
+  ion-textarea {
+    --background  : #FFFFFF;
+    border-radius : 5px;
+    border        : 1px solid $color-border;
+  }
+
+}

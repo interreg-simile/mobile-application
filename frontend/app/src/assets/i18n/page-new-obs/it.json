@@ -196,20 +196,61 @@
       "title": "Nuova misura",
       "head": "Tipi di misure"
     },
+    "type": {
+      "head": "Tipo di misura",
+      "single": "Singola",
+      "multiple": "Multipla"
+    },
+    "errors": {
+      "add-measure": "Devi completare prima la misura corrente.",
+      "remove-measure": "Non puoi eliminare l'ultima misura."
+    },
     "transparency": {
-      "title": "Trasparenza"
+      "title": "Trasparenza",
+      "label-val": "Profondità (m) *",
+      "error-msg-val": "Devi specificare il valore della misura."
     },
-    "temperature":  {
-      "title": "Temperatura"
+    "temperature": {
+      "title": "Temperatura",
+      "label-depth": "Profondità (m) *",
+      "label-val": "Valore (°C) *",
+      "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
-    "ph":  {
-      "title": "Ph"
+    "ph": {
+      "title": "Ph",
+      "label-depth": "Profondità (m) *",
+      "label-val": "Valore *",
+      "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
-    "oxygen":  {
-      "title": "Ossigeno"
+    "oxygen": {
+      "title": "Ossigeno",
+      "label-depth": "Profondità (m) *",
+      "label-val": "Valore (mg/l) *",
+      "label-val-percentage": "Valore (%) *",
+      "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
-    "bacteria":  {
-      "title": "Batteri"
+    "bacteria": {
+      "title": "Batteri",
+      "eColi": "Escherichia Coli (UFC/100ml)",
+      "enterococci": "Enterococchi (UFC/100ml)",
+      "error-msg-val": "Devi inserire almeno uno dei due valori."
+    },
+    "instrument": {
+      "head": "Strumento utilizzato",
+      "type": {
+        "label": "Tipologia *",
+        "1": "Professionale",
+        "2": "Artigianale",
+        "error-msg": "Devi specificare la tipologia dello strumento utilizzato."
+      },
+      "precision": {
+        "label": "Precisione",
+        "placeholder": "1 °C"
+      },
+      "details": {
+        "label": "Dettagli",
+        "placeholder": "Modello, materiale, specifiche..."
+      }
     }
   }
 }

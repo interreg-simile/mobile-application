@@ -227,7 +227,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /**
      * Opens a modal for editing a detail.
      *
-     * @param {ComponentRef} component - The component to be used as template for the modal.
+     * @param {Component} component - The component to be used as template for the modal.
      * @returns {Promise<>} An empty promise.
      */
     async openDetailModal(component: any): Promise<void> {
@@ -356,6 +356,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 await measuresModal.present();
                 const toSend = await measuresModal.onDidDismiss();
                 console.log("To send: " + toSend);
+                // ToDo if not to send, this._newObservation.measures = new MeasuresImpl()
                 return;
 
             // ToDo

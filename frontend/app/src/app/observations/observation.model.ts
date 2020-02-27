@@ -113,8 +113,8 @@ export interface Details {
 }
 
 
-interface Instrument {
-    professional: boolean,
+export interface Instrument {
+    type: { code: number },
     brand: string,
     precision: string,
     details: string
@@ -123,7 +123,7 @@ interface Instrument {
 export interface Transparency {
     checked: boolean,
     component: Object,
-    val: string,
+    val: number,
     instrument: Instrument
 }
 
@@ -147,6 +147,7 @@ export interface Oxygen {
     checked: boolean,
     component: Object,
     multiple: boolean,
+    percentage: boolean,
     val: any[],
     instrument: Instrument
 }
@@ -167,13 +168,67 @@ export interface Measures {
 }
 
 
+export class MeasuresImpl implements Measures {
+
+    transparency: Transparency;
+    temperature: Temperature;
+    ph: Ph;
+    oxygen: Oxygen;
+    bacteria: Bacteria;
+
+    constructor() {
+
+        this.transparency = {
+            checked   : false,
+            component : TransparencyComponent,
+            val       : undefined,
+            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        this.temperature = {
+            checked   : false,
+            component : TemperatureComponent,
+            multiple  : undefined,
+            val       : [],
+            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        this.ph = {
+            checked   : false,
+            component : PhComponent,
+            multiple  : undefined,
+            val       : [],
+            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        this.oxygen = {
+            checked   : false,
+            component : OxygenComponent,
+            multiple  : undefined,
+            percentage: false,
+            val       : [],
+            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
+        };
+
+        this.bacteria = {
+            checked        : false,
+            component      : BacteriaComponent,
+            escherichiaColi: undefined,
+            enterococci    : undefined
+        };
+
+    }
+
+}
+
+
 export class Observation {
 
-    id: String;
+    id: string;
 
     createdAt: Date;
 
-    uid: String;
+    uid: string;
 
     position: Position;
 
@@ -296,51 +351,49 @@ export class Observation {
         };
 
 
-        const transparency: Transparency = {
-            checked   : false,
-            component : TransparencyComponent,
-            val       : undefined,
-            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
-        };
+        this.measures = new MeasuresImpl();
 
-        const temperature: Temperature = {
-            checked   : false,
-            component : TemperatureComponent,
-            multiple  : undefined,
-            val       : [],
-            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
-        };
 
-        const ph: Ph = {
-            checked   : false,
-            component : PhComponent,
-            multiple  : undefined,
-            val       : [],
-            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
-        };
-
-        const oxygen: Oxygen = {
-            checked   : false,
-            component : OxygenComponent,
-            multiple  : undefined,
-            val       : [],
-            instrument: { professional: undefined, brand: undefined, precision: undefined, details: undefined }
-        };
-
-        const bacteria: Bacteria = {
-            checked        : false,
-            component      : BacteriaComponent,
-            escherichiaColi: undefined,
-            enterococci    : undefined
-        };
-
-        this.measures = {
-            transparency: transparency,
-            temperature : temperature,
-            ph          : ph,
-            oxygen      : oxygen,
-            bacteria    : bacteria
-        }
+        // const transparency: Transparency = {
+        //     checked   : false,
+        //     val       : undefined,
+        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
+        // };
+        //
+        // const temperature: Temperature = {
+        //     checked   : false,
+        //     multiple  : undefined,
+        //     val       : [],
+        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
+        // };
+        //
+        // const ph: Ph = {
+        //     checked   : false,
+        //     multiple  : undefined,
+        //     val       : [],
+        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
+        // };
+        //
+        // const oxygen: Oxygen = {
+        //     checked   : false,
+        //     multiple  : undefined,
+        //     val       : [],
+        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
+        // };
+        //
+        // const bacteria: Bacteria = {
+        //     checked        : false,
+        //     escherichiaColi: undefined,
+        //     enterococci    : undefined
+        // };
+        //
+        // this.measures = {
+        //     transparency: transparency,
+        //     temperature : temperature,
+        //     ph          : ph,
+        //     oxygen      : oxygen,
+        //     bacteria    : bacteria
+        // }
 
     }
 

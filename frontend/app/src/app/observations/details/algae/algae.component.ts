@@ -37,7 +37,7 @@ export class AlgaeComponent implements OnInit {
 
 
     /** @ignore */
-    ngOnInit() {
+    ngOnInit(): void {
 
         // Save the initial values of the settable properties
         this._props.extension  = this.obsService.newObservation.details.algae.extension.code;
@@ -57,9 +57,10 @@ export class AlgaeComponent implements OnInit {
     /**
      * Closes the modal and handle the data saving process.
      *
-     * @param {Boolean} save - True if the modifications done in the modal are to be saved.
+     * @param {boolean} save - True if the modifications done in the modal are to be saved.
+     * @return {Promise<>} An empty promise.
      */
-    async closeModal(save: boolean) {
+    async closeModal(save: boolean): Promise<void> {
 
         // If the modifications are to be saved
         if (save) {
@@ -86,7 +87,7 @@ export class AlgaeComponent implements OnInit {
      *
      * @param {Object} colour - The selected colour.
      */
-    onColourClick(colour) {
+    onColourClick(colour): void {
 
         // Set the property to undefined
         this._props.colour = undefined;

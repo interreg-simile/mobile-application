@@ -2,8 +2,21 @@ import * as cloneDeep from "lodash/cloneDeep";
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 
-import { Measures } from "../../observation.model";
 import { ObservationsService } from "../../observations.service";
+import { TransparencyComponent } from "../transparency/transparency.component";
+import { TemperatureComponent } from "../temperature/temperature.component";
+import { PhComponent } from "../ph/ph.component";
+import { OxygenComponent } from "../oxygen/oxygen.component";
+import { BacteriaComponent } from "../bacteria/bacteria.component";
+
+
+const DICT_COMPONENTS = {
+    transparency: TransparencyComponent,
+    temperature : TemperatureComponent,
+    ph          : PhComponent,
+    oxygen      : OxygenComponent,
+    bacteria    : BacteriaComponent
+};
 
 
 @Component({ selector: 'app-hub', templateUrl: './hub.component.html', styleUrls: ['./hub.component.scss'] })
@@ -11,7 +24,7 @@ export class HubComponent implements OnInit {
 
 
     /** Possible measures */
-    public measures;
+    public _measures;
 
 
     // Utility function to keep the original key order when iterating on an object using ngFor
@@ -26,7 +39,10 @@ export class HubComponent implements OnInit {
     ngOnInit(): void {
 
         // Deep clone the new observation measures
-        this.measures = cloneDeep(this.obsService.newObservation.measures);
+        this._measures = this.obsService.newObservation.measures;
+
+        // ToDo remove
+        this.openMeasureModal(this._measures.bacteria.component);
 
     }
 
@@ -34,28 +50,18 @@ export class HubComponent implements OnInit {
     /**
      * Opens a modal for editing a measure.
      *
-     * @param {ComponentRef} measure - The measure.
+     * @param {Component} component - The component to be used as template for the modal.
      * @returns {Promise<>} An empty promise.
      */
-    async openMeasureModal(measure: any): Promise<void> {
-
-        // Deep clone the measures
-        const props = cloneDeep(measure);
+    async openMeasureModal(component: any): Promise<void> {
 
         // Create the modal
-        const modal = await this.modalCtr.create({
-            component: measure.component,
-            componentProps: {props: props}
-        });
+        const modal = await this.modalCtr.create({ component: component });
 
         // Present the modal
         await modal.present();
 
     }
-
-
-    // ToDo
-    onHelpClick() { console.log("On help click") }
 
 
     /**
@@ -65,9 +71,6 @@ export class HubComponent implements OnInit {
      * @return {Promise<>} An empty promise.
      */
     async closeModal(send: boolean): Promise<void> {
-
-        // If the observation has to be send, copy the measures
-        if (send) this.obsService.newObservation.measures = this.measures;
 
         // Close the modal
         await this.modalCtr.dismiss(send);

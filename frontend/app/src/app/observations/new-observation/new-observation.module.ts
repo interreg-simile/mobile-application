@@ -21,6 +21,7 @@ import { OxygenComponent } from "../measures/oxygen/oxygen.component";
 import { PhComponent } from "../measures/ph/ph.component";
 import { TemperatureComponent } from "../measures/temperature/temperature.component";
 import { TransparencyComponent } from "../measures/transparency/transparency.component";
+import { InstrumentComponent } from "../measures/instrument/instrument.component";
 
 
 const routes: Routes = [{ path: '', component: NewObservationPage }];
@@ -64,7 +65,8 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         OxygenComponent,
         PhComponent,
         TemperatureComponent,
-        TransparencyComponent
+        TransparencyComponent,
+        InstrumentComponent
     ]
 })
 export class NewObservationPageModule {}

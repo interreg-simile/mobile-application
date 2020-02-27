@@ -1,3 +1,157 @@
-<p>
-  ph works!
-</p>
+<ion-header>
+  
+  <ion-toolbar>
+    
+    <!-- Back button -->
+    <ion-buttons slot="start">
+      
+      <ion-button (click)="closeModal(false)">
+        
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      
+      </ion-button>
+    
+    </ion-buttons>
+    
+    <!-- Title -->
+    <ion-title>{{"page-new-obs.measures.ph.title" | translate}}</ion-title>
+    
+    <!-- Right buttons -->
+    <ion-buttons slot="end">
+      
+      <!-- Help button -->
+      <ion-button (click)="onHelpClick()">
+        
+        <ion-icon name="help-circle-outline"></ion-icon>
+      
+      </ion-button>
+      
+      <!-- Check button -->
+      <ion-button (click)="closeModal(true)">
+        
+        <ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+      
+      </ion-button>
+    
+    </ion-buttons>
+  
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="bg-off-white custom-container">
+  
+  
+  <!-- Mandatory -->
+  <p class="info-mandatory">{{"page-new-obs.info-mandatory" | translate}}</p>
+  
+  
+  <section class="measure-type">
+    
+    <p class="card-header">{{"page-new-obs.measures.type.head" | translate}}</p>
+    
+    
+    <ion-segment [value]="_props.multiple ? 'multiple' : 'single'" (ionChange)="onTypeChange($event)">
+      
+      <ion-segment-button value="single">
+        
+        <ion-label>{{"page-new-obs.measures.type.single" | translate}}</ion-label>
+      
+      </ion-segment-button>
+      
+      <ion-segment-button value="multiple">
+        
+        <ion-label>{{"page-new-obs.measures.type.multiple" | translate}}</ion-label>
+      
+      </ion-segment-button>
+    
+    </ion-segment>
+    
+    
+    <section *ngIf="!_props.multiple" class="grid">
+      
+      <div class="col">
+        
+        <p>{{"page-new-obs.measures.ph.label-depth" | translate}}</p>
+        
+        <ion-input class="val-input compact ion-text-center"
+                   type="number" min="0"
+                   [(ngModel)]="_props.singleVal.depth"></ion-input>
+      
+      </div>
+      
+      <div class="col">
+        
+        <p>{{"page-new-obs.measures.ph.label-val" | translate}}</p>
+        
+        <ion-input class="val-input compact ion-text-center"
+                   type="number"
+                   [(ngModel)]="_props.singleVal.val"></ion-input>
+      
+      </div>
+    
+    </section>
+    
+    
+    <section *ngIf="_props.multiple">
+      
+      <div class="grid">
+        
+        <div class="col">
+          
+          <p>{{"page-new-obs.measures.ph.label-depth" | translate}}</p>
+          
+          <ion-input *ngFor="let v of _props.multipleVal"
+                     class="val-input compact ion-text-center"
+                     type="number" min="0"
+                     [(ngModel)]="v.depth"></ion-input>
+        
+        </div>
+        
+        <div class="col">
+          
+          <p>{{"page-new-obs.measures.ph.label-val" | translate}}</p>
+          
+          <ion-input *ngFor="let v of _props.multipleVal"
+                     class="val-input compact ion-text-center"
+                     type="number"
+                     [(ngModel)]="v.val"></ion-input>
+        
+        </div>
+      
+      </div>
+      
+      <div class="buttons">
+        
+        <ion-button shape="round" fill="outline" size="small" color="dark" class="ion-margin-end"
+                    (click)="onAddBtnClick()">
+          
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        
+        </ion-button>
+        
+        <ion-button shape="round" fill="outline" size="small" color="dark"
+                    (click)="onRemoveBtnClick()">
+          
+          <ion-icon slot="icon-only" name="remove"></ion-icon>
+        
+        </ion-button>
+      
+      </div>
+    
+    </section>
+  
+  
+  </section>
+  
+  
+  <!-- Instrument -->
+  <section class="last instrument">
+    
+    <app-instrument [instrument]="_props.instrument"></app-instrument>
+  
+  </section>
+
+
+</ion-content>

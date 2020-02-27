@@ -33,17 +33,15 @@
 			
 			<ion-card-content class="ion-no-padding">
 				
-				<div *ngFor="let measure of measures | keyvalue: originalOrder">
+				<div *ngFor="let measure of _measures | keyvalue: originalOrder">
 					
 					<div class="detail-item">
 						
 						<ion-checkbox [(ngModel)]="measure.value.checked"></ion-checkbox>
 						
-						<ion-label class="ion-no-margin" (click)="openMeasureModal(measure.value)">
+						<ion-label class="ion-no-margin" (click)="openMeasureModal(measure.value.component)">
 							
 							{{"page-new-obs.measures." + measure.key + ".title" | translate}}
-							
-							<ion-icon name="help-circle-outline" (click)="onHelpClick()"></ion-icon>
 							
 							<ion-icon name="ios-arrow-forward"></ion-icon>
 						
