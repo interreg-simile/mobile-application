@@ -165,113 +165,98 @@ function vInstrument(field) {
 
         body(`${field}.instrument`).if(body(field).exists()).not().isEmpty(),
 
-        body(`${field}.instrument.professional`).if(body(field).exists()).not().isEmpty().isBoolean(),
+        body(`${field}.instrument.type.code`).if(body(field).exists())
+            .not().isEmpty()
+            .isInt({
+                min                 : conf.measures.instrument.type.min,
+                max                 : conf.measures.instrument.type.max,
+                allow_leading_zeroes: false
+            }),
 
-        body(`${field}.instrument.brand`).optional().isAscii().escape().trim(),
+        body(`${field}.instrument.precision`).optional().escape().trim(),
 
-        body(`${field}.instrument.precision`).optional().isAscii().escape().trim(),
-
-        body(`${field}.instrument.details`).optional().isAscii().escape().trim(),
-
-    ]
-
-}
-
-function vTransparency() {
-
-    return [
-
-        body("measures.transparency.val")
-            .if(body("measures.transparency").exists()).not().isEmpty().isNumeric(),
-
-        ...vInstrument("measures.transparency")
+        body(`${field}.instrument.details`).optional().escape().trim(),
 
     ]
 
 }
 
-function vTemperature() {
+const vTransparency = [
 
-    return [
+    body("measures.transparency.val")
+        .if(body("measures.transparency").exists()).not().isEmpty().isNumeric(),
 
-        body("measures.temperature.multiple")
-            .if(body("measures.temperature").exists()).not().isEmpty().isBoolean(),
+    ...vInstrument("measures.transparency")
 
-        body("measures.temperature.val")
-            .if(body("measures.temperature").exists()).not().isEmpty().isArray(),
+];
 
-        body("measures.temperature.val.*.depth")
-            .if(body("measures.temperature").exists()).not().isEmpty().isNumeric(),
-        body("measures.temperature.val.*.val")
-            .if(body("measures.temperature").exists()).not().isEmpty().isNumeric(),
+const vTemperature = [
 
-        ...vInstrument("measures.temperature")
+    body("measures.temperature.multiple")
+        .if(body("measures.temperature").exists()).not().isEmpty().isBoolean(),
 
-    ]
+    body("measures.temperature.val")
+        .if(body("measures.temperature").exists()).not().isEmpty().isArray(),
 
-}
+    body("measures.temperature.val.*.depth")
+        .if(body("measures.temperature").exists()).not().isEmpty().isNumeric(),
 
-function vPh() {
+    body("measures.temperature.val.*.val")
+        .if(body("measures.temperature").exists()).not().isEmpty().isNumeric(),
 
-    return [
+    ...vInstrument("measures.temperature")
 
-        body("measures.ph.multiple")
-            .if(body("measures.ph").exists()).not().isEmpty().isBoolean(),
+];
 
-        body("measures.ph.val")
-            .if(body("measures.ph").exists()).not().isEmpty().isArray(),
+const vPh = [
 
-        body("measures.ph.val.*.depth")
-            .if(body("measures.ph").exists()).not().isEmpty().isNumeric(),
-        body("measures.ph.val.*.val")
-            .if(body("measures.ph").exists()).not().isEmpty().isNumeric(),
+    body("measures.ph.multiple")
+        .if(body("measures.ph").exists()).not().isEmpty().isBoolean(),
 
-        ...vInstrument("measures.ph")
+    body("measures.ph.val")
+        .if(body("measures.ph").exists()).not().isEmpty().isArray(),
 
-    ]
+    body("measures.ph.val.*.depth")
+        .if(body("measures.ph").exists()).not().isEmpty().isNumeric(),
+    body("measures.ph.val.*.val")
+        .if(body("measures.ph").exists()).not().isEmpty().isNumeric(),
 
-}
+    ...vInstrument("measures.ph")
 
-function vOxygen() {
+];
 
-    return [
+const vOxygen = [
 
-        body("measures.oxygen.multiple")
-            .if(body("measures.oxygen").exists()).not().isEmpty().isBoolean(),
+    body("measures.oxygen.multiple")
+        .if(body("measures.oxygen").exists()).not().isEmpty().isBoolean(),
 
-        body("measures.oxygen.val")
-            .if(body("measures.oxygen").exists()).not().isEmpty().isArray(),
+    body("measures.oxygen.percentage")
+        .if(body("measures.oxygen").exists()).not().isEmpty().isBoolean(),
 
-        body("measures.oxygen.val.*.depth")
-            .if(body("measures.oxygen").exists()).not().isEmpty().isNumeric(),
-        oneOf([
-            body("measures.oxygen.val.*.concentration")
-                .if(body("measures.oxygen").exists()).not().isEmpty().isNumeric(),
-            body("measures.oxygen.val.*.percentage")
-                .if(body("measures.oxygen").exists()).not().isEmpty().isNumeric(),
-        ]),
+    body("measures.oxygen.val")
+        .if(body("measures.oxygen").exists()).not().isEmpty().isArray(),
 
-        ...vInstrument("measures.oxygen")
+    body("measures.oxygen.val.*.depth")
+        .if(body("measures.oxygen").exists()).not().isEmpty().isNumeric(),
+    body("measures.oxygen.val.*.val")
+        .if(body("measures.oxygen").exists()).not().isEmpty().isNumeric(),
 
-    ]
+    ...vInstrument("measures.oxygen")
 
-}
+];
 
-function vBacteria() {
+const vBacteria = [
 
-    return [
+    oneOf([
+        body("measures.bacteria.escherichiaColi")
+            .if(body("measures.bacteria").exists()).not().isEmpty().isNumeric(),
+        body("measures.bacteria.enterococci")
+            .if(body("measures.bacteria").exists()).not().isEmpty().isNumeric(),
+    ])
 
-        oneOf([
-            body("measures.bacteria.escherichiaColi")
-                .if(body("measures.bacteria").exists()).not().isEmpty().isNumeric(),
-            body("measures.bacteria.enterococci")
-                .if(body("measures.bacteria").exists()).not().isEmpty().isNumeric(),
-        ])
+];
 
-    ]
-
-
-}
+const vMeasures = [...vTransparency, ...vTemperature, ...vPh, ...vOxygen, ...vBacteria];
 
 
 // Validation chain for the body of the "post" and "put" requests
@@ -283,6 +268,7 @@ export const observation = [
     ...vPosition,
     ...vWeather,
     ...vDetails,
+    ...vMeasures,
     body("markedForDeletion").isEmpty(),
     body("createdAt").isEmpty(),
     body("upadtedAt").isEmpty()

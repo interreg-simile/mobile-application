@@ -60,3 +60,8 @@ observations:
     outlets:
       terminal: { 1: "Visibile", 2: "Sommerso"}
       colour: { 1: "Rosso", 2: "Blu", 3: "Verde", 4: "Grigio", 5: "Marrone", 6: "Giallo", 7: "Bianco" }
+
+  measures:
+
+    instrument:
+      type: { 1: "Professionale", 2: "Artigianale" }

@@ -205,7 +205,7 @@ export class MeasuresImpl implements Measures {
             checked   : false,
             component : OxygenComponent,
             multiple  : undefined,
-            percentage: false,
+            percentage: undefined,
             val       : [],
             instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
         };
@@ -349,51 +349,6 @@ export class Observation {
             fauna  : fauna,
             other  : undefined
         };
-
-
-        this.measures = new MeasuresImpl();
-
-
-        // const transparency: Transparency = {
-        //     checked   : false,
-        //     val       : undefined,
-        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
-        // };
-        //
-        // const temperature: Temperature = {
-        //     checked   : false,
-        //     multiple  : undefined,
-        //     val       : [],
-        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
-        // };
-        //
-        // const ph: Ph = {
-        //     checked   : false,
-        //     multiple  : undefined,
-        //     val       : [],
-        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
-        // };
-        //
-        // const oxygen: Oxygen = {
-        //     checked   : false,
-        //     multiple  : undefined,
-        //     val       : [],
-        //     instrument: { type: {code: undefined}, brand: undefined, precision: undefined, details: undefined }
-        // };
-        //
-        // const bacteria: Bacteria = {
-        //     checked        : false,
-        //     escherichiaColi: undefined,
-        //     enterococci    : undefined
-        // };
-        //
-        // this.measures = {
-        //     transparency: transparency,
-        //     temperature : temperature,
-        //     ph          : ph,
-        //     oxygen      : oxygen,
-        //     bacteria    : bacteria
-        // }
 
     }
 

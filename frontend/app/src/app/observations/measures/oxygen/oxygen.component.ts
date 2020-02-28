@@ -39,7 +39,7 @@ export class OxygenComponent implements OnInit {
 
         // Save the initial values of the settable properties
         this._props.multiple   = this.obsService.newObservation.measures.oxygen.multiple || false;
-        this._props.percentage = this.obsService.newObservation.measures.oxygen.percentage;
+        this._props.percentage = this.obsService.newObservation.measures.oxygen.percentage || false;
 
         // Set the instrument properties
         this.instrumentService.setInstrumentProps(this._props.instrument, "oxygen");

@@ -19,11 +19,7 @@ export class InstrumentComponent implements OnInit {
 
 
     /** @ignore */
-    ngOnInit() {
-
-        console.log(this.instrument);
-
-    }
+    ngOnInit() { }
 
 
 }

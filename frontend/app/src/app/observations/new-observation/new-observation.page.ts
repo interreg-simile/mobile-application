@@ -9,8 +9,9 @@ import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { Choices, ChoicesComponent } from "../choices/choices.component";
 import { Observation } from "../observation.model";
-import { LatLng } from "leaflet";
+import { DomUtil, LatLng } from "leaflet";
 import { HubComponent } from "../measures/hub/hub.component";
+import toBack = DomUtil.toBack;
 
 
 @Component({
@@ -61,9 +62,6 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /** @ignore */
     ngOnInit(): void {
 
-        // ToDo remove
-        this.obsService.newObservation = new Observation(new LatLng(0.0, 0.0), 20, true);
-
         // Copy the new observation created in the ObservationService
         this._newObservation = this.obsService.newObservation;
 
@@ -76,11 +74,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
             .finally(() => this._isLoading = false);
 
 
+        // ToDO handle hardware back button
         // When the user click the hardware back button, call the onClose method
-        this.platform.backButton.subscribeWithPriority(9999, () => this.onClose());
-
-        // ToDo remove
-        this.modalCtr.create({ component: HubComponent }).then(modal => modal.present());
+        // this.platform.backButton.subscribeWithPriority(9999, () => this.onClose());
 
     }
 
@@ -354,9 +350,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
             case Choices.ADD_MEASURE:
                 const measuresModal = await this.modalCtr.create({ component: HubComponent });
                 await measuresModal.present();
-                const toSend = await measuresModal.onDidDismiss();
-                console.log("To send: " + toSend);
-                // ToDo if not to send, this._newObservation.measures = new MeasuresImpl()
+                if((await measuresModal.onDidDismiss()).data) this.postObservation();
                 return;
 
             // ToDo

@@ -168,10 +168,14 @@ function populateDescriptions(obs, t) {
                 path.pop();
 
                 // Clone the path
-                const keyPath = [...path];
+                let keyPath = [...path];
 
                 // If the object is in an array, remove the index from the key path
                 if (!isNaN(keyPath[keyPath.length - 1])) keyPath.pop();
+
+                const instrumentIdx = keyPath.indexOf("instrument");
+
+                if (instrumentIdx !== -1) keyPath.splice((instrumentIdx - 1), 1);
 
                 // Set the description field
                 _.set(

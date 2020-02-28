@@ -1,22 +1,10 @@
-import * as cloneDeep from "lodash/cloneDeep";
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 
 import { ObservationsService } from "../../observations.service";
-import { TransparencyComponent } from "../transparency/transparency.component";
-import { TemperatureComponent } from "../temperature/temperature.component";
-import { PhComponent } from "../ph/ph.component";
-import { OxygenComponent } from "../oxygen/oxygen.component";
-import { BacteriaComponent } from "../bacteria/bacteria.component";
+import { MeasuresImpl } from "../../observation.model";
+import { TranslateService } from "@ngx-translate/core";
 
-
-const DICT_COMPONENTS = {
-    transparency: TransparencyComponent,
-    temperature : TemperatureComponent,
-    ph          : PhComponent,
-    oxygen      : OxygenComponent,
-    bacteria    : BacteriaComponent
-};
 
 
 @Component({ selector: 'app-hub', templateUrl: './hub.component.html', styleUrls: ['./hub.component.scss'] })
@@ -32,17 +20,20 @@ export class HubComponent implements OnInit {
 
 
     /** @ignore */
-    constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
+    constructor(private modalCtr: ModalController,
+                private obsService: ObservationsService,
+                private alertCtr: AlertController,
+                private i18n: TranslateService) { }
 
 
     /** @ignore */
     ngOnInit(): void {
 
+        // Initialize the measures property of the new observation
+        this.obsService.newObservation.measures = new MeasuresImpl();
+
         // Deep clone the new observation measures
         this._measures = this.obsService.newObservation.measures;
-
-        // ToDo remove
-        this.openMeasureModal(this._measures.bacteria.component);
 
     }
 
@@ -72,8 +63,33 @@ export class HubComponent implements OnInit {
      */
     async closeModal(send: boolean): Promise<void> {
 
-        // Close the modal
-        await this.modalCtr.dismiss(send);
+        if (!send) {
+
+            // Create the alert
+            const alert = await this.alertCtr.create({
+                message        : this.i18n.instant("page-new-obs.alert-message-cancel"),
+                buttons        : [
+                    {
+                        text   : this.i18n.instant("page-new-obs.alert-btn-cancel"),
+                        handler: async () => {
+                            await this.modalCtr.dismiss(send);
+                            delete this.obsService.newObservation.measures;
+                        }
+                    },
+                    { text: this.i18n.instant("page-new-obs.alert-btn-continue"), role: "cancel" }
+                ],
+                backdropDismiss: false
+            });
+
+            // Present the alert
+            await alert.present();
+
+        } else {
+
+            // Close the modal
+            await this.modalCtr.dismiss(send);
+
+        }
 
     }
 

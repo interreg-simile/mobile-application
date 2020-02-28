@@ -136,6 +136,14 @@ export class ObservationsService {
             // If the key is other, return
             if (k === "other") return;
 
+            // If the detail is not checked, remove it
+            if (!obs.details[k].checked){
+
+                delete obs.details[k];
+                return;
+
+            }
+
             // Remove the checked and component properties
             delete obs.details[k].checked;
             delete obs.details[k].component;
@@ -147,6 +155,28 @@ export class ObservationsService {
             if (k === "litters" && obs.details[k].type.length === 0) obs.details[k].type = undefined;
 
         });
+
+        // If the observation contains some measures
+        if (obs.measures) {
+
+            // For each of the measures
+            Object.keys(obs.measures).forEach(k => {
+
+                // If the measure is not checked, remove it
+                if (!obs.measures[k].checked) {
+
+                    delete obs.measures[k];
+                    return;
+
+                }
+
+                // Remove the checked and component properties
+                delete obs.measures[k].checked;
+                delete obs.measures[k].component;
+
+            });
+
+        }
 
         // Put all the observation data into the FormData
         Object.keys(obs).forEach(k => formData.append(k, JSON.stringify(obs[k])));

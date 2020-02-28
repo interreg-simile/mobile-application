@@ -50,3 +50,8 @@ observations:
     outlets:
       terminal: { min: 1, max: 2 }
       colour: { min: 1, max: 7 }
+
+  measures:
+
+    instrument:
+      type: { min: 1, max: 2 }
