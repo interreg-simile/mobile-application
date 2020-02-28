@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController, Platform } from "@ionic/angular";
-import { CircleMarker, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
+import { CircleMarker, divIcon, DivIcon, LatLng, LeafletMouseEvent, Map, Marker, Point, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
@@ -15,7 +15,6 @@ import {
 } from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
-import { Event } from "../news/events/event.model";
 import { ObservationsService } from "../observations/observations.service";
 import { CameraService, PicResult } from "../shared/camera.service";
 import { Router } from "@angular/router";
@@ -153,9 +152,29 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         // Initialize the marker clusters
-        this._eventMarkers   = new MarkerClusterGroup();
-        this._userObsMarkers = new MarkerClusterGroup();
-        this._obsMarkers     = new MarkerClusterGroup();
+        this._eventMarkers = new MarkerClusterGroup({
+            iconCreateFunction: cluster => {
+                const icon             = this._eventMarkers._defaultIconCreateFunction(cluster);
+                icon.options.className = "marker-cluster marker-cluster-events";
+                return icon;
+            }
+        });
+
+        this._userObsMarkers = new MarkerClusterGroup({
+            iconCreateFunction: cluster => {
+                const icon             = this._eventMarkers._defaultIconCreateFunction(cluster);
+                icon.options.className = "marker-cluster marker-cluster-user-obs";
+                return icon;
+            }
+        });
+
+        this._obsMarkers = new MarkerClusterGroup({
+            iconCreateFunction: cluster => {
+                const icon             = this._eventMarkers._defaultIconCreateFunction(cluster);
+                icon.options.className = "marker-cluster marker-cluster-obs";
+                return icon;
+            }
+        });
 
         // Subscribe to new events
         this._eventsSub = this.newsService.events.subscribe(events => {
@@ -594,8 +613,8 @@ export class MapPage implements OnInit, OnDestroy {
         // Open the new observation page
         await this.router.navigate(["/observations/new"]);
 
-
-        // Remove the custom marker if present // ToDo do this after completion
+        // ToDo do this after completion
+        // Remove the custom marker if present
         if (this._customMarker) {
             this._map.removeLayer(this._customMarker);
             this._customMarker = null;
