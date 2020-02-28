@@ -5,9 +5,9 @@ import { HttpClient } from "@angular/common/http";
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private _isUserAuth: Boolean;
-    private _userId: String;
-    private _token: String;
+    private _isUserAuth: boolean;
+    private _userId: string;
+    private _token: string;
 
     public rois = ["000000000000000000000001", "000000000000000000000004"];
 

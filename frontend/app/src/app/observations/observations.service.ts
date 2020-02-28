@@ -8,6 +8,7 @@ import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
 import { Observation } from "./observation.model";
 import { LatLng } from "leaflet";
+import { ObsInfo } from "./info/obs-info.model";
 
 
 export interface MinimalObservation {
@@ -61,6 +62,20 @@ export class ObservationsService {
 
         // Emit the data
         this._obs.next(res.data);
+
+    }
+
+
+    async getObservationById(id: string): Promise<any> {
+
+        // Url of the request
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/${id}`;
+
+        // Retrieve the data from the server and return them as a promise
+        const res = await this.http.get<GenericApiResponse>(url).toPromise();
+
+        // Return the data
+        return <ObsInfo>res.data;
 
     }
 

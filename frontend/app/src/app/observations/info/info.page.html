@@ -10,7 +10,7 @@
 		</ion-buttons>
 		
 		<!-- Delete button -->
-		<ion-buttons slot="end">
+		<ion-buttons slot="end" *ngIf="!_isLoading && _obs?.uid === _userId">
 			
 			<ion-button (click)="onDeleteClick()">
 				
@@ -26,5 +26,34 @@
 
 
 <ion-content class="bg-off-white custom-container">
+	
+	
+	<section *ngIf="!_isLoading" class="content">
+		
+		
+		<ion-card class="ion-no-margin" [ngClass]="_obs.position.open ? 'open' : ''">
+			
+			
+			<ion-card-header (click)="onToggleClick('position')" >
+				
+				<ion-card-subtitle>Posizione</ion-card-subtitle>
+				
+				<i class="material-icons">keyboard_arrow_down</i>
+			
+			</ion-card-header>
+			
+			
+			<ion-card-content *ngIf="_obs.position.open">
+				
+				<p>Coordinate: {{_obs.position.coordinates}}</p>
+				
+			</ion-card-content>
+		
+		
+		</ion-card>
+	
+	
+	</section>
+
 
 </ion-content>

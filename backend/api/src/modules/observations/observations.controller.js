@@ -124,14 +124,19 @@ export const getById = (req, res, next) => {
     if (!checkValidation(req, next)) return;
 
     // Initialize the filer for the query
-    const filter = {};
+    const filter = {}, projection = {};
 
-    // If the user is not admin, don't return the observation if it's marked for deletion
-    if (!req.isAdmin) filter.markedForDeletion = false;
+    // If the user is not admin, filter and project out some fields
+    if (!req.isAdmin) {
+        filter.markedForDeletion = false;
+        projection._id = 0;
+        projection.markedForDeletion = 0;
+        projection["__v"] = 0;
+    }
 
     // Find the data
-    observationService.getById(req.params.id, filter, {}, {}, req.t)
-        .then(observation => res.status(200).json({ meta: { code: 200 }, data: { observation } }))
+    observationService.getById(req.params.id, filter, projection, {}, req.t)
+        .then(observation => res.status(200).json({ meta: { code: 200 }, data: observation }))
         .catch(err => next(err));
 
 };
