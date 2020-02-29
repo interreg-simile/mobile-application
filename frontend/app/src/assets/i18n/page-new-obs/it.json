@@ -173,28 +173,13 @@
     "other-title": "Altri dettagli",
     "other-ph": "Massimo 250 caratteri..."
   },
-  "photos": "Foto",
-  "btn-continue": "Continua",
-  "modal-choices": {
-    "heading": "Cosa vuoi fare?",
-    "btn-send": "Invia l'osservazione",
-    "or": "- o -",
-    "btn-add": "Aggiungi una misura",
-    "btn-call": "Contatta le autorità",
-    "msg-call-1": "Se pensi che sia necessario attivare un'intervento, chiama questo numero:",
-    "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
-  },
-  "err-title": "Oops!",
-  "err-msg": "Qualcosa è andato storto, ci scusiamo per il disagio.",
-  "msg-no-photo": "È richiesta almeno una foto.",
-  "msg-weather-error": "Errore durante la richiesta dei dati meteo.",
-  "alert-message-cancel": "Annullare le modifiche apportate?",
-  "alert-btn-continue": "Continua a modificare",
-  "alert-btn-cancel": "Annulla",
   "measures": {
+    "title": "Misure",
+    "add": "Aggiungi una o più misure",
+    "edit": "Modifica le tue misure",
     "hub": {
-      "title": "Nuova misura",
-      "head": "Tipi di misure"
+      "title": "Le tue misure",
+      "head": "Tipi di misura"
     },
     "type": {
       "head": "Tipo di misura",
@@ -208,18 +193,21 @@
     "transparency": {
       "title": "Trasparenza",
       "label-val": "Profondità (m) *",
+      "label-instrument-precision": "Precisione (m)",
       "error-msg-val": "Devi specificare il valore della misura."
     },
     "temperature": {
       "title": "Temperatura",
       "label-depth": "Profondità (m) *",
       "label-val": "Valore (°C) *",
+      "label-instrument-precision": "Precisione (°C)",
       "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
     "ph": {
       "title": "Ph",
       "label-depth": "Profondità (m) *",
       "label-val": "Valore *",
+      "label-instrument-precision": "Precisione",
       "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
     "oxygen": {
@@ -227,6 +215,7 @@
       "label-depth": "Profondità (m) *",
       "label-val": "Valore (mg/l) *",
       "label-val-percentage": "Valore (%) *",
+      "label-instrument-precision": "Precisione (mg/l)",
       "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
     "bacteria": {
@@ -243,14 +232,26 @@
         "2": "Artigianale",
         "error-msg": "Devi specificare la tipologia dello strumento utilizzato."
       },
-      "precision": {
-        "label": "Precisione",
-        "placeholder": "1 °C"
-      },
       "details": {
         "label": "Dettagli",
         "placeholder": "Modello, materiale, specifiche..."
       }
     }
+  },
+  "photos": "Foto",
+  "btn-send": "Invia l'osservazione",
+  "or": "- o -",
+  "btn-call": "Contatta le autorità",
+  "err-title": "Oops!",
+  "err-msg": "Qualcosa è andato storto, ci scusiamo per il disagio.",
+  "msg-no-photo": "È richiesta almeno una foto.",
+  "msg-weather-error": "Errore durante la richiesta dei dati meteo.",
+  "alert-message-cancel": "Annullare le modifiche apportate?",
+  "alert-btn-continue": "Continua a modificare",
+  "alert-btn-cancel": "Annulla",
+  "modal-choices": {
+    "heading": "Cosa vuoi fare?",
+    "msg-call-1": "Se pensi che sia necessario attivare un'intervento, chiama questo numero:",
+    "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
   }
 }

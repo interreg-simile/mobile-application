@@ -28,16 +28,14 @@
 		<!-- Precision -->
 		<section class="precision value-single">
 			
-			<p>{{"page-new-obs.measures.instrument.precision.label" | translate}}</p>
+			<p>{{"page-new-obs.measures." + measureName + ".label-instrument-precision" | translate}}</p>
 			
-			<ion-input class="val-input"
-					   placeholder="{{'page-new-obs.measures.instrument.precision.placeholder' | translate}}"
-					   type="text" [(ngModel)]="instrument.precision"></ion-input>
+			<ion-input class="val-input" type="number" [(ngModel)]="instrument.precision"></ion-input>
 		
 		</section>
 		
 		
-		<!-- Precision -->
+		<!-- Details -->
 		<section class="details last">
 			
 			<p>{{"page-new-obs.measures.instrument.details.label" | translate}}</p>

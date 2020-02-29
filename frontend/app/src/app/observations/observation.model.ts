@@ -116,7 +116,7 @@ export interface Details {
 export interface Instrument {
     type: { code: number },
     brand: string,
-    precision: string,
+    precision: number,
     details: string
 }
 

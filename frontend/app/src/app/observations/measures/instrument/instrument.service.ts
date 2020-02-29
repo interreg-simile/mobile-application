@@ -6,7 +6,7 @@ import { ObservationsService } from "../../observations.service";
 
 export interface SimpleInstrument {
     type?: number,
-    precision?: string,
+    precision?: number,
     details?: string
 }
 

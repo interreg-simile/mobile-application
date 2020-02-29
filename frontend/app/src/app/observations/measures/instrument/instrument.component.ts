@@ -10,6 +10,7 @@ import { SimpleInstrument } from "./instrument.service";
 })
 export class InstrumentComponent implements OnInit {
 
+    @Input() measureName: string;
 
     @Input() instrument: SimpleInstrument;
 

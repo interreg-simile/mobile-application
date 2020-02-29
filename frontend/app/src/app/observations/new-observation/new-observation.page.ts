@@ -1,17 +1,15 @@
-import { Component, ComponentRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController, ModalController, PickerController, Platform } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
+import { LatLng } from "leaflet";
 
 import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { Choices, ChoicesComponent } from "../choices/choices.component";
-import { Observation } from "../observation.model";
-import { DomUtil, LatLng } from "leaflet";
+import { MeasuresImpl, Observation } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
-import toBack = DomUtil.toBack;
 
 
 @Component({
@@ -55,8 +53,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 private modalCtr: ModalController,
                 private i18n: TranslateService,
                 private cameraService: CameraService,
-                private toastService: ToastService,
-                private platform: Platform) { }
+                private toastService: ToastService) { }
 
 
     /** @ignore */
@@ -82,7 +79,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
 
     // ToDo
-    onHelpClick() {}
+    onHelpClick() { console.log(this.obsService.newObservation) }
 
 
     /**
@@ -221,6 +218,33 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
 
     /**
+     * Called when the user clicks on the checkbox of a detail. It stops the event propagation and uncheck the checkbox
+     * or open the detail modal.
+     *
+     * @param {MouseEvent} e - The click event.
+     * @param {Object} detail - The detail object.
+     * @return {boolean} It returns false to stop the normal event propagation.
+     */
+    onDetailCheckboxClick(e: MouseEvent, detail: any): boolean {
+
+        // Stop the event propagation
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+        // If the detail is not checked, open the modal
+        if (!detail.checked) this.openDetailModal(detail.component);
+
+        // Else, uncheck it
+        else detail.checked = false;
+
+        // Return false
+        return false;
+
+    }
+
+    /**
      * Opens a modal for editing a detail.
      *
      * @param {Component} component - The component to be used as template for the modal.
@@ -233,6 +257,23 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
         // Present the modal
         await modal.present();
+
+    }
+
+
+    /**
+     * Called when the user clicks on the card to add a new measure. It opens the hub with all the options.
+     *
+     * @return {Promise<>} An empty promise.
+     */
+    async onAddMeasureClick(): Promise<void> {
+
+        // Initialize the measures property of the new observation
+        if (!this.obsService.newObservation.measures)
+            this.obsService.newObservation.measures = new MeasuresImpl();
+
+        const measuresModal = await this.modalCtr.create({ component: HubComponent });
+        await measuresModal.present();
 
     }
 
@@ -318,8 +359,13 @@ export class NewObservationPage implements OnInit, OnDestroy {
     }
 
 
-    /** Called when the user clicks on the "continue" button. */
-    async onContinueClick(): Promise<void> {
+    /**
+     * Fired when the user clicks on the send button. It checks the inserted data and sends the observation to the
+     * server.
+     *
+     * @return {Promise<>} An empty promise.
+     */
+    async onSendClick(): Promise<void> {
 
         // If no photo has been provided, alert the user and return
         if (this._newObservation.photos.every(p => p === undefined)) {
@@ -327,38 +373,18 @@ export class NewObservationPage implements OnInit, OnDestroy {
             return;
         }
 
-        // Create the choices modal
-        const modal = await this.modalCtr.create({
-            component      : ChoicesComponent,
-            cssClass       : "auto-height",
-            backdropDismiss: false
-        });
+        // Post the observation
+        this.postObservation();
 
-        // Present the modal
-        await modal.present();
+    }
 
-        // Get the user choice
-        const choice = (await modal.onDidDismiss()).data;
 
-        // Switch on the choices
-        switch (choice) {
+    // ToDo
+    async onAlertClick(): Promise<void> {
 
-            case Choices.SEND:
-                this.postObservation();
-                return;
+        await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
 
-            case Choices.ADD_MEASURE:
-                const measuresModal = await this.modalCtr.create({ component: HubComponent });
-                await measuresModal.present();
-                if((await measuresModal.onDidDismiss()).data) this.postObservation();
-                return;
-
-            // ToDo
-            case Choices.CALL_AUTH:
-                await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
-                return;
-
-        }
+        return
 
     }
 
@@ -448,6 +474,5 @@ export class NewObservationPage implements OnInit, OnDestroy {
         this.obsService.resetNewObservation();
 
     }
-
 
 }

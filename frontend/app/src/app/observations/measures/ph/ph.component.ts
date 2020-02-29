@@ -81,8 +81,10 @@ export class PhComponent implements OnInit {
     async onAddBtnClick(): Promise<void> {
 
         // If the last row is not entirely complete, return
-        if (!this._props.multipleVal[this._props.multipleVal.length - 1].val ||
-            !this._props.multipleVal[this._props.multipleVal.length - 1].depth) {
+        if (this._props.multipleVal[this._props.multipleVal.length - 1].val === undefined ||
+            this._props.multipleVal[this._props.multipleVal.length - 1].val === null ||
+            this._props.multipleVal[this._props.multipleVal.length - 1].depth === undefined ||
+            this._props.multipleVal[this._props.multipleVal.length - 1].depth === null) {
             await this.toastService.presentToast("page-new-obs.measures.errors.add-measure", Duration.short);
             return;
         }
@@ -127,23 +129,25 @@ export class PhComponent implements OnInit {
             // Check if the measure is valid and save it
             if (!this._props.multiple) {
 
-                if (!this._props.singleVal.depth || !this._props.singleVal.val) {
+                if (this._props.singleVal.depth === undefined || this._props.singleVal.depth === null ||
+                    this._props.singleVal.val === undefined || this._props.singleVal.val === null) {
                     await this.toastService.presentToast("page-new-obs.measures.ph.error-msg-val", Duration.short);
                     return;
                 }
 
                 this.obsService.newObservation.measures.ph.val = [
-                    { val: this._props.singleVal.val, depth: this._props.singleVal.depth }
+                    { val: this._props.singleVal.val, depth: Math.abs(this._props.singleVal.depth) }
                 ];
 
             } else {
 
-                if (this._props.multipleVal.some(v => !v.depth || !v.val)) {
+                if (this._props.multipleVal.some(v => v.depth === undefined || v.depth === null || v.val === undefined || v.val === null)) {
                     await this.toastService.presentToast("page-new-obs.measures.ph.error-msg-val", Duration.short);
                     return;
                 }
 
-                this.obsService.newObservation.measures.ph.val = [...this._props.multipleVal];
+                this.obsService.newObservation.measures.ph.val =
+                    this._props.multipleVal.map(v => { return { val: v.val, depth: Math.abs(v.depth) } });
 
             }
 

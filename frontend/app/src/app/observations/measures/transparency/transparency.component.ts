@@ -56,7 +56,7 @@ export class TransparencyComponent implements OnInit {
         if (save) {
 
             // Check the mandatory fields
-            if (this._props.val === undefined) {
+            if (this._props.val === undefined || this._props.val === null) {
                 await this.toastService.presentToast("page-new-obs.measures.transparency.error-msg-val", Duration.short);
                 return;
             }
@@ -67,7 +67,7 @@ export class TransparencyComponent implements OnInit {
             this.obsService.newObservation.measures.transparency.checked = true;
 
             // Save the new values
-            this.obsService.newObservation.measures.transparency.val = this._props.val;
+            this.obsService.newObservation.measures.transparency.val = Math.abs(this._props.val);
             this.instrumentService.saveInstrumentProps(this._props.instrument, "transparency");
 
         }

@@ -55,7 +55,8 @@ export class BacteriaComponent implements OnInit {
         if (save) {
 
             // If no value has been inserted, return
-            if (!this._props.escherichiaColi && !this._props.enterococci) {
+            if ((this._props.escherichiaColi === undefined || this._props.escherichiaColi === null) &&
+                (this._props.enterococci === undefined || this._props.enterococci === null)) {
                 await this.toastService.presentToast("page-new-obs.measures.bacteria.error-msg-val", Duration.short);
                 return;
             }

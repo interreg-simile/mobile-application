@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from "@ionic/angular";
+import { ModalController } from "@ionic/angular";
 
 import { ObservationsService } from "../../observations.service";
-import { MeasuresImpl } from "../../observation.model";
-import { TranslateService } from "@ngx-translate/core";
-
 
 
 @Component({ selector: 'app-hub', templateUrl: './hub.component.html', styleUrls: ['./hub.component.scss'] })
@@ -20,20 +17,41 @@ export class HubComponent implements OnInit {
 
 
     /** @ignore */
-    constructor(private modalCtr: ModalController,
-                private obsService: ObservationsService,
-                private alertCtr: AlertController,
-                private i18n: TranslateService) { }
+    constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
     /** @ignore */
     ngOnInit(): void {
 
-        // Initialize the measures property of the new observation
-        this.obsService.newObservation.measures = new MeasuresImpl();
-
-        // Deep clone the new observation measures
         this._measures = this.obsService.newObservation.measures;
+
+    }
+
+
+    /**
+     * Called when the user clicks on the checkbox of a measure. It stops the event propagation and uncheck the checkbox
+     * or open the detail modal.
+     *
+     * @param {MouseEvent} e - The click event.
+     * @param {Object} measure - The detail object.
+     * @return {boolean} It returns false to stop the normal event propagation.
+     */
+    onMeasureCheckboxClick(e: MouseEvent, measure: any) {
+
+        // Stop the event propagation
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+        // If the detail is not checked, open the modal
+        if (!measure.checked) this.openMeasureModal(measure.component);
+
+        // Else, uncheck it
+        else measure.checked = false;
+
+        // Return false
+        return false;
 
     }
 
@@ -56,42 +74,11 @@ export class HubComponent implements OnInit {
 
 
     /**
-     * Closes the modal and eventually submits the observation.
+     * Closes the modal.
      *
-     * @param {boolean} send - True if the observation has to be submitted.
      * @return {Promise<>} An empty promise.
      */
-    async closeModal(send: boolean): Promise<void> {
-
-        if (!send) {
-
-            // Create the alert
-            const alert = await this.alertCtr.create({
-                message        : this.i18n.instant("page-new-obs.alert-message-cancel"),
-                buttons        : [
-                    {
-                        text   : this.i18n.instant("page-new-obs.alert-btn-cancel"),
-                        handler: async () => {
-                            await this.modalCtr.dismiss(send);
-                            delete this.obsService.newObservation.measures;
-                        }
-                    },
-                    { text: this.i18n.instant("page-new-obs.alert-btn-continue"), role: "cancel" }
-                ],
-                backdropDismiss: false
-            });
-
-            // Present the alert
-            await alert.present();
-
-        } else {
-
-            // Close the modal
-            await this.modalCtr.dismiss(send);
-
-        }
-
-    }
+    async closeModal(): Promise<void> { await this.modalCtr.dismiss() }
 
 
 }

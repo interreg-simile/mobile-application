@@ -114,49 +114,49 @@ const vOutlets = [
 
     body("details.outlets.prodActNearby").optional().isBoolean(),
 
-    body("details.outlets.prodActNearbyDetails").optional().isAscii().escape().trim()
+    body("details.outlets.prodActNearbyDetails").optional().escape().trim()
 
 ];
 
 const vFauna = [
 
     body("details.fauna.deceased.fish.checked").optional().isBoolean(),
-    body("details.fauna.deceased.fish.details").optional().isAscii().escape().trim(),
+    body("details.fauna.deceased.fish.details").optional().escape().trim(),
 
     body("details.fauna.deceased.birds.checked").optional().isBoolean(),
-    body("details.fauna.deceased.birds.details").optional().isAscii().escape().trim(),
+    body("details.fauna.deceased.birds.details").optional().escape().trim(),
 
     body("details.fauna.deceased.other.checked").optional().isBoolean(),
-    body("details.fauna.deceased.other.details").optional().isAscii().escape().trim(),
+    body("details.fauna.deceased.other.details").optional().escape().trim(),
 
     body("details.fauna.abnormal.fish.checked").optional().isBoolean(),
-    body("details.fauna.abnormal.fish.details").optional().isAscii().escape().trim(),
+    body("details.fauna.abnormal.fish.details").optional().escape().trim(),
 
     body("details.fauna.abnormal.birds.checked").optional().isBoolean(),
-    body("details.fauna.abnormal.birds.details").optional().isAscii().escape().trim(),
+    body("details.fauna.abnormal.birds.details").optional().escape().trim(),
 
     body("details.fauna.abnormal.other.checked").optional().isBoolean(),
-    body("details.fauna.abnormal.other.details").optional().isAscii().escape().trim(),
+    body("details.fauna.abnormal.other.details").optional().escape().trim(),
 
     body("details.fauna.alienSpecies.crustaceans.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.crustaceans.details").optional().isAscii().escape().trim(),
+    body("details.fauna.alienSpecies.crustaceans.details").optional().escape().trim(),
 
     body("details.fauna.alienSpecies.molluscs.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.molluscs.details").optional().isAscii().escape().trim(),
+    body("details.fauna.alienSpecies.molluscs.details").optional().escape().trim(),
 
     body("details.fauna.alienSpecies.turtles.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.turtles.details").optional().isAscii().escape().trim(),
+    body("details.fauna.alienSpecies.turtles.details").optional().escape().trim(),
 
     body("details.fauna.alienSpecies.fish.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.fish.details").optional().isAscii().escape().trim(),
+    body("details.fauna.alienSpecies.fish.details").optional().escape().trim(),
 
     body("details.fauna.alienSpecies.other.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.other.details").optional().isAscii().escape().trim(),
+    body("details.fauna.alienSpecies.other.details").optional().escape().trim(),
 
 ];
 
 const vDetails = [...vAlgae, ...vFoams, ...vOils, ...vLitters, ...vOdours, ...vOutlets, ...vFauna,
-    body("details.other").optional().isAscii().escape().trim()];
+    body("details.other").optional().escape().trim()];
 
 
 function vInstrument(field) {
@@ -173,7 +173,7 @@ function vInstrument(field) {
                 allow_leading_zeroes: false
             }),
 
-        body(`${field}.instrument.precision`).optional().escape().trim(),
+        body(`${field}.instrument.precision`).optional().isNumeric(),
 
         body(`${field}.instrument.details`).optional().escape().trim(),
 

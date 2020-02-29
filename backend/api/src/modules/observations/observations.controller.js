@@ -78,7 +78,8 @@ export const create = (req, res, next) => {
     if (req.files.signage) _.set(
         data,
         ["details", "outlets", "signagePhoto"],
-        req.files.signage[0].path.substring(req.files.signage[0].path.indexOf("\\") + 1));
+        req.files.signage[0].path.substring(req.files.signage[0].path.indexOf("\\") + 1)
+    );
 
     // Create the new observation
     observationService.create(data)

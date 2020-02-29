@@ -107,11 +107,13 @@
 				
 				<ion-card-content class="ion-no-padding">
 					
-					<div *ngFor="let detail of _newObservation.details | keyvalue: originalOrder">
+					<div *ngFor="let detail of _newObservation.details | keyvalue: originalOrder"
+						 class="ion-activatable ripple-parent">
 						
 						<div *ngIf="detail.key != 'other'" class="detail-item">
 							
-							<ion-checkbox [(ngModel)]="detail.value.checked"></ion-checkbox>
+							<ion-checkbox [checked]="detail.value.checked"
+										  (click)="onDetailCheckboxClick($event, detail.value)"></ion-checkbox>
 							
 							<ion-label class="ion-no-margin" (click)="openDetailModal(detail.value.component)">
 								
@@ -124,6 +126,8 @@
 							</ion-label>
 						
 						</div>
+						
+						<ion-ripple-effect></ion-ripple-effect>
 					
 					</div>
 				
@@ -137,7 +141,45 @@
 			
 			<ion-textarea placeholder="{{'page-new-obs.details.other-ph' | translate}}"
 						  maxlength="250"
+						  rows="3"
 						  [(ngModel)]="_newObservation.details.other"></ion-textarea>
+		
+		
+		</section>
+		
+		
+		<!-- Measures -->
+		<section id="measures">
+			
+			
+			<div class="heading">
+				
+				<ion-icon name="podium" class="main"></ion-icon>
+				
+				<p class="title">{{"page-new-obs.measures.title" | translate}}</p>
+			
+			</div>
+			
+			
+			<ion-card class="ion-no-margin">
+				
+				<ion-card-content class="ion-no-padding ion-activatable ripple-parent">
+					
+					<ion-item detail lines="none" (click)="onAddMeasureClick()">
+						
+						<ion-label>
+							
+							{{"page-new-obs.measures.add" | translate}}
+						
+						</ion-label>
+					
+					</ion-item>
+					
+					<ion-ripple-effect></ion-ripple-effect>
+				
+				</ion-card-content>
+			
+			</ion-card>
 		
 		
 		</section>
@@ -173,10 +215,31 @@
 		</section>
 		
 		
-		<!-- Continue button -->
-		<ion-button color="primary" expand="block" class="ion-margin-bottom" (click)="onContinueClick()">
-			{{"page-new-obs.btn-continue" | translate}}
-		</ion-button>
+		<!-- Buttons -->
+		<section id="buttons" class="last">
+			
+			<!-- Send button -->
+			<ion-button expand="block" color="primary" (click)="onSendClick()">
+				
+				<ion-icon slot="start" name="ios-send"></ion-icon>
+				
+				{{"page-new-obs.btn-send" | translate}}
+			
+			</ion-button>
+			
+			<!-- Or -->
+			<p class="or ion-margin">{{"page-new-obs.or" | translate}}</p>
+			
+			<!-- Alert authorities button -->
+			<ion-button expand="block" color="primary" fill="outline" (click)="onAlertClick()">
+				
+				<ion-icon slot="start" name="call"></ion-icon>
+				
+				{{"page-new-obs.btn-call" | translate}}
+			
+			</ion-button>
+		
+		</section>
 	
 	
 	</main>
@@ -192,6 +255,10 @@
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		
 		<ion-skeleton-text animated class="ske-card-xl ske-section"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
 		
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		

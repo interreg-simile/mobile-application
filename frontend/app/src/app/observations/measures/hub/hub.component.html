@@ -5,9 +5,9 @@
 		<!-- Back button -->
 		<ion-buttons slot="start">
 			
-			<ion-button (click)="closeModal(false)">
+			<ion-button (click)="closeModal()">
 				
-				<ion-icon slot="icon-only" name="close"></ion-icon>
+				<ion-icon slot="icon-only" name="arrow-back"></ion-icon>
 			
 			</ion-button>
 		
@@ -37,7 +37,8 @@
 					
 					<div class="detail-item">
 						
-						<ion-checkbox [(ngModel)]="measure.value.checked"></ion-checkbox>
+						<ion-checkbox [checked]="measure.value.checked"
+									  (click)="onMeasureCheckboxClick($event, measure.value)"></ion-checkbox>
 						
 						<ion-label class="ion-no-margin" (click)="openMeasureModal(measure.value.component)">
 							
@@ -56,16 +57,6 @@
 		</ion-card>
 	
 	</section>
-	
-	
-	<!-- Send button -->
-	<ion-button expand="block" color="primary" (click)="closeModal(true)">
-		
-		<ion-icon slot="start" name="ios-send"></ion-icon>
-		
-		{{"page-new-obs.modal-choices.btn-send" | translate}}
-	
-	</ion-button>
 
 
 </ion-content>

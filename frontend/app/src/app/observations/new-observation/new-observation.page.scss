@@ -6,6 +6,12 @@ $section-margin-bottom : 32px;
 $heading-margin-bottom : 8px;
 
 
+.ripple-parent {
+  position : relative;
+  overflow : hidden;
+}
+
+
 .info-small {
   color         : $text-tertiary;
   font-size     : $font-body-small;
@@ -113,7 +119,7 @@ main section {
 
 
 #photos {
-  margin-bottom : 48px;
+  margin-bottom : 40px;
 
   .heading { margin-bottom : 16px }
 
@@ -142,6 +148,16 @@ main section {
 
     }
 
+  }
+
+}
+
+
+#buttons {
+
+  .or {
+    text-align : center;
+    color      : $text-secondary;
   }
 
 }
