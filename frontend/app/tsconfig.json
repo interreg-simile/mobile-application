@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -14,6 +16,11 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "paths": {
+      "lodash/*": [
+        "node_modules/@types/lodash-es/*"
+      ]
+    },
     "lib": [
       "es2018",
       "dom"

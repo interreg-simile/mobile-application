@@ -30,10 +30,10 @@ async function seeder() {
 
         // Seed the data
         // await apiKeys();
-        await users();
+        // await users();
         // await rois();
-        await events();
-        await alerts();
+        // await events();
+        // await alerts();
         await observations();
 
         // Close the connection

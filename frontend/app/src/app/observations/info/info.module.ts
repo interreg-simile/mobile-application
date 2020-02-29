@@ -5,16 +5,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { InfoPage } from './info.page';
+import { TranslateModule } from "@ngx-translate/core";
 
 
 const routes: Routes = [{ path: '', component: InfoPage }];
 
 @NgModule({
-    imports     : [
+    imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        TranslateModule
     ],
     declarations: [InfoPage]
 })

@@ -1,3 +1,18 @@
 {
-  "err-get": "Errore durante il recupero dell'osservazione."
+  "err-get": "Errore durante il recupero dell'osservazione.",
+  "position": {
+    "head": "Posizione"
+  },
+  "weather": {
+    "head": "Meteo"
+  },
+  "details": {
+    "head": "Dettagli",
+    "algae": {
+      "head": "Alghe"
+    },
+    "odours": {
+      "head": "Odori"
+    }
+  }
 }

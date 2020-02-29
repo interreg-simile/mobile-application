@@ -93,21 +93,21 @@ interface Measures {
     transparency?: {
         open?: boolean,
         val: number,
-        instrument: { type: { code: number }, brand?: string, precision?: string, details?: string }
+        instrument: { type: { code: number }, precision?: number, details?: string }
     },
 
     temperature?: {
         open?: boolean,
         multiple: boolean,
         val: [{ depth: number, val: number }],
-        instrument: { type: { code: number }, brand?: string, precision?: string, details?: string }
+        instrument: { type: { code: number }, precision?: number, details?: string }
     },
 
     ph?: {
         open?: boolean,
         multiple: boolean,
         val: [{ depth: number, val: number }],
-        instrument: { type: { code: number }, brand?: string, precision?: string, details?: string }
+        instrument: { type: { code: number }, precision?: number, details?: string }
     },
 
     oxygen?: {
@@ -115,7 +115,7 @@ interface Measures {
         multiple: boolean,
         percentage: boolean,
         val: [{ depth: number, val: number }],
-        instrument: { type: { code: number }, brand?: string, precision?: string, details?: string }
+        instrument: { type: { code: number }, precision?: number, details?: string }
     },
 
     bacteria?: {

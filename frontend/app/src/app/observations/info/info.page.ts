@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { NavController } from "@ionic/angular";
+import set from "lodash-es/set";
+import get from "lodash-es/get";
 
 import { ObservationsService } from "../observations.service";
 import { Duration, ToastService } from "../../shared/toast.service";
@@ -67,7 +69,7 @@ export class InfoPage implements OnInit {
 
     onToggleClick(prop: string): void {
 
-        this._obs[prop].open = !this._obs[prop].open;
+        set(this._obs, `${prop}.open`, !(get(this._obs, `${prop}.open`)));
 
     }
 

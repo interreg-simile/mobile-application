@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import * as cloneDeep from "lodash/cloneDeep";
+import cloneDeep from "lodash-es/cloneDeep";
 import { File, FileEntry } from "@ionic-native/file/ngx";
 
 import { environment } from "../../environments/environment";
@@ -142,7 +142,9 @@ export class ObservationsService {
         }
 
 
+        // ToDo check if it works
         // Put the coordinates in an array
+        // @ts-ignore
         obs.position.coordinates = [obs.position.coordinates.lng, obs.position.coordinates.lat];
 
         // For each of the details

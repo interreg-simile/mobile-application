@@ -31,12 +31,13 @@
 	<section *ngIf="!_isLoading" class="content">
 		
 		
-		<ion-card class="ion-no-margin" [ngClass]="_obs.position.open ? 'open' : ''">
+		<!-- Position -->
+		<ion-card class="ion-no-margin sub-section-space" [ngClass]="_obs.position.open ? 'open' : ''">
 			
 			
-			<ion-card-header (click)="onToggleClick('position')" >
+			<ion-card-header (click)="onToggleClick('position')">
 				
-				<ion-card-subtitle>Posizione</ion-card-subtitle>
+				<ion-card-subtitle>{{"page-info-obs.position.head" | translate}}</ion-card-subtitle>
 				
 				<i class="material-icons">keyboard_arrow_down</i>
 			
@@ -46,11 +47,69 @@
 			<ion-card-content *ngIf="_obs.position.open">
 				
 				<p>Coordinate: {{_obs.position.coordinates}}</p>
-				
+			
 			</ion-card-content>
 		
 		
 		</ion-card>
+		
+		
+		<!-- Weather -->
+		<ion-card class="ion-no-margin section-space" [ngClass]="_obs.weather.open ? 'open' : ''">
+			
+			
+			<ion-card-header (click)="onToggleClick('weather')">
+				
+				<ion-card-subtitle>{{"page-info-obs.weather.head" | translate}}</ion-card-subtitle>
+				
+				<i class="material-icons">keyboard_arrow_down</i>
+			
+			</ion-card-header>
+		
+		
+		</ion-card>
+		
+		
+		<!-- Details -->
+		<section *ngIf="_obs.details">
+			
+			
+			<p class="card-header">{{"page-info-obs.details.head" | translate}}</p>
+			
+			
+			<!-- Algae -->
+			<ion-card *ngIf="_obs.details.algae"
+					  class="ion-no-margin sub-section-space"
+					  [ngClass]="_obs.details.algae.open ? 'open' : ''">
+				
+				<ion-card-header (click)="onToggleClick('details.algae')">
+					
+					<ion-card-subtitle>{{"page-info-obs.details.algae.head" | translate}}</ion-card-subtitle>
+					
+					<i class="material-icons">keyboard_arrow_down</i>
+				
+				</ion-card-header>
+				
+			</ion-card>
+			
+			
+			<!-- Odours -->
+			<ion-card *ngIf="_obs.details.odours"
+					  class="ion-no-margin sub-section-space"
+					  [ngClass]="_obs.details.odours.open ? 'open' : ''">
+				
+				<ion-card-header (click)="onToggleClick('details.odours')">
+					
+					<ion-card-subtitle>{{"page-info-obs.details.odours.head" | translate}}</ion-card-subtitle>
+					
+					<i class="material-icons">keyboard_arrow_down</i>
+				
+				</ion-card-header>
+			
+			</ion-card>
+			
+		
+		</section>
 	
 	
 	</section>
