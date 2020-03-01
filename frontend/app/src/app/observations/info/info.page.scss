@@ -1,7 +1,7 @@
 
-.section-space { margin-bottom: 32px }
+.section-space { margin-bottom : 32px }
 
-.sub-section-space { margin-bottom: 16px }
+.sub-section-space { margin-bottom : 16px }
 
 
 ion-card {
@@ -19,6 +19,46 @@ ion-card {
     i {
       padding    : 12px;
       transition : all 0.2s ease-in-out;
+    }
+
+  }
+
+  ion-card-content {
+
+    .row {
+      display         : flex;
+      justify-content : flex-start;
+      align-items     : flex-start;
+    }
+
+    .prop-name {
+      color        : var(--ion-color-primary);
+      margin-right : 6px;
+    }
+
+    .link { text-decoration : underline }
+
+    .instrument-header {
+      margin         : 10px 0 4px 0;
+      text-transform : uppercase;
+    }
+
+    .grid {
+      width           : 100%;
+      display         : flex;
+      justify-content : space-around;
+      align-items     : flex-start;
+
+      .col {
+        width          : 45%;
+        display        : flex;
+        flex-direction : column;
+        align-items    : center;
+
+        .head { color : var(--ion-color-primary) }
+
+      }
+
     }
 
   }

@@ -2,6 +2,7 @@ interface Position {
     open?: boolean,
     type: string,
     coordinates: Array<number>,
+    crs?: { code: number, description: string }
     accuracy?: number,
     custom: boolean,
     roi?: string
@@ -60,7 +61,7 @@ interface Details {
         signagePhoto?: string,
         prodActNearby?: boolean,
         prodActNearbyDetails?: string
-    }
+    },
 
     fauna?: {
         open?: boolean,
@@ -83,7 +84,8 @@ interface Details {
         }
     },
 
-    other: string
+    otherOpen?: boolean,
+    other?: string
 
 }
 
@@ -93,29 +95,29 @@ interface Measures {
     transparency?: {
         open?: boolean,
         val: number,
-        instrument: { type: { code: number }, precision?: number, details?: string }
+        instrument: { type: { code: number, description: string }, precision?: number, details?: string }
     },
 
     temperature?: {
         open?: boolean,
         multiple: boolean,
-        val: [{ depth: number, val: number }],
-        instrument: { type: { code: number }, precision?: number, details?: string }
+        val: Array<{ depth: number, val: number }>,
+        instrument: { type: { code: number, description: string }, precision?: number, details?: string }
     },
 
     ph?: {
         open?: boolean,
         multiple: boolean,
-        val: [{ depth: number, val: number }],
-        instrument: { type: { code: number }, precision?: number, details?: string }
+        val: Array<{ depth: number, val: number }>,
+        instrument: { type: { code: number, description: string }, precision?: number, details?: string }
     },
 
     oxygen?: {
         open?: boolean,
         multiple: boolean,
         percentage: boolean,
-        val: [{ depth: number, val: number }],
-        instrument: { type: { code: number }, precision?: number, details?: string }
+        val: Array<{ depth: number, val: number }>,
+        instrument: { type: { code: number, description: string }, precision?: number, details?: string }
     },
 
     bacteria?: {
@@ -133,7 +135,6 @@ export interface ObsInfo {
     photos: Array<string>,
     details?: Details,
     measures?: Measures,
-    markedForDeletion: boolean,
     createdAt: string,
     updatedAt: string
 }

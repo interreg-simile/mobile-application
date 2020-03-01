@@ -215,7 +215,7 @@
       "label-depth": "Profondità (m) *",
       "label-val": "Valore (mg/l) *",
       "label-val-percentage": "Valore (%) *",
-      "label-instrument-precision": "Precisione (mg/l)",
+      "label-instrument-precision": "Precisione",
       "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
     "bacteria": {

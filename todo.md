@@ -6,6 +6,7 @@
 - [ ] Scrivere la documentazione
     - [ ] Schede di deployment per App e API
     - [ ] Documentazione vera e propria dell'API
+	- [ ] Termini e condizioni GDPR (carlo)
     
 - [ ] Implementare visualizzazione dell'osservazione  
   
@@ -17,7 +18,7 @@
 
 - [ ] Capire dopo quanto tempo le osservazioni scompaiono dalla mappa
 
-- [ ] Tradurre il sistema in inglese
+- [ ] Tradurre il sistema in inglese (carlo?)
     - [ ] Riconoscere lingua del telefono
     
 - [ ] Implementare sezione "quiz"
@@ -25,6 +26,8 @@
 - [ ] Implementare sezione "progetto"
 
 - [ ] Ristrutturare la sezione Fauna
+
+- [ ] Implementare pagine help (carlo x contenuti)
 
 - [ ] Implementare hardware back button
     - [ ] Doppio click per chiudere l'applicazione
@@ -38,5 +41,3 @@
 - [ ] Le tile della basemap si rompono dopo che si lascia la mappa
     - [ ] Provare a inserire un'altra basemap
     - [ ] Provare a togliere il position watcher
-    
-

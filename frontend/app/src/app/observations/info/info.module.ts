@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { InfoPage } from './info.page';
 import { TranslateModule } from "@ngx-translate/core";
+import { JoinDetailsPipe } from './render.pipe';
 
 
 const routes: Routes = [{ path: '', component: InfoPage }];
@@ -18,6 +19,6 @@ const routes: Routes = [{ path: '', component: InfoPage }];
         RouterModule.forChild(routes),
         TranslateModule
     ],
-    declarations: [InfoPage]
+    declarations: [InfoPage, JoinDetailsPipe]
 })
 export class InfoPageModule {}

@@ -108,7 +108,7 @@ export interface Details {
     litters: Litters,
     odours: Odours,
     outlets: Outlets,
-    fauna: Fauna,
+    // fauna: Fauna,
     other: string
 }
 
@@ -346,7 +346,7 @@ export class Observation {
             litters: litters,
             odours : odours,
             outlets: outlets,
-            fauna  : fauna,
+            // fauna  : fauna,
             other  : undefined
         };
 
