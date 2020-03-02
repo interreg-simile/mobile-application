@@ -42,6 +42,8 @@
 
 - [ ] Implementare chiamata alle autorità
 
+- [ ] Sistemare unità di misura dell'ossigeno
+
 #### Known bugs
 
 - [ ] Le tile della basemap si rompono dopo che si lascia la mappa
