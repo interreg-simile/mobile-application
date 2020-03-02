@@ -17,6 +17,7 @@ import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
 import { interceptorProviders } from "./shared/interceptors/interceptors";
@@ -43,6 +44,7 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
         Diagnostic,
         Camera,
         File,
+        PhotoViewer,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         interceptorProviders
     ],

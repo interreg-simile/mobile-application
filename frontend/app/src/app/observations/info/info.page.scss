@@ -1,7 +1,48 @@
+@import "../../../theme/variables";
+@import "../shared";
 
-.section-space { margin-bottom : 32px }
+$section-space      : 32px;
+$sub-section-space  : 16px;
 
-.sub-section-space { margin-bottom : 16px }
+$photo-thumb-height : 80px;
+
+
+.section-space { margin-bottom : $section-space }
+
+.sub-section-space { margin-bottom : $sub-section-space }
+
+
+.date {
+  text-align : end;
+  color      : $text-tertiary;
+  font-style : italic;
+}
+
+
+.photos {
+  display         : flex;
+  justify-content : space-around;
+  align-content   : center;
+  margin-top      : 8px;
+
+  .photo-container {
+    flex          : 1;
+    max-width     : 75%;
+    height        : $photo-thumb-height;
+    margin        : 0 16px;
+    border        : 1px solid $color-border;
+    border-radius : 5px;
+    overflow      : hidden;
+    align-items   : center;
+
+    img {
+      min-width  : 100%;
+      min-height : 100%;
+    }
+
+  }
+
+}
 
 
 ion-card {
@@ -72,4 +113,40 @@ ion-card {
   }
 
 }
+
+
+.skeleton {
+
+  ion-skeleton-text { --border-radius : 5px }
+
+  .ske-end {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  .ske-center {
+    display         : flex;
+    justify-content : center;
+  }
+
+  .ske-date {
+    width : 45%;
+  }
+
+  .ske-photos {
+    width       : 90%;
+    line-height : $photo-thumb-height;
+  }
+
+  .ske-header {
+    width       : 40%;
+    line-height : 14px;
+  }
+
+  .ske-card { line-height : 48px }
+
+  .ske-card-xl { line-height : 250px }
+
+}
+
 

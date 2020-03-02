@@ -31,7 +31,22 @@
 	<section *ngIf="!_isLoading" class="content">
 		
 		
-		<!-- ToDo images -->
+		<!-- Creation date -->
+		<section class="date sub-section-space">
+			{{_obs.createdAt | date:"medium":undefined:i18n.currentLang }}
+		</section>
+		
+		
+		<!-- Photos -->
+		<section class="photos section-space">
+			
+			<div *ngFor="let photo of _obs.photos" class="photo-container" (click)="onThumbnailClick(photo)">
+				
+				<img src="{{photo}}" alt="Observation photo"/>
+			
+			</div>
+		
+		</section>
 		
 		
 		<!-- Position -->
@@ -355,7 +370,9 @@
 						<span
 								class="prop-name">{{"page-info-obs.details.outlets.label-signage-photo" | translate}}
 						</span>
-						<span class="link" (click)="onSignagePhotoClick()">{{"page-info-obs.view" | translate}}</span>
+						<span class="link" (click)="onThumbnailClick(_obs.details.outlets.signagePhoto)">
+							{{"page-info-obs.view" | translate}}
+						</span>
 					</p>
 					
 					<!-- Production activities -->
@@ -707,8 +724,26 @@
 	</section>
 	
 	
-	<!-- ToDo -->
-	<section *ngIf="_isLoading" class="skeleton"></section>
+	<!-- Skeleton text -->
+	<section *ngIf="_isLoading" class="skeleton">
+		
+		<div class="ske-end">
+			<ion-skeleton-text animated class="ske-date sub-section-space"></ion-skeleton-text>
+		</div>
+		
+		<div class="ske-center">
+			<ion-skeleton-text animated class="ske-photos section-space"></ion-skeleton-text>
+		</div>
+		
+		<ion-skeleton-text animated class="ske-card sub-section-space"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-card section-space"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-header sub-section-space"></ion-skeleton-text>
+		
+		<ion-skeleton-text animated class="ske-card-xl"></ion-skeleton-text>
+	
+	</section>
 
 
 </ion-content>

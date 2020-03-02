@@ -66,7 +66,13 @@ export class ObservationsService {
     }
 
 
-    async getObservationById(id: string): Promise<any> {
+    /**
+     * Retrieves from the server the observation with the given id.
+     *
+     * @param {string} id - The id of the observation.
+     * @return {Promise<ObsInfo>} A promise containing the observation.
+     */
+    async getObservationById(id: string): Promise<ObsInfo> {
 
         // Url of the request
         const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/${id}`;
@@ -74,8 +80,14 @@ export class ObservationsService {
         // Retrieve the data from the server and return them as a promise
         const res = await this.http.get<GenericApiResponse>(url).toPromise();
 
+        // Save the data
+        const data = <ObsInfo>res.data;
+
+        // Fix the photos urls
+        data.photos = data.photos.map(p => `${ environment.apiBaseUrl }/${p}` );
+
         // Return the data
-        return <ObsInfo>res.data;
+        return data;
 
     }
 

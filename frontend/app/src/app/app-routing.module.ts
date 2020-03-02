@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-    { path: "", redirectTo: "observations/5e5a81da8420ff48f0d4ebee", pathMatch: "full" },
+    { path: "", redirectTo: "map", pathMatch: "full" },
     { path: "auth", loadChildren: "./auth/auth.module#AuthPageModule" },
     { path: "map", loadChildren: "./map/map.module#MapPageModule" },
     {

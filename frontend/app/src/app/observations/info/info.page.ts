@@ -4,9 +4,10 @@ import { NavController } from "@ionic/angular";
 import set from "lodash-es/set";
 import get from "lodash-es/get";
 import { TranslateService } from "@ngx-translate/core";
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 import { ObservationsService } from "../observations.service";
-import { ToastService } from "../../shared/toast.service";
+import { Duration, ToastService } from "../../shared/toast.service";
 import { AuthService } from "../../auth/auth.service";
 import { ObsInfo } from "./obs-info.model";
 
@@ -31,7 +32,8 @@ export class InfoPage implements OnInit {
                 private obsService: ObservationsService,
                 private toastService: ToastService,
                 private authService: AuthService,
-                public i18n: TranslateService) { }
+                public i18n: TranslateService,
+                private photoViewer: PhotoViewer) { }
 
 
     /** @ignore */
@@ -49,25 +51,15 @@ export class InfoPage implements OnInit {
         // If no id is found, navigate back
         if (!id) this.navCtr.back();
 
-
-        // ToDo delete
-        this._obs       = dummyObs;
-        this._isLoading = false;
-
-
-        // ToDo uncomment
         // Retrieve the observation
-        // this.obsService.getObservationById(id)
-        //     .then(obs => {
-        //         console.log(obs);
-        //         this._obs = obs;
-        //     })
-        //     .catch(err => {
-        //         console.error(err);
-        //         this.toastService.presentToast("page-info-obs.err-get", Duration.short);
-        //         this.navCtr.back();
-        //     })
-        //     .finally(() => this._isLoading = false)
+        this.obsService.getObservationById(id)
+            .then(obs => this._obs = obs)
+            .catch(err => {
+                console.error(err);
+                this.toastService.presentToast("page-info-obs.err-get", Duration.short);
+                this.navCtr.back();
+            })
+            .finally(() => this._isLoading = false)
 
     }
 
@@ -93,8 +85,13 @@ export class InfoPage implements OnInit {
     }
 
 
-    // ToDo
-    onSignagePhotoClick() { }
+    /**
+     * Fired when the user click on the preview of a photo. It open the photo in a viewer.
+     *
+     * @param {string} src - The source of the image.
+     */
+    onThumbnailClick(src: string): void { this.photoViewer.show(src) }
+
 
 }
 
@@ -116,9 +113,9 @@ const dummyObs: ObsInfo = {
         wind       : 25.63
     },
     photos   : [
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fit%2Ffoto%2Flake-water-pollution-gm1026572746-275286406&psig=AOvVaw3m59jJScY_l1apHQSrM2NF&ust=1583144409128000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjotdOG-ecCFQAAAAAdAAAAABAD",
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fit%2Fsearch%2Flake%2Bpolluted&psig=AOvVaw3m59jJScY_l1apHQSrM2NF&ust=1583144409128000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjotdOG-ecCFQAAAAAdAAAAABAJ",
-        "https://www.google.com/url?sa=i&url=http%3A%2F%2Fe993.com%2Fforex%2FPollution-in-a-Lake%2F&psig=AOvVaw3m59jJScY_l1apHQSrM2NF&ust=1583144409128000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPjotdOG-ecCFQAAAAAdAAAAABAP"
+        "https://media.istockphoto.com/photos/lake-water-pollution-picture-id1026572746",
+        "https://previews.123rf.com/images/smithore/smithore0810/smithore081000070/3792785-very-important-plastic-and-trash-pollution-on-beautiful-lake.jpg",
+        "https://thumbs.dreamstime.com/z/pollution-lake-fresh-water-plastic-trash-dirty-waste-beach-summer-day-beautiful-nature-peoplelessness-150318577.jpg"
     ],
     details  : {
         algae  : {
