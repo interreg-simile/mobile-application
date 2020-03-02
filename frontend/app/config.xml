@@ -3,7 +3,7 @@
     <name>SIMILE - Monitoraggio Laghi</name>
     <description>Mobile application for crowdsourcing monitoring of lakes.</description>
     <author email="edoardo.pessina@polimi.it">Edoardo Pessina @ Politecnico di Milano</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

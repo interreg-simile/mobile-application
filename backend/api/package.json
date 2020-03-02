@@ -46,6 +46,7 @@
     "nodemailer": "^6.4.2",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "path-to-regexp": "^6.1.0",
+    "proj4": "^2.6.0",
     "rotating-file-stream": "^2.0.2",
     "uuid": "^3.3.2",
     "yamljs": "^0.3.0"

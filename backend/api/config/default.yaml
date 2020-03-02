@@ -8,3 +8,7 @@ app:
     - it
     - en
   defaultLng: it    # Default language
+
+crs:
+  1: "+proj=longlat +datum=WGS84 +no_defs"               # EPSG:4326 - WGS 84
+  2: "+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs" # EPSG:32632 - WGS 84 / UTM zone 32

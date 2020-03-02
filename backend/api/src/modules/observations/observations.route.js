@@ -21,7 +21,7 @@ router.get("/", validator.getAllQuery, controller.getAll);
 router.post("/", validator.observation, controller.create);
 
 // GET - /observations/{obs_id}
-router.get("/:id", vPath.id, controller.getById);
+router.get("/:id", validator.getByIdQuery, controller.getById);
 
 // DELETE - /observations/{obs_id}
 router.delete("/:id", vPath.id, controller.markForDeletion);

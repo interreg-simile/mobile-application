@@ -10,6 +10,7 @@ import _ from "lodash";
 import Observation from "./observations.model";
 import constructError from "../../utils/construct-error";
 import { getIdByCoords } from "../rois/rois.service";
+import { project } from "../../utils/spatial";
 
 
 /**
@@ -18,19 +19,12 @@ import { getIdByCoords } from "../rois/rois.service";
  * @param {Object} filter - The filter to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Observation[]>} A promise containing the result of the query.
  */
-export async function getAll(filter, projection, options, t) {
+export async function getAll(filter, projection, options) {
 
     // Retrieve the observations
-    const obs = await Observation.find(filter, projection, { lean: true, ...options });
-
-    // Populate the "description" fields of the observations
-    for (let i = 0; i < obs.length; i++) populateDescriptions(obs[i], t);
-
-    // Return the observations
-    return obs;
+    return Observation.find(filter, projection, { lean: true, ...options });
 
 }
 
@@ -42,19 +36,15 @@ export async function getAll(filter, projection, options, t) {
  * @param {Object} filter - Any additional filters to apply to the query.
  * @param {Object} projection - The projection to apply to the query.
  * @param {Object} options - The options of the query.
- * @param {Function} t - The i18next translation function fixed on the response language.
  * @returns {Promise<Observation>} A promise containing the result of the query.
  */
-export async function getById(id, filter, projection, options, t) {
+export async function getById(id, filter, projection, options) {
 
     // Find the data
     const obs = await Observation.findOne({ _id: id, ...filter }, projection, { lean: true, ...options });
 
     // If no data is found, throw an error
     if (!obs) throw constructError(404);
-
-    // Populate the "description" fields of the observation
-    populateDescriptions(obs, t);
 
     // Return the data
     return obs;
@@ -85,7 +75,7 @@ export async function create(data) {
     // Create the new observation
     const obs = new Observation({
         uid     : data.uid,
-        position: { type: "Point", ...data.position },
+        position: { type: "Point", crs: "1", ...data.position },
         weather : data.weather,
         details : data.details,
         photos  : data.photos,
@@ -135,7 +125,7 @@ export async function softDelete(id, isAdmin, reqUId) {
  * @param {Observation} obs - The observation.
  * @param {Function} t - The i18next translation function fixed on the response language.
  */
-function populateDescriptions(obs, t) {
+export function populateDescriptions(obs, t) {
 
     // Save the original observation
     const originalObj = obs;
@@ -198,5 +188,52 @@ function populateDescriptions(obs, t) {
 
     // Call the function
     findAndPopulate(obs, []);
+
+}
+
+
+/**
+ * Project the coordinates of an observation in a given reference system.
+ *
+ * @param {Observation} obs - The observation.
+ * @param {string} crsCode - The code of the target reference system.
+ */
+export function projectObservation(obs, crsCode) {
+
+    const pCoords = project(crsCode, obs.position.coordinates[1], obs.position.coordinates[0]);
+
+    obs.position.coordinates = [pCoords.lon, pCoords.lat];
+
+    obs.position.crs.code = parseInt(crsCode);
+
+}
+
+
+/**
+ * Converts an observation into GeoJSON format.
+ *
+ * @param {Observation} obs - The observation.
+ * @return {Object} The observation in GoeJSON format.
+ */
+export function convertToGeoJsonFeature(obs) {
+
+    // Initialize the GeoJSON object
+    const gjObs = {
+        type    : "Feature",
+        geometry: {
+            type       : "Point",
+            coordinates: obs.position.coordinates
+        },
+        properties: {}
+    };
+
+    // Assign all the properties of the observation
+    Object.assign(gjObs.properties, obs);
+
+    // Delete the coordinates
+    delete gjObs.properties.position.coordinates;
+
+    // Return the GeoJSON object
+    return gjObs;
 
 }

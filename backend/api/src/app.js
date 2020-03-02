@@ -12,6 +12,7 @@ import connectDb from "./setup/database";
 import setupInternationalization from "./setup/i18n";
 import setupMiddlewares from "./setup/middlewares";
 import setupRoutes from "./setup/routes";
+import { loadProjections } from "./utils/spatial";
 
 
 // Create an express server
@@ -20,7 +21,10 @@ const server = express();
 // Setup the middlewares
 setupMiddlewares(server);
 
-// Set up mail service
+// ToDo Set up mail service
+
+// Set up the crs projections
+loadProjections();
 
 // Setup the routes
 setupRoutes(server);

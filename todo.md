@@ -1,6 +1,6 @@
 ## ToDo
 
-- [ ] Fornire le osservazioni in formato GeoJSON
+- [x] Fornire le osservazioni in formato GeoJSON
     - [ ] Riproiettare i dati in EPSG:32632 e _sistema svizzero (?)_
     
 - [ ] Scrivere la documentazione
@@ -8,11 +8,16 @@
     - [ ] Documentazione vera e propria dell'API
 	- [ ] Termini e condizioni GDPR (carlo)
     
-- [ ] Implementare visualizzazione dell'osservazione  
+- [x] Implementare visualizzazione dell'osservazione 
+
+- [ ] Implementare legenda/filtro mappa
+
+- [ ] Implementare ripopolamento mappa
   
 - [ ] Implementare login e registrazione
 
 - [ ] Implementare uso offline
+	- [ ] Cache delle tiles di OSM
 
 - [ ] Implementare inserimento di eventi e alert dall'applicazione per gli utenti admin
 
@@ -35,6 +40,7 @@
     
 - [ ] Aggiungere indicazioni stradali nella pagina del singolo evento
 
+- [ ] Implementare chiamata alle autorità
 
 #### Known bugs
 

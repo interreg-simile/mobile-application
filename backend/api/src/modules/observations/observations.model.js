@@ -20,6 +20,7 @@ const position = new Schema({
     _id        : false,
     type       : { type: String, enum: ["Point"], required: true, default: "Point" },
     coordinates: { type: [Number], required: true },
+    crs        : { type: { code: Number }, required: true },
     accuracy   : { type: Number, required: false },
     custom     : { type: Boolean, required: true },
     roi        : { type: mongoose.Schema.Types.ObjectId, ref: Rois, required: false },

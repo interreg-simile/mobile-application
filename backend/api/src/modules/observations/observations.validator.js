@@ -8,19 +8,40 @@ import path from "path";
 import yaml from "yamljs";
 
 import { body, oneOf, query } from "express-validator";
-import { vQuery, vCoords, vCode } from "../../utils/common-validations";
+import { vQuery, vCoords, vCode, vPath } from "../../utils/common-validations";
 
 
 // Load the configurations in JSON format
-const conf = yaml.load(path.resolve("./config/models.yaml")).observations;
+const conf    = yaml.load(path.resolve("./config/models.yaml")).observations;
+const crsConf = (yaml.load(path.resolve("./config/default.yaml"))).crs;
+
+
+// Validation for the crs query parameter
+export const vCrs = [
+    query("crs").optional().isInt({
+        min                 : Math.min(...Object.keys(crsConf).map(v => parseInt(v))),
+        max                 : Math.max(...Object.keys(crsConf).map(v => parseInt(v))),
+        allow_leading_zeroes: false
+    })
+];
+
+// Validation for the mode query parameter
+export const vMode = [
+    query("mode").optional().trim().custom(v => ["json", "geojson"].includes(v.toLowerCase()))
+];
 
 
 // Validation chain for the query parameters of the "get all" route
 export const getAllQuery = [
     ...vQuery.includeDeletedAdmin,
     query("minimalRes").optional().isBoolean(),
-    query("excludeOutOfRois").optional().isBoolean()
+    query("excludeOutOfRois").optional().isBoolean(),
+    ...vCrs,
+    ...vMode
 ];
+
+// Validation chain for the query parameters of the "get by id" route
+export const getByIdQuery = [...vPath.id, ...vCrs, ...vMode];
 
 // Validation chain for the query parameters of the "post" route
 const postQuery = [query("minimalRes").optional().isBoolean()];

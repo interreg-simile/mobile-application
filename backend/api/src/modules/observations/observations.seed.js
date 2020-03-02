@@ -15,9 +15,7 @@ import Roi from "../rois/rois.model";
  *
  * @return {Promise<void>} An empty promise.
  */
-export default async
-
-function () {
+export default async function () {
 
     console.info("SEED - Observations...");
 
@@ -30,6 +28,7 @@ function () {
             uid     : "5dd7bbe0701d5bdd685c1f19", // User 2
             position: {
                 coordinates: [9.079017, 45.824735],
+                crs        : { code: 1 },
                 accuracy   : 20.86549,
                 custom     : false,
                 roi        : "000000000000000000000001"
@@ -49,6 +48,7 @@ function () {
             uid     : "5dd7bbe0701d5bdd685c1f19", // User 2
             position: {
                 coordinates: [8.947198, 45.935249],
+                crs        : { code: 1 },
                 custom     : true,
                 roi        : "000000000000000000000004"
             },
@@ -65,6 +65,7 @@ function () {
             uid     : "5dd7bbe0701d5bdd685c1f18", // User 1
             position: {
                 coordinates: [9.102516, 45.861128],
+                crs        : { code: 1 },
                 accuracy   : 20.86549,
                 custom     : true,
                 roi        : "000000000000000000000001"

@@ -19,6 +19,7 @@ observations:
 
   position:
     lake: { 1: "Altro", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
+    crs: { 1: "WGS 84", 2: "WGS 84 / UTM zone 32N" }
 
   weather:
     sky: { 1: "Cielo limpido", 2: "Qualche nuvola", 3: "Nuvoloso", 4: "Pioggia", 5: "Neve", 6: "Nebbia" }

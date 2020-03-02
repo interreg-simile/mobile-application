@@ -9,6 +9,7 @@ Observation:
   position:
     type: "Point"
     coordinates: [number]
+    crs: { code: number, description: string }
     accuracy: number
     custom: boolean
     roi: Mongoose.id
