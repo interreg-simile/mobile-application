@@ -25,7 +25,7 @@
 		
 		<ion-card class="ion-no-margin">
 			
-			<ion-card-content>{{ event.description }}</ion-card-content>
+			<ion-card-content>{{event.description}}</ion-card-content>
 		
 		</ion-card>
 	
@@ -46,7 +46,15 @@
 					
 					<ion-icon name="navigate"></ion-icon>
 					
-					<div>{{ event.address }}</div>
+					<div>
+						
+						<p>{{event.address}}</p>
+						
+						<p class="route" (click)="onDirectionsClick()">
+							{{"page-news.single-event.get-route" | translate}}
+						</p>
+						
+					</div>
 				
 				</div>
 				
@@ -85,15 +93,15 @@
 					
 					<ion-icon name="mail"></ion-icon>
 					
-					<div>{{ event.contacts.email }}</div>
+					<a href="mailto:{{event.contacts.email}}">{{event.contacts.email}}</a>
 				
 				</div>
 				
-				<div *ngIf="event.contacts.phone" class="row" (click)="onPhoneClick()">
+				<div *ngIf="event.contacts.phone" class="row">
 					
 					<ion-icon name="call"></ion-icon>
 					
-					<div>{{ event.contacts.phone }}</div>
+					<a href="tel:{{event.contacts.phone}}">{{event.contacts.phone}}</a>
 				
 				</div>
 			

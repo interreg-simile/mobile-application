@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { NavController, Platform } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { CallNumber } from "@ionic-native/call-number/ngx";
 
 import { Event } from "../event.model";
-import { NewsService, STORAGE_KEY_EVENTS } from "../../news.service";
+import { NewsService } from "../../news.service";
+import { NGXLogger } from "ngx-logger";
 
 
 @Component({
@@ -15,65 +15,50 @@ import { NewsService, STORAGE_KEY_EVENTS } from "../../news.service";
 })
 export class SingleEventPage implements OnInit {
 
-
-    /** The event shown in the page. */
     public event: Event;
-
-    /** Current locale of the application. */
     public locale: string;
 
 
-    /** @ignore */
-    constructor(
-        private newsService: NewsService,
-        private activatedRoute: ActivatedRoute,
-        private navCtr: NavController,
-        private i18n: TranslateService,
-        private call: CallNumber
-    ) { }
+    constructor(private newsService: NewsService,
+                private activatedRoute: ActivatedRoute,
+                private navCtr: NavController,
+                private i18n: TranslateService,
+                private logger: NGXLogger,
+                private platform: Platform) { }
 
 
-    /** @ignore */
     ngOnInit(): void {
 
-        // Retrieve the current locale
         this.locale = this.i18n.currentLang;
 
-        // Extract the event id
         const id = this.activatedRoute.snapshot.paramMap.get("id");
-
-        // If no id is passed, navigate back
         if (!id) this.navCtr.back();
 
-        // Find the event
         this.event = this.newsService.getEventById(id);
-
-        // If no event id found, navigate back
         if (!this.event) this.navCtr.back();
 
-
-        // Add the event to the array of read alert in local memory
-        this.newsService.saveData(STORAGE_KEY_EVENTS, this.event.id)
+        this.newsService.saveData(this.newsService.storageKeyEvents, this.event.id)
             .then(() => {
-
-                // Set the alert as read
                 this.event.read = true;
-
-                // Check if there are some unread events
                 return this.newsService.checkNewEvents();
-
             })
-            .catch(err => console.error(err));
+            .catch(err => this.logger.error("Error saving the read event.", err));
 
     }
 
 
-    /**
-     * Opens the phone dial.
-     *
-     * @return {Promise<>} An empty promise.
-     */
-    async onPhoneClick(): Promise<void> { await this.call.callNumber(this.event.contacts.phone, false) }
+    /** Fired when the user clicks to get the directions for the event. */
+    onDirectionsClick(): void {
+
+        const coords = `${ this.event.coordinates.lat },${ this.event.coordinates.lng }`;
+        const label  = encodeURI(this.event.title);
+
+        if (this.platform.is("ios"))
+            window.open(`maps://?q=${ coords }_system`);
+        else
+            window.open(`geo:0,0?q=${ coords }(${ label })_system`);
+
+    }
 
 
 }

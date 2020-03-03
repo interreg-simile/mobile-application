@@ -11,9 +11,7 @@ export enum PicResult {
 @Injectable({ providedIn: "root" })
 export class CameraService {
 
-
     private _win: any = window;
-
 
     private _opts: CameraOptions = {
         quality           : 50,
@@ -27,25 +25,24 @@ export class CameraService {
     };
 
 
-    /** @ignore */
     constructor(private camera: Camera) { }
 
 
-    /**
-     * @return {Promise<String | PicResult>}
+    /** Takes a picture.
+     *
+     * @return {Promise<string | PicResult>} The uri of the picture or an error.
      */
-    async takePicture() {
+    async takePicture(): Promise<string | PicResult> {
 
-        let [pic, err] = await this.camera.getPicture(this._opts).then(v => [v, undefined]).catch(e => [undefined, e]);
+        let [pic, err] = await this.camera.getPicture(this._opts)
+            .then(v => [v, undefined])
+            .catch(e => [undefined, e]);
 
         if (err !== undefined) return err === "No Image Selected" ? PicResult.NO_IMAGE : PicResult.ERROR;
 
         return pic;
 
     }
-
-
-    async cleanUp() { await this.camera.cleanup() }
 
 
     /**
@@ -56,10 +53,8 @@ export class CameraService {
      */
     getImgSrc(url: string): string {
 
-        // If no user is provided, return
         if (!url) return;
 
-        // Resolve the file
         return this._win.Ionic.WebView.convertFileSrc(url);
 
     }

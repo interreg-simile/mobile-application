@@ -6,13 +6,13 @@
 - [ ] Scrivere la documentazione
     - [ ] Schede di deployment per App e API
     - [ ] Documentazione vera e propria dell'API
-	- [ ] Termini e condizioni GDPR (carlo)
+	- [ ] Termini e condizioni GDPR
     
 - [x] Implementare visualizzazione dell'osservazione 
 
 - [ ] Implementare legenda/filtro mappa
 
-- [ ] Implementare ripopolamento mappa
+- [x] Implementare ripopolamento mappa
   
 - [ ] Implementare login e registrazione
 
@@ -21,7 +21,7 @@
 
 - [ ] Implementare inserimento di eventi e alert dall'applicazione per gli utenti admin
 
-- [ ] Tradurre il sistema in inglese (carlo?)
+- [ ] Tradurre il sistema in inglese
     - [x] Riconoscere lingua del telefono
     - [ ] Implementare cambio lingua nelle impostazioni
 
@@ -29,17 +29,17 @@
 
 - [ ] Ristrutturare la sezione Fauna
 
-- [ ] Implementare pagine help (carlo x contenuti)
+- [ ] Implementare pagine help
 
 - [ ] Implementare hardware back button
     - [ ] Doppio click per chiudere l'applicazione
     - [ ] Far uscire alert di sicurezza durante l'inserimento di un'osservazione
     
-- [ ] Aggiungere indicazioni stradali nella pagina del singolo evento
+- [x] Aggiungere indicazioni stradali nella pagina del singolo evento
 
 - [ ] Implementare chiamata alle autorità
 
-- [ ] Modificare icona e splash screen
+- [x] Modificare icona e splash screen
 
 
 #### Known bugs

@@ -1,3 +1,5 @@
+import { LatLng } from "leaflet";
+
 import { AlgaeComponent } from "./details/algae/algae.component";
 import { FoamsComponent } from "./details/foams/foams.component";
 import { OilsComponent } from "./details/oils/oils.component";
@@ -5,7 +7,6 @@ import { LittersComponent } from "./details/litters/litters.component";
 import { OdoursComponent } from "./details/odours/odours.component";
 import { OutletsComponent } from "./details/outlets/outlets.component";
 import { FaunaComponent } from "./details/fauna/fauna.component";
-import { LatLng } from "leaflet";
 import { TransparencyComponent } from "./measures/transparency/transparency.component";
 import { TemperatureComponent } from "./measures/temperature/temperature.component";
 import { PhComponent } from "./measures/ph/ph.component";
@@ -79,27 +80,27 @@ export interface Outlets {
     prodActNearbyDetails: string
 }
 
-export interface Fauna {
-    checked: boolean,
-    component: Object,
-    deceased: {
-        fish: { checked: boolean, details: string },
-        birds: { checked: boolean, details: string },
-        other: { checked: boolean, details: string }
-    },
-    abnormal: {
-        fish: { checked: boolean, details: string },
-        birds: { checked: boolean, details: string },
-        other: { checked: boolean, details: string }
-    },
-    alienSpecies: {
-        crustaceans: { checked: boolean, details: string },
-        molluscs: { checked: boolean, details: string },
-        turtles: { checked: boolean, details: string },
-        fish: { checked: boolean, details: string },
-        other: { checked: boolean, details: string },
-    }
-}
+// export interface Fauna {
+//     checked: boolean,
+//     component: Object,
+//     deceased: {
+//         fish: { checked: boolean, details: string },
+//         birds: { checked: boolean, details: string },
+//         other: { checked: boolean, details: string }
+//     },
+//     abnormal: {
+//         fish: { checked: boolean, details: string },
+//         birds: { checked: boolean, details: string },
+//         other: { checked: boolean, details: string }
+//     },
+//     alienSpecies: {
+//         crustaceans: { checked: boolean, details: string },
+//         molluscs: { checked: boolean, details: string },
+//         turtles: { checked: boolean, details: string },
+//         fish: { checked: boolean, details: string },
+//         other: { checked: boolean, details: string },
+//     }
+// }
 
 export interface Details {
     algae: Algae,
@@ -317,27 +318,27 @@ export class Observation {
             prodActNearbyDetails: undefined
         };
 
-        const fauna: Fauna = {
-            checked     : false,
-            component   : FaunaComponent,
-            deceased    : {
-                fish : { checked: undefined, details: undefined },
-                birds: { checked: undefined, details: undefined },
-                other: { checked: undefined, details: undefined }
-            },
-            abnormal    : {
-                fish : { checked: undefined, details: undefined },
-                birds: { checked: undefined, details: undefined },
-                other: { checked: undefined, details: undefined }
-            },
-            alienSpecies: {
-                crustaceans: { checked: undefined, details: undefined },
-                molluscs   : { checked: undefined, details: undefined },
-                turtles    : { checked: undefined, details: undefined },
-                fish       : { checked: undefined, details: undefined },
-                other      : { checked: undefined, details: undefined },
-            }
-        };
+        // const fauna: Fauna = {
+        //     checked     : false,
+        //     component   : FaunaComponent,
+        //     deceased    : {
+        //         fish : { checked: undefined, details: undefined },
+        //         birds: { checked: undefined, details: undefined },
+        //         other: { checked: undefined, details: undefined }
+        //     },
+        //     abnormal    : {
+        //         fish : { checked: undefined, details: undefined },
+        //         birds: { checked: undefined, details: undefined },
+        //         other: { checked: undefined, details: undefined }
+        //     },
+        //     alienSpecies: {
+        //         crustaceans: { checked: undefined, details: undefined },
+        //         molluscs   : { checked: undefined, details: undefined },
+        //         turtles    : { checked: undefined, details: undefined },
+        //         fish       : { checked: undefined, details: undefined },
+        //         other      : { checked: undefined, details: undefined },
+        //     }
+        // };
 
         this.details = {
             algae  : algae,

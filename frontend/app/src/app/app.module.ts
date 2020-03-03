@@ -11,7 +11,6 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { registerLocaleData } from "@angular/common";
 import localeIt from "@angular/common/locales/it";
 import { IonicStorageModule } from "@ionic/storage";
-import { CallNumber } from "@ionic-native/call-number/ngx";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
@@ -19,7 +18,6 @@ import { File } from '@ionic-native/file/ngx';
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
-import { Globalization } from '@ionic-native/globalization/ngx';
 
 import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
 import { interceptorProviders } from "./shared/interceptors/interceptors";
@@ -48,9 +46,7 @@ import { environment } from "../environments/environment";
     providers      : [
         StatusBar,
         SplashScreen,
-        CallNumber,
         Geolocation,
-        Globalization,
         Diagnostic,
         Camera,
         File,
