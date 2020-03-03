@@ -2,43 +2,40 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateService } from "@ngx-translate/core";
+import { LangService } from "./shared/lang.service";
 
 
-export const statusBarColor = "#00515f";
+export const statusBarColor = "#00515F";
 
 
 @Component({ selector: 'app-root', templateUrl: 'app.component.html', styleUrls: ['app.component.scss'] })
 export class AppComponent {
 
+    constructor(private platform: Platform,
+                private splashScreen: SplashScreen,
+                private statusBar: StatusBar,
+                private langService: LangService) {
 
-    /** @ignore */
-    constructor(
-        private platform: Platform,
-        private splashScreen: SplashScreen,
-        private statusBar: StatusBar,
-        private translate: TranslateService
-    ) { this.initializeApp() }
+        this.initializeApp().catch(() => {});
+
+    }
 
 
     /** Initializes the application. */
-    initializeApp() {
+    async initializeApp(): Promise<void> {
 
         // When the platform is ready
-        this.platform.ready().then(() => {
+        await this.platform.ready();
 
-            // Set bg and color of the status bar
-            this.statusBar.backgroundColorByHexString(statusBarColor);
-            this.statusBar.styleLightContent();
+        // Set bg and color of the status bar
+        this.statusBar.backgroundColorByHexString(statusBarColor);
+        this.statusBar.styleLightContent();
 
-            // Hide the splash screen
-            this.splashScreen.hide();
+        // Set the application language
+        await this.langService.initAppLanguage();
 
-            // Set the default language
-            this.translate.setDefaultLang("it");
-            this.translate.use("it");
-
-        });
+        // Hide the splash screen
+        this.splashScreen.hide();
 
     }
 

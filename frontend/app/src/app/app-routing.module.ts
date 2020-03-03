@@ -32,7 +32,6 @@ const routes: Routes = [
             }
         ]
     },
-    { path: "quiz", loadChildren: "./quiz/quiz.module#QuizPageModule" },
     { path: "project", loadChildren: "./project/project.module#ProjectPageModule" },
     { path: "settings", loadChildren: "./settings/settings.module#SettingsPageModule" }
 ];

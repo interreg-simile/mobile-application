@@ -28,12 +28,12 @@ observations:
 
     algae:
       extension: { 1: "< 5 mq", 2: "5 - 20 mq", 3: "> 20 mq" }
-      look: { 1: "Disperse", 2: "Compatte", 3: "Raggruppamenti", 4: "Striature superficiali" } # Help
+      look: { 1: "Disperse", 2: "Compatte", 3: "Raggruppamenti", 4: "Striature superficiali" }
       colour: { 1: "Rosso", 2: "Blu",  3: "Verde", 4: "Grigio", 5: "Marrone" }
 
     foams:
       extension: { 1: "< 5 mq", 2: "5 - 20 mq", 3: "> 20 mq" }
-      look: { 1: "Disperse", 2: "Compatte", 3: "Lineari" } # Help
+      look: { 1: "Disperse", 2: "Compatte", 3: "Lineari" }
       height: { 1: "< 3 cm", 2: "3 - 20 cm", 3: "> 20 cm" }
 
     oils:

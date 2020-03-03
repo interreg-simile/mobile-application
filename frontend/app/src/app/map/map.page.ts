@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController, Platform } from "@ionic/angular";
-import { CircleMarker, divIcon, DivIcon, LatLng, LeafletMouseEvent, Map, Marker, Point, TileLayer } from 'leaflet';
+import { CircleMarker, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
 import { Diagnostic } from "@ionic-native/diagnostic/ngx";
+import { NGXLogger } from "ngx-logger";
 
 import { MapService } from "./map.service";
 import {
@@ -24,23 +25,6 @@ import { Duration, ToastService } from "../shared/toast.service";
 import { AuthService } from "../auth/auth.service";
 
 
-/** Storage key for the cached user position. */
-const STORAGE_KEY_POSITION = "position";
-
-
-/** Initial coordinates of the center of the map. */
-const INITIAL_LATLNG = new LatLng(45.95388572325957, 8.958533937111497);
-
-/** Initial zoom level of the map.  */
-const INITIAL_ZOOM = 9;
-
-/** Default zoom level of the map. */
-const DEFAULT_ZOOM = 16;
-
-/** Minimum level of zoom below which the map is reset to the default level when the GPS button is clicked. */
-const MIN_ZOOM = 14;
-
-
 /**
  * Main page of the application. Here the user can visualize herself on a map together with all the observations,
  * measurements and events.
@@ -52,12 +36,26 @@ const MIN_ZOOM = 14;
 export class MapPage implements OnInit, OnDestroy {
 
 
+    private readonly _storageKeyPosition = "position";
+
+    private readonly _initialLagLon = new LatLng(45.95388572325957, 8.958533937111497);
+
+    /** Initial zoom level of the map.  */
+    private readonly _initialZoomLvl = 9;
+
+    /** Default zoom level of the map. */
+    private readonly _defaultZoomLvl = 16;
+
+    /** Minimum level of zoom below which the map is reset to the default level when the GPS button is clicked. */
+    private readonly _minZoomLvl = 14;
+
+
     /** @ignore */ private _positionSub: Subscription;
     /** @ignore */ private _pauseSub: Subscription;
-    /** @ignore */ private _eventsSub;
-    /** @ignore */ private _obsSub;
-    /** @ignore */ private _newEventsSub;
-    /** @ignore */ private _newAlertsSub;
+    /** @ignore */ private _eventsSub: Subscription;
+    /** @ignore */ private _obsSub: Subscription;
+    /** @ignore */ private _newEventsSub: Subscription;
+    /** @ignore */ private _newAlertsSub: Subscription;
 
 
     /** A loading dialog. */
@@ -105,7 +103,8 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** @ignore */
-    constructor(private router: Router,
+    constructor(private logger: NGXLogger,
+                private router: Router,
                 private i18n: TranslateService,
                 private changeRef: ChangeDetectorRef,
                 private platform: Platform,
@@ -231,7 +230,7 @@ export class MapPage implements OnInit, OnDestroy {
         this._newAlertsSub = this.newsService.areNewAlerts.subscribe(v => this._areNewAlerts = v);
 
         // Restore the cached position and init the map
-        this.storage.get(STORAGE_KEY_POSITION).then(v => this.initMap(v));
+        this.storage.get(this._storageKeyPosition).then(v => this.initMap(v));
 
     }
 
@@ -248,9 +247,9 @@ export class MapPage implements OnInit, OnDestroy {
 
         // Set the initial view
         if (view)
-            this._map.setView(view, DEFAULT_ZOOM);
+            this._map.setView(view, this._defaultZoomLvl);
         else
-            this._map.setView(INITIAL_LATLNG, INITIAL_ZOOM);
+            this._map.setView(this._initialLagLon, this._initialZoomLvl);
 
         // Add OMS as basemap
         new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -385,7 +384,7 @@ export class MapPage implements OnInit, OnDestroy {
 
             // If its the first found position, set the center and the zoom of the map
             if (this._isFirstPosition)
-                this._map.setView([this.position.lat, this.position.lon], DEFAULT_ZOOM);
+                this._map.setView([this.position.lat, this.position.lon], this._defaultZoomLvl);
 
             // Else, set just the center
             else
@@ -450,10 +449,8 @@ export class MapPage implements OnInit, OnDestroy {
     /** Saves the current position of the user in the local storage of the phone. */
     async cachePosition(): Promise<void> {
 
-        console.log("Caching position...");
-
         if (this.position.lat && this.position.lon)
-            await this.storage.set(STORAGE_KEY_POSITION, [this.position.lat, this.position.lon]);
+            await this.storage.set(this._storageKeyPosition, [this.position.lat, this.position.lon]);
 
     }
 
@@ -516,8 +513,8 @@ export class MapPage implements OnInit, OnDestroy {
         if (!this._isMapFollowing) {
 
             // If the zoom level of the map is less than the minimum one, fly to the user position with the default zoom
-            if (this._map.getZoom() < MIN_ZOOM)
-                this._map.flyTo([this.position.lat, this.position.lon], DEFAULT_ZOOM, { animate: false });
+            if (this._map.getZoom() < this._minZoomLvl)
+                this._map.flyTo([this.position.lat, this.position.lon], this._defaultZoomLvl, { animate: false });
 
             // Else, pan to the user position
             else this._map.panTo([this.position.lat, this.position.lon], { animate: true });
@@ -531,7 +528,7 @@ export class MapPage implements OnInit, OnDestroy {
         }
 
         // Set the zoom to the default level
-        this._map.setZoom(DEFAULT_ZOOM, { animate: true });
+        this._map.setZoom(this._defaultZoomLvl, { animate: true });
 
     }
 

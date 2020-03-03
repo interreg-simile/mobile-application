@@ -21,12 +21,9 @@
 
 - [ ] Implementare inserimento di eventi e alert dall'applicazione per gli utenti admin
 
-- [ ] Capire dopo quanto tempo le osservazioni scompaiono dalla mappa
-
 - [ ] Tradurre il sistema in inglese (carlo?)
-    - [ ] Riconoscere lingua del telefono
-    
-- [ ] Implementare sezione "quiz"
+    - [x] Riconoscere lingua del telefono
+    - [ ] Implementare cambio lingua nelle impostazioni
 
 - [ ] Implementare sezione "progetto"
 
@@ -42,10 +39,18 @@
 
 - [ ] Implementare chiamata alle autorità
 
-- [ ] Sistemare unità di misura dell'ossigeno
+- [ ] Modificare icona e splash screen
+
 
 #### Known bugs
 
 - [ ] Le tile della basemap si rompono dopo che si lascia la mappa
     - [ ] Provare a inserire un'altra basemap
     - [ ] Provare a togliere il position watcher
+    
+    
+#### Future realeases
+
+- [ ] Capire dopo quanto tempo le osservazioni scompaiono dalla mappa
+
+- [ ] Implementare sezione "quiz"

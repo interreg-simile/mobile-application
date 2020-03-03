@@ -18,9 +18,12 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { Globalization } from '@ionic-native/globalization/ngx';
 
 import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
 import { interceptorProviders } from "./shared/interceptors/interceptors";
+import { environment } from "../environments/environment";
 
 
 @NgModule({
@@ -31,16 +34,23 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
         IonicModule.forRoot(),
         AppRoutingModule,
         HttpClientModule,
+        IonicStorageModule.forRoot(),
         TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useFactory: translateLoader, deps: [HttpClient] }
         }),
-        IonicStorageModule.forRoot()
+        LoggerModule.forRoot({
+            level           : !environment.production ? NgxLoggerLevel.DEBUG : NgxLoggerLevel.OFF,
+            serverLogLevel  : NgxLoggerLevel.OFF,
+            enableSourceMaps: true,
+            timestampFormat : "short"
+        })
     ],
     providers      : [
         StatusBar,
         SplashScreen,
         CallNumber,
         Geolocation,
+        Globalization,
         Diagnostic,
         Camera,
         File,
@@ -62,8 +72,9 @@ export class AppModule {
  * Loads the JSON files with the translations.
  *
  * @param {HttpClient} http - The http client needed to lead the translation.
+ * @return {ModuleTranslateLoader} A new ModuleTranslateLoader object.
  */
-export function translateLoader(http: HttpClient) {
+export function translateLoader(http: HttpClient): ModuleTranslateLoader {
 
     // Set the file type
     const fileType = FileType.JSON;
@@ -81,7 +92,6 @@ export function translateLoader(http: HttpClient) {
             { moduleName: "page-info-obs", baseTranslateUrl, fileType },
             { moduleName: "page-news", baseTranslateUrl, fileType },
             { moduleName: "page-project", baseTranslateUrl, fileType },
-            { moduleName: "page-quiz", baseTranslateUrl, fileType },
             { moduleName: "page-settings", baseTranslateUrl, fileType }
         ]
     };
