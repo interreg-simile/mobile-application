@@ -25,7 +25,7 @@
     - [x] Riconoscere lingua del telefono
     - [ ] Implementare cambio lingua nelle impostazioni
 
-- [ ] Implementare sezione "progetto"
+- [x] Implementare sezione "progetto"
 
 - [ ] Ristrutturare la sezione Fauna
 
@@ -37,11 +37,11 @@
     
 - [x] Aggiungere indicazioni stradali nella pagina del singolo evento
 
-- [ ] Implementare chiamata alle autorità
-
 - [x] Modificare icona e splash screen
 
 - [ ] Implementare eliminazione osservazione (?)
+
+- [ ] Sistemare il drawer in modo che si chiuda schiacciando indietro o sulla schermata sotto
 
 
 #### Known bugs
@@ -56,3 +56,9 @@
 - [ ] Capire dopo quanto tempo le osservazioni scompaiono dalla mappa
 
 - [ ] Implementare sezione "quiz"
+
+- [ ] Creare interfaccia web per admin
+    - [ ] Implementare inserimento di eventi, alert, quiz
+    - [ ] Implementare la visualizzazione delle osservazioni
+    
+- [ ] Implementare chiamata alle autorità

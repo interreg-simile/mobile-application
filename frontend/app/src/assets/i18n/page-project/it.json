@@ -1,3 +1,15 @@
 {
-  "title": "Progetto"
+  "title": "Progetto",
+  "sec-simile": {
+    "head": "Simile",
+    "text": "Il progetto <a>SIMILE</a> ha l’obiettivo di migliorare, attraverso un sistema informativo avanzato e la partecipazione dei cittadini, l’attuale sistema di monitoraggio dei laghi insubrici e di creare una politica condivisa per la gestione delle acque. Grazie a questa applicazione è possibile contribuire alla raccolta di informazioni sullo stato dei laghi della zona transfrontaliera e oltre. Tutti i dati pervenuti sono disponibili con licenza open source e confluiscono in un modello matematico per l’analisi della qualità dell’acqua e la simulazione di scenari."
+  },
+  "sec-interreg": {
+    "head": "Interreg",
+    "text-primary": "Il progetto <a>SIMILE</a>, all’interno del quale è stata realizzata questa applicazione, è stato finanziato nell’ambito del Programma di Cooperazione Interreg Italia-Svizzera allo scopo di sviluppare strategie per la salvaguardia dei laghi. In linea con la sostenibilità del progetto, l’applicazione è stata sviluppata per poter essere utilizzata anche al di fuori della sua area di interesse.",
+    "text-secondary": "Operazione co-finanziata dall’Unione europea, Fondo Europeo di Sviluppo Regionale, dallo Stato Italiano, dalla Confederazione elvetica e dai Cantoni nell’ambito del Programma di Cooperazione Interreg V-A Italia-Svizzera."
+  },
+  "sec-partners": {
+    "head": "Partner"
+  }
 }

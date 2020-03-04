@@ -14,6 +14,81 @@
 
 </ion-header>
 
-<ion-content>
+
+<ion-content class="bg-off-white custom-container">
+	
+	
+	<!-- Simile -->
+	<section>
+		
+		<p class="card-header">{{"page-project.sec-simile.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content>
+				
+				<p [innerHTML]="'page-project.sec-simile.text' | translate"></p>
+				
+			</ion-card-content>
+			
+		</ion-card>
+		
+	</section>
+	
+	
+	<!-- Interreg -->
+	<section id="interreg">
+		
+		<p class="card-header">{{"page-project.sec-interreg.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content>
+				
+				<p [innerHTML]="'page-project.sec-interreg.text-primary' | translate"></p>
+				
+				<p class="ion-margin-bottom text-secondary">
+					{{"page-project.sec-interreg.text-secondary" | translate}}
+				</p>
+				
+				<ion-img src="assets/images/logos/interreg.png" (click)="onLinkClick()"></ion-img>
+				
+				<ion-img src="assets/images/logos/arc.png"></ion-img>
+				
+				<div class="img-container">
+					
+					<ion-img src="assets/images/logos/train.png"></ion-img>
+					
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	
+	<!-- Partners -->
+	<section id="partners" class="last">
+		
+		<p class="card-header">{{"page-project.sec-partners.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content>
+				
+				<p>Politecnico di Milano</p>
+				<p>Scuola universitaria professionale della Svizzera italiana</p>
+				<p>Regione Lombardia</p>
+				<p>IRSA CNR</p>
+				<p>Fondazione Politecnico di Milano</p>
+				<p>Cantone Ticino</p>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+
 
 </ion-content>

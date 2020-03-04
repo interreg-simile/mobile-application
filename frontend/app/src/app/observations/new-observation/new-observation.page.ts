@@ -21,7 +21,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     public _isLoading = true;
 
-    public _newObservation: Observation;
+    public _newObservation: any;
 
     public skyIcons = {
         1: "wi-day-sunny",
