@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController, LoadingController, Platform } from "@ionic/angular";
+import { AlertController, Events, LoadingController, Platform, PopoverController } from "@ionic/angular";
 import { CircleMarker, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
@@ -24,6 +24,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../shared/toast.service";
 import { AuthService } from "../auth/auth.service";
 import { clusters } from "@turf/turf";
+import { LegendComponent, Markers } from "./legend/legend.component";
 
 
 /**
@@ -91,7 +92,9 @@ export class MapPage implements OnInit, OnDestroy {
                 private loadingCtr: LoadingController,
                 private alertCtr: AlertController,
                 private toastService: ToastService,
-                private authService: AuthService) { }
+                private authService: AuthService,
+                private popoverCtr: PopoverController,
+                private events: Events) { }
 
 
     ngOnInit(): void {
@@ -113,6 +116,8 @@ export class MapPage implements OnInit, OnDestroy {
         });
 
         this.initMarkerClusters();
+
+        this.events.subscribe("popover:change", data => this.onPopoverChange(data.marker, data.checked));
 
         this._eventsSub = this.newsService.events.subscribe(events => {
 
@@ -150,7 +155,7 @@ export class MapPage implements OnInit, OnDestroy {
         this._newAlertsSub = this.newsService.areNewAlerts.subscribe(v => this._areNewAlerts = v);
 
         this.storage.get(this._storageKeyPosition)
-            .then((v: Array<number>) => this.initMap(new LatLng(v[0], v[1])));
+            .then((v: Array<number>) => this.initMap(v ? new LatLng(v[0], v[1]) : null));
 
     }
 
@@ -401,8 +406,96 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    // ToDO
-    onLegendClick(): void { }
+    /**
+     * Fired when the user clicks on the icon inside of the legend FAB. It redirects the event on the FAB itself so that
+     * the popover can be opened in the right position.
+     *
+     * @param {MouseEvent} e - The click event.
+     * @return {boolean} Returns false to prevent the default event.
+     */
+    onLegendIconClick(e: MouseEvent): boolean {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+        const event = document.createEvent("MouseEvent");
+        const btn   = document.querySelector("#btn-legend");
+
+        event.initEvent("click", true, true);
+        btn.dispatchEvent(event);
+
+        return false;
+
+    }
+
+
+    /** Fired when the user clicks on the legend button. */
+    async onLegendClick(e: MouseEvent): Promise<void> {
+
+        const popover = await this.popoverCtr.create({
+            component     : LegendComponent,
+            componentProps: {
+                hasUserObsMarkers: this._map.hasLayer(this._userObsMarkers),
+                hasObsMarkers    : this._map.hasLayer(this._obsMarkers),
+                hasEventsMarkers : this._map.hasLayer(this._eventMarkers)
+            },
+            event         : e,
+            showBackdrop  : false
+        });
+
+        await popover.present();
+
+    }
+
+    /**
+     * Called when a checkbox in the legend popover changes its status.
+     *
+     * @param {Markers} marker - The marker cluster corresponding to the changed checkbox.
+     * @param {boolean} checked - The current state of the checkbox.
+     */
+    onPopoverChange(marker: Markers, checked: boolean) {
+
+        switch (marker) {
+
+            case Markers.USER_OBSERVATIONS:
+                this.toggleMarkerCluster(this._userObsMarkers, checked);
+                break;
+
+            case Markers.OTHER_OBSERVATIONS:
+                this.toggleMarkerCluster(this._obsMarkers, checked);
+                break;
+
+            case Markers.EVENTS:
+                this.toggleMarkerCluster(this._eventMarkers, checked);
+                break;
+
+        }
+
+    }
+
+    /**
+     * Toggles the visibility of a marker cluster.
+     *
+     * @param {MarkerClusterGroup} cluster - The marker cluster.
+     * @param {boolean} toShow - True if the cluster has to be shown.
+     */
+    toggleMarkerCluster(cluster: MarkerClusterGroup, toShow: boolean) {
+
+        const hasCluster = this._map.hasLayer(cluster);
+
+        if (toShow && !hasCluster) {
+            this._map.addLayer(cluster);
+            return;
+        }
+
+        if (!toShow && hasCluster) {
+            this._map.removeLayer(cluster);
+            return;
+        }
+
+    }
 
 
     /** Fired when the user clicks on the "add" button. */

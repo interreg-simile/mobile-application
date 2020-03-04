@@ -10,7 +10,7 @@
     
 - [x] Implementare visualizzazione dell'osservazione 
 
-- [ ] Implementare legenda/filtro mappa
+- [x] Implementare legenda/filtro mappa
 
 - [x] Implementare ripopolamento mappa
   
