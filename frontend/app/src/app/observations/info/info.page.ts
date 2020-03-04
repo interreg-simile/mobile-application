@@ -15,18 +15,11 @@ import { ObsInfo } from "./obs-info.model";
 @Component({ selector: 'app-info', templateUrl: './info.page.html', styleUrls: ['./info.page.scss'] })
 export class InfoPage implements OnInit {
 
-
-    /** Flag that states if something is loading. */
     public _isLoading: boolean;
-
-    /** Observation to display. */
     public _obs: ObsInfo;
-
-    /** The id of the currently logged user. */
     public _userId: string;
 
 
-    /** @ignore */
     constructor(private activatedRoute: ActivatedRoute,
                 private navCtr: NavController,
                 private obsService: ObservationsService,
@@ -36,22 +29,15 @@ export class InfoPage implements OnInit {
                 private photoViewer: PhotoViewer) { }
 
 
-    /** @ignore */
     ngOnInit() {
 
-        // Set is loading to true
         this._isLoading = true;
 
-        // Retrieve the id of the currently logged user
         this._userId = this.authService.userId;
 
-        // Retrieve the id from the url
         const id = this.activatedRoute.snapshot.paramMap.get("id");
-
-        // If no id is found, navigate back
         if (!id) this.navCtr.back();
 
-        // Retrieve the observation
         this.obsService.getObservationById(id)
             .then(obs => this._obs = obs)
             .catch(err => {
@@ -64,7 +50,7 @@ export class InfoPage implements OnInit {
     }
 
 
-    // ToDo
+    // ToDo implement observation delete (?)
     onDeleteClick() { }
 
 
@@ -94,111 +80,3 @@ export class InfoPage implements OnInit {
 
 
 }
-
-
-// ToDo delete
-const dummyObs: ObsInfo = {
-    uid      : "5dd7bbe0701d5bdd685c1f18",
-    position : {
-        type       : "Point",
-        coordinates: [9.45621358, 45.12346895],
-        crs: {code: 1, description: "WGS 84"},
-        accuracy   : 20,
-        custom     : true,
-        roi        : "00000000000000000000001"
-    },
-    weather  : {
-        temperature: 21.5,
-        sky        : { code: 1, description: "Cielo sereno" },
-        wind       : 25.63
-    },
-    photos   : [
-        "https://media.istockphoto.com/photos/lake-water-pollution-picture-id1026572746",
-        "https://previews.123rf.com/images/smithore/smithore0810/smithore081000070/3792785-very-important-plastic-and-trash-pollution-on-beautiful-lake.jpg",
-        "https://thumbs.dreamstime.com/z/pollution-lake-fresh-water-plastic-trash-dirty-waste-beach-summer-day-beautiful-nature-peoplelessness-150318577.jpg"
-    ],
-    details  : {
-        algae  : {
-            extension : { code: 1, description: "< 5 mq" },
-            look      : { code: 1, description: "Disperse" },
-            colour    : { code: 1, description: "Rosso" },
-            iridescent: true
-        },
-        foams  : {
-            extension: { code: 1, description: "< 5 mq" },
-            look     : { code: 1, description: "Disperse" },
-            height   : { code: 1, description: "< 3 cm" }
-        },
-        oils   : {
-            extension: { code: 1, description: "< 5 mq" },
-            type     : { code: 1, description: "Superficiale" }
-        },
-        litters: {
-            quantity: { code: 1, description: "1" },
-            type    : [
-                { code: 1, description: "Plastica" },
-                { code: 2, description: "Vetro / Ceramica" },
-                { code: 3, description: "Metallo" }
-            ]
-        },
-        odours : {
-            intensity: { code: 1, description: "Lieve" },
-            origin   : [{ code: 1, description: "Pesce" }, { code: 2, description: "Muffa" }]
-        },
-        outlets: {
-            inPlace             : true,
-            terminal            : { code: 1, description: "Visibile" },
-            colour              : { code: 1, description: "Rosso" },
-            vapour              : false,
-            signage             : true,
-            signagePhoto        : "https://www.google.com/url?sa=i&url=http%3A%2F%2Fwww.wwfbergamobrescia.it%2F2018%2F09%2F18%2Fscarichi-fognari-nel-lago-di-garda-la-situazione-di-allarme-si-protrae-ormai-da-anni%2F&psig=AOvVaw3ThZC4RpbukKcOACL5HZqW&ust=1583144852371000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCK5KaI-ecCFQAAAAAdAAAAABAE",
-            prodActNearby       : true,
-            prodActNearbyDetails: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-        },
-        other  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    measures : {
-        transparency: {
-            val       : 2,
-            instrument: {
-                type     : { code: 1, description: "Professionale" },
-                precision: 2,
-                details  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-            }
-        },
-        temperature : {
-            multiple  : true,
-            val       : [{ depth: 1, val: 25 }, { depth: 2, val: 24 }, { depth: 5, val: 20 }],
-            instrument: {
-                type     : { code: 1, description: "Professionale" },
-                precision: 2,
-                details  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-            }
-        },
-        ph          : {
-            multiple  : false,
-            val       : [{ depth: 1, val: 7 }],
-            instrument: {
-                type     : { code: 1, description: "Professionale" },
-                precision: 2,
-                details  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-            }
-        },
-        oxygen      : {
-            multiple  : true,
-            percentage: true,
-            val       : [{ depth: 1, val: 23 }, { depth: 2, val: 25 }, { depth: 3, val: 24 }],
-            instrument: {
-                type     : { code: 1, description: "Professionale" },
-                precision: 2,
-                details  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-            }
-        },
-        bacteria    : {
-            escherichiaColi: 100,
-            enterococci    : 130
-        }
-    },
-    createdAt: "2020-02-29T15:23:06.121+00:00",
-    updatedAt: "2020-02-29T15:23:06.121+00:00"
-};

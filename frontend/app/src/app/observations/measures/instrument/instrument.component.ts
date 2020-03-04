@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { SimpleInstrument } from "./instrument.service";
 
@@ -8,19 +8,10 @@ import { SimpleInstrument } from "./instrument.service";
     templateUrl: './instrument.component.html',
     styleUrls: ['./instrument.component.scss'],
 })
-export class InstrumentComponent implements OnInit {
+export class InstrumentComponent {
 
     @Input() measureName: string;
 
     @Input() instrument: SimpleInstrument;
-
-
-    /** @ignore */
-    constructor() { }
-
-
-    /** @ignore */
-    ngOnInit() { }
-
 
 }

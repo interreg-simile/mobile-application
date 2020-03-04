@@ -7,8 +7,6 @@ import { ObservationsService } from "../../observations.service";
 @Component({ selector: 'app-hub', templateUrl: './hub.component.html', styleUrls: ['./hub.component.scss'] })
 export class HubComponent implements OnInit {
 
-
-    /** Possible measures */
     public _measures;
 
 
@@ -16,16 +14,10 @@ export class HubComponent implements OnInit {
     originalOrder = (a, b) => { return 0 };
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
-    /** @ignore */
-    ngOnInit(): void {
-
-        this._measures = this.obsService.newObservation.measures;
-
-    }
+    ngOnInit(): void { this._measures = this.obsService.newObservation.measures }
 
 
     /**
@@ -38,19 +30,16 @@ export class HubComponent implements OnInit {
      */
     onMeasureCheckboxClick(e: MouseEvent, measure: any) {
 
-        // Stop the event propagation
         e.preventDefault();
         e.stopImmediatePropagation();
         e.cancelBubble = true;
         e.stopPropagation();
 
-        // If the detail is not checked, open the modal
-        if (!measure.checked) this.openMeasureModal(measure.component);
+        if (!measure.checked)
+            this.openMeasureModal(measure.component);
+        else
+            measure.checked = false;
 
-        // Else, uncheck it
-        else measure.checked = false;
-
-        // Return false
         return false;
 
     }
@@ -60,25 +49,17 @@ export class HubComponent implements OnInit {
      * Opens a modal for editing a measure.
      *
      * @param {Component} component - The component to be used as template for the modal.
-     * @returns {Promise<>} An empty promise.
      */
     async openMeasureModal(component: any): Promise<void> {
 
-        // Create the modal
         const modal = await this.modalCtr.create({ component: component });
 
-        // Present the modal
         await modal.present();
 
     }
 
 
-    /**
-     * Closes the modal.
-     *
-     * @return {Promise<>} An empty promise.
-     */
+    /** Closes the modal. */
     async closeModal(): Promise<void> { await this.modalCtr.dismiss() }
-
 
 }

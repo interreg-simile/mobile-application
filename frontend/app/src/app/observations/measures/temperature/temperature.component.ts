@@ -21,7 +21,6 @@ interface Props {
 })
 export class TemperatureComponent implements OnInit {
 
-    /** Measures properties to visualize in the modal. */
     public _props: Props = {
         singleVal  : { val: undefined, depth: undefined },
         multipleVal: [{ val: undefined, depth: undefined }],
@@ -29,44 +28,34 @@ export class TemperatureComponent implements OnInit {
     };
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController,
                 private obsService: ObservationsService,
                 private instrumentService: InstrumentService,
                 private toastService: ToastService) { }
 
 
-    /** @ignore */
     ngOnInit(): void {
 
-        // Save the initial values of the settable properties
         this._props.multiple = this.obsService.newObservation.measures.temperature.multiple || false;
 
-        // Set the instrument properties
         this.instrumentService.setInstrumentProps(this._props.instrument, "temperature");
 
-        // If no value is saved in the observation, return
         if (this.obsService.newObservation.measures.temperature.val.length === 0) return;
 
-        // If there is a single measure saved
         if (!this.obsService.newObservation.measures.temperature.multiple) {
-
-            // Save the value
             this._props.singleVal = {
                 val  : this.obsService.newObservation.measures.temperature.val[0].val,
                 depth: this.obsService.newObservation.measures.temperature.val[0].depth
             };
-
+        } else {
+            this._props.multipleVal = [...this.obsService.newObservation.measures.temperature.val];
         }
-
-        // Else, if the measure is multiple, save the whole array
-        else this._props.multipleVal = [...this.obsService.newObservation.measures.temperature.val];
 
     }
 
 
-    // ToDo
-    onHelpClick() { console.log(this._props) }
+    // ToDo implement help
+    onHelpClick() { }
 
 
     /**
@@ -77,14 +66,9 @@ export class TemperatureComponent implements OnInit {
     onTypeChange(e: CustomEvent): void { this._props.multiple = e.detail.value === "multiple" }
 
 
-    /**
-     * Called when the user clicks on the button to add a new value-depth row.
-     *
-     * @return {Promise<>} An empty promise.
-     */
+    /** Called when the user clicks on the button to add a new value-depth row. */
     async onAddBtnClick(): Promise<void> {
 
-        // If the last row is not entirely complete, return
         if (this._props.multipleVal[this._props.multipleVal.length - 1].val === undefined ||
             this._props.multipleVal[this._props.multipleVal.length - 1].val === null ||
             this._props.multipleVal[this._props.multipleVal.length - 1].depth === undefined ||
@@ -93,25 +77,18 @@ export class TemperatureComponent implements OnInit {
             return;
         }
 
-        // Add a new row
         this._props.multipleVal.push({ val: undefined, depth: undefined });
 
     }
 
-    /**
-     * Called when the user clicks on the button to remove the last value-depth row.
-     *
-     * @return {Promise<>} An empty promise.
-     */
+    /** Called when the user clicks on the button to remove the last value-depth row. */
     async onRemoveBtnClick(): Promise<void> {
 
-        // If it is the last row, return
         if (this._props.multipleVal.length <= 1) {
             await this.toastService.presentToast("page-new-obs.measures.errors.remove-measure", Duration.short);
             return;
         }
 
-        // Remove the last row
         this._props.multipleVal.pop();
 
     }
@@ -121,16 +98,13 @@ export class TemperatureComponent implements OnInit {
      * Closes the modal and handle the data saving process.
      *
      * @param {Boolean} save - True if the modifications done in the modal are to be saved.
-     * @return {Promise<>} An empty promise.
      */
     async closeModal(save: boolean): Promise<void> {
 
         if (save) {
 
-            // Check if the instrument information are valid
             if (!(await this.instrumentService.checkProps(this._props.instrument))) return;
 
-            // Check if the measure is valid and save it
             if (!this._props.multiple) {
 
                 if (this._props.singleVal.depth === undefined || this._props.singleVal.depth === null ||
@@ -155,21 +129,14 @@ export class TemperatureComponent implements OnInit {
 
             }
 
-            // Save the measure type
             this.obsService.newObservation.measures.temperature.multiple = this._props.multiple;
-
-            // Set the measure as checked
             this.obsService.newObservation.measures.temperature.checked = true;
-
-            // Save the instrument information
             this.instrumentService.saveInstrumentProps(this._props.instrument, "temperature");
 
         }
 
-        // Close the modal
         await this.modalCtr.dismiss();
 
     }
-
 
 }

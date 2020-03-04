@@ -13,24 +13,23 @@ interface Props {
 @Component({ selector: 'app-foams', templateUrl: './foams.component.html', styleUrls: ['./foams.component.scss'] })
 export class FoamsComponent implements OnInit {
 
-
-    /** Settable properties. */
     public _props: Props = {};
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
-    /** @ignore */
     ngOnInit() {
 
-        // Save the initial values of the settable properties
         this._props.extension = this.obsService.newObservation.details.foams.extension.code;
         this._props.look      = this.obsService.newObservation.details.foams.look.code;
         this._props.height    = this.obsService.newObservation.details.foams.height.code;
 
     }
+
+
+    // ToDo implement help
+    onHelpClick() { }
 
 
     /**
@@ -40,25 +39,17 @@ export class FoamsComponent implements OnInit {
      */
     async closeModal(save: boolean) {
 
-        // If the modifications are to be saved
         if (save) {
 
-            // Set the detail as checked
             this.obsService.newObservation.details.foams.checked = true;
-
-            // Save the new values
             this.obsService.newObservation.details.foams.extension.code = this._props.extension;
             this.obsService.newObservation.details.foams.look.code      = this._props.look;
             this.obsService.newObservation.details.foams.height.code    = this._props.height;
 
         }
 
-        // Close the modal
         await this.modalCtr.dismiss();
 
     }
-
-
-    onHelpClick() { }
 
 }

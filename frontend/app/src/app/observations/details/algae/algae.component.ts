@@ -14,11 +14,8 @@ interface Props {
 @Component({ selector: 'app-algae', templateUrl: './algae.component.html', styleUrls: ['./algae.component.scss'] })
 export class AlgaeComponent implements OnInit {
 
-
-    /** Settable properties. */
     public _props: Props = {};
 
-    /** Selectable colours. */
     public _colours = {
         1: { selected: false, colour: "#D64818" },
         2: { selected: false, colour: "#1060B0" },
@@ -32,11 +29,9 @@ export class AlgaeComponent implements OnInit {
     originalOrder = (a, b) => { return 0 };
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
-    /** @ignore */
     ngOnInit(): void {
 
         // Save the initial values of the settable properties
@@ -51,6 +46,7 @@ export class AlgaeComponent implements OnInit {
     }
 
 
+    // ToDo implement help
     onHelpClick() { }
 
 
@@ -58,17 +54,12 @@ export class AlgaeComponent implements OnInit {
      * Closes the modal and handle the data saving process.
      *
      * @param {boolean} save - True if the modifications done in the modal are to be saved.
-     * @return {Promise<>} An empty promise.
      */
     async closeModal(save: boolean): Promise<void> {
 
-        // If the modifications are to be saved
         if (save) {
 
-            // Set the detail as checked
-            this.obsService.newObservation.details.algae.checked = true;
-
-            // Save the new values
+            this.obsService.newObservation.details.algae.checked        = true;
             this.obsService.newObservation.details.algae.extension.code = this._props.extension;
             this.obsService.newObservation.details.algae.colour.code    = this._props.colour;
             this.obsService.newObservation.details.algae.iridescent     = this._props.iridescent;
@@ -76,7 +67,6 @@ export class AlgaeComponent implements OnInit {
 
         }
 
-        // Close the modal
         await this.modalCtr.dismiss();
 
     }
@@ -89,27 +79,16 @@ export class AlgaeComponent implements OnInit {
      */
     onColourClick(colour): void {
 
-        // Set the property to undefined
         this._props.colour = undefined;
 
-        // For each of the possible colours
         Object.keys(this._colours).forEach(c => {
 
-            // If the colours has not been selected or if it was already selected
             if (c !== colour.key || (c === colour.key && this._colours[colour.key].selected)) {
-
-                // Deselect the colour
                 this._colours[c].selected = false;
-
-                // Return
                 return;
-
             }
 
-            // Select the colour
             this._colours[c].selected = true;
-
-            // Set the property value
             this._props.colour = colour.key;
 
         });

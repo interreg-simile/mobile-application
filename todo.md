@@ -41,6 +41,8 @@
 
 - [x] Modificare icona e splash screen
 
+- [ ] Implementare eliminazione osservazione (?)
+
 
 #### Known bugs
 

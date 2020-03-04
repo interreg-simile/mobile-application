@@ -25,12 +25,8 @@ interface Props {
 })
 export class OutletsComponent implements OnInit {
 
-
-    /** Settable properties. */
     public _props: Props = {};
 
-
-    /** Selectable colours. */
     public _colours = {
         1: { selected: false, colour: "#D64818" },
         2: { selected: false, colour: "#1060B0" },
@@ -46,17 +42,14 @@ export class OutletsComponent implements OnInit {
     _originalOrder = (a, b) => { return 0 };
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController,
                 private obsService: ObservationsService,
                 private cameraService: CameraService,
                 private toastService: ToastService) { }
 
 
-    /** @ignore */
     ngOnInit(): void {
 
-        // Save the initial values of the settable properties
         this._props.inPlace              = this.obsService.newObservation.details.outlets.inPlace;
         this._props.terminal             = this.obsService.newObservation.details.outlets.terminal.code;
         this._props.colour               = this.obsService.newObservation.details.outlets.colour.code;
@@ -66,12 +59,13 @@ export class OutletsComponent implements OnInit {
         this._props.prodActNearby        = this.obsService.newObservation.details.outlets.prodActNearby;
         this._props.prodActNearbyDetails = this.obsService.newObservation.details.outlets.prodActNearbyDetails;
 
-        // Select the right colour
-        if (this._props.colour) this._colours[this._props.colour].selected = true;
+        if (this._props.colour)
+            this._colours[this._props.colour].selected = true;
 
     }
 
 
+    // ToDo implement help
     onHelpClick() { }
 
 
@@ -82,61 +76,41 @@ export class OutletsComponent implements OnInit {
      */
     onColourClick(colour: any): void {
 
-        // Set the property to undefined
         this._props.colour = undefined;
 
-        // For each of the possible colours
         Object.keys(this._colours).forEach(c => {
 
-            // If the colours has not been selected or if it was already selected
             if (c !== colour.key || (c === colour.key && this._colours[colour.key].selected)) {
-
-                // Deselect the colour
                 this._colours[c].selected = false;
-
-                // Return
                 return;
-
             }
 
-            // Select the colour
             this._colours[c].selected = true;
-
-            // Set the property value
-            this._props.colour = colour.key;
+            this._props.colour        = colour.key;
 
         });
 
     }
 
 
-    /**
-     * Fired when the user click on the signage photo button.
-     *
-     * @return {Promise<>} An empty promise.
-     */
+    /** Fired when the user click on the signage photo button. */
     async onSignagePhotoClick(): Promise<void> {
 
         if (this._props.signagePhoto) {
 
             const src = this.cameraService.getImgSrc(this._props.signagePhoto);
 
-            // Open the image views model
             const modal = await this.modalCtr.create({
                 component     : PhotoViewerComponent,
                 componentProps: { src: src, edit: true, delete: true }
             });
 
-            // Show the modal
             await modal.present();
 
-            // Get the data passed by the modal dismiss
             const data = (await modal.onDidDismiss()).data;
 
-            // If no action is selected, return
             if (!data) return;
 
-            // If "delete" is selected, set the photo to undefined and return
             if (data.delete) {
                 this._props.signagePhoto = undefined;
                 return;
@@ -144,30 +118,22 @@ export class OutletsComponent implements OnInit {
 
         }
 
-        // Take the picture
         this.takePicture();
 
     }
 
 
-    /**
-     * Takes a picture.
-     *
-     * @return {Promise<>} An empty promise.
-     */
+    /** Takes a picture. */
     async takePicture(): Promise<void> {
 
-        // Take a picture
         const pic = await this.cameraService.takePicture();
 
-        // If no image has been chosen, return
         if (pic === PicResult.NO_IMAGE) return;
 
-        // If there is an error, alter the user
-        if (pic === PicResult.ERROR) await this.toastService.presentToast("common.errors.photo", Duration.short);
-
-        // Else, save the photo
-        else this._props.signagePhoto = pic;
+        if (pic === PicResult.ERROR)
+            await this.toastService.presentToast("common.errors.photo", Duration.short);
+        else
+            this._props.signagePhoto = pic;
 
     }
 
@@ -176,37 +142,26 @@ export class OutletsComponent implements OnInit {
      * Closes the modal and handle the data saving process.
      *
      * @param {boolean} save - True if the modifications done in the modal are to be saved.
-     * @return {Promise<>} An empty promise.
      */
     async closeModal(save: boolean): Promise<void> {
 
-        // If the modifications are to be saved
         if (save) {
 
-            // Set the detail as checked
-            this.obsService.newObservation.details.outlets.checked = true;
-
-            // Save the new values
-            this.obsService.newObservation.details.outlets.inPlace       = this._props.inPlace;
-            this.obsService.newObservation.details.outlets.terminal.code = this._props.terminal;
-
-            this.obsService.newObservation.details.outlets.colour.code =
+            this.obsService.newObservation.details.outlets.checked              = true;
+            this.obsService.newObservation.details.outlets.inPlace              = this._props.inPlace;
+            this.obsService.newObservation.details.outlets.terminal.code        = this._props.terminal;
+            this.obsService.newObservation.details.outlets.colour.code          =
                 this._props.inPlace ? this._props.colour : undefined;
-
-
-            this.obsService.newObservation.details.outlets.vapour = this._props.vapour;
-
-            this.obsService.newObservation.details.outlets.signage      = this._props.signage;
-            this.obsService.newObservation.details.outlets.signagePhoto =
+            this.obsService.newObservation.details.outlets.vapour               = this._props.vapour;
+            this.obsService.newObservation.details.outlets.signage              = this._props.signage;
+            this.obsService.newObservation.details.outlets.signagePhoto         =
                 this._props.signage ? this._props.signagePhoto : undefined;
-
             this.obsService.newObservation.details.outlets.prodActNearby        = this._props.prodActNearby;
             this.obsService.newObservation.details.outlets.prodActNearbyDetails =
                 this._props.prodActNearby ? this._props.prodActNearbyDetails.trim() : undefined;
 
         }
 
-        // Close the modal
         await this.modalCtr.dismiss();
 
     }

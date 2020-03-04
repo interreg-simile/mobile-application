@@ -13,26 +13,23 @@ interface Props {
 @Component({ selector: 'app-oils', templateUrl: './oils.component.html', styleUrls: ['./oils.component.scss'] })
 export class OilsComponent implements OnInit {
 
-
-    /** Settable properties. */
     public _props: Props = {};
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
-    /** @ignore */
     ngOnInit() {
 
-        // Save the initial values of the settable properties
         this._props.extension = this.obsService.newObservation.details.oils.extension.code;
         this._props.type      = this.obsService.newObservation.details.oils.type.code;
 
     }
 
 
+    // ToDo implement help
     onHelpClick() { }
+
 
 
     /**
@@ -42,19 +39,14 @@ export class OilsComponent implements OnInit {
      */
     async closeModal(save: boolean) {
 
-        // If the modifications are to be saved
         if (save) {
 
-            // Set the detail as checked
             this.obsService.newObservation.details.oils.checked = true;
-
-            // Save the new values
             this.obsService.newObservation.details.oils.extension.code = this._props.extension;
             this.obsService.newObservation.details.oils.type.code      = this._props.type;
 
         }
 
-        // Close the modal
         await this.modalCtr.dismiss();
 
     }

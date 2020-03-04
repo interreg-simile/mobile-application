@@ -15,7 +15,6 @@ export interface SimpleInstrument {
 export class InstrumentService {
 
 
-    /** @ignore */
     constructor(private obsService: ObservationsService, private toastService: ToastService) { }
 
 

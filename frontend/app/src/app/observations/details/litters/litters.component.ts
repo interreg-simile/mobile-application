@@ -16,19 +16,14 @@ interface Props {
 })
 export class LittersComponent implements OnInit {
 
-
-    /** Settable properties. */
     public _props: Props = {};
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
-    /** @ignore */
     ngOnInit() {
 
-        // Save the initial values of the settable properties
         this._props.quantity = this.obsService.newObservation.details.litters.quantity.code;
         this._props.type     = [];
         this.obsService.newObservation.details.litters.type.forEach(t => this._props.type.push(t.code))
@@ -43,15 +38,15 @@ export class LittersComponent implements OnInit {
      */
     onTypeChange(e) {
 
-        // If the checkbox has been checked, push its value to the type array
-        if (e.detail.checked) this._props.type.push(parseInt(e.detail.value));
-
-        // Else, remove the element from the array
-        else this._props.type = this._props.type.filter(t => t !== parseInt(e.detail.value));
+        if (e.detail.checked)
+            this._props.type.push(parseInt(e.detail.value));
+        else
+            this._props.type = this._props.type.filter(t => t !== parseInt(e.detail.value));
 
     }
 
 
+    // ToDo implement help
     onHelpClick() { }
 
 
@@ -62,20 +57,15 @@ export class LittersComponent implements OnInit {
      */
     async closeModal(save: boolean) {
 
-        // If the modifications are to be saved
         if (save) {
 
-            // Set the detail as checked
             this.obsService.newObservation.details.litters.checked = true;
-
-            // Save the new values
             this.obsService.newObservation.details.litters.quantity.code = this._props.quantity;
             this.obsService.newObservation.details.litters.type = [];
             this._props.type.forEach(t => this.obsService.newObservation.details.litters.type.push({code: t}));
 
         }
 
-        // Close the modal
         await this.modalCtr.dismiss();
 
     }
