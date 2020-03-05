@@ -16,6 +16,8 @@
 
 - [ ] Implementare pagine help
 
+- [ ] Decidere cosa mettere nel campo di testo "altro" nella nuova osservazione
+
 
 #### Done
 
@@ -42,9 +44,7 @@
 
 #### Known bugs
 
-- [ ] Le tile della basemap si rompono dopo che si lascia la mappa
-    - [ ] Provare a inserire un'altra basemap
-    - [ ] Provare a togliere il position watcher
+- [x] Le tile della basemap si rompono dopo che si lascia la mappa
     
     
 #### Future realeases

@@ -1,5 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController, PickerController, Platform } from "@ionic/angular";
+import {
+    AlertController,
+    Events,
+    LoadingController,
+    ModalController,
+    PickerController,
+    Platform
+} from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 
@@ -52,7 +59,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 private cameraService: CameraService,
                 private toastService: ToastService,
                 private platform: Platform,
-                private logger: NGXLogger) { }
+                private logger: NGXLogger,
+                private events: Events) { }
 
 
     ngOnInit(): void {
@@ -330,6 +338,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
             await alert.present();
             return;
         }
+
+        this.events.publish("observation:inserted");
 
         await this.router.navigate(["map"]);
 

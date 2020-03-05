@@ -37,9 +37,11 @@ import { LegendComponent, Markers } from "./legend/legend.component";
 @Component({ selector: 'app-map', templateUrl: './map.page.html', styleUrls: ['./map.page.scss'] })
 export class MapPage implements OnInit, OnDestroy {
 
+    private _hasBeenAlreadyOpened = false;
+
     private readonly _storageKeyPosition = "position";
 
-    private readonly _initialLagLon = new LatLng(45.95388572325957, 8.958533937111497);
+    private readonly _initialLatLon = new LatLng(45.95388572325957, 8.958533937111497);
 
     /** Initial zoom level of the map.  */
     private readonly _initialZoomLvl = 9;
@@ -64,6 +66,12 @@ export class MapPage implements OnInit, OnDestroy {
     private _customMarker: Marker;
     private _isFirstPosition = true;
 
+    private _coords: LatLng;
+    private _accuracy: number;
+
+    private _savedMapCenter: LatLng;
+    private _savedZoomLevel: number;
+
     public _isMapFollowing = false;
     public _locationErrors = LocationErrors;
     public _locationStatus = LocationErrors.NO_ERROR;
@@ -74,8 +82,6 @@ export class MapPage implements OnInit, OnDestroy {
 
     public _areNewEvents: boolean;
     public _areNewAlerts: boolean;
-
-    public position = { lat: undefined, lon: undefined, accuracy: undefined };
 
 
     constructor(private logger: NGXLogger,
@@ -111,13 +117,19 @@ export class MapPage implements OnInit, OnDestroy {
 
                 this.stopWatcher();
 
-            } else this.startWatcher().catch(err => this.logger.error("Error starting the watcher", err));
+            } else {
+                this.startWatcher().catch(err => this.logger.error("Error starting the watcher", err));
+            }
 
         });
 
         this.initMarkerClusters();
 
+
         this.events.subscribe("popover:change", data => this.onPopoverChange(data.marker, data.checked));
+
+        this.events.subscribe("observation:inserted", () => this._customMarker = null);
+
 
         this._eventsSub = this.newsService.events.subscribe(events => {
 
@@ -154,8 +166,24 @@ export class MapPage implements OnInit, OnDestroy {
         this._newEventsSub = this.newsService.areNewEvents.subscribe(v => this._areNewEvents = v);
         this._newAlertsSub = this.newsService.areNewAlerts.subscribe(v => this._areNewAlerts = v);
 
-        this.storage.get(this._storageKeyPosition)
-            .then((v: Array<number>) => this.initMap(v ? new LatLng(v[0], v[1]) : null));
+    }
+
+
+    ionViewDidEnter(): void {
+
+        this.initMap()
+            .then(() => {
+
+                if (!this._hasBeenAlreadyOpened) {
+
+                    this.startWatcher().catch(err => this.logger.error("Error starting the position watcher.", err));
+                    this.populateMap().catch(err => this.logger.error("Error populating the map.", err));
+
+                }
+
+                this._hasBeenAlreadyOpened = true;
+
+            });
 
     }
 
@@ -190,26 +218,39 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    /**
-     * Initializes the Leaflet map.
-     *
-     * @param {LatLng} view - The coordinated on which the map should be centered on creation.
-     */
-    initMap(view: LatLng): void {
+    /** Initializes the Leaflet map. */
+    async initMap(): Promise<void> {
+
+        if (!this._savedMapCenter) {
+
+            const cachedCoords = <Array<number>>await this.storage.get(this._storageKeyPosition);
+
+            if (cachedCoords) {
+                this._savedMapCenter = new LatLng(cachedCoords[0], cachedCoords[1]);
+                this._savedZoomLevel = this._defaultZoomLvl;
+            } else {
+                this._savedMapCenter = this._initialLatLon;
+                this._savedZoomLevel = this._initialZoomLvl;
+            }
+
+        }
 
         this._map = new Map("map", { zoomControl: false });
 
-        if (view)
-            this._map.setView(view, this._defaultZoomLvl);
-        else
-            this._map.setView(this._initialLagLon, this._initialZoomLvl);
+        this._map.setView(this._savedMapCenter, this._savedZoomLevel);
 
         new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            { attribution: '&copy; OpenStreetMap contributors' }).addTo(this._map);
+            { attribution: '&copy; OpenStreetMap contributors' })
+            .addTo(this._map);
+
 
         this._eventMarkers.addTo(this._map);
         this._userObsMarkers.addTo(this._map);
         this._obsMarkers.addTo(this._map);
+
+        if (this._userMarker) this._userMarker.addTo(this._map);
+        if (this._accuracyCircle) this._accuracyCircle.addTo(this._map);
+        if (this._customMarker) this._customMarker.addTo(this._map);
 
 
         this._map.on("dragstart", () => this._isMapFollowing = false);
@@ -238,11 +279,6 @@ export class MapPage implements OnInit, OnDestroy {
 
         });
 
-
-        this.startWatcher()
-            .catch(err => this.logger.error("Error starting the position watcher.", err))
-            .finally(() => this.populateMap());
-
     }
 
 
@@ -258,7 +294,6 @@ export class MapPage implements OnInit, OnDestroy {
 
         if (this._locationStatus !== LocationErrors.NO_ERROR) return;
 
-        // Start following the user position
         this._isMapFollowing = true;
         this.changeRef.detectChanges();
 
@@ -305,28 +340,33 @@ export class MapPage implements OnInit, OnDestroy {
             return;
         }
 
-        this.position.lat      = data.coords.latitude;
-        this.position.lon      = data.coords.longitude;
-        this.position.accuracy = data.coords.accuracy;
+        if (!this._coords) {
+            this._coords = new LatLng(data.coords.latitude, data.coords.longitude);
+        } else {
+            this._coords.lat = data.coords.latitude;
+            this._coords.lng = data.coords.longitude;
+        }
+
+        this._accuracy = data.coords.accuracy;
 
         if (this._isMapFollowing) {
 
             if (this._isFirstPosition) {
-                this._map.setView([this.position.lat, this.position.lon], this._defaultZoomLvl);
+                this._map.setView(this._coords, this._defaultZoomLvl);
                 this._isFirstPosition = false;
             } else {
-                this._map.panTo([this.position.lat, this.position.lon]);
+                this._map.panTo(this._coords);
             }
 
         }
 
         if (!this._userMarker) {
-            this.createUserMarker(new LatLng(this.position.lat, this.position.lon));
+            this.createUserMarker(this._coords);
         } else {
-            this._userMarker.setLatLng([this.position.lat, this.position.lon]);
+            this._userMarker.setLatLng(this._coords);
             this._accuracyCircle
-                .setLatLng([this.position.lat, this.position.lon])
-                .setRadius(this.position.accuracy / 2);
+                .setLatLng(this._coords)
+                .setRadius(this._accuracy / 2);
         }
 
     }
@@ -363,9 +403,9 @@ export class MapPage implements OnInit, OnDestroy {
         if (!this._isMapFollowing) {
 
             if (this._map.getZoom() < this._minZoomLvl)
-                this._map.flyTo([this.position.lat, this.position.lon], this._defaultZoomLvl, { animate: false });
+                this._map.flyTo(this._coords, this._defaultZoomLvl, { animate: false });
             else
-                this._map.panTo([this.position.lat, this.position.lon], { animate: true });
+                this._map.panTo(this._coords, { animate: true });
 
             this._isMapFollowing = true;
 
@@ -508,9 +548,11 @@ export class MapPage implements OnInit, OnDestroy {
             accuracy = 0;
             custom   = true;
         } else if (this._userMarker) {
-            pos      = new LatLng(this.position.lat, this.position.lon);
-            accuracy = this.position.accuracy;
-            custom   = false;
+            this._map.panTo(this._coords);
+            this._isMapFollowing = true;
+            pos                  = this._coords;
+            accuracy             = this._accuracy;
+            custom               = false;
         } else {
             await this.toastService.presentToast("page-map.msg-wait-position", Duration.short);
             return;
@@ -542,11 +584,6 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         await this.router.navigate(["/observations/new"]);
-
-        if (this._customMarker) {
-            this._map.removeLayer(this._customMarker);
-            this._customMarker = null;
-        }
 
     }
 
@@ -601,8 +638,18 @@ export class MapPage implements OnInit, OnDestroy {
     /** Saves the current position of the user in the local storage of the phone. */
     async cachePosition(): Promise<void> {
 
-        if (this.position.lat && this.position.lon)
-            await this.storage.set(this._storageKeyPosition, [this.position.lat, this.position.lon]);
+        if (this._coords)
+            await this.storage.set(this._storageKeyPosition, [this._coords.lat, this._coords.lng]);
+
+    }
+
+
+    ionViewWillLeave() {
+
+        this._savedMapCenter = this._map.getCenter();
+        this._savedZoomLevel = this._map.getZoom();
+
+        this._map.remove();
 
     }
 
