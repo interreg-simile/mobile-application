@@ -7,7 +7,7 @@ import { TranslateService } from "@ngx-translate/core";
 export class LangService {
 
     public readonly supportedLanguages = ["it", "en"];
-    public readonly defaultLanguage    = "it";
+    public readonly defaultLanguage    = "en";
 
     private readonly _storageKeyLanguage = "language";
 

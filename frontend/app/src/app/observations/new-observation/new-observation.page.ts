@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController, PickerController } from "@ionic/angular";
+import { AlertController, LoadingController, ModalController, PickerController, Platform } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 
@@ -10,6 +10,7 @@ import { Duration, ToastService } from "../../shared/toast.service";
 import { MeasuresImpl, Observation } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
+import { Subscription } from "rxjs";
 
 
 @Component({
@@ -18,6 +19,8 @@ import { NGXLogger } from "ngx-logger";
     styleUrls  : ['./new-observation.page.scss']
 })
 export class NewObservationPage implements OnInit, OnDestroy {
+
+    private _backButtonSub: Subscription;
 
     public _isLoading = true;
 
@@ -48,6 +51,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 private i18n: TranslateService,
                 private cameraService: CameraService,
                 private toastService: ToastService,
+                private platform: Platform,
                 private logger: NGXLogger) { }
 
 
@@ -60,9 +64,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
             .catch(() => this.toastService.presentToast("page-map.msg-weather-error", Duration.short))
             .finally(() => this._isLoading = false);
 
-        // ToDO handle hardware back button
-        // When the user click the hardware back button, call the onClose method
-        // this.platform.backButton.subscribeWithPriority(9999, () => this.onClose());
+        this._backButtonSub = this.platform.backButton.subscribeWithPriority(999, () => this.onClose());
 
     }
 
@@ -337,6 +339,14 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /** Called when the user wants to close the page without saving the data. */
     async onClose(): Promise<void> {
 
+        try {
+            const el = await this.modalCtr.getTop();
+            if (el) {
+                await el.dismiss();
+                return;
+            }
+        } catch (err) { }
+
         const alert = await this.alertCtr.create({
             message        : this.i18n.instant("page-new-obs.alert-message-cancel"),
             buttons        : [
@@ -354,6 +364,12 @@ export class NewObservationPage implements OnInit, OnDestroy {
     }
 
 
-    ngOnDestroy(): void { this.obsService.resetNewObservation() }
+    ngOnDestroy(): void {
+
+        if (this._backButtonSub && !this._backButtonSub.closed) this._backButtonSub.unsubscribe();
+
+        this.obsService.resetNewObservation();
+
+    }
 
 }

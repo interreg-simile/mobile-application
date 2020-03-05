@@ -7,41 +7,43 @@
     - [ ] Schede di deployment per App e API
     - [ ] Documentazione vera e propria dell'API
 	- [ ] Termini e condizioni GDPR
-    
-- [x] Implementare visualizzazione dell'osservazione 
-
-- [x] Implementare legenda/filtro mappa
-
-- [x] Implementare ripopolamento mappa
   
 - [ ] Implementare login e registrazione
 
 - [ ] Implementare uso offline
 	- [ ] Cache delle tiles di OSM
 
-- [ ] Implementare inserimento di eventi e alert dall'applicazione per gli utenti admin
-
 - [ ] Tradurre il sistema in inglese
     - [x] Riconoscere lingua del telefono
     - [ ] Implementare cambio lingua nelle impostazioni
-
-- [x] Implementare sezione "progetto"
 
 - [ ] Ristrutturare la sezione Fauna
 
 - [ ] Implementare pagine help
 
-- [ ] Implementare hardware back button
-    - [ ] Doppio click per chiudere l'applicazione
-    - [ ] Far uscire alert di sicurezza durante l'inserimento di un'osservazione
-    
+- [ ] Implementare eliminazione osservazione (?)
+
+- [ ] Implementare inserimento di eventi e alert dall'applicazione per gli utenti admin (?)
+
+
+#### Done
+
 - [x] Aggiungere indicazioni stradali nella pagina del singolo evento
 
 - [x] Modificare icona e splash screen
 
-- [ ] Implementare eliminazione osservazione (?)
+- [x] Implementare visualizzazione dell'osservazione 
 
-- [ ] Sistemare il drawer in modo che si chiuda schiacciando indietro o sulla schermata sotto
+- [x] Implementare legenda/filtro mappa
+
+- [x] Implementare ripopolamento mappa
+
+- [x] Implementare sezione "progetto"
+
+- [x] Implementare hardware back button
+    - [x] Doppio click per chiudere l'applicazione
+    - [x] Far uscire alert di sicurezza durante l'inserimento di un'osservazione
+    - [x] Click per chiudere il drawer
 
 
 #### Known bugs
@@ -60,5 +62,6 @@
 - [ ] Creare interfaccia web per admin
     - [ ] Implementare inserimento di eventi, alert, quiz
     - [ ] Implementare la visualizzazione delle osservazioni
+    - [ ] Login admin con registrazione da superadmin
     
 - [ ] Implementare chiamata alle autorità
