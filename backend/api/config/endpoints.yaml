@@ -12,7 +12,7 @@
 
   - path: /register/
     method: POST
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
@@ -22,7 +22,7 @@
 
   - path: /
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
@@ -32,7 +32,7 @@
 
   - path: /
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
@@ -41,35 +41,35 @@
 
   - path: /
     method: POST
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
 
   - path: /:id
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
 
   - path: /:id
     method: PUT
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
 
   - path: /:id
     method: PATCH
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
 
   - path: /:id
     method: DELETE
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
@@ -79,7 +79,7 @@
 
   - path: /
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
@@ -89,35 +89,35 @@
 
   - path: /
     method: POST
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
 
   - path: /:id
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
 
   - path: /:id
     method: PUT
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
 
   - path: /:id
     method: PATCH
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
 
   - path: /:id
     method: DELETE
-    key_required: true
+    key_required: false
     admin_required: true
     token_required: true
     paternity: false
@@ -127,14 +127,14 @@
 
   - path: /
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
 
   - path: /
     method: POST
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: true
     paternity: false
@@ -150,14 +150,14 @@
 
   - path: /:id
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: false
     paternity: false
 
   - path: /:id
     method: DELETE
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: true
     paternity: true
@@ -167,7 +167,7 @@
 
   - path: /weather
     method: GET
-    key_required: true
+    key_required: false
     admin_required: false
     token_required: true
     paternity: false

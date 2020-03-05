@@ -24,7 +24,6 @@ export class AuthInterceptorService implements HttpInterceptor {
 
         const newReq = req.clone({
             headers: req.headers
-                .append("X-API-KEY", `${ environment.apiKey }`)
                 .append("Authorization", `Bearer ${ this.auth.token }`)
         });
 
