@@ -78,8 +78,9 @@ export async function create(data) {
         position: { type: "Point", crs: "1", ...data.position },
         weather : data.weather,
         details : data.details,
+        measures: data.measures,
+        other   : data.other,
         photos  : data.photos,
-        measures: data.measures
     });
 
     // If the observation id is provided, set it
@@ -219,8 +220,8 @@ export function convertToGeoJsonFeature(obs) {
 
     // Initialize the GeoJSON object
     const gjObs = {
-        type    : "Feature",
-        geometry: {
+        type      : "Feature",
+        geometry  : {
             type       : "Point",
             coordinates: obs.position.coordinates
         },

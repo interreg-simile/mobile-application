@@ -393,32 +393,12 @@
 				</ion-card-content>
 			
 			</ion-card>
-			
-			<!-- Other -->
-			<ion-card *ngIf="_obs.details.other"
-					  class="ion-no-margin sub-section-space"
-					  [ngClass]="_obs.details.otherOpen ? 'open' : ''">
-				
-				<!-- Header -->
-				<ion-card-header (click)="onToggleClick('details.otherOpen')">
-					
-					<ion-card-subtitle>{{"page-info-obs.details.other" | translate}}</ion-card-subtitle>
-					
-					<i class="material-icons">keyboard_arrow_down</i>
-				
-				</ion-card-header>
-				
-				<ion-card-content *ngIf="_obs.details.otherOpen">
-					{{_obs.details.other}}
-				</ion-card-content>
-			
-			</ion-card>
 		
 		</section>
 		
 		
 		<!-- Measures -->
-		<section *ngIf="_obs.measures">
+		<section id="measures" *ngIf="_obs.measures" class="section-space">
 			
 			<p class="card-header">{{"page-info-obs.measures.head" | translate}}</p>
 			
@@ -719,6 +699,25 @@
 			</ion-card>
 		
 		</section>
+		
+		
+		<!-- Other -->
+		<ion-card *ngIf="_obs.other" class="ion-no-margin" [ngClass]="_obs.otherOpen ? 'open' : ''">
+			
+			<!-- Header -->
+			<ion-card-header (click)="onToggleClick('otherOpen')">
+				
+				<ion-card-subtitle>{{"page-info-obs.other" | translate}}</ion-card-subtitle>
+				
+				<i class="material-icons">keyboard_arrow_down</i>
+			
+			</ion-card-header>
+			
+			<ion-card-content *ngIf="_obs.otherOpen">
+				{{_obs.other}}
+			</ion-card-content>
+		
+		</ion-card>
 	
 	
 	</section>
@@ -727,20 +726,24 @@
 	<!-- Skeleton text -->
 	<section *ngIf="_isLoading" class="skeleton">
 		
+		<!-- Date -->
 		<div class="ske-end">
 			<ion-skeleton-text animated class="ske-date sub-section-space"></ion-skeleton-text>
 		</div>
 		
+		<!-- Photos -->
 		<div class="ske-center">
 			<ion-skeleton-text animated class="ske-photos section-space"></ion-skeleton-text>
 		</div>
 		
+		<!-- Position -->
 		<ion-skeleton-text animated class="ske-card sub-section-space"></ion-skeleton-text>
 		
+		<!-- Weather -->
 		<ion-skeleton-text animated class="ske-card section-space"></ion-skeleton-text>
 		
+		<!-- All the rest -->
 		<ion-skeleton-text animated class="ske-header sub-section-space"></ion-skeleton-text>
-		
 		<ion-skeleton-text animated class="ske-card-xl"></ion-skeleton-text>
 	
 	</section>

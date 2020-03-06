@@ -24,8 +24,6 @@ export class CorsInterceptorService implements HttpInterceptor {
           .append( "Access-Control-Allow-Headers", "origin, x-requested-with")
     });
 
-    console.log(newReq);
-
     return next.handle(newReq);
 
   }

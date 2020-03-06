@@ -17,6 +17,7 @@
 - [ ] Implementare pagine help
 
 - [ ] Decidere cosa mettere nel campo di testo "altro" nella nuova osservazione
+    - [ ] Prima delle foto
 
 
 #### Done

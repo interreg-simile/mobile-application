@@ -110,7 +110,6 @@ export interface Details {
     odours: Odours,
     outlets: Outlets,
     // fauna: Fauna,
-    other: string
 }
 
 
@@ -237,9 +236,11 @@ export class Observation {
 
     details: Details;
 
-    photos: Array<string>;
-
     measures: Measures;
+
+    other: string;
+
+    photos: Array<string>;
 
 
     /**
@@ -348,7 +349,6 @@ export class Observation {
             odours : odours,
             outlets: outlets,
             // fauna  : fauna,
-            other  : undefined
         };
 
     }

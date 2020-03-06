@@ -96,7 +96,7 @@
 			
 			<div class="heading">
 				
-				<ion-icon name="ios-more" class="main"></ion-icon>
+				<ion-icon name="list" class="main"></ion-icon>
 				
 				<p class="title">{{"page-new-obs.details.title" | translate}}</p>
 			
@@ -110,7 +110,7 @@
 					<div *ngFor="let detail of _newObservation.details | keyvalue: originalOrder"
 						 class="ion-activatable ripple-parent">
 						
-						<div *ngIf="detail.key != 'other'" class="detail-item">
+						<div class="detail-item">
 							
 							<ion-checkbox [checked]="detail.value.checked"
 										  (click)="onDetailCheckboxClick($event, detail.value)"></ion-checkbox>
@@ -134,15 +134,6 @@
 				</ion-card-content>
 			
 			</ion-card>
-			
-			
-			<p class="sub-heading">{{"page-new-obs.details.other-title" | translate}}</p>
-			
-			
-			<ion-textarea placeholder="{{'page-new-obs.details.other-ph' | translate}}"
-						  maxlength="250"
-						  rows="3"
-						  [(ngModel)]="_newObservation.details.other"></ion-textarea>
 		
 		
 		</section>
@@ -181,6 +172,25 @@
 			
 			</ion-card>
 		
+		
+		</section>
+		
+		
+		<!-- Other -->
+		<section id="other">
+			
+			<div class="heading">
+				
+				<ion-icon name="ios-more" class="main"></ion-icon>
+				
+				<p class="title">{{"page-new-obs.other.title" | translate}}</p>
+			
+			</div>
+			
+			<ion-textarea placeholder="{{'page-new-obs.other.ph' | translate}}"
+						  maxlength="250"
+						  rows="3"
+						  [(ngModel)]="_newObservation.other"></ion-textarea>
 		
 		</section>
 		
@@ -227,17 +237,17 @@
 			
 			</ion-button>
 			
-<!--			&lt;!&ndash; Or &ndash;&gt;-->
-<!--			<p class="or ion-margin">{{"page-new-obs.or" | translate}}</p>-->
-<!--			-->
-<!--			&lt;!&ndash; Alert authorities button &ndash;&gt;-->
-<!--			<ion-button expand="block" color="primary" fill="outline" (click)="onAlertClick()">-->
-<!--				-->
-<!--				<ion-icon slot="start" name="call"></ion-icon>-->
-<!--				-->
-<!--				{{"page-new-obs.btn-call" | translate}}-->
-<!--			-->
-<!--			</ion-button>-->
+			<!--			&lt;!&ndash; Or &ndash;&gt;-->
+			<!--			<p class="or ion-margin">{{"page-new-obs.or" | translate}}</p>-->
+			<!--			-->
+			<!--			&lt;!&ndash; Alert authorities button &ndash;&gt;-->
+			<!--			<ion-button expand="block" color="primary" fill="outline" (click)="onAlertClick()">-->
+			<!--				-->
+			<!--				<ion-icon slot="start" name="call"></ion-icon>-->
+			<!--				-->
+			<!--				{{"page-new-obs.btn-call" | translate}}-->
+			<!--			-->
+			<!--			</ion-button>-->
 		
 		</section>
 	
@@ -248,22 +258,27 @@
 	<!-- Skeleton placeholder -->
 	<section *ngIf="_isLoading" class="skeleton">
 		
+		<!-- Weather -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
-		
 		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
 		
+		<!-- Details -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
-		
 		<ion-skeleton-text animated class="ske-card-xl ske-section"></ion-skeleton-text>
 		
+		<!-- Measures -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
-		
 		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
 		
+		<!-- Other -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
+		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
 		
+		<!-- Photos -->
+		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		<ion-skeleton-text animated class="ske-card-md ske-section"></ion-skeleton-text>
 		
+		<!-- Button -->
 		<ion-skeleton-text animated class="ske-btn-block ion-margin-bottom"></ion-skeleton-text>
 	
 	</section>

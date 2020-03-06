@@ -55,8 +55,7 @@
       "label-signage-photo": "Foto della segnaletica",
       "label-prod-activities": "Attività produttive nelle vicinanze",
       "label-prod-activities-details": "Dettagli sulle attività produttive"
-    },
-    "other": "Altro"
+    }
   },
   "measures": {
     "head": "Misure",
@@ -90,5 +89,6 @@
       "label-precision": "Precisione",
       "label-details": "Dettagli"
     }
-  }
+  },
+  "other": "Altre informazioni"
 }

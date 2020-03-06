@@ -39,13 +39,16 @@ export class InfoPage implements OnInit {
         if (!id) this.navCtr.back();
 
         this.obsService.getObservationById(id)
-            .then(obs => this._obs = obs)
+            .then(obs => {
+                this._obs = obs;
+                if (this._obs.other){}
+                this._isLoading = false;
+            })
             .catch(err => {
                 console.error(err);
                 this.toastService.presentToast("page-info-obs.err-get", Duration.short);
                 this.navCtr.back();
             })
-            .finally(() => this._isLoading = false)
 
     }
 
@@ -61,8 +64,8 @@ export class InfoPage implements OnInit {
      */
     onToggleClick(prop: string): void {
 
-        if (prop === "details.otherOpen") {
-            this._obs.details.otherOpen = !this._obs.details.otherOpen;
+        if (prop === "otherOpen") {
+            this._obs.otherOpen = !this._obs.otherOpen;
             return;
         }
 

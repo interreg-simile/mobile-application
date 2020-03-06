@@ -113,8 +113,6 @@ export class ObservationsService {
 
         Object.keys(obs.details).forEach(k => {
 
-            if (k === "other") return;
-
             if (!obs.details[k].checked) {
                 delete obs.details[k];
                 return;

@@ -169,9 +169,7 @@
         "birds": "Uccelli",
         "other": "Altro"
       }
-    },
-    "other-title": "Altri dettagli",
-    "other-ph": "Massimo 250 caratteri..."
+    }
   },
   "measures": {
     "title": "Misure",
@@ -237,6 +235,10 @@
         "placeholder": "Modello, materiale, specifiche..."
       }
     }
+  },
+  "other": {
+    "title": "Altre informazioni",
+    "ph": "Massimo 250 caratteri..."
   },
   "photos": "Foto",
   "btn-send": "Invia l'osservazione",

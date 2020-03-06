@@ -82,10 +82,7 @@ interface Details {
             fish?: { checked: boolean, details: string },
             other?: { checked: boolean, details: string },
         }
-    },
-
-    otherOpen?: boolean,
-    other?: string
+    }
 
 }
 
@@ -132,9 +129,11 @@ export interface ObsInfo {
     uid: string,
     position: Position,
     weather: Weather,
-    photos: Array<string>,
     details?: Details,
     measures?: Measures,
+    otherOpen?: boolean,
+    other?: string
+    photos: Array<string>,
     createdAt: string,
     updatedAt: string
 }

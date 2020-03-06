@@ -42,8 +42,9 @@ const schema = new Schema({
     position         : { type: position, required: true },
     weather          : { type: weather, required: true },
     details          : { type: Schema.Types.Mixed, required: false },
-    photos           : { type: [String], required: false },
     measures         : { type: Schema.Types.Mixed, required: false },
+    other            : { type: String, required: false },
+    photos           : { type: [String], required: false },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: true });
 

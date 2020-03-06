@@ -176,8 +176,7 @@ const vFauna = [
 
 ];
 
-const vDetails = [...vAlgae, ...vFoams, ...vOils, ...vLitters, ...vOdours, ...vOutlets, ...vFauna,
-    body("details.other").optional().escape().trim()];
+const vDetails = [...vAlgae, ...vFoams, ...vOils, ...vLitters, ...vOdours, ...vOutlets, ...vFauna];
 
 
 function vInstrument(field) {
@@ -290,6 +289,7 @@ export const observation = [
     ...vWeather,
     ...vDetails,
     ...vMeasures,
+    body("other").optional().escape().trim(),
     body("markedForDeletion").isEmpty(),
     body("createdAt").isEmpty(),
     body("upadtedAt").isEmpty()

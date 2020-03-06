@@ -70,8 +70,6 @@ Observation:
         fish: { checked: boolean, details: string }
         other: { checked: boolean, details: string }
 
-    other: string
-
   measures:
 
     transparency:
@@ -97,6 +95,8 @@ Observation:
     bacteria:
       escherichiaColi: number
       enterococci: number
+
+  other: string
 
   markedForDeletion: boolean
 

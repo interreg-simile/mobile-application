@@ -42,6 +42,7 @@ export default async function () {
                     iridescent: false
                 }
             },
+            other: "Altri dettagli sull'osservazione...",
             photos  : ["observations/default.jpg"]
         },
         {
