@@ -29,9 +29,11 @@ export class AppComponent {
                 private toastService: ToastService,
                 private router: Router) {
 
-        this.initializeApp();
-
-        this.onBackButton();
+        this.initializeApp()
+            .then(() => {
+                this.onBackButton();
+                this.splashScreen.hide();
+            });
 
     }
 
@@ -39,18 +41,12 @@ export class AppComponent {
     /** Initializes the application. */
     async initializeApp(): Promise<void> {
 
-        // When the platform is ready
         await this.platform.ready();
 
-        // Set bg and color of the status bar
         this.statusBar.backgroundColorByHexString(statusBarColor);
         this.statusBar.styleLightContent();
 
-        // Set the application language
         await this.langService.initAppLanguage();
-
-        // Hide the splash screen
-        this.splashScreen.hide();
 
     }
 

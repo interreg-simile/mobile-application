@@ -8,7 +8,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 
-import setupDocs from "./docs";
 import loadConfig from "../middlewares/load-config";
 import checkKey from "../middlewares/check-key";
 import checkToken from "../middlewares/check-token";
@@ -41,9 +40,6 @@ export default function (server) {
 
     // Use morgan to log
     server.use(morgan("combined", { stream: accessLogStream }));
-
-    // ToDo Setup the docs
-    // setupDocs(server);
 
     // Setup the static path to the images
     server.use(express.static(path.join(__dirname, "..", "..", "uploads")));
