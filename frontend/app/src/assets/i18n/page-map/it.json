@@ -7,8 +7,8 @@
   "msg-wait-position": "Aspetta di avere una posizione valida o tieni premuto sul punto della mappa in cui vuoi inserire l'osservazione.",
   "fetch-error": "Errore durante la richiesta dei dati.",
   "legend": {
-    "user-obs": "Osservazioni inserite da te",
-    "other-obs": "Osservazioni di altri utenti",
+    "user-obs": "Le mie osservazioni",
+    "other-obs": "Osservazioni",
     "events": "Eventi"
   }
 }

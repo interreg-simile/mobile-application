@@ -40,9 +40,11 @@
 		<!-- Photos -->
 		<section class="photos section-space">
 			
-			<div *ngFor="let photo of _obs.photos" class="photo-container" (click)="onThumbnailClick(photo)">
+			<div *ngFor="let photo of _obs.photos; index as i"
+				 class="photo-container" [ngClass]="i === 0 ? '' : 'ion-margin-start' "
+				 (click)="onThumbnailClick(photo)">
 				
-				<img src="{{photo}}" alt="Observation photo"/>
+				<img [src]="domSanitizer.bypassSecurityTrustUrl(photo)" alt="Observation photo"/>
 			
 			</div>
 		
@@ -139,11 +141,12 @@
 					  [ngClass]="_obs.details.algae.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="onToggleClick('details.algae')">
+				<ion-card-header (click)="hasDetailProperties('details.algae') ? onToggleClick('details.algae') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.algae.head" | translate}}</ion-card-subtitle>
 					
-					<i class="material-icons">keyboard_arrow_down</i>
+					<i [ngStyle]="{'visibility': hasDetailProperties('details.algae') ? 'visible' : 'hidden'}"
+					   class="material-icons">keyboard_arrow_down</i>
 				
 				</ion-card-header>
 				
@@ -182,11 +185,12 @@
 					  [ngClass]="_obs.details.foams.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="onToggleClick('details.foams')">
+				<ion-card-header (click)="hasDetailProperties('details.foams') ? onToggleClick('details.foams') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.foams.head" | translate}}</ion-card-subtitle>
 					
-					<i class="material-icons">keyboard_arrow_down</i>
+					<i [ngStyle]="{'visibility': hasDetailProperties('details.foams') ? 'visible' : 'hidden'}"
+					   class="material-icons">keyboard_arrow_down</i>
 				
 				</ion-card-header>
 				
@@ -220,11 +224,12 @@
 					  [ngClass]="_obs.details.oils.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="onToggleClick('details.oils')">
+				<ion-card-header (click)="hasDetailProperties('details.oils') ? onToggleClick('details.oils') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.oils.head" | translate}}</ion-card-subtitle>
 					
-					<i class="material-icons">keyboard_arrow_down</i>
+					<i [ngStyle]="{'visibility': hasDetailProperties('details.oils') ? 'visible' : 'hidden'}"
+					   class="material-icons">keyboard_arrow_down</i>
 				
 				</ion-card-header>
 				
@@ -247,16 +252,17 @@
 			</ion-card>
 			
 			<!-- Litters -->
-			<ion-card *ngIf="_obs.details.oils"
+			<ion-card *ngIf="_obs.details.litters"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.litters.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="onToggleClick('details.litters')">
+				<ion-card-header (click)="hasDetailProperties('details.litters') ? onToggleClick('details.litters') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.litters.head" | translate}}</ion-card-subtitle>
 					
-					<i class="material-icons">keyboard_arrow_down</i>
+					<i [ngStyle]="{'visibility': hasDetailProperties('details.litters') ? 'visible' : 'hidden'}"
+					   class="material-icons">keyboard_arrow_down</i>
 				
 				</ion-card-header>
 				
@@ -284,11 +290,12 @@
 					  [ngClass]="_obs.details.odours.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="onToggleClick('details.odours')">
+				<ion-card-header (click)="hasDetailProperties('details.odours') ? onToggleClick('details.odours') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.odours.head" | translate}}</ion-card-subtitle>
 					
-					<i class="material-icons">keyboard_arrow_down</i>
+					<i [ngStyle]="{'visibility': hasDetailProperties('details.odours') ? 'visible' : 'hidden'}"
+					   class="material-icons">keyboard_arrow_down</i>
 				
 				</ion-card-header>
 				
@@ -316,11 +323,12 @@
 					  [ngClass]="_obs.details.outlets.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="onToggleClick('details.outlets')">
+				<ion-card-header (click)="hasDetailProperties('details.outlets') ? onToggleClick('details.outlets') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.outlets.head" | translate}}</ion-card-subtitle>
 					
-					<i class="material-icons">keyboard_arrow_down</i>
+					<i [ngStyle]="{'visibility': hasDetailProperties('details.outlets') ? 'visible' : 'hidden'}"
+					   class="material-icons">keyboard_arrow_down</i>
 				
 				</ion-card-header>
 				

@@ -20,6 +20,7 @@ interface Details {
 
     algae?: {
         open?: boolean,
+        checked?: boolean,
         extension?: { code: number, description: string },
         look?: { code: number, description: string },
         colour?: { code: number, description: string },
@@ -28,6 +29,7 @@ interface Details {
 
     foams?: {
         open?: boolean,
+        checked?: boolean,
         extension?: { code: number, description: string },
         look?: { code: number, description: string },
         height?: { code: number, description: string }
@@ -35,24 +37,28 @@ interface Details {
 
     oils?: {
         open?: boolean,
+        checked?: boolean,
         extension?: { code: number, description: string },
         type?: { code: number, description: string }
     },
 
     litters?: {
         open?: boolean,
+        checked?: boolean,
         quantity?: { code: number, description: string },
         type?: Array<{ code: number, description: string }>
     },
 
     odours?: {
         open?: boolean,
+        checked?: boolean,
         intensity?: { code: number, description: string },
         origin?: Array<{ code: number, description: string }>
     },
 
     outlets?: {
         open?: boolean,
+        checked?: boolean,
         inPlace?: boolean,
         terminal?: { code: number, description: string },
         colour?: { code: number, description: string },
@@ -63,26 +69,27 @@ interface Details {
         prodActNearbyDetails?: string
     },
 
-    fauna?: {
-        open?: boolean,
-        deceased?: {
-            fish?: { checked: boolean, details: string },
-            birds?: { checked: boolean, details: string },
-            other?: { checked: boolean, details: string },
-        },
-        abnormal?: {
-            fish?: { checked: boolean, details: string },
-            birds?: { checked: boolean, details: string },
-            other?: { checked: boolean, details: string }
-        },
-        alienSpecies?: {
-            crustaceans?: { checked: boolean, details: string },
-            molluscs?: { checked: boolean, details: string },
-            turtles?: { checked: boolean, details: string },
-            fish?: { checked: boolean, details: string },
-            other?: { checked: boolean, details: string },
-        }
-    }
+    // fauna?: {
+    //     open?: boolean,
+    //     checked?: boolean,
+    //     deceased?: {
+    //         fish?: { checked: boolean, details: string },
+    //         birds?: { checked: boolean, details: string },
+    //         other?: { checked: boolean, details: string },
+    //     },
+    //     abnormal?: {
+    //         fish?: { checked: boolean, details: string },
+    //         birds?: { checked: boolean, details: string },
+    //         other?: { checked: boolean, details: string }
+    //     },
+    //     alienSpecies?: {
+    //         crustaceans?: { checked: boolean, details: string },
+    //         molluscs?: { checked: boolean, details: string },
+    //         turtles?: { checked: boolean, details: string },
+    //         fish?: { checked: boolean, details: string },
+    //         other?: { checked: boolean, details: string },
+    //     }
+    // }
 
 }
 

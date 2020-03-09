@@ -36,13 +36,15 @@ export default async function () {
             weather : { temperature: 25.8, sky: { code: 1 }, wind: 32 },
             details : {
                 algae: {
+                    checked   : true,
                     extension : { code: 1 },
                     look      : { code: 2 },
                     colour    : { code: 1 },
                     iridescent: false
-                }
+                },
+                foams: { checked: true }
             },
-            other: "Altri dettagli sull'osservazione...",
+            other   : "Altri dettagli sull'osservazione...",
             photos  : ["observations/default.jpg"]
         },
         {
@@ -55,7 +57,7 @@ export default async function () {
             },
             weather : { temperature: 25.8, sky: { code: 2 }, wind: 32 },
             details : {
-                odours: { intensity: { code: 1 }, origin: [{ code: 2 }, { code: 4 }] }
+                odours: { checked: true, intensity: { code: 1 }, origin: [{ code: 2 }, { code: 4 }] }
             },
             measures: {
                 transparency: { val: 5, instrument: { type: { code: 1 }, precision: 1 } }
@@ -73,7 +75,7 @@ export default async function () {
             },
             weather : { temperature: 25.8, sky: { code: 3 } },
             details : {
-                odours: { intensity: { code: 2 }, origin: [{ code: 1 }, { code: 3 }] }
+                odours: { checked: true, intensity: { code: 2 }, origin: [{ code: 1 }, { code: 3 }] }
             },
             measures: {
                 ph: { multiple: false, val: [{ depth: 1, val: 7 }], instrument: { type: { code: 1 }, precision: 1 } }

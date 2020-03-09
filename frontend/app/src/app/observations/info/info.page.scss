@@ -4,7 +4,7 @@
 $section-space      : 32px;
 $sub-section-space  : 16px;
 
-$photo-thumb-height : 80px;
+$photo-thumb-height : 120px;
 
 
 .section-space { margin-bottom : $section-space }
@@ -27,15 +27,14 @@ $photo-thumb-height : 80px;
 
 .photos {
   display         : flex;
-  justify-content : space-around;
+  justify-content : space-between;
   align-content   : center;
   margin-top      : 8px;
 
   .photo-container {
     flex          : 1;
-    max-width     : 75%;
+    max-width     : 100%;
     height        : $photo-thumb-height;
-    margin        : 0 16px;
     border        : 1px solid $color-border;
     border-radius : 5px;
     overflow      : hidden;

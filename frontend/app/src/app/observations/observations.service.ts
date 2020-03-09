@@ -118,7 +118,6 @@ export class ObservationsService {
                 return;
             }
 
-            delete obs.details[k].checked;
             delete obs.details[k].component;
 
             if (k === "odours" && obs.details[k].origin.length === 0) obs.details[k].origin = undefined;

@@ -25,13 +25,25 @@ export const alert = [
 
     body("title")
         .not().isEmpty()
-        .custom(v => Object.keys(v).some(k => k === "it") && Object.keys(v).every(k => appConf.lngs.includes(k))),
+        .custom(v => {
+            return (
+                Object.keys(v).includes("it") &&
+                Object.keys(v).includes("en") &&
+                Object.keys(v).every(k => appConf.lngs.includes(k))
+            )
+        }),
 
     body("title.*").trim().escape(),
 
     body("content")
         .not().isEmpty()
-        .custom(v => Object.keys(v).some(k => k === "it") && Object.keys(v).every(k => appConf.lngs.includes(k))),
+        .custom(v => {
+            return (
+                Object.keys(v).includes("it") &&
+                Object.keys(v).includes("en") &&
+                Object.keys(v).every(k => appConf.lngs.includes(k))
+            )
+        }),
 
     body("content.*").trim().escape(),
 

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, Events, LoadingController, Platform, PopoverController } from "@ionic/angular";
-import { CircleMarker, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
+import { Circle, LatLng, LeafletMouseEvent, Map, Marker, TileLayer } from 'leaflet';
 import { MarkerClusterGroup } from 'leaflet.markercluster';
 import { Subscription } from "rxjs";
 import { Storage } from "@ionic/storage";
@@ -23,7 +23,6 @@ import { Observation } from "../observations/observation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../shared/toast.service";
 import { AuthService } from "../auth/auth.service";
-import { clusters } from "@turf/turf";
 import { LegendComponent, Markers } from "./legend/legend.component";
 
 
@@ -62,7 +61,7 @@ export class MapPage implements OnInit, OnDestroy {
     private loading: HTMLIonLoadingElement;
     private _map: Map;
     private _userMarker: Marker;
-    private _accuracyCircle: CircleMarker;
+    private _accuracyCircle: Circle;
     private _customMarker: Marker;
     private _isFirstPosition = true;
 
@@ -382,7 +381,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._userMarker = new Marker(latLng, { icon: userMarkerIcon(), zIndexOffset: 3 }).addTo(this._map);
 
-        this._accuracyCircle = new CircleMarker(latLng, { radius: 0, color: "blu", opacity: .5 }).addTo(this._map);
+        this._accuracyCircle = new Circle(latLng, { radius: 0, opacity: .5 }).addTo(this._map);
 
     }
 

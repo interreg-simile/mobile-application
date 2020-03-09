@@ -10,6 +10,7 @@ import { ObservationsService } from "../observations.service";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { AuthService } from "../../auth/auth.service";
 import { ObsInfo } from "./obs-info.model";
+import { DomSanitizer } from "@angular/platform-browser";
 
 
 @Component({ selector: 'app-info', templateUrl: './info.page.html', styleUrls: ['./info.page.scss'] })
@@ -26,6 +27,7 @@ export class InfoPage implements OnInit {
                 private toastService: ToastService,
                 private authService: AuthService,
                 public i18n: TranslateService,
+                public domSanitizer: DomSanitizer,
                 private photoViewer: PhotoViewer) { }
 
 
@@ -41,7 +43,6 @@ export class InfoPage implements OnInit {
         this.obsService.getObservationById(id)
             .then(obs => {
                 this._obs = obs;
-                if (this._obs.other){}
                 this._isLoading = false;
             })
             .catch(err => {
@@ -70,6 +71,15 @@ export class InfoPage implements OnInit {
         }
 
         set(this._obs, `${ prop }.open`, !(get(this._obs, `${ prop }.open`)));
+
+    }
+
+
+    hasDetailProperties(detailPath: string): boolean {
+
+        const prop = get(this._obs,  detailPath);
+
+        return Object.keys(prop).some(k => k !== "checked");
 
     }
 
