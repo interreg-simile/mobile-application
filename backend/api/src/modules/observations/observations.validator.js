@@ -73,7 +73,15 @@ const vWeather = [
 ];
 
 
+function vDetailCheck(detail) {
+
+    return [ body(`details.${detail}.checked`).optional().isBoolean() ]
+
+}
+
 const vAlgae = [
+
+    ...vDetailCheck("algae"),
 
     ...vCode("details.algae.extension", conf.details.algae.extension.min, conf.details.algae.extension.max),
 
@@ -87,6 +95,8 @@ const vAlgae = [
 
 const vFoams = [
 
+    ...vDetailCheck("foams"),
+
     ...vCode("details.foams.extension", conf.details.foams.extension.min, conf.details.foams.extension.max),
 
     ...vCode("details.foams.look", conf.details.foams.look.min, conf.details.foams.look.max),
@@ -97,6 +107,8 @@ const vFoams = [
 
 const vOils = [
 
+    ...vDetailCheck("oils"),
+
     ...vCode("details.oils.extension", conf.details.oils.extension.min, conf.details.oils.extension.max),
 
     ...vCode("details.oils.type", conf.details.oils.type.min, conf.details.oils.type.max)
@@ -104,6 +116,8 @@ const vOils = [
 ];
 
 const vLitters = [
+
+    ...vDetailCheck("litters"),
 
     ...vCode("details.litters.quantity", conf.details.litters.quantity.min, conf.details.litters.quantity.max),
 
@@ -113,6 +127,8 @@ const vLitters = [
 
 const vOdours = [
 
+    ...vDetailCheck("odours"),
+
     ...vCode("details.odours.intensity", conf.details.odours.intensity.min, conf.details.odours.intensity.max),
 
     ...vCode("details.odours.origin", conf.details.odours.origin.min, conf.details.odours.origin.max, true)
@@ -120,6 +136,8 @@ const vOdours = [
 ];
 
 const vOutlets = [
+
+    ...vDetailCheck("outlets"),
 
     body("details.outlets.inPlace").optional().isBoolean(),
 
@@ -139,40 +157,31 @@ const vOutlets = [
 
 ];
 
+function vSubFauna(property) {
+
+    return [
+        ...vDetailCheck(`fauna.${property}`),
+        ...vDetailCheck(`fauna.${property}.deceased`),
+        body(`details.fauna.${property}.deceased.number`).optional().isInt(),
+        ...vDetailCheck(`fauna.${property}.abnormal`),
+        body(`details.fauna.${property}.abnormal.details`).optional().escape().trim(),
+        ...vDetailCheck(`fauna.${property}.alien`),
+        ...vCode(`details.fauna.${property}.alien.species`,
+            conf.details.fauna[property].alien.min,
+            conf.details.fauna[property].alien.max,
+            true)
+    ]
+
+}
+
 const vFauna = [
 
-    body("details.fauna.deceased.fish.checked").optional().isBoolean(),
-    body("details.fauna.deceased.fish.details").optional().escape().trim(),
-
-    body("details.fauna.deceased.birds.checked").optional().isBoolean(),
-    body("details.fauna.deceased.birds.details").optional().escape().trim(),
-
-    body("details.fauna.deceased.other.checked").optional().isBoolean(),
-    body("details.fauna.deceased.other.details").optional().escape().trim(),
-
-    body("details.fauna.abnormal.fish.checked").optional().isBoolean(),
-    body("details.fauna.abnormal.fish.details").optional().escape().trim(),
-
-    body("details.fauna.abnormal.birds.checked").optional().isBoolean(),
-    body("details.fauna.abnormal.birds.details").optional().escape().trim(),
-
-    body("details.fauna.abnormal.other.checked").optional().isBoolean(),
-    body("details.fauna.abnormal.other.details").optional().escape().trim(),
-
-    body("details.fauna.alienSpecies.crustaceans.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.crustaceans.details").optional().escape().trim(),
-
-    body("details.fauna.alienSpecies.molluscs.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.molluscs.details").optional().escape().trim(),
-
-    body("details.fauna.alienSpecies.turtles.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.turtles.details").optional().escape().trim(),
-
-    body("details.fauna.alienSpecies.fish.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.fish.details").optional().escape().trim(),
-
-    body("details.fauna.alienSpecies.other.checked").optional().isBoolean(),
-    body("details.fauna.alienSpecies.other.details").optional().escape().trim(),
+    ...vDetailCheck("fauna"),
+    ...vSubFauna("fish"),
+    ...vSubFauna("birds"),
+    ...vSubFauna("molluscs"),
+    ...vSubFauna("crustaceans"),
+    ...vSubFauna("turtles")
 
 ];
 

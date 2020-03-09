@@ -156,18 +156,12 @@
       "title": "Fauna",
       "fish": "Pesci",
       "birds": "Uccelli",
-      "other": "Altro",
-      "spec-ph": "Dettagli...",
-      "deceased": "Animali deceduti",
-      "abnormal": "Comportamenti anomali",
-      "alien": {
-        "head": "Specie aliene",
-        "crustaceans": "Crostacei",
-        "molluscs": "Molluschi",
-        "turtles": "Tartarughe",
-        "fish": "Pesci",
-        "birds": "Uccelli",
-        "other": "Altro"
+      "molluscs": "Molluschi",
+      "crustaceans": "Crostacei",
+      "turtles": "Tartarughe",
+      "deceased": {
+        "head": "Deceduti",
+        "number": "Numero"
       }
     }
   },

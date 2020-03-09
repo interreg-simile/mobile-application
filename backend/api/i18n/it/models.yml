@@ -62,6 +62,23 @@ observations:
       terminal: { 1: "Visibile", 2: "Sommerso"}
       colour: { 1: "Rosso", 2: "Blu", 3: "Verde", 4: "Grigio", 5: "Marrone", 6: "Giallo", 7: "Bianco" }
 
+    fauna:
+      fish:
+        alien:
+          species: { 1: "Pseudorasbora" }
+      birds:
+        alien:
+          species: { 1: "Oca egiziana", 2: "Ibis sacro" }
+      molluscs:
+        alien:
+          species: { 1: "Cozza dorata", 2: "Cozza zebra", 3: "Cozza cigno (o libbra)" }
+      crustaceans:
+        alien:
+          species: { 1: "Gambero americano", 2: "Gambero della California", 3: "Gambero rosso della Louisiana" }
+      turtles:
+        alien:
+          species: { 1: "Testuggine palustre americana" }
+
   measures:
 
     instrument:

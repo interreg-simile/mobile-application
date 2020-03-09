@@ -4,22 +4,35 @@ import { ObservationsService } from "../../observations.service";
 
 
 interface Props {
-    deceased?: {
-        fish: { checked: boolean, details: string },
-        birds: { checked: boolean, details: string },
-        other: { checked: boolean, details: string }
+    fish?: {
+        checked?: boolean,
+        deceased?: { checked?: boolean, number?: number },
+        abnormal?: { checked?: boolean, details?: string },
+        alien?: { checked?: boolean, species?: Array<number> }
     },
-    abnormal?: {
-        fish: { checked: boolean, details: string },
-        birds: { checked: boolean, details: string },
-        other: { checked: boolean, details: string }
+    birds?: {
+        checked?: boolean,
+        deceased?: { checked?: boolean, number?: number },
+        abnormal?: { checked?: boolean, details?: string },
+        alien?: { checked?: boolean, species?: Array<number> }
     },
-    alienSpecies?: {
-        crustaceans: { checked: boolean, details: string },
-        molluscs: { checked: boolean, details: string },
-        turtles: { checked: boolean, details: string },
-        fish: { checked: boolean, details: string },
-        other: { checked: boolean, details: string }
+    molluscs?: {
+        checked?: boolean,
+        deceased?: { checked?: boolean, number?: number },
+        abnormal?: { checked?: boolean, details?: string },
+        alien?: { checked?: boolean, species?: Array<number> }
+    },
+    crustaceans?: {
+        checked?: boolean,
+        deceased?: { checked?: boolean, number?: number },
+        abnormal?: { checked?: boolean, details?: string },
+        alien?: { checked?: boolean, species?: Array<number> }
+    },
+    turtles?: {
+        checked?: boolean,
+        deceased?: { checked?: boolean, number?: number },
+        abnormal?: { checked?: boolean, details?: string },
+        alien?: { checked?: boolean, species?: Array<number> }
     }
 }
 
@@ -28,9 +41,7 @@ interface Props {
 export class FaunaComponent implements OnInit {
 
 
-    /** Settable properties. */
-    public _props: Props = {};
-
+    public _props: Props = { fish: {}, birds: {}, molluscs: {}, crustaceans: {}, turtles: {} };
 
     public _objKeys = Object.keys;
 
@@ -38,63 +49,52 @@ export class FaunaComponent implements OnInit {
     public _originalOrder = (a, b) => { return 0 };
 
 
-    /** @ignore */
     constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
-    /** @ignore */
-    ngOnInit() {
+    ngOnInit(): void {
 
-        // Save the initial values of the settable properties
-        // this._props.deceased     = this.obsService.newObservation.details.fauna.deceased;
-        // this._props.abnormal     = this.obsService.newObservation.details.fauna.abnormal;
-        // this._props.alienSpecies = this.obsService.newObservation.details.fauna.alienSpecies;
+        Object.keys(this._props).forEach(k => this.initProp(k));
 
     }
 
 
-    onHelpClick() { }
-
-
     /**
-     * Fired when there is a change in the checkboxes of one of the properties.
+     * Initialize a fauna property.
      *
-     * @param {CustomEvent} e - The event.
-     * @param {Object} props - The changed property.
+     * @param {string} key - The name of the property.
      */
-    onPropChange(e: CustomEvent, props) { props[e.detail.value].checked = e.detail.checked }
+    initProp(key: string): void {
+
+        const newObsFauna = this.obsService.newObservation.details.fauna;
+
+        this._props[key].deceased = {
+            checked: newObsFauna[key].deceased.checked,
+            number : newObsFauna[key].deceased.number
+        };
+
+        this._props[key].abnormal = {
+            checked: newObsFauna[key].abnormal.checked,
+            details : newObsFauna[key].abnormal.details
+        };
+
+        this._props[key].alien = { checked: newObsFauna[key].alien.checked, species: [] };
+        newObsFauna[key].alien.species.forEach(t => this._props[key].species.push(t.code));
+
+    }
+
+
+    // ToDo implement help click
+    onHelpClick(): void { console.log(this._props) }
 
 
     /**
      * Closes the modal and handle the data saving process.
      *
-     * @param {Boolean} save - True if the modifications done in the modal are to be saved.
+     * @param {boolean} save - True if the modifications done in the modal are to be saved.
      */
-    async closeModal(save: boolean) {
+    async closeModal(save: boolean): Promise<void> {
 
-        // If the modifications are to be saved
-        // if (save) {
-        //
-        //     // Set the detail as checked
-        //     this.obsService.newObservation.details.fauna.checked = true;
-        //
-        //     // Save the new values
-        //     Object.keys(this._props).forEach(p => {
-        //
-        //         Object.keys(this._props[p]).forEach(k => {
-        //
-        //             this.obsService.newObservation.details.fauna[p][k].checked = this._props[p][k].checked;
-        //
-        //             this.obsService.newObservation.details.fauna[p][k].details =
-        //                 this._props[p][k].checked ? this._props[p][k].details : undefined
-        //
-        //         })
-        //
-        //     });
-        //
-        // }
-
-        // Close the modal
         await this.modalCtr.dismiss();
 
     }

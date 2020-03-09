@@ -1,5 +1,25 @@
 @import "../../shared";
 
+$indent : 16px;
+
+
+.card-radio-list {
+
+  ion-card-content {
+
+    .sub-list {
+      ion-radio, ion-checkbox { margin : 0 16px 0 $indent }
+    }
+
+  }
+
+}
+
+
+.double-row {
+
+}
+
 
 .item-container {
   padding-left : 16px;

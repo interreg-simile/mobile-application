@@ -60,21 +60,33 @@ Observation:
       prodActNearby: boolean
       prodActNearbyDetails: string
 
-#    fauna:
-#      deceased:
-#        fish: { checked: boolean, details: string }
-#        birds: { checked: boolean, details: string }
-#        other: { checked: boolean, details: string }
-#      abnormal:
-#        fish: { checked: boolean, details: string }
-#        birds: { checked: boolean, details: string }
-#        other: { checked: boolean, details: string }
-#      alienSpecies:
-#        crustaceans: { checked: boolean, details: string }
-#        molluscs: { checked: boolean, details: string }
-#        turtles: { checked: boolean, details: string }
-#        fish: { checked: boolean, details: string }
-#        other: { checked: boolean, details: string }
+    fauna:
+      checked: boolean
+      fish:
+        checked: boolean
+        deceased: { checked: boolean, number: number }
+        abnormal: { checked: boolean, details: string }
+        alien: { checked: boolean, species: [{code: number, description: string}] }
+      birds:
+        checked: boolean
+        deceased: { checked: boolean, number: number }
+        abnormal: { checked: boolean, details: string }
+        alien: { checked: boolean, species: [{code: number, description: string}] }
+      molluscs:
+        checked: boolean
+        deceased: { checked: boolean, number: number }
+        abnormal: { checked: boolean, details: string }
+        alien: { checked: boolean, species: [{code: number, description: string}] }
+      crustaceans:
+        checked: boolean
+        deceased: { checked: boolean, number: number }
+        abnormal: { checked: boolean, details: string }
+        alien: { checked: boolean, species: [{code: number, description: string}] }
+      turtles:
+        checked: boolean
+        deceased: { checked: boolean, number: number }
+        abnormal: { checked: boolean, details: string }
+        alien: { checked: boolean, species: [{code: number, description: string}] }
 
   measures:
 

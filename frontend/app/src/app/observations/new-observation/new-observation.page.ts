@@ -9,6 +9,7 @@ import {
 } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
+import {LatLng} from "leaflet";
 
 import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
@@ -65,6 +66,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
+        // ToDo delete
+        this.obsService.newObservation = new Observation(new LatLng(0,0), 0, true);
+
         this._newObservation = this.obsService.newObservation;
         this._imageSrc[0]    = this.cameraService.getImgSrc(this._newObservation.photos[0]);
 
@@ -73,6 +77,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
             .finally(() => this._isLoading = false);
 
         this._backButtonSub = this.platform.backButton.subscribeWithPriority(999, () => this.onClose());
+
+        this.openDetailModal(this._newObservation.details.fauna.component);
 
     }
 

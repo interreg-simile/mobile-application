@@ -123,6 +123,16 @@ export class ObservationsService {
             if (k === "odours" && obs.details[k].origin.length === 0) obs.details[k].origin = undefined;
             if (k === "litters" && obs.details[k].type.length === 0) obs.details[k].type = undefined;
 
+            if (k === "fauna") {
+
+                if (obs.details[k].fish.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
+                if (obs.details[k].birds.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
+                if (obs.details[k].molluscs.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
+                if (obs.details[k].crustaceans.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
+                if (obs.details[k].turtles.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
+
+            }
+
         });
 
         if (obs.measures) {

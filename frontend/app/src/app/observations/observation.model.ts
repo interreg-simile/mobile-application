@@ -80,27 +80,40 @@ export interface Outlets {
     prodActNearbyDetails: string
 }
 
-// export interface Fauna {
-//     checked: boolean,
-//     component: Object,
-//     deceased: {
-//         fish: { checked: boolean, details: string },
-//         birds: { checked: boolean, details: string },
-//         other: { checked: boolean, details: string }
-//     },
-//     abnormal: {
-//         fish: { checked: boolean, details: string },
-//         birds: { checked: boolean, details: string },
-//         other: { checked: boolean, details: string }
-//     },
-//     alienSpecies: {
-//         crustaceans: { checked: boolean, details: string },
-//         molluscs: { checked: boolean, details: string },
-//         turtles: { checked: boolean, details: string },
-//         fish: { checked: boolean, details: string },
-//         other: { checked: boolean, details: string },
-//     }
-// }
+export interface Fauna {
+    checked: boolean,
+    component: Object,
+    fish: {
+        checked: boolean,
+        deceased: { checked: boolean, number: number },
+        abnormal: { checked: boolean, details: string },
+        alien: { checked: boolean, species: any[] }
+    },
+    birds: {
+        checked: boolean,
+        deceased: { checked: boolean, number: number },
+        abnormal: { checked: boolean, details: string },
+        alien: { checked: boolean, species: any[] }
+    },
+    molluscs: {
+        checked: boolean,
+        deceased: { checked: boolean, number: number },
+        abnormal: { checked: boolean, details: string },
+        alien: { checked: boolean, species: any[] }
+    },
+    crustaceans: {
+        checked: boolean,
+        deceased: { checked: boolean, number: number },
+        abnormal: { checked: boolean, details: string },
+        alien: { checked: boolean, species: any[] }
+    },
+    turtles: {
+        checked: boolean,
+        deceased: { checked: boolean, number: number },
+        abnormal: { checked: boolean, details: string },
+        alien: { checked: boolean, species: any[] }
+    }
+}
 
 export interface Details {
     algae: Algae,
@@ -109,7 +122,7 @@ export interface Details {
     litters: Litters,
     odours: Odours,
     outlets: Outlets,
-    // fauna: Fauna,
+    fauna: Fauna
 }
 
 
@@ -319,27 +332,40 @@ export class Observation {
             prodActNearbyDetails: undefined
         };
 
-        // const fauna: Fauna = {
-        //     checked     : false,
-        //     component   : FaunaComponent,
-        //     deceased    : {
-        //         fish : { checked: undefined, details: undefined },
-        //         birds: { checked: undefined, details: undefined },
-        //         other: { checked: undefined, details: undefined }
-        //     },
-        //     abnormal    : {
-        //         fish : { checked: undefined, details: undefined },
-        //         birds: { checked: undefined, details: undefined },
-        //         other: { checked: undefined, details: undefined }
-        //     },
-        //     alienSpecies: {
-        //         crustaceans: { checked: undefined, details: undefined },
-        //         molluscs   : { checked: undefined, details: undefined },
-        //         turtles    : { checked: undefined, details: undefined },
-        //         fish       : { checked: undefined, details: undefined },
-        //         other      : { checked: undefined, details: undefined },
-        //     }
-        // };
+        const fauna: Fauna = {
+            checked    : false,
+            component  : FaunaComponent,
+            fish       : {
+                checked : undefined,
+                deceased: { checked: undefined, number: undefined },
+                abnormal: { checked: undefined, details: undefined },
+                alien   : { checked: undefined, species: [] }
+            },
+            birds      : {
+                checked : undefined,
+                deceased: { checked: undefined, number: undefined },
+                abnormal: { checked: undefined, details: undefined },
+                alien   : { checked: undefined, species: [] }
+            },
+            molluscs   : {
+                checked : undefined,
+                deceased: { checked: undefined, number: undefined },
+                abnormal: { checked: undefined, details: undefined },
+                alien   : { checked: undefined, species: [] }
+            },
+            crustaceans: {
+                checked : undefined,
+                deceased: { checked: undefined, number: undefined },
+                abnormal: { checked: undefined, details: undefined },
+                alien   : { checked: undefined, species: [] }
+            },
+            turtles    : {
+                checked : undefined,
+                deceased: { checked: undefined, number: undefined },
+                abnormal: { checked: undefined, details: undefined },
+                alien   : { checked: undefined, species: [] }
+            }
+        };
 
         this.details = {
             algae  : algae,
@@ -348,7 +374,7 @@ export class Observation {
             litters: litters,
             odours : odours,
             outlets: outlets,
-            // fauna  : fauna,
+            fauna  : fauna,
         };
 
     }

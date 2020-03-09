@@ -75,7 +75,7 @@ export async function create(data) {
     // Create the new observation
     const obs = new Observation({
         uid     : data.uid,
-        position: { type: "Point", crs: "1", ...data.position },
+        position: { type: "Point", crs: { code: 1 }, ...data.position },
         weather : data.weather,
         details : data.details,
         measures: data.measures,
@@ -128,66 +128,43 @@ export async function softDelete(id, isAdmin, reqUId) {
  */
 export function populateDescriptions(obs, t) {
 
-    // Save the original observation
     const originalObj = obs;
 
-
-    /**
-     * Utility function that finds all the "code" fields and adds a "description" field on their same level.
-     *
-     * @param {Object} obj - The object to manipulate.
-     * @param {Array<string>} path - The current path of the sub-property.
-     */
     const findAndPopulate = (obj, path) => {
 
-        // For each of the keys of the object
         Object.keys(obj).forEach(k => {
 
-            // If the key is one of the internal Mongoose properties, return
             if (k === "_id" || k === "uid" || k === "createdAt" || k === "updatedAt") return;
 
-            // Push the key into the path
             path.push(k);
 
-            // If the property is an object, call the function recursively
-            if (typeof obj[k] === "object") findAndPopulate(obj[k], path);
-
-            // Else if the key is "code"
-            else if (k === "code") {
-
-                // Pop the last segment of the path
+            if (typeof obj[k] === "object") {
+                findAndPopulate(obj[k], path)
+            } else if (k === "code") {
                 path.pop();
 
-                // Clone the path
                 let keyPath = [...path];
 
-                // If the object is in an array, remove the index from the key path
                 if (!isNaN(keyPath[keyPath.length - 1])) keyPath.pop();
 
                 const instrumentIdx = keyPath.indexOf("instrument");
-
                 if (instrumentIdx !== -1) keyPath.splice((instrumentIdx - 1), 1);
 
-                // Set the description field
                 _.set(
                     originalObj,
                     [...path, "description"],
                     t(`models:observations.${keyPath.join(".")}.${_.get(originalObj, [...path, "code"])}`)
                 );
 
-                // Re-put the lat segment of the path
                 path.push(k);
-
             }
 
-            // Pop the last segment of the path
             path.pop();
 
         });
 
     };
 
-    // Call the function
     findAndPopulate(obs, []);
 
 }
