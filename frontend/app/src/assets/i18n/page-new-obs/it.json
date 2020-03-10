@@ -161,7 +161,44 @@
       "turtles": "Tartarughe",
       "deceased": {
         "head": "Deceduti",
-        "number": "Numero"
+        "number-add": "Aggiungi numero",
+        "number-edit": "Modifica numero",
+        "number-header": "Numero di esemplari deceduti.",
+        "number-ph": "Inserisci il numero...",
+        "err-positive-number": "Inserisci un numero maggiore di 0."
+      },
+      "abnormal": {
+        "head": "Comportamenti anomali",
+        "details-add": "Aggiungi dettagli",
+        "details-edit": "Modifica dettagli",
+        "details-header": "Descrizione dei comportamenti anomali.",
+        "details-ph": "Descrivi i comportamenti..."
+      },
+      "alien": {
+        "head": "Specie aliene",
+        "species-add": "Aggiungi",
+        "species-edit": "Modifica",
+        "species-header": "Seleziona le specie aliene.",
+        "fish": {
+          "1": "Pseudorasbora"
+        },
+        "birds": {
+          "1": "Oca egiziana",
+          "2": "Ibis sacro"
+        },
+        "molluscs": {
+          "1": "Cozza dorata",
+          "2": "Cozza zebra",
+          "3": "Cozza cigno (o libbra)"
+        },
+        "crustaceans": {
+          "1": "Gambero americano",
+          "2": "Gambero della California",
+          "3": "Gambero rosso della Louisiana"
+        },
+        "turtles": {
+          "1": "Testuggine palustre americana"
+        }
       }
     }
   },

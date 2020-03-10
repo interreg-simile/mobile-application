@@ -42,11 +42,13 @@
 
 <ion-content class="bg-off-white custom-container">
 	
+	<!--suppress TypeScriptValidateTypes -->
 	<section *ngFor="let prop of _props | keyvalue: _originalOrder">
 		
 		<ion-card class="ion-no-margin card-radio-list">
 			
 			<ion-card-content>
+				
 				
 				<!-- Category  -->
 				<ion-item lines="none" class="no-bg">
@@ -59,15 +61,26 @@
 				
 				</ion-item>
 				
+				
 				<!-- Deceased -->
-				<ion-item *ngIf="prop.value.checked" class="no-bg sub-list ion-align-items-start">
+				<ion-item *ngIf="prop.value.checked" lines="none" class="no-bg sub-list">
 					
-					<ion-label>
+					<ion-label class="label-flex">
 						
-						<p>{{"page-new-obs.details.fauna.deceased.head" | translate}}</p>
+						<p class="head">{{"page-new-obs.details.fauna.deceased.head" | translate}}</p>
 						
-						<p *ngIf="prop.value.deceased.checked" >
-							{{"page-new-obs.details.fauna.deceased.number" | translate}}
+						<p *ngIf="prop.value.deceased.checked"
+						   class="link"
+						   (click)="onDeceasedNumberClick($event, prop.key)">
+							
+							<span *ngIf="!prop.value.deceased.number">
+								{{"page-new-obs.details.fauna.deceased.number-add" | translate}}
+							</span>
+							
+							<span *ngIf="prop.value.deceased.number">
+								{{"page-new-obs.details.fauna.deceased.number-edit" | translate}}
+							</span>
+						
 						</p>
 					
 					</ion-label>
@@ -77,6 +90,67 @@
 								  [(ngModel)]="prop.value.deceased.checked"></ion-checkbox>
 				
 				</ion-item>
+				
+				
+				<!-- Abnormal  -->
+				<ion-item *ngIf="prop.value.checked" lines="none" class="no-bg sub-list">
+					
+					<ion-label class="label-flex-col">
+						
+						<p class="head">{{"page-new-obs.details.fauna.abnormal.head" | translate}}</p>
+						
+						<p *ngIf="prop.value.abnormal.checked"
+						   class="link"
+						   (click)="onAbnormalDetailsClick($event, prop.key)">
+							
+							<span *ngIf="!prop.value.abnormal.details">
+								{{"page-new-obs.details.fauna.abnormal.details-add" | translate}}
+							</span>
+							
+							<span *ngIf="prop.value.abnormal.details">
+								{{"page-new-obs.details.fauna.abnormal.details-edit" | translate}}
+							</span>
+						
+						</p>
+					
+					</ion-label>
+					
+					<ion-checkbox slot="start"
+								  color="primary"
+								  [(ngModel)]="prop.value.abnormal.checked"></ion-checkbox>
+				
+				</ion-item>
+				
+				
+				<!-- Alien  -->
+				<ion-item *ngIf="prop.value.checked" lines="none" class="no-bg sub-list">
+					
+					<ion-label class="label-flex">
+						
+						<p class="head">{{"page-new-obs.details.fauna.alien.head" | translate}}</p>
+						
+						<p *ngIf="prop.value.alien.checked"
+						   class="link"
+						   (click)="onAlienSpeciesClick($event, prop.key)">
+							
+							<span *ngIf="prop.value.alien.species.length === 0">
+								{{"page-new-obs.details.fauna.alien.species-add" | translate}}
+							</span>
+							
+							<span *ngIf="prop.value.alien.species.length !== 0">
+								{{"page-new-obs.details.fauna.alien.species-edit" | translate}}
+							</span>
+						
+						</p>
+					
+					</ion-label>
+					
+					<ion-checkbox slot="start"
+								  color="primary"
+								  [(ngModel)]="prop.value.alien.checked"></ion-checkbox>
+				
+				</ion-item>
+			
 			
 			</ion-card-content>
 		

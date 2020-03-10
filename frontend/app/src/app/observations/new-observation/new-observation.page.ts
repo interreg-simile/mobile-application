@@ -9,7 +9,7 @@ import {
 } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
-import {LatLng} from "leaflet";
+import { LatLng } from "leaflet";
 
 import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
@@ -67,7 +67,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
     ngOnInit(): void {
 
         // ToDo delete
-        this.obsService.newObservation = new Observation(new LatLng(0,0), 0, true);
+        this.obsService.newObservation = new Observation(new LatLng(0, 0), 0, true);
 
         this._newObservation = this.obsService.newObservation;
         this._imageSrc[0]    = this.cameraService.getImgSrc(this._newObservation.photos[0]);
@@ -133,15 +133,17 @@ export class NewObservationPage implements OnInit, OnDestroy {
      */
     async onWeatherClick(name: "temperature" | "wind"): Promise<void> {
 
+        // ToDo subheader and placeholder
         const alert = await this.alertCtr.create({
-            inputs : [
+            backdropDismiss: false,
+            inputs         : [
                 {
                     name : "data",
                     type : "number",
                     value: this._newObservation.weather[name] ? this._newObservation.weather[name] : 0.0
                 }
             ],
-            buttons: [
+            buttons        : [
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
                 {
                     text   : this.i18n.instant("common.alerts.btn-ok"),

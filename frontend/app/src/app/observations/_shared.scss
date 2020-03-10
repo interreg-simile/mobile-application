@@ -20,6 +20,13 @@ ion-label { white-space : normal !important }
 }
 
 
+ion-input{
+
+  .text-input{ text-align: center }
+
+}
+
+
 ion-textarea {
   --background    : #FFFFFF;
   border          : 1px solid $color-border;
