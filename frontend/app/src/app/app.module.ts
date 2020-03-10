@@ -22,11 +22,13 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
 import { interceptorProviders } from "./shared/interceptors/interceptors";
 import { environment } from "../environments/environment";
+import { HelpModalComponent } from "./shared/helps/help-modal/help-modal.component";
+import { HelpPopoverComponent } from "./shared/helps/help-popover/help-popover.component";
 
 
 @NgModule({
-    declarations   : [AppComponent, PhotoViewerComponent],
-    entryComponents: [PhotoViewerComponent],
+    declarations   : [AppComponent, PhotoViewerComponent, HelpModalComponent, HelpPopoverComponent],
+    entryComponents: [PhotoViewerComponent, HelpModalComponent, HelpPopoverComponent],
     imports        : [
         BrowserModule,
         IonicModule.forRoot(),
@@ -83,6 +85,7 @@ export function translateLoader(http: HttpClient): ModuleTranslateLoader {
         nameSpaceUppercase: false,
         modules           : [
             { moduleName: "common", baseTranslateUrl, fileType },
+            { moduleName: "helps", baseTranslateUrl, fileType },
             { moduleName: "page-map", baseTranslateUrl, fileType },
             { moduleName: "page-new-obs", baseTranslateUrl, fileType },
             { moduleName: "page-info-obs", baseTranslateUrl, fileType },

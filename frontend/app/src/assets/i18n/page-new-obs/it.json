@@ -14,6 +14,8 @@
   "weather": {
     "title": "Meteo",
     "temperature": "Temperatura",
+    "temperature-head": "Specifica la temperatura in °C",
+    "temperature-ph": "Temperatura in °C",
     "sky": {
       "title": "Cielo",
       "1": "Cielo limpido",
@@ -24,6 +26,8 @@
       "6": "Nebbia"
     },
     "wind": "Vento",
+    "wind-head": "Specifica la velocità del vento in m/s",
+    "wind-ph": "Velocità del vento in m/s",
     "err": "Errore nella richista dei dati meteo."
   },
   "details": {

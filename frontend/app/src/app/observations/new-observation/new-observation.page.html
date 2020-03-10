@@ -19,7 +19,7 @@
 		<!-- Help button -->
 		<ion-buttons slot="end">
 			
-			<ion-button (click)="onHelpClick()">
+			<ion-button (click)="onHelpClick($event, 'o', helpsService.types.POPOVER)">
 				
 				<ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
 			
@@ -38,18 +38,20 @@
 	<!-- If the loading is done -->
 	<main *ngIf="!_isLoading">
 		
+		
 		<!-- Weather -->
 		<section id="weather">
 			
 			<div class="heading">
 				
-				<ion-icon ios="ios-sunny" md="md-sunny" class="main"></ion-icon>
+				<ion-icon name="sunny" class="main"></ion-icon>
 				
 				<p class="title">{{"page-new-obs.weather.title" | translate}}</p>
 				
-				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
+				<ion-icon name="help-circle-outline" class="btn-icon"
+						  (click)="onHelpClick($event, 'o2', helpsService.types.POPOVER)"></ion-icon>
 				
-				<ion-icon ios="ios-refresh" md="md-refresh"
+				<ion-icon name="refresh"
 						  class="btn-icon icon-right"
 						  (click)="onRefreshWeatherClick()"></ion-icon>
 			
@@ -91,7 +93,7 @@
 		
 		
 		<!-- Details -->
-		<section id="details" class="options-list">
+		<section id="details">
 			
 			
 			<div class="heading">
@@ -99,6 +101,9 @@
 				<ion-icon name="list" class="main"></ion-icon>
 				
 				<p class="title">{{"page-new-obs.details.title" | translate}}</p>
+				
+				<ion-icon name="help-circle-outline" class="btn-icon"
+						  (click)="onHelpClick($event, 'o3', helpsService.types.POPOVER)"></ion-icon>
 			
 			</div>
 			
@@ -107,29 +112,22 @@
 				
 				<ion-card-content class="ion-no-padding">
 					
-					<div *ngFor="let detail of _newObservation.details | keyvalue: originalOrder"
-						 class="ion-activatable ripple-parent">
+					<ion-item *ngFor="let detail of _newObservation.details | keyvalue: originalOrder"
+							  lines="none" detail>
 						
-						<div class="detail-item">
-							
-							<ion-checkbox [checked]="detail.value.checked"
-										  (click)="onDetailCheckboxClick($event, detail.value)"></ion-checkbox>
-							
-							<ion-label class="ion-no-margin" (click)="openDetailModal(detail.value.component)">
-								
-								{{"page-new-obs.details." + detail.key + ".title" | translate}}
-								
-								<ion-icon name="help-circle-outline"></ion-icon>
-								
-								<ion-icon name="ios-arrow-forward"></ion-icon>
-							
-							</ion-label>
+						<ion-checkbox slot="start"
+									  [checked]="detail.value.checked"
+									  (click)="onDetailCheckboxClick($event, detail.value)"></ion-checkbox>
 						
-						</div>
+						<ion-label (click)="openDetailModal(detail.value.component)">
+							
+							{{"page-new-obs.details." + detail.key + ".title" | translate}}
+						
+						</ion-label>
 						
 						<ion-ripple-effect></ion-ripple-effect>
 					
-					</div>
+					</ion-item>
 				
 				</ion-card-content>
 			
@@ -148,6 +146,9 @@
 				<ion-icon name="podium" class="main"></ion-icon>
 				
 				<p class="title">{{"page-new-obs.measures.title" | translate}}</p>
+				
+				<ion-icon name="help-circle-outline" class="btn-icon"
+						  (click)="onHelpClick($event, 'm', helpsService.types.POPOVER)"></ion-icon>
 			
 			</div>
 			
@@ -184,6 +185,9 @@
 				<ion-icon name="ios-more" class="main"></ion-icon>
 				
 				<p class="title">{{"page-new-obs.other.title" | translate}}</p>
+				
+				<!-- ToDo add click -->
+				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
 			
 			</div>
 			
@@ -200,9 +204,12 @@
 			
 			<div class="heading">
 				
-				<ion-icon ios="ios-camera" md="md-camera" class="main"></ion-icon>
+				<ion-icon name="camera" class="main"></ion-icon>
 				
 				<p class="title">{{"page-new-obs.photos" | translate}}</p>
+				
+				<ion-icon name="help-circle-outline" class="btn-icon"
+						  (click)="onHelpClick($event, 'o4', helpsService.types.POPOVER)"></ion-icon>
 			
 			</div>
 			

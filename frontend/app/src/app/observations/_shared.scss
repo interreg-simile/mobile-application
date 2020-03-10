@@ -20,9 +20,9 @@ ion-label { white-space : normal !important }
 }
 
 
-ion-input{
+ion-input {
 
-  .text-input{ text-align: center }
+  .text-input { text-align : center }
 
 }
 
@@ -118,7 +118,10 @@ section {
         padding   : 12px;
         color     : $text-tertiary;
 
-        &[name=ios-arrow-forward] { margin-left : auto }
+        &[name=ios-arrow-forward] {
+          margin-left : auto;
+          padding     : 0;
+        }
 
       }
 

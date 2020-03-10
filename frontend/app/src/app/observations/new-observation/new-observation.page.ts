@@ -19,6 +19,7 @@ import { MeasuresImpl, Observation } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
 import { Subscription } from "rxjs";
+import { HelpsService, HelpsTypes } from "../../shared/helps/helps.service";
 
 
 @Component({
@@ -61,7 +62,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 private toastService: ToastService,
                 private platform: Platform,
                 private logger: NGXLogger,
-                private events: Events) { }
+                private events: Events,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit(): void {
@@ -78,13 +80,21 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
         this._backButtonSub = this.platform.backButton.subscribeWithPriority(999, () => this.onClose());
 
-        this.openDetailModal(this._newObservation.details.fauna.component);
-
     }
 
 
-    // ToDo implement help
-    onHelpClick() { }
+    async onHelpClick(e: MouseEvent, textId: string, type: HelpsTypes) {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+        if (type === this.helpsService.types.POPOVER) {
+            await this.helpsService.openHelpPopover(e, textId);
+        }
+
+    }
 
 
     /**
@@ -133,21 +143,24 @@ export class NewObservationPage implements OnInit, OnDestroy {
      */
     async onWeatherClick(name: "temperature" | "wind"): Promise<void> {
 
-        // ToDo subheader and placeholder
         const alert = await this.alertCtr.create({
+            subHeader: this.i18n.instant(`page-new-obs.weather.${name}-head`),
             backdropDismiss: false,
             inputs         : [
                 {
                     name : "data",
                     type : "number",
-                    value: this._newObservation.weather[name] ? this._newObservation.weather[name] : 0.0
+                    placeholder: this.i18n.instant(`page-new-obs.weather.${name}-ph`),
+                    value: this._newObservation.weather[name]
                 }
             ],
             buttons        : [
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
                 {
                     text   : this.i18n.instant("common.alerts.btn-ok"),
-                    handler: data => { if (data.data) this._newObservation.weather[name] = data.data }
+                    handler: data => {
+                        if (data.data) this._newObservation.weather[name] = data.data
+                    }
                 }
             ]
         });
