@@ -4,6 +4,7 @@ import { ModalController } from "@ionic/angular";
 import { InstrumentService, SimpleInstrument } from "../instrument/instrument.service";
 import { ObservationsService } from "../../observations.service";
 import { Duration, ToastService } from "../../../shared/toast.service";
+import { HelpsService } from "../../../shared/helps/helps.service";
 
 
 interface Props {
@@ -28,7 +29,8 @@ export class OxygenComponent implements OnInit {
     constructor(private modalCtr: ModalController,
                 private obsService: ObservationsService,
                 private instrumentService: InstrumentService,
-                private toastService: ToastService) { }
+                private toastService: ToastService,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit(): void {
@@ -50,10 +52,6 @@ export class OxygenComponent implements OnInit {
         }
 
     }
-
-
-    // ToDo implement help
-    onHelpClick() { }
 
 
     /**

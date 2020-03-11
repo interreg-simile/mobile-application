@@ -267,13 +267,13 @@
       },
       "details": {
         "label": "Dettagli",
-        "placeholder": "Modello, materiale, specifiche..."
+        "placeholder": "Marca, modello, tolleranza..."
       }
     }
   },
   "other": {
     "title": "Altre informazioni",
-    "ph": "Massimo 250 caratteri..."
+    "ph": "Massimo 500 caratteri..."
   },
   "photos": "Foto",
   "btn-send": "Invia l'osservazione",

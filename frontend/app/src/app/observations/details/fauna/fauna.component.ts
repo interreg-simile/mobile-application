@@ -96,10 +96,6 @@ export class FaunaComponent implements OnInit {
     }
 
 
-    // ToDo implement help click
-    onHelpClick(): void { console.log(this._props) }
-
-
     /**
      * Fired when the user clicks to enter the number of deceased animals.
      *

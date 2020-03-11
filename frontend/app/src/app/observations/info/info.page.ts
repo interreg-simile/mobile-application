@@ -42,7 +42,7 @@ export class InfoPage implements OnInit {
 
         this.obsService.getObservationById(id)
             .then(obs => {
-                this._obs = obs;
+                this._obs       = obs;
                 this._isLoading = false;
             })
             .catch(err => {
@@ -75,9 +75,15 @@ export class InfoPage implements OnInit {
     }
 
 
+    /**
+     * Checks if a detail of the observation has some sub-properties set.
+     *
+     * @param {string} detailPath - The path of the detail.
+     * @return {boolean} If the detail has some sub-properties.
+     */
     hasDetailProperties(detailPath: string): boolean {
 
-        const prop = get(this._obs,  detailPath);
+        const prop = get(this._obs, detailPath);
 
         return Object.keys(prop).some(k => k !== "checked");
 
@@ -85,11 +91,22 @@ export class InfoPage implements OnInit {
 
 
     /**
-     * Fired when the user click on the preview of a photo. It open the photo in a viewer.
+     * Fired when the user click on the preview of a photo. It opens the photo in a viewer.
      *
      * @param {string} src - The source of the image.
      */
-    onThumbnailClick(src: string): void { this.photoViewer.show(src) }
+    onThumbnailClick(src: string): void {
+
+        this.photoViewer.show(
+            src,
+            "",
+            {
+                share      : false,
+                closeButton: true
+            }
+        );
+
+    }
 
 
 }

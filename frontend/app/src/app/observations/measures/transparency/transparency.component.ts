@@ -4,6 +4,7 @@ import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
 import { InstrumentService, SimpleInstrument } from "../instrument/instrument.service";
 import { Duration, ToastService } from "../../../shared/toast.service";
+import { HelpsService } from "../../../shared/helps/helps.service";
 
 
 interface Props {
@@ -25,7 +26,8 @@ export class TransparencyComponent implements OnInit {
     constructor(private modalCtr: ModalController,
                 private obsService: ObservationsService,
                 private instrumentService: InstrumentService,
-                private toastService: ToastService) { }
+                private toastService: ToastService,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit(): void {
@@ -34,10 +36,6 @@ export class TransparencyComponent implements OnInit {
         this.instrumentService.setInstrumentProps(this._props.instrument, "transparency");
 
     }
-
-
-    // ToDo implement help
-    onHelpClick() { }
 
 
     /**

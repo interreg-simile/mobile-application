@@ -19,7 +19,7 @@
 		<!-- Help button -->
 		<ion-buttons slot="end">
 			
-			<ion-button (click)="onHelpClick($event, 'o', helpsService.types.POPOVER)">
+			<ion-button (click)="helpsService.openHelpPopover($event, 'o')">
 				
 				<ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
 			
@@ -49,7 +49,7 @@
 				<p class="title">{{"page-new-obs.weather.title" | translate}}</p>
 				
 				<ion-icon name="help-circle-outline" class="btn-icon"
-						  (click)="onHelpClick($event, 'o2', helpsService.types.POPOVER)"></ion-icon>
+						  (click)="helpsService.openHelpPopover($event, 'o2')"></ion-icon>
 				
 				<ion-icon name="refresh"
 						  class="btn-icon icon-right"
@@ -103,7 +103,7 @@
 				<p class="title">{{"page-new-obs.details.title" | translate}}</p>
 				
 				<ion-icon name="help-circle-outline" class="btn-icon"
-						  (click)="onHelpClick($event, 'o3', helpsService.types.POPOVER)"></ion-icon>
+						  (click)="helpsService.openHelpPopover($event, 'o3')"></ion-icon>
 			
 			</div>
 			
@@ -124,8 +124,6 @@
 							{{"page-new-obs.details." + detail.key + ".title" | translate}}
 						
 						</ion-label>
-						
-						<ion-ripple-effect></ion-ripple-effect>
 					
 					</ion-item>
 				
@@ -148,7 +146,7 @@
 				<p class="title">{{"page-new-obs.measures.title" | translate}}</p>
 				
 				<ion-icon name="help-circle-outline" class="btn-icon"
-						  (click)="onHelpClick($event, 'm', helpsService.types.POPOVER)"></ion-icon>
+						  (click)="helpsService.openHelpPopover($event, 'm')"></ion-icon>
 			
 			</div>
 			
@@ -186,13 +184,13 @@
 				
 				<p class="title">{{"page-new-obs.other.title" | translate}}</p>
 				
-				<!-- ToDo add click -->
-				<ion-icon name="help-circle-outline" class="btn-icon"></ion-icon>
+				<ion-icon name="help-circle-outline" class="btn-icon"
+						  (click)="helpsService.openHelpPopover($event, 'o5')"></ion-icon>
 			
 			</div>
 			
 			<ion-textarea placeholder="{{'page-new-obs.other.ph' | translate}}"
-						  maxlength="250"
+						  maxlength="500"
 						  rows="3"
 						  [(ngModel)]="_newObservation.other"></ion-textarea>
 		
@@ -209,7 +207,7 @@
 				<p class="title">{{"page-new-obs.photos" | translate}}</p>
 				
 				<ion-icon name="help-circle-outline" class="btn-icon"
-						  (click)="onHelpClick($event, 'o4', helpsService.types.POPOVER)"></ion-icon>
+						  (click)="helpsService.openHelpPopover($event, 'o4')"></ion-icon>
 			
 			</div>
 			

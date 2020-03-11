@@ -7,7 +7,7 @@
 			
 			<ion-button (click)="closeModal(false)">
 				
-				<ion-icon ios="ios-close" md="md-close"></ion-icon>
+				<ion-icon name="close"></ion-icon>
 			
 			</ion-button>
 		
@@ -20,7 +20,7 @@
 		<ion-buttons slot="end">
 			
 			<!-- Help button -->
-			<ion-button (click)="onHelpClick()">
+			<ion-button (click)="helpsService.openHelpModal('m1')">
 				
 				<ion-icon name="help-circle-outline"></ion-icon>
 			
@@ -29,7 +29,7 @@
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
 				
-				<ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+				<ion-icon name="checkmark"></ion-icon>
 			
 			</ion-button>
 		

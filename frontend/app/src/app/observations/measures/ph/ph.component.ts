@@ -4,6 +4,7 @@ import { InstrumentService, SimpleInstrument } from "../instrument/instrument.se
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
 import { Duration, ToastService } from "../../../shared/toast.service";
+import { HelpsService } from "../../../shared/helps/helps.service";
 
 
 interface Props {
@@ -27,7 +28,8 @@ export class PhComponent implements OnInit {
     constructor(private modalCtr: ModalController,
                 private obsService: ObservationsService,
                 private instrumentService: InstrumentService,
-                private toastService: ToastService) { }
+                private toastService: ToastService,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit(): void {
@@ -48,10 +50,6 @@ export class PhComponent implements OnInit {
         }
 
     }
-
-
-    // ToDo implement help
-    onHelpClick() { }
 
 
     /**

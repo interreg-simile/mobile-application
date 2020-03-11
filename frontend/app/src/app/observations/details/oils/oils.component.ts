@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Oils } from "../../observation.model";
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
+import { HelpsService } from "../../../shared/helps/helps.service";
 
 
 interface Props {
@@ -16,7 +17,9 @@ export class OilsComponent implements OnInit {
     public _props: Props = {};
 
 
-    constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
+    constructor(private modalCtr: ModalController,
+                private obsService: ObservationsService,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit() {
@@ -25,11 +28,6 @@ export class OilsComponent implements OnInit {
         this._props.type      = this.obsService.newObservation.details.oils.type.code;
 
     }
-
-
-    // ToDo implement help
-    onHelpClick() { }
-
 
 
     /**

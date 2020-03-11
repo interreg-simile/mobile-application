@@ -44,7 +44,7 @@ p { margin : 0 }
 
 /* Cards */
 .card-header {
-  font-size      : 14px;
+  font-size      : $font-body-small;
   color          : $text-card-header;
   text-transform : uppercase;
   padding-bottom : 16px;

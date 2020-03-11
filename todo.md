@@ -14,10 +14,8 @@
 
 - [ ] Ristrutturare la sezione Fauna
 
-- [ ] Implementare pagine help
-
-- [ ] Decidere cosa mettere nel campo di testo "altro" nella nuova osservazione
-    - [ ] Prima delle foto
+- [x] Implementare pagine help
+    - [ ] Aspettare testi/immagini mancanti
 
 
 #### Done

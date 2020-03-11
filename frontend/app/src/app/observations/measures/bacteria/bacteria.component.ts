@@ -3,6 +3,7 @@ import { InstrumentService } from "../instrument/instrument.service";
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
 import { Duration, ToastService } from "../../../shared/toast.service";
+import { HelpsService } from "../../../shared/helps/helps.service";
 
 
 interface Props {
@@ -24,7 +25,8 @@ export class BacteriaComponent implements OnInit {
     constructor(private modalCtr: ModalController,
                 private obsService: ObservationsService,
                 private instrumentService: InstrumentService,
-                private toastService: ToastService) { }
+                private toastService: ToastService,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit(): void {
@@ -33,10 +35,6 @@ export class BacteriaComponent implements OnInit {
         this._props.enterococci     = this.obsService.newObservation.measures.bacteria.enterococci;
 
     }
-
-
-    // ToDo implement help
-    onHelpClick() { }
 
 
     /**

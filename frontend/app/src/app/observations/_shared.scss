@@ -17,6 +17,7 @@ ion-label { white-space : normal !important }
   font-size : $font-title;
   padding   : 12px;
   color     : $text-tertiary;
+  z-index   : 999;
 }
 
 
@@ -31,6 +32,20 @@ ion-textarea {
   --background    : #FFFFFF;
   border          : 1px solid $color-border;
   --border-radius : 5px;
+}
+
+
+.card-header {
+  display     : flex;
+  align-items : center;
+  padding     : 0;
+
+  .btn-icon {
+    font-size : $font-body;
+    padding   : 16px 12px;
+    color     : $text-tertiary;
+  }
+
 }
 
 
@@ -50,8 +65,6 @@ section {
   margin-bottom : 32px;
 
   &.last { margin-bottom : 24px }
-
-  &.instrument { padding-top : 16px }
 
 }
 
@@ -165,8 +178,6 @@ section {
 
 
 .measure-type {
-
-  .card-header { padding-bottom : 8px }
 
   ion-segment { margin-bottom : 24px }
 

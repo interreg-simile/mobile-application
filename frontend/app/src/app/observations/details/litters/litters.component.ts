@@ -45,11 +45,6 @@ export class LittersComponent implements OnInit {
 
     }
 
-
-    // ToDo implement help
-    onHelpClick() { }
-
-
     /**
      * Closes the modal and handle the data saving process.
      *

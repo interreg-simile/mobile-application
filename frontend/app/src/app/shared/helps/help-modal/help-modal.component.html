@@ -1,3 +1,32 @@
-<p>
-  help-modal works!
-</p>
+<ion-header>
+	
+	<ion-toolbar>
+		
+		<!-- Back button -->
+		<ion-buttons slot="start">
+			
+			<ion-button (click)="closeModal()">
+				
+				<ion-icon name="arrow-back"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+		
+		<!-- Title -->
+		<ion-title>{{"helps." + _id + ".title" | translate}}</ion-title>
+	
+	</ion-toolbar>
+
+</ion-header>
+
+<ion-content class="bg-off-white custom-container">
+	
+	<ion-img [src]="'assets/images/helps/' + _id + '.jpg'"
+			 (click)="onImgClick('assets/images/helps/' + _id + '.jpg')"
+			 alt="Help image"
+			 class="ion-margin-bottom"></ion-img>
+
+	<div [innerHTML]="_text"></div>
+
+</ion-content>

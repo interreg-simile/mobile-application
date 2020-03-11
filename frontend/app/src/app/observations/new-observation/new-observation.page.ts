@@ -19,7 +19,7 @@ import { MeasuresImpl, Observation } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
 import { Subscription } from "rxjs";
-import { HelpsService, HelpsTypes } from "../../shared/helps/helps.service";
+import { HelpsService } from "../../shared/helps/helps.service";
 
 
 @Component({
@@ -79,20 +79,6 @@ export class NewObservationPage implements OnInit, OnDestroy {
             .finally(() => this._isLoading = false);
 
         this._backButtonSub = this.platform.backButton.subscribeWithPriority(999, () => this.onClose());
-
-    }
-
-
-    async onHelpClick(e: MouseEvent, textId: string, type: HelpsTypes) {
-
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        e.cancelBubble = true;
-        e.stopPropagation();
-
-        if (type === this.helpsService.types.POPOVER) {
-            await this.helpsService.openHelpPopover(e, textId);
-        }
 
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
+import { HelpsService } from "../../../shared/helps/helps.service";
 
 
 interface Props {
@@ -16,7 +17,9 @@ export class FoamsComponent implements OnInit {
     public _props: Props = {};
 
 
-    constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
+    constructor(private modalCtr: ModalController,
+                private obsService: ObservationsService,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit() {
@@ -28,10 +31,6 @@ export class FoamsComponent implements OnInit {
     }
 
 
-    // ToDo implement help
-    onHelpClick() { }
-
-
     /**
      * Closes the modal and handle the data saving process.
      *
@@ -41,7 +40,7 @@ export class FoamsComponent implements OnInit {
 
         if (save) {
 
-            this.obsService.newObservation.details.foams.checked = true;
+            this.obsService.newObservation.details.foams.checked        = true;
             this.obsService.newObservation.details.foams.extension.code = this._props.extension;
             this.obsService.newObservation.details.foams.look.code      = this._props.look;
             this.obsService.newObservation.details.foams.height.code    = this._props.height;

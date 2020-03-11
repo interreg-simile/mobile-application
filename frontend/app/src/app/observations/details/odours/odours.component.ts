@@ -28,11 +28,6 @@ export class OdoursComponent implements OnInit {
     }
 
 
-    // ToDo implement help
-    onHelpClick() { }
-
-
-
     /**
      * Fired when a change event is fired by the origin checkbox group.
      *

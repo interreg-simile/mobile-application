@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
+import { HelpsService } from "../../../shared/helps/helps.service";
 
 
 interface Props {
@@ -29,7 +30,9 @@ export class AlgaeComponent implements OnInit {
     originalOrder = (a, b) => { return 0 };
 
 
-    constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
+    constructor(private modalCtr: ModalController,
+                private obsService: ObservationsService,
+                public helpsService: HelpsService) { }
 
 
     ngOnInit(): void {
@@ -44,10 +47,6 @@ export class AlgaeComponent implements OnInit {
         if (this._props.colour) this._colours[this._props.colour].selected = true;
 
     }
-
-
-    // ToDo implement help
-    onHelpClick() { }
 
 
     /**

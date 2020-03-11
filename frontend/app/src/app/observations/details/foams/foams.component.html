@@ -7,7 +7,7 @@
 			
 			<ion-button (click)="closeModal(false)">
 				
-				<ion-icon ios="ios-close" md="md-close"></ion-icon>
+				<ion-icon name="close"></ion-icon>
 			
 			</ion-button>
 		
@@ -19,17 +19,10 @@
 		<!-- Right buttons -->
 		<ion-buttons slot="end">
 			
-			<!-- Help button -->
-			<ion-button (click)="onHelpClick()">
-				
-				<ion-icon name="help-circle-outline"></ion-icon>
-			
-			</ion-button>
-			
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
 				
-				<ion-icon ios="ios-checkmark" md="md-checkmark"></ion-icon>
+				<ion-icon name="checkmark"></ion-icon>
 			
 			</ion-button>
 		
@@ -89,7 +82,8 @@
 							
 							{{"page-new-obs.details.foams.look." + i | translate}}
 							
-							<ion-icon name="help-circle-outline" class="help-icon"></ion-icon>
+							<ion-icon name="help-circle-outline" class="help-icon"
+									  (click)="helpsService.openHelpModal('o3.2' + i)"></ion-icon>
 						
 						</ion-label>
 						

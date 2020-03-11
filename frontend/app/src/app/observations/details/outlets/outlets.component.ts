@@ -65,10 +65,6 @@ export class OutletsComponent implements OnInit {
     }
 
 
-    // ToDo implement help
-    onHelpClick() { }
-
-
     /**
      * Handles a change in the selected colour.
      *
