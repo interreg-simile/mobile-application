@@ -119,7 +119,7 @@
 									  [checked]="detail.value.checked"
 									  (click)="onDetailCheckboxClick($event, detail.value)"></ion-checkbox>
 						
-						<ion-label (click)="openDetailModal(detail.value.component)">
+						<ion-label class="clickable" (click)="onDetailLabelClick($event, detail.value.component)">
 							
 							{{"page-new-obs.details." + detail.key + ".title" | translate}}
 						

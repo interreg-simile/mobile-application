@@ -40,7 +40,7 @@
 								  [checked]="measure.value.checked"
 								  (click)="onMeasureCheckboxClick($event, measure.value)"></ion-checkbox>
 					
-					<ion-label (click)="openMeasureModal(measure.value.component)">
+					<ion-label class="clickable" (click)="onMeasureLabelClick($event, measure.value.component)">
 						
 						{{"page-new-obs.measures." + measure.key + ".title" | translate}}
 					

@@ -40,14 +40,3 @@ ion-card { --color : #{$text-secondary} }
   }
 
 }
-
-
-.details {
-
-  ion-textarea {
-    --background  : #FFFFFF;
-    border-radius : 5px;
-    border        : 1px solid $color-border;
-  }
-
-}

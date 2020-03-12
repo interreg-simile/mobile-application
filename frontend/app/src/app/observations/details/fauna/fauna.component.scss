@@ -6,52 +6,16 @@ $indent : 16px;
 .custom-container { --padding-top : 24px }
 
 
-.card-radio-list {
-
-  ion-card-content {
-
-    .sub-list {
-
-      ion-radio, ion-checkbox { margin : 0 16px 0 $indent }
-
-      p {
-        color : #000000;
-
-        &.link {
-          color   : var(--ion-color-primary);
-          z-index : 999;
-        }
-
-      }
-
-      .label-flex {
-        width           : 100%;
-        display         : flex;
-        justify-content : space-between;
-        align-items     : center;
-
-        .head { flex : 1 }
-
-      }
-
-      .label-flex-col {
-        width          : 100%;
-        display        : flex;
-        flex-direction : column;
-      }
-
-    }
-
-  }
-
+.sub-property {
+  margin      : 0 16px 8px 16px;
+  color       : #000000;
 }
 
 
-.item-container {
-  padding-left : 16px;
+.deceased-number {
+  display     : flex;
+  align-items : center;
 
-  ion-item { --padding-start : 0 }
-
-  ion-textarea { margin-top : 0 }
+  p { margin-right : 16px }
 
 }

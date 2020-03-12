@@ -68,9 +68,6 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        // ToDo delete
-        this.obsService.newObservation = new Observation(new LatLng(0, 0), 0, true);
-
         this._newObservation = this.obsService.newObservation;
         this._imageSrc[0]    = this.cameraService.getImgSrc(this._newObservation.photos[0]);
 
@@ -79,9 +76,6 @@ export class NewObservationPage implements OnInit, OnDestroy {
             .finally(() => this._isLoading = false);
 
         this._backButtonSub = this.platform.backButton.subscribeWithPriority(999, () => this.onClose());
-
-        // ToDo delete
-        this.openDetailModal(this._newObservation.details.fauna.component);
 
     }
 
@@ -198,9 +192,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
      *
      * @param {MouseEvent} e - The click event.
      * @param {Object} detail - The detail object.
-     * @return {boolean} It returns false to stop the normal event propagation.
      */
-    onDetailCheckboxClick(e: MouseEvent, detail: any): boolean {
+    async onDetailCheckboxClick(e: MouseEvent, detail: any): Promise<void> {
 
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -208,13 +201,30 @@ export class NewObservationPage implements OnInit, OnDestroy {
         e.stopPropagation();
 
         if (!detail.checked)
-            this.openDetailModal(detail.component);
+            await this.openDetailModal(detail.component);
         else
             detail.checked = false;
 
-        return false;
+    }
+
+
+    /**
+     * Fired when the user clicks on the label of a detail. It opens the modal associated with the detail.
+     *
+     * @param {MouseEvent} e - The click event.
+     * @param {Object} component - The detail component.
+     */
+    async onDetailLabelClick(e: MouseEvent, component: any): Promise<void> {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+        await this.openDetailModal(component);
 
     }
+
 
     /**
      * Opens a modal for editing a detail.

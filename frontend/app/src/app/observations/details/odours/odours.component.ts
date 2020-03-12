@@ -19,7 +19,7 @@ export class OdoursComponent implements OnInit {
     constructor(private modalCtr: ModalController, private obsService: ObservationsService) { }
 
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         this._props.intensity = this.obsService.newObservation.details.odours.intensity.code;
         this._props.origin     = [];
@@ -33,10 +33,12 @@ export class OdoursComponent implements OnInit {
      *
      * @param {CustomEvent} e - The change event.
      */
-    onTypeChange(e) {
+    onTypeChange(e): void {
 
-        if (e.detail.checked) this._props.origin.push(parseInt(e.detail.value));
-        else this._props.origin = this._props.origin.filter(t => t !== parseInt(e.detail.value));
+        if (e.detail.checked)
+            this._props.origin.push(parseInt(e.detail.value));
+        else
+            this._props.origin = this._props.origin.filter(t => t !== parseInt(e.detail.value));
 
     }
 
@@ -46,7 +48,7 @@ export class OdoursComponent implements OnInit {
      *
      * @param {Boolean} save - True if the modifications done in the modal are to be saved.
      */
-    async closeModal(save: boolean) {
+    async closeModal(save: boolean): Promise<void> {
 
         if (save) {
 

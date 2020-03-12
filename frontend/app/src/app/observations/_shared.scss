@@ -3,7 +3,12 @@
 $color-border : #E1E1E1;
 
 
-ion-label { white-space : normal !important }
+ion-label {
+  white-space : normal !important;
+
+  &.clickable { z-index : 999 }
+
+}
 
 
 .label-icon {
@@ -29,9 +34,9 @@ ion-input {
 
 
 ion-textarea {
-  --background    : #FFFFFF;
-  border          : 1px solid $color-border;
-  --border-radius : 5px;
+  --background  : #FFFFFF;
+  border        : 1px solid $color-border;
+  border-radius : 5px;
 }
 
 

@@ -28,7 +28,7 @@ export class HubComponent implements OnInit {
      * @param {Object} measure - The detail object.
      * @return {boolean} It returns false to stop the normal event propagation.
      */
-    onMeasureCheckboxClick(e: MouseEvent, measure: any) {
+    async onMeasureCheckboxClick(e: MouseEvent, measure: any): Promise<void> {
 
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -36,13 +36,30 @@ export class HubComponent implements OnInit {
         e.stopPropagation();
 
         if (!measure.checked)
-            this.openMeasureModal(measure.component);
+            await this.openMeasureModal(measure.component);
         else
             measure.checked = false;
 
-        return false;
+    }
+
+
+    /**
+     * Fired when the user clicks on the label of a measure. It opens the modal associated with the measure.
+     *
+     * @param {MouseEvent} e - The click event.
+     * @param {Object} component - The measure component.
+     */
+    async onMeasureLabelClick(e: MouseEvent, component: any): Promise<void> {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+        await this.openMeasureModal(component);
 
     }
+
 
 
     /**

@@ -75,7 +75,7 @@ const vWeather = [
 
 function vDetailCheck(detail) {
 
-    return [ body(`details.${detail}.checked`).optional().isBoolean() ]
+    return [body(`details.${detail}.checked`).optional().isBoolean()]
 
 }
 
@@ -162,7 +162,7 @@ function vSubFauna(property) {
     return [
         ...vDetailCheck(`fauna.${property}`),
         ...vDetailCheck(`fauna.${property}.deceased`),
-        body(`details.fauna.${property}.deceased.number`).optional().isInt(),
+        body(`details.fauna.${property}.deceased.number`).optional().isInt({ min: 0 }),
         ...vDetailCheck(`fauna.${property}.abnormal`),
         body(`details.fauna.${property}.abnormal.details`).optional().escape().trim(),
         ...vDetailCheck(`fauna.${property}.alien`),
