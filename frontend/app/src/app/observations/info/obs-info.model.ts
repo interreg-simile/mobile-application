@@ -69,27 +69,40 @@ interface Details {
         prodActNearbyDetails?: string
     },
 
-    // fauna?: {
-    //     open?: boolean,
-    //     checked?: boolean,
-    //     deceased?: {
-    //         fish?: { checked: boolean, details: string },
-    //         birds?: { checked: boolean, details: string },
-    //         other?: { checked: boolean, details: string },
-    //     },
-    //     abnormal?: {
-    //         fish?: { checked: boolean, details: string },
-    //         birds?: { checked: boolean, details: string },
-    //         other?: { checked: boolean, details: string }
-    //     },
-    //     alienSpecies?: {
-    //         crustaceans?: { checked: boolean, details: string },
-    //         molluscs?: { checked: boolean, details: string },
-    //         turtles?: { checked: boolean, details: string },
-    //         fish?: { checked: boolean, details: string },
-    //         other?: { checked: boolean, details: string },
-    //     }
-    // }
+    fauna?: {
+        open?: boolean,
+        checked?: boolean,
+        fish?: {
+            checked?: boolean,
+            deceased?: { checked?: boolean, number?: number },
+            abnormal?: { checked?: boolean, details?: string },
+            alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
+        },
+        birds?: {
+            checked?: boolean,
+            deceased?: { checked?: boolean, number?: number },
+            abnormal?: { checked?: boolean, details?: string },
+            alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
+        },
+        molluscs?: {
+            checked?: boolean,
+            deceased?: { checked?: boolean, number?: number },
+            abnormal?: { checked?: boolean, details?: string },
+            alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
+        },
+        crustaceans?: {
+            checked?: boolean,
+            deceased?: { checked?: boolean, number?: number },
+            abnormal?: { checked?: boolean, details?: string },
+            alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
+        },
+        turtles?: {
+            checked?: boolean,
+            deceased?: { checked?: boolean, number?: number },
+            abnormal?: { checked?: boolean, details?: string },
+            alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
+        }
+    }
 
 }
 

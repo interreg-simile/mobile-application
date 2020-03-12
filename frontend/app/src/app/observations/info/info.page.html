@@ -10,15 +10,15 @@
 		</ion-buttons>
 		
 		<!-- Delete button -->
-		<ion-buttons slot="end" *ngIf="!_isLoading && _obs?.uid === _userId">
-			
-			<ion-button (click)="onDeleteClick()">
-				
-				<ion-icon name="trash"></ion-icon>
-			
-			</ion-button>
-		
-		</ion-buttons>
+<!--		<ion-buttons slot="end" *ngIf="!_isLoading && _obs?.uid === _userId">-->
+<!--			-->
+<!--			<ion-button (click)="onDeleteClick()">-->
+<!--				-->
+<!--				<ion-icon name="trash"></ion-icon>-->
+<!--			-->
+<!--			</ion-button>-->
+<!--		-->
+<!--		</ion-buttons>-->
 	
 	</ion-toolbar>
 
@@ -257,7 +257,8 @@
 					  [ngClass]="_obs.details.litters.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="hasDetailProperties('details.litters') ? onToggleClick('details.litters') : null">
+				<ion-card-header
+						(click)="hasDetailProperties('details.litters') ? onToggleClick('details.litters') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.litters.head" | translate}}</ion-card-subtitle>
 					
@@ -276,8 +277,11 @@
 					
 					<!-- Type -->
 					<p class="row" *ngIf="_obs.details.litters.type">
+						
 						<span class="prop-name">{{"page-info-obs.details.litters.label-type" | translate}}</span>
+						
 						{{_obs.details.litters.type | joinDetails}}
+					
 					</p>
 				
 				</ion-card-content>
@@ -290,7 +294,8 @@
 					  [ngClass]="_obs.details.odours.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="hasDetailProperties('details.odours') ? onToggleClick('details.odours') : null">
+				<ion-card-header
+						(click)="hasDetailProperties('details.odours') ? onToggleClick('details.odours') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.odours.head" | translate}}</ion-card-subtitle>
 					
@@ -323,7 +328,8 @@
 					  [ngClass]="_obs.details.outlets.open ? 'open' : ''">
 				
 				<!-- Header -->
-				<ion-card-header (click)="hasDetailProperties('details.outlets') ? onToggleClick('details.outlets') : null">
+				<ion-card-header
+						(click)="hasDetailProperties('details.outlets') ? onToggleClick('details.outlets') : null">
 					
 					<ion-card-subtitle>{{"page-info-obs.details.outlets.head" | translate}}</ion-card-subtitle>
 					
@@ -393,9 +399,94 @@
 					</p>
 					
 					<!-- Production activities details -->
-					<div class="free-text" *ngIf="_obs.details.outlets.prodActNearbyDetails">
+					<div *ngIf="_obs.details.outlets.prodActNearbyDetails">
+						
 						<p class="prop-name">{{"page-info-obs.details.outlets.label-prod-activities-details" | translate}}</p>
+						
 						<p>{{_obs.details.outlets.prodActNearbyDetails}}</p>
+					
+					</div>
+				
+				</ion-card-content>
+			
+			</ion-card>
+			
+			<!-- Fauna -->
+			<ion-card *ngIf="_obs.details.fauna"
+					  class="ion-no-margin sub-section-space"
+					  [ngClass]="_obs.details.fauna.open ? 'open' : ''">
+				
+				<!-- Header -->
+				<ion-card-header
+						(click)="hasDetailProperties('details.fauna') ? onToggleClick('details.fauna') : null">
+					
+					<ion-card-subtitle>{{"page-info-obs.details.fauna.head" | translate}}</ion-card-subtitle>
+					
+					<i [ngStyle]="{'visibility': hasDetailProperties('details.fauna') ? 'visible' : 'hidden'}"
+					   class="material-icons">keyboard_arrow_down</i>
+				
+				</ion-card-header>
+				
+				<ion-card-content *ngIf="_obs.details.fauna.open">
+					
+					<div *ngFor="let category of _obs.details.fauna | keyvalue: originalOrder">
+						
+						<div *ngIf="category.key.toString() !== 'checked' && category.key.toString() !== 'open'"
+							 [class]="category.key.toString() === 'turtles' ? '' : 'fauna-category'">
+							
+							<p class="sub-header">
+								{{"page-info-obs.details.fauna." + category.key | translate}}
+							</p>
+							
+							<!-- Deceased -->
+							<p class="row" *ngIf="category.value.deceased">
+								
+								<span class="prop-name">{{"page-info-obs.details.fauna.label-deceased" | translate}}</span>
+								
+								<span *ngIf="category.value.deceased.number">
+								{{category.value.deceased.number}}
+							</span>
+								
+								<span *ngIf="!category.value.deceased.number">
+								{{"page-info-obs.yes" | translate}}
+							</span>
+							
+							</p>
+							
+							<!-- Abnormal -->
+							<div [class]="category.value.abnormal.details ? '' : 'row'"
+								 *ngIf="category.value.abnormal">
+								
+								<p class="prop-name">{{"page-info-obs.details.fauna.label-abnormal" | translate}}</p>
+								
+								<p *ngIf="category.value.abnormal.details">
+									{{category.value.abnormal.details}}
+								</p>
+								
+								<span *ngIf="!category.value.abnormal.details">
+									{{"page-info-obs.yes" | translate}}
+								</span>
+							
+							</div>
+							
+							<!-- Alien -->
+							<div [class]="category.value.alien.species ? '' : 'row'"
+								 *ngIf="category.value.alien">
+								
+								<p class="prop-name">{{"page-info-obs.details.fauna.label-alien" | translate}}</p>
+								
+								<p *ngIf="category.value.alien.species">
+									{{category.value.alien.species | joinDetails}}
+								</p>
+								
+								<span *ngIf="!category.value.alien.species">
+									{{"page-info-obs.yes" | translate}}
+								</span>
+							
+							</div>
+						
+						</div>
+					
 					</div>
 				
 				</ion-card-content>

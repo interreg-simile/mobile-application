@@ -20,6 +20,9 @@ export class InfoPage implements OnInit {
     public _obs: ObsInfo;
     public _userId: string;
 
+    // Utility function to keep the original key order when iterating on an object using ngFor
+    originalOrder = (a, b) => { return 0 };
+
 
     constructor(private activatedRoute: ActivatedRoute,
                 private navCtr: NavController,

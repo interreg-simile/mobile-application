@@ -105,7 +105,7 @@ export class FaunaComponent implements OnInit {
         if (e.detail.checked)
             this._props[key].alien.species.push(parseInt(e.detail.value));
         else
-            this._props[key].alien.species =this._props[key].alien.species.filter(t => t !== parseInt(e.detail.value));
+            this._props[key].alien.species = this._props[key].alien.species.filter(t => t !== parseInt(e.detail.value));
 
     }
 
@@ -156,6 +156,7 @@ export class FaunaComponent implements OnInit {
 
                 if (this._props[k].alien.checked) {
                     newObsFauna[k].alien.checked = true;
+                    newObsFauna[k].alien.species = [];
                     this._props[k].alien.species.forEach(t => newObsFauna[k].alien.species.push({ code: t }));
                 } else {
                     this.resetObsAlien(k);

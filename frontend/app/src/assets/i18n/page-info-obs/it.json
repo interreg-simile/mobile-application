@@ -55,6 +55,17 @@
       "label-signage-photo": "Foto della segnaletica",
       "label-prod-activities": "Attività produttive nelle vicinanze",
       "label-prod-activities-details": "Dettagli sulle attività produttive"
+    },
+    "fauna": {
+      "head": "Fauna",
+      "label-deceased": "Esemplari deceduti",
+      "label-abnormal": "Comportamenti anomali",
+      "label-alien": "Specie aliene",
+      "fish": "Pesci",
+      "birds": "Uccelli",
+      "molluscs": "Molluschi",
+      "crustaceans": "Crostacei",
+      "turtles": "Tartarughe"
     }
   },
   "measures": {

@@ -125,11 +125,10 @@ export class ObservationsService {
 
             if (k === "fauna") {
 
-                if (obs.details[k].fish.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
-                if (obs.details[k].birds.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
-                if (obs.details[k].molluscs.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
-                if (obs.details[k].crustaceans.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
-                if (obs.details[k].turtles.alien.species.length === 0) obs.details[k].fish.alien.species = undefined;
+                Object.keys(obs.details.fauna).forEach(f => {
+                    if (obs.details.fauna[f].alien.species.length === 0)
+                        obs.details.fauna[f].alien.species = undefined
+                });
 
             }
 
