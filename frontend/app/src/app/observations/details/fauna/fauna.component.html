@@ -64,7 +64,7 @@
 						
 						<p *ngIf="prop.value.deceased.checked"
 						   class="link"
-						   (click)="onDeceasedNumberClick($event, prop.key)">
+						   (click)="onDeceasedNumberClick($event, prop.key.toString())">
 							
 							<span *ngIf="!prop.value.deceased.number">
 								{{"page-new-obs.details.fauna.deceased.number-add" | translate}}
@@ -94,7 +94,7 @@
 						
 						<p *ngIf="prop.value.abnormal.checked"
 						   class="link"
-						   (click)="onAbnormalDetailsClick($event, prop.key)">
+						   (click)="onAbnormalDetailsClick($event, prop.key.toString())">
 							
 							<span *ngIf="!prop.value.abnormal.details">
 								{{"page-new-obs.details.fauna.abnormal.details-add" | translate}}
@@ -124,7 +124,7 @@
 						
 						<p *ngIf="prop.value.alien.checked"
 						   class="link"
-						   (click)="onAlienSpeciesClick($event, prop.key)">
+						   (click)="onAlienSpeciesClick($event, prop.key.toString())">
 							
 							<span *ngIf="prop.value.alien.species.length === 0">
 								{{"page-new-obs.details.fauna.alien.species-add" | translate}}

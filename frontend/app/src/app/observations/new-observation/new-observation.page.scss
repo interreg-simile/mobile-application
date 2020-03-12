@@ -3,19 +3,12 @@
 
 $info-small-margin     : 18px;
 $section-margin-bottom : 32px;
-$heading-margin-bottom : 8px;
+$heading-margin-bottom : 4px;
 
 
 .ripple-parent {
   position : relative;
   overflow : hidden;
-}
-
-
-.info-small {
-  color         : $text-tertiary;
-  font-size     : $font-body-small;
-  margin-bottom : $info-small-margin;
 }
 
 
@@ -40,12 +33,6 @@ main section {
 
     }
 
-  }
-
-  .sub-heading {
-    color     : $text-tertiary;
-    font-size : $font-body;
-    margin    : 24px 0 8px 16px;
   }
 
 }
@@ -173,7 +160,7 @@ main section {
 
   .ske-heading {
     width         : 50%;
-    margin-bottom : $heading-margin-bottom;
+    margin-bottom : $heading-margin-bottom * 2;
     line-height   : $font-title;
   }
 

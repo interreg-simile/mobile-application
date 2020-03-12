@@ -264,7 +264,9 @@ export class FaunaComponent implements OnInit {
      */
     async closeModal(save: boolean): Promise<void> {
 
-        await this.modalCtr.dismiss();
+        console.log(this._props);
+
+        // await this.modalCtr.dismiss();
 
     }
 

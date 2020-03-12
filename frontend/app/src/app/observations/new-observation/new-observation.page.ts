@@ -80,6 +80,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
         this._backButtonSub = this.platform.backButton.subscribeWithPriority(999, () => this.onClose());
 
+        // ToDo delete
+        this.openDetailModal(this._newObservation.details.fauna.component);
+
     }
 
 
@@ -130,14 +133,14 @@ export class NewObservationPage implements OnInit, OnDestroy {
     async onWeatherClick(name: "temperature" | "wind"): Promise<void> {
 
         const alert = await this.alertCtr.create({
-            subHeader: this.i18n.instant(`page-new-obs.weather.${name}-head`),
+            subHeader      : this.i18n.instant(`page-new-obs.weather.${ name }-head`),
             backdropDismiss: false,
             inputs         : [
                 {
-                    name : "data",
-                    type : "number",
-                    placeholder: this.i18n.instant(`page-new-obs.weather.${name}-ph`),
-                    value: this._newObservation.weather[name]
+                    name       : "data",
+                    type       : "number",
+                    placeholder: this.i18n.instant(`page-new-obs.weather.${ name }-ph`),
+                    value      : this._newObservation.weather[name]
                 }
             ],
             buttons        : [
