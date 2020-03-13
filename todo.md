@@ -11,8 +11,6 @@
 - [ ] Tradurre il sistema in inglese
     - [x] Riconoscere lingua del telefono
     - [ ] Implementare cambio lingua nelle impostazioni
-
-- [ ] Ristrutturare la sezione Fauna
     
 - [ ] Sistemare temporaneamente utente
     - [ ] Togliere del tutto
@@ -43,10 +41,12 @@
     
 - [x] Implementare pagine help
 
+- [x] Ristrutturare la sezione Fauna
+
 
 #### Known bugs
 
-- [ ] Le foto delle osservazioni non si vedono
+- [x] Le foto delle osservazioni non si vedono
 
 - [x] Le tile della basemap si rompono dopo che si lascia la mappa
     

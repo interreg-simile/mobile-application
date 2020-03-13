@@ -3,6 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import cloneDeep from "lodash-es/cloneDeep";
 import { File, FileEntry } from "@ionic-native/file/ngx";
+import get from "lodash-es/get";
 
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
@@ -64,6 +65,9 @@ export class ObservationsService {
 
         data.photos = data.photos.map(p => `${ environment.apiBaseUrl }/${ p }`);
 
+        if (get(data, "details.outlets.signagePhoto"))
+            data.details.outlets.signagePhoto = `${ environment.apiBaseUrl }/${ data.details.outlets.signagePhoto }`;
+
         return data;
 
     }
@@ -98,15 +102,11 @@ export class ObservationsService {
         const formData = new FormData();
 
         for (let i = 0; i < obs.photos.length; i++) {
-            if (obs.photos[i]) await this.appendImage(formData, obs.photos[i], "photos");
+            if (obs.photos[i])
+                await this.appendImage(formData, obs.photos[i], "photos");
         }
 
         delete obs.photos;
-
-        if (obs.details.outlets.signagePhoto) {
-            await this.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
-            obs.details.outlets.signagePhoto = undefined;
-        }
 
         // @ts-ignore
         obs.position.coordinates = [obs.position.coordinates.lng, obs.position.coordinates.lat];
@@ -133,6 +133,11 @@ export class ObservationsService {
             }
 
         });
+
+        if (get(obs, "details.outlets.signagePhoto")) {
+            await this.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
+            obs.details.outlets.signagePhoto = undefined;
+        }
 
         if (obs.measures) {
 
@@ -185,6 +190,7 @@ export class ObservationsService {
 
                         reader.onloadend = () => {
                             const imgBlob = new Blob([reader.result], { type: "image/jpeg" });
+                            console.log(field, imgBlob.size);
                             formData.append(field, imgBlob, file.name);
                             resolve()
                         };
@@ -204,6 +210,5 @@ export class ObservationsService {
 
     /** Sets the new observation to null. */
     resetNewObservation(): void { this.newObservation = null }
-
 
 }

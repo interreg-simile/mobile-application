@@ -45,7 +45,7 @@ export default async function () {
                 foams: { checked: true }
             },
             other   : "Altri dettagli sull'osservazione...",
-            photos  : ["observations/default.jpg"]
+            photos  : ["uploads/observations/default.jpg"]
         },
         {
             uid     : "5dd7bbe0701d5bdd685c1f19", // User 2
@@ -62,7 +62,7 @@ export default async function () {
             measures: {
                 transparency: { val: 5, instrument: { type: { code: 1 }, precision: 1 } }
             },
-            photos  : ["observations/default.jpg", "observations/default.jpg"]
+            photos  : ["uploads/observations/default.jpg", "uploads/observations/default.jpg"]
         },
         {
             uid     : "5dd7bbe0701d5bdd685c1f18", // User 1
@@ -80,7 +80,7 @@ export default async function () {
             measures: {
                 ph: { multiple: false, val: [{ depth: 1, val: 7 }], instrument: { type: { code: 1 }, precision: 1 } }
             },
-            photos  : ["observations/default.jpg"]
+            photos  : ["uploads/observations/default.jpg"]
         }
     ];
 

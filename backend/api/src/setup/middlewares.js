@@ -42,7 +42,7 @@ export default function (server) {
     server.use(morgan("combined", { stream: accessLogStream }));
 
     // Setup the static path to the images
-    server.use(express.static(path.join(__dirname, "..", "..", "uploads")));
+    server.use("/uploads", express.static(path.join(__dirname, "..", "..", "uploads")));
 
     // Set the responses language
     server.use(setLng);

@@ -154,7 +154,7 @@ export class OutletsComponent implements OnInit {
                 this._props.signage ? this._props.signagePhoto : undefined;
             this.obsService.newObservation.details.outlets.prodActNearby        = this._props.prodActNearby;
             this.obsService.newObservation.details.outlets.prodActNearbyDetails =
-                this._props.prodActNearby ? this._props.prodActNearbyDetails.trim() : undefined;
+                this._props.prodActNearby ? this._props.prodActNearbyDetails : undefined;
 
         }
 
