@@ -74,31 +74,36 @@ interface Details {
         checked?: boolean,
         fish?: {
             checked?: boolean,
-            deceased?: { checked?: boolean, number?: number },
+            number?: number,
+            deceased?: boolean,
             abnormal?: { checked?: boolean, details?: string },
             alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
         },
         birds?: {
             checked?: boolean,
-            deceased?: { checked?: boolean, number?: number },
+            number?: number,
+            deceased?: boolean,
             abnormal?: { checked?: boolean, details?: string },
             alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
         },
         molluscs?: {
             checked?: boolean,
-            deceased?: { checked?: boolean, number?: number },
+            number?: number,
+            deceased?: boolean,
             abnormal?: { checked?: boolean, details?: string },
             alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
         },
         crustaceans?: {
             checked?: boolean,
-            deceased?: { checked?: boolean, number?: number },
+            number?: number,
+            deceased?: boolean,
             abnormal?: { checked?: boolean, details?: string },
             alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
         },
         turtles?: {
             checked?: boolean,
-            deceased?: { checked?: boolean, number?: number },
+            number?: number,
+            deceased?: boolean,
             abnormal?: { checked?: boolean, details?: string },
             alien?: { checked?: boolean, species?: Array<{ code: number, description: string }> }
         }

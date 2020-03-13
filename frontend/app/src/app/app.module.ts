@@ -16,7 +16,6 @@ import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
@@ -24,6 +23,7 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
 import { environment } from "../environments/environment";
 import { HelpModalComponent } from "./shared/helps/help-modal/help-modal.component";
 import { HelpPopoverComponent } from "./shared/helps/help-popover/help-popover.component";
+import { NgxIonicImageViewerModule } from "ngx-ionic-image-viewer";
 
 
 @NgModule({
@@ -35,6 +35,7 @@ import { HelpPopoverComponent } from "./shared/helps/help-popover/help-popover.c
         AppRoutingModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),
+        NgxIonicImageViewerModule,
         TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useFactory: translateLoader, deps: [HttpClient] }
         }),
@@ -52,7 +53,6 @@ import { HelpPopoverComponent } from "./shared/helps/help-popover/help-popover.c
         Diagnostic,
         Camera,
         File,
-        PhotoViewer,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         interceptorProviders
     ],

@@ -58,6 +58,7 @@
     },
     "fauna": {
       "head": "Fauna",
+      "label-number": "Numero",
       "label-deceased": "Esemplari deceduti",
       "label-abnormal": "Comportamenti anomali",
       "label-alien": "Specie aliene",

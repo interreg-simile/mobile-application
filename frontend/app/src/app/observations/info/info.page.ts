@@ -4,13 +4,13 @@ import { NavController } from "@ionic/angular";
 import set from "lodash-es/set";
 import get from "lodash-es/get";
 import { TranslateService } from "@ngx-translate/core";
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 import { ObservationsService } from "../observations.service";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { AuthService } from "../../auth/auth.service";
 import { ObsInfo } from "./obs-info.model";
 import { DomSanitizer } from "@angular/platform-browser";
+import { PhotoViewerService } from "../../shared/photo-viewer/photo-viewer.service";
 
 
 @Component({ selector: 'app-info', templateUrl: './info.page.html', styleUrls: ['./info.page.scss'] })
@@ -19,6 +19,8 @@ export class InfoPage implements OnInit {
     public _isLoading: boolean;
     public _obs: ObsInfo;
     public _userId: string;
+
+    public objKeys = Object.keys;
 
     // Utility function to keep the original key order when iterating on an object using ngFor
     originalOrder = (a, b) => { return 0 };
@@ -31,7 +33,7 @@ export class InfoPage implements OnInit {
                 private authService: AuthService,
                 public i18n: TranslateService,
                 public domSanitizer: DomSanitizer,
-                private photoViewer: PhotoViewer) { }
+                private photoViewerService: PhotoViewerService) { }
 
 
     ngOnInit() {
@@ -55,10 +57,6 @@ export class InfoPage implements OnInit {
             })
 
     }
-
-
-    // ToDo implement observation delete (?)
-    onDeleteClick() { }
 
 
     /**
@@ -98,18 +96,10 @@ export class InfoPage implements OnInit {
      *
      * @param {string} src - The source of the image.
      */
-    onThumbnailClick(src: string): void {
+    async onThumbnailClick(src: string): Promise<void> {
 
-        this.photoViewer.show(
-            src,
-            "",
-            {
-                share      : false,
-                closeButton: true
-            }
-        );
+        await this.photoViewerService.openPhotoViewer(src);
 
     }
-
 
 }

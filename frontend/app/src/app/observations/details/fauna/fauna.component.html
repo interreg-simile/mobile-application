@@ -55,6 +55,17 @@
 				</ion-item>
 				
 				
+				<!-- Number -->
+				<div *ngIf="prop.value.checked" class="sub-property deceased-number">
+					
+					<p>{{"page-new-obs.details.fauna.deceased.number" | translate}}</p>
+					
+					<ion-input class="val-input compact" type="number" min="0"
+							   [(ngModel)]="prop.value.number"></ion-input>
+				
+				</div>
+				
+				
 				<!-- Deceased -->
 				<div *ngIf="prop.value.checked">
 					
@@ -64,18 +75,9 @@
 						
 						<ion-checkbox slot="start"
 									  color="primary"
-									  [(ngModel)]="prop.value.deceased.checked"></ion-checkbox>
+									  [(ngModel)]="prop.value.deceased"></ion-checkbox>
 					
 					</ion-item>
-					
-					<div *ngIf="prop.value.deceased.checked" class="sub-property deceased-number">
-						
-						<p>{{"page-new-obs.details.fauna.deceased.number" | translate}}</p>
-						
-						<ion-input class="val-input compact" type="number" min="0"
-								   [(ngModel)]="prop.value.deceased.number"></ion-input>
-					
-					</div>
 				
 				</div>
 				

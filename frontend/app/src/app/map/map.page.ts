@@ -348,7 +348,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._accuracy = data.coords.accuracy;
 
-        if (this._isMapFollowing) {
+        if (this._map && this._isMapFollowing) {
 
             if (this._isFirstPosition) {
                 this._map.setView(this._coords, this._defaultZoomLvl);
@@ -649,6 +649,7 @@ export class MapPage implements OnInit, OnDestroy {
         this._savedZoomLevel = this._map.getZoom();
 
         this._map.remove();
+        this._map = null;
 
     }
 

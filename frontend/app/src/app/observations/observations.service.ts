@@ -126,7 +126,7 @@ export class ObservationsService {
             if (k === "fauna") {
 
                 Object.keys(obs.details.fauna).forEach(f => {
-                    if (obs.details.fauna[f].alien.species.length === 0)
+                    if (obs.details.fauna[f].alien && obs.details.fauna[f].alien.species.length === 0)
                         obs.details.fauna[f].alien.species = undefined
                 });
 

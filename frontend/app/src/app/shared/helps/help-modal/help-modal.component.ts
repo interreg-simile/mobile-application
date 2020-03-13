@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalController, NavParams } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { PhotoViewer } from "@ionic-native/photo-viewer/ngx";
+import { PhotoViewerService } from "../../photo-viewer/photo-viewer.service";
+import { ancestorWhere } from "tslint";
 
 
 @Component({
@@ -14,13 +15,12 @@ export class HelpModalComponent implements OnInit {
 
     public _id: string;
     public _text: string;
-    public imgSrc: string;
 
 
     constructor(private modalCtr: ModalController,
                 private navParams: NavParams,
                 private i18n: TranslateService,
-                private photoViewer: PhotoViewer) { }
+                private photoViewerService: PhotoViewerService) { }
 
 
     ngOnInit(): void {
@@ -39,16 +39,9 @@ export class HelpModalComponent implements OnInit {
      *
      * @param {string} src - The source of the image.
      */
-    onImgClick(src: string): void {
+    async onImgClick(src: string): Promise<void> {
 
-        this.photoViewer.show(
-            src,
-            "",
-            {
-                share      : false,
-                closeButton: true
-            }
-        );
+        await this.photoViewerService.openPhotoViewer(src);
 
     }
 

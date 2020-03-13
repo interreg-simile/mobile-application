@@ -13,9 +13,10 @@
     - [ ] Implementare cambio lingua nelle impostazioni
 
 - [ ] Ristrutturare la sezione Fauna
-
-- [x] Implementare pagine help
-    - [ ] Aspettare testi/immagini mancanti
+    
+- [ ] Sistemare temporaneamente utente
+    - [ ] Togliere del tutto
+    - [ ] Tenere le tue osservazioni nella memoria interna
 
 
 #### Done
@@ -39,9 +40,13 @@
     - [x] Doppio click per chiudere l'applicazione
     - [x] Far uscire alert di sicurezza durante l'inserimento di un'osservazione
     - [x] Click per chiudere il drawer
+    
+- [x] Implementare pagine help
 
 
 #### Known bugs
+
+- [ ] Le foto delle osservazioni non si vedono
 
 - [x] Le tile della basemap si rompono dopo che si lascia la mappa
     
@@ -61,3 +66,5 @@
     - [ ] Login admin con registrazione da superadmin
     
 - [ ] Implementare chiamata alle autorità
+
+- [ ] Implementare fade dei marker delle osservazioni in base alla data

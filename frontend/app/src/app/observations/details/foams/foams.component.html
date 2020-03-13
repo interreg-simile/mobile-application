@@ -63,8 +63,37 @@
 	
 	</section>
 	
+	<!-- Height -->
+	<section id="height">
+		
+		<p class="card-header">{{"page-new-obs.details.foams.height.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin card-radio-list">
+			
+			<ion-card-content>
+				
+				<ion-radio-group allow-empty-selection="true"
+								 name="height"
+								 [(ngModel)]="_props.height">
+					
+					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
+						
+						<ion-label>{{"page-new-obs.details.foams.height." + i | translate}}</ion-label>
+						
+						<ion-radio slot="start" value="{{i}}"></ion-radio>
+					
+					</ion-item>
+				
+				</ion-radio-group>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
 	<!-- Look -->
-	<section id="look">
+	<section id="look" class="last">
 		
 		<p class="card-header">{{"page-new-obs.details.foams.look.head" | translate}}</p>
 		
@@ -99,33 +128,5 @@
 	
 	</section>
 	
-	<!-- Height -->
-	<section id="height" class="last">
-		
-		<p class="card-header">{{"page-new-obs.details.foams.height.head" | translate}}</p>
-		
-		<ion-card class="ion-no-margin card-radio-list">
-			
-			<ion-card-content>
-				
-				<ion-radio-group allow-empty-selection="true"
-								 name="height"
-								 [(ngModel)]="_props.height">
-					
-					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
-						
-						<ion-label>{{"page-new-obs.details.foams.height." + i | translate}}</ion-label>
-						
-						<ion-radio slot="start" value="{{i}}"></ion-radio>
-					
-					</ion-item>
-				
-				</ion-radio-group>
-			
-			</ion-card-content>
-		
-		</ion-card>
 	
-	</section>
-
 </ion-content>

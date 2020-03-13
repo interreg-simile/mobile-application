@@ -1,7 +1,7 @@
 {
   "o": "Condividi un’osservazione sullo stato del lago. Carica un’immagine e identifica ciò che stai osservando. Se ritieni la situazione particolarmente grave puoi avvertire l’autorità competente.",
   "o2": "Puoi modificare le condizioni metereologiche se ritieni che siano errate o mancanti.",
-  "o3": "Per indicare la presenza di uno o più fenomeni cliccare sulla casella a sinistra del testo. Cliccando sulla freccia a destra di ciascuna categoria si aprirà una pagina per aiutarti a riconoscere i fenomeni del lago permettendo di inserire informazioni più specifiche.",
+  "o3": "Puoi indicare la presenza di uno o più fenomeni tra quelli elencati. Clicca sul nome per accedere a tutte le opzioni di ogni singola voce. Utilizza gli help per imparare a riconoscere e classificare i fenomeni del lago e inserire informazioni più specifiche.",
   "o3.1": {
     "title": "Alghe",
     "text": "<p>Con il termine alghe si intende il <a href='http://www.ise.cnr.it/crypta/limnol/plancton/fitoplan.htm'>fitoplancton</a>, ovvero piccoli organismi vegetali appartenenti al plancton lacustre.</p><p>Da non confondere con le piante acquatiche (macrofite).</p>"
@@ -38,10 +38,7 @@
     "title": "Chiazze superficiali",
     "text": "Le chiazze ricoprono solo la superficie dell’acqua."
   },
-  "o3.32": {
-    "title": "Chiazze in profondità",
-    "text": "Le chiazze sono distribuite anche in verticale, lungo la colonna d’acqua."
-  },
+  "o3.32": "Le chiazze sono distribuite anche in verticale, lungo la colonna d’acqua.",
   "o3.511" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/42-specie-19'>scheda informativa</a>.",
   "o3.521" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/60-specie-37'>scheda informativa</a>.",
   "o3.522" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/59-specie-36'>scheda informativa</a>.",
@@ -53,7 +50,7 @@
   "o3.543" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/56-specie-33'>scheda informativa</a>.",
   "o3.551" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/44-specie-21'>scheda informativa</a>.",
   "o4": "Puoi aggiungere ulteriori immagini se pensi siano utili per una migliore comprensione del fenomeno osservato.",
-  "o5": "Puoi usare questo spazio se non hai trovato tra le voci presenti una adeguata, per fornire maggiori dettagli sul luogo dell’osservazione e su altre eventuali condizioni al contorno che ritieni possano essere rilevanti.",
+  "o5": "Puoi usare questo spazio per fornire maggiori dettagli sul luogo dell’osservazione, su altre eventuali condizioni al contorno che ritieni possano essere rilevanti o se tra le voci in elenco non ne hai trovata una che corrisponda a quanto stai osservando.",
   "m": "Aggiungi una misura alla tua osservazione, i dati raccolti serviranno a validare altre tecnologie di monitoraggio e migliorare la comprensione del lago.",
   "m0": "Indica le specifiche dello strumento utilizzato.",
   "m0.1": "Indica se vuoi inserire un valore singolo a una data profondità o una serie di valori lungo la colonna d’acqua.",

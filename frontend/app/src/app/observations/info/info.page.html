@@ -8,17 +8,6 @@
 			<ion-back-button class="back-button" defaultHref="map"></ion-back-button>
 		
 		</ion-buttons>
-		
-		<!-- Delete button -->
-<!--		<ion-buttons slot="end" *ngIf="!_isLoading && _obs?.uid === _userId">-->
-<!--			-->
-<!--			<ion-button (click)="onDeleteClick()">-->
-<!--				-->
-<!--				<ion-icon name="trash"></ion-icon>-->
-<!--			-->
-<!--			</ion-button>-->
-<!--		-->
-<!--		</ion-buttons>-->
 	
 	</ion-toolbar>
 
@@ -429,13 +418,22 @@
 				
 				<ion-card-content *ngIf="_obs.details.fauna.open">
 					
-					<div *ngFor="let category of _obs.details.fauna | keyvalue: originalOrder">
+					<div *ngFor="let category of _obs.details.fauna | keyvalue: originalOrder; index as idx">
 						
 						<div *ngIf="category.key.toString() !== 'checked' && category.key.toString() !== 'open'"
-							 [class]="category.key.toString() === 'turtles' ? '' : 'fauna-category'">
+							 [class]="objKeys(_obs.details.fauna).length === idx + 2 ? '' : 'fauna-category'">
 							
 							<p class="sub-header">
 								{{"page-info-obs.details.fauna." + category.key | translate}}
+							</p>
+							
+							<!-- Number -->
+							<p class="row" *ngIf="category.value.number">
+								
+								<span class="prop-name">{{"page-info-obs.details.fauna.label-number" | translate}}</span>
+								
+								{{category.value.number}}
+								
 							</p>
 							
 							<!-- Deceased -->
@@ -443,13 +441,7 @@
 								
 								<span class="prop-name">{{"page-info-obs.details.fauna.label-deceased" | translate}}</span>
 								
-								<span *ngIf="category.value.deceased.number">
-								{{category.value.deceased.number}}
-							</span>
-								
-								<span *ngIf="!category.value.deceased.number">
 								{{"page-info-obs.yes" | translate}}
-							</span>
 							
 							</p>
 							

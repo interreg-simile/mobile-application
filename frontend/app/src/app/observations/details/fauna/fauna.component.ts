@@ -5,44 +5,10 @@ import { ObservationsService } from "../../observations.service";
 import { HelpsService } from "../../../shared/helps/helps.service";
 
 
-interface Props {
-    fish?: {
-        checked?: boolean,
-        deceased?: { checked?: boolean, number?: number },
-        abnormal?: { checked?: boolean, details?: string },
-        alien?: { checked?: boolean, species?: Array<number>, idx: Array<number> }
-    },
-    birds?: {
-        checked?: boolean,
-        deceased?: { checked?: boolean, number?: number },
-        abnormal?: { checked?: boolean, details?: string },
-        alien?: { checked?: boolean, species?: Array<number>, idx: Array<number> }
-    },
-    molluscs?: {
-        checked?: boolean,
-        deceased?: { checked?: boolean, number?: number },
-        abnormal?: { checked?: boolean, details?: string },
-        alien?: { checked?: boolean, species?: Array<number>, idx: Array<number> }
-    },
-    crustaceans?: {
-        checked?: boolean,
-        deceased?: { checked?: boolean, number?: number },
-        abnormal?: { checked?: boolean, details?: string },
-        alien?: { checked?: boolean, species?: Array<number>, idx: Array<number> }
-    },
-    turtles?: {
-        checked?: boolean,
-        deceased?: { checked?: boolean, number?: number },
-        abnormal?: { checked?: boolean, details?: string },
-        alien?: { checked?: boolean, species?: Array<number>, idx: Array<number> }
-    }
-}
-
-
 @Component({ selector: 'app-fauna', templateUrl: './fauna.component.html', styleUrls: ['./fauna.component.scss'] })
 export class FaunaComponent implements OnInit {
 
-    public _props: Props = {
+    public _props: any = {
         fish       : { alien: { species: [], idx: [1] } },
         birds      : { alien: { species: [], idx: [1, 2] } },
         molluscs   : { alien: { species: [], idx: [1, 2, 3] } },
@@ -57,7 +23,7 @@ export class FaunaComponent implements OnInit {
 
     constructor(private modalCtr: ModalController,
                 private obsService: ObservationsService,
-                private helpsService: HelpsService) { }
+                public helpsService: HelpsService) { }
 
 
     ngOnInit(): void {
@@ -77,11 +43,9 @@ export class FaunaComponent implements OnInit {
         const newObsFauna = this.obsService.newObservation.details.fauna;
 
         this._props[key].checked = newObsFauna[key].checked;
+        this._props[key].number  = newObsFauna[key].number;
 
-        this._props[key].deceased = {
-            checked: newObsFauna[key].deceased.checked,
-            number : newObsFauna[key].deceased.number
-        };
+        this._props[key].deceased = newObsFauna[key].deceased;
 
         this._props[key].abnormal = {
             checked: newObsFauna[key].abnormal.checked,
@@ -117,8 +81,6 @@ export class FaunaComponent implements OnInit {
      */
     async closeModal(save: boolean): Promise<void> {
 
-        console.log(this._props);
-
         if (save) {
 
             const newObsFauna = this.obsService.newObservation.details.fauna;
@@ -129,8 +91,9 @@ export class FaunaComponent implements OnInit {
 
                 if (!this._props[k].checked) {
 
-                    newObsFauna[k].checked = undefined;
-                    this.resetObsDeceased(k);
+                    newObsFauna[k].checked  = undefined;
+                    newObsFauna[k].number   = undefined;
+                    newObsFauna[k].deceased = undefined;
                     this.resetObsAbnormal(k);
                     this.resetObsAlien(k);
 
@@ -139,12 +102,12 @@ export class FaunaComponent implements OnInit {
                 }
 
                 newObsFauna[k].checked = true;
+                newObsFauna[k].number  = this._props[k].number ? Math.abs(this._props[k].number) : undefined;
 
-                if (this._props[k].deceased.checked) {
-                    newObsFauna[k].deceased.checked = true;
-                    newObsFauna[k].deceased.number  = Math.abs(this._props[k].deceased.number);
+                if (this._props[k].deceased) {
+                    newObsFauna[k].deceased = true;
                 } else {
-                    this.resetObsDeceased(k);
+                    newObsFauna[k].deceased = undefined;
                 }
 
                 if (this._props[k].abnormal.checked) {
@@ -164,25 +127,12 @@ export class FaunaComponent implements OnInit {
 
             });
 
-            console.log(this.obsService.newObservation);
+            // ToDo remove
+            console.log(this.obsService.newObservation.details.fauna);
 
         }
 
         await this.modalCtr.dismiss();
-
-    }
-
-
-    /**
-     * Resets the deceased property of a fauna category of the current new observation.
-     *
-     * @param {string} propKey - The name of the category
-     */
-    resetObsDeceased(propKey: string) {
-
-        const newObsFauna = this.obsService.newObservation.details.fauna;
-
-        newObsFauna[propKey].deceased = { checked: undefined, number: undefined }
 
     }
 

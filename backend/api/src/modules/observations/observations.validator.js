@@ -161,8 +161,8 @@ function vSubFauna(property) {
 
     return [
         ...vDetailCheck(`fauna.${property}`),
-        ...vDetailCheck(`fauna.${property}.deceased`),
-        body(`details.fauna.${property}.deceased.number`).optional().isInt({ min: 0 }),
+        body(`fauna.${property}.number`).optional().isInt({ min: 0 }),
+        body(`fauna.${property}.deceased`).optional().isBoolean(),
         ...vDetailCheck(`fauna.${property}.abnormal`),
         body(`details.fauna.${property}.abnormal.details`).optional().escape().trim(),
         ...vDetailCheck(`fauna.${property}.alien`),
