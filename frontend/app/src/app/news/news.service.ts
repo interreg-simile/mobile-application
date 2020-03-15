@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { Storage } from "@ionic/storage";
+import { TranslateService } from "@ngx-translate/core";
+import { LatLng } from "leaflet";
 
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface"
-import { AuthService } from "../auth/auth.service";
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
-import { TranslateService } from "@ngx-translate/core";
-import { LatLng } from "leaflet";
 
 
 @Injectable({ providedIn: 'root' })
@@ -34,7 +33,6 @@ export class NewsService {
 
     constructor(private http: HttpClient,
                 private storage: Storage,
-                private auth: AuthService,
                 private i18n: TranslateService) {}
 
 

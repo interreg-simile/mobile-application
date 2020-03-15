@@ -246,7 +246,7 @@ export class Observation {
 
     createdAt: Date;
 
-    uid: string;
+    // uid: string;
 
     position: Position;
 

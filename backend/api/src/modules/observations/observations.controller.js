@@ -100,7 +100,7 @@ export const create = (req, res, next) => {
 
     // Create the data
     const data = {
-        uid   : req.userId,
+        // uid   : req.userId,
         ...req.body,
         photos: req.files.photos.map(p => p.path)
     };
@@ -123,7 +123,7 @@ export const create = (req, res, next) => {
             if (minimalRes === "true")
                 resData = {
                     _id     : observation._id,
-                    uid     : observation.uid,
+                    // uid     : observation.uid,
                     position: {
                         coordinates: observation.position.coordinates,
                         roi        : observation.position.roi

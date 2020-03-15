@@ -151,7 +151,7 @@ interface Measures {
 }
 
 export interface ObsInfo {
-    uid: string,
+    // uid: string,
     position: Position,
     weather: Weather,
     details?: Details,

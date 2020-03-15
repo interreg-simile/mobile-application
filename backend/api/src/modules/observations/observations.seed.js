@@ -25,7 +25,7 @@ export default async function () {
     // Create the dummy data
     const observations = [
         {
-            uid     : "5dd7bbe0701d5bdd685c1f19", // User 2
+            // uid     : "5dd7bbe0701d5bdd685c1f19", // User 2
             position: {
                 coordinates: [9.079017, 45.824735],
                 crs        : { code: 1 },
@@ -48,7 +48,7 @@ export default async function () {
             photos  : ["uploads/observations/default.jpg"]
         },
         {
-            uid     : "5dd7bbe0701d5bdd685c1f19", // User 2
+            // uid     : "5dd7bbe0701d5bdd685c1f19", // User 2
             position: {
                 coordinates: [8.947198, 45.935249],
                 crs        : { code: 1 },
@@ -65,7 +65,7 @@ export default async function () {
             photos  : ["uploads/observations/default.jpg", "uploads/observations/default.jpg"]
         },
         {
-            uid     : "5dd7bbe0701d5bdd685c1f18", // User 1
+            // uid     : "5dd7bbe0701d5bdd685c1f18", // User 1
             position: {
                 coordinates: [9.102516, 45.861128],
                 crs        : { code: 1 },

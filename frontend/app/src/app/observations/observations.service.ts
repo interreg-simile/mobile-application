@@ -14,7 +14,7 @@ import { ObsInfo } from "./info/obs-info.model";
 
 export interface MinimalObservation {
     _id: string,
-    uid: string,
+    // uid: string,
     position: { coordinates: Array<number>, roi?: string }
 }
 

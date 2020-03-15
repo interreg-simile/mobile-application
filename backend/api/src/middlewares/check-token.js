@@ -45,8 +45,6 @@ export default function (req, res, next) {
         return;
     }
 
-    // ToDo check if the userId is in the database (?)
-
     // Save id and status of the user
     req.userId  = decodedToken.userId;
     req.isAdmin = decodedToken.isAdmin === "true";

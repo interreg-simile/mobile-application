@@ -127,9 +127,6 @@ export class FaunaComponent implements OnInit {
 
             });
 
-            // ToDo remove
-            console.log(this.obsService.newObservation.details.fauna);
-
         }
 
         await this.modalCtr.dismiss();

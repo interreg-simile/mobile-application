@@ -74,7 +74,7 @@ export async function create(data) {
 
     // Create the new observation
     const obs = new Observation({
-        uid     : data.uid,
+        // uid     : data.uid,
         position: { type: "Point", crs: { code: 1 }, ...data.position },
         weather : data.weather,
         details : data.details,

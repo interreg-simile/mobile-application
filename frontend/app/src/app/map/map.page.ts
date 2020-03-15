@@ -22,7 +22,6 @@ import { Router } from "@angular/router";
 import { Observation } from "../observations/observation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../shared/toast.service";
-import { AuthService } from "../auth/auth.service";
 import { LegendComponent, Markers } from "./legend/legend.component";
 
 
@@ -76,7 +75,6 @@ export class MapPage implements OnInit, OnDestroy {
     public _locationStatus = LocationErrors.NO_ERROR;
 
     private _eventMarkers: MarkerClusterGroup;
-    private _userObsMarkers: MarkerClusterGroup;
     private _obsMarkers: MarkerClusterGroup;
 
     public _areNewEvents: boolean;
@@ -97,7 +95,6 @@ export class MapPage implements OnInit, OnDestroy {
                 private loadingCtr: LoadingController,
                 private alertCtr: AlertController,
                 private toastService: ToastService,
-                private authService: AuthService,
                 private popoverCtr: PopoverController,
                 private events: Events) { }
 
@@ -145,20 +142,16 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._obsSub = this.obsService.observations.subscribe(obs => {
 
-            this._userObsMarkers.clearLayers();
             this._obsMarkers.clearLayers();
 
             obs.forEach(o => {
-                const marker = new Marker(
+                new Marker(
                     new LatLng(o.position.coordinates[1], o.position.coordinates[0]),
-                    {
-                        icon        : this.authService.userId === o.uid ? userObservationMarkerIcon() : observationMarkerIcon(),
-                        zIndexOffset: 2
-                    }
+                    { icon: userObservationMarkerIcon(), zIndexOffset: 2 }
                 )
                     .on("click", () => this.router.navigate(["/observations", o._id]))
-                    .addTo(this.authService.userId === o.uid ? this._userObsMarkers : this._obsMarkers);
-            })
+                    .addTo(this._obsMarkers);
+            });
 
         });
 
@@ -198,18 +191,10 @@ export class MapPage implements OnInit, OnDestroy {
             }
         });
 
-        this._userObsMarkers = new MarkerClusterGroup({
-            iconCreateFunction: cluster => {
-                const icon             = this._eventMarkers._defaultIconCreateFunction(cluster);
-                icon.options.className = "marker-cluster marker-cluster-user-obs";
-                return icon;
-            }
-        });
-
         this._obsMarkers = new MarkerClusterGroup({
             iconCreateFunction: cluster => {
                 const icon             = this._eventMarkers._defaultIconCreateFunction(cluster);
-                icon.options.className = "marker-cluster marker-cluster-obs";
+                icon.options.className = "marker-cluster marker-cluster-user-obs";
                 return icon;
             }
         });
@@ -244,7 +229,6 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         this._eventMarkers.addTo(this._map);
-        this._userObsMarkers.addTo(this._map);
         this._obsMarkers.addTo(this._map);
 
         if (this._userMarker) this._userMarker.addTo(this._map);
@@ -476,9 +460,8 @@ export class MapPage implements OnInit, OnDestroy {
         const popover = await this.popoverCtr.create({
             component     : LegendComponent,
             componentProps: {
-                hasUserObsMarkers: this._map.hasLayer(this._userObsMarkers),
-                hasObsMarkers    : this._map.hasLayer(this._obsMarkers),
-                hasEventsMarkers : this._map.hasLayer(this._eventMarkers)
+                hasObsMarkers   : this._map.hasLayer(this._obsMarkers),
+                hasEventsMarkers: this._map.hasLayer(this._eventMarkers)
             },
             event         : e,
             showBackdrop  : false
@@ -497,10 +480,6 @@ export class MapPage implements OnInit, OnDestroy {
     onPopoverChange(marker: Markers, checked: boolean) {
 
         switch (marker) {
-
-            case Markers.USER_OBSERVATIONS:
-                this.toggleMarkerCluster(this._userObsMarkers, checked);
-                break;
 
             case Markers.OTHER_OBSERVATIONS:
                 this.toggleMarkerCluster(this._obsMarkers, checked);

@@ -13,8 +13,10 @@
     - [ ] Implementare cambio lingua nelle impostazioni
     
 - [ ] Sistemare temporaneamente utente
-    - [ ] Togliere del tutto
-    - [ ] Tenere le tue osservazioni nella memoria interna
+    - [ ] Togliere da osservazioni
+    - [ ] Togliere da drawer
+    
+- [ ] Implementare controllo della verione minima dell'applicazione
 
 
 #### Done

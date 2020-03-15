@@ -292,7 +292,7 @@ const vMeasures = [...vTransparency, ...vTemperature, ...vPh, ...vOxygen, ...vBa
 export const observation = [
     ...postQuery,
     body("_id").isEmpty(),
-    body("uid").isEmpty(),
+    // body("uid").isEmpty(),
     body("photos").isEmpty(),
     ...vPosition,
     ...vWeather,

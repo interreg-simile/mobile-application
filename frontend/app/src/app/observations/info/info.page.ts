@@ -7,7 +7,6 @@ import { TranslateService } from "@ngx-translate/core";
 
 import { ObservationsService } from "../observations.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { AuthService } from "../../auth/auth.service";
 import { ObsInfo } from "./obs-info.model";
 import { DomSanitizer } from "@angular/platform-browser";
 import { PhotoViewerService } from "../../shared/photo-viewer/photo-viewer.service";
@@ -30,7 +29,6 @@ export class InfoPage implements OnInit {
                 private navCtr: NavController,
                 private obsService: ObservationsService,
                 private toastService: ToastService,
-                private authService: AuthService,
                 public i18n: TranslateService,
                 public domSanitizer: DomSanitizer,
                 private photoViewerService: PhotoViewerService) { }
@@ -39,8 +37,6 @@ export class InfoPage implements OnInit {
     ngOnInit() {
 
         this._isLoading = true;
-
-        this._userId = this.authService.userId;
 
         const id = this.activatedRoute.snapshot.paramMap.get("id");
         if (!id) this.navCtr.back();
