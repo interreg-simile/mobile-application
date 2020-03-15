@@ -1,3 +1,18 @@
 {
-  "title": "Settings"
+  "title": "Settings",
+  "general": {
+    "head": "General",
+    "language": {
+      "head": "Language",
+      "header": "Choose the language",
+      "it": "Italiano",
+      "en": "English",
+      "msg-change": "The language will be changed after the next reboot."
+    }
+  },
+  "info": {
+    "head": "Info",
+    "version": "Version",
+    "contact-us": "Contact us"
+  }
 }

@@ -4,6 +4,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LangService } from "./shared/lang.service";
 import { Router } from "@angular/router";
+import { AppVersion } from '@ionic-native/app-version/ngx';
+
 import { Duration, ToastService } from "./shared/toast.service";
 
 
@@ -27,7 +29,8 @@ export class AppComponent {
                 private modalCtr: ModalController,
                 private menuCtr: MenuController,
                 private toastService: ToastService,
-                private router: Router) {
+                private router: Router,
+                private appVersion: AppVersion) {
 
         this.initializeApp()
             .then(() => {

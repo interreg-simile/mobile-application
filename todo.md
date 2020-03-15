@@ -11,12 +11,6 @@
 - [ ] Tradurre il sistema in inglese
     - [x] Riconoscere lingua del telefono
     - [ ] Implementare cambio lingua nelle impostazioni
-    
-- [ ] Sistemare temporaneamente utente
-    - [ ] Togliere da osservazioni
-    - [ ] Togliere da drawer
-    
-- [ ] Implementare controllo della verione minima dell'applicazione
 
 
 #### Done
@@ -44,6 +38,12 @@
 - [x] Implementare pagine help
 
 - [x] Ristrutturare la sezione Fauna
+
+- [x] Sistemare temporaneamente utente
+    - [x] Togliere da osservazioni
+    - [x] Togliere da drawer
+    
+- [ ] Iscriversi a tutte i servizi con la mail di progetto
 
 
 #### Known bugs

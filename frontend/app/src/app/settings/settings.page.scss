@@ -1,0 +1,29 @@
+
+section {
+  margin-bottom : 32px;
+
+  &.last { margin-bottom : 24px }
+
+}
+
+
+ion-icon {
+  color : var(--ion-color-primary);
+}
+
+
+.flex-label {
+  display         : flex;
+  justify-content : space-between;
+  align-items     : center;
+
+  p { color : #000000 }
+
+  .name { flex : 1 }
+
+  .choice {
+    text-transform : uppercase;
+    color          : var(--ion-color-primary);
+  }
+
+}

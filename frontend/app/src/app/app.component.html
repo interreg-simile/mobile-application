@@ -1,81 +1,75 @@
 <ion-app>
-
-    <ion-menu side="start" swipeGesture="false" menuId="main" content-id="main">
-
-        <ion-header>
-
-            <div class="container ion-padding">
-
-                <ion-avatar><img src="../assets/images/avatar.png" alt="User"></ion-avatar>
-
-                <div class="username ion-padding-start">Username</div>
-
-                <div class="icon-container">
-                    <ion-icon id="icon-notifications" name="notifications"></ion-icon>
-                </div>
-
-            </div>
-
-        </ion-header>
-
-        <ion-content>
-
-            <ion-list>
-
-                <!-- Map -->
-                <ion-menu-toggle menu="main">
-
-                    <ion-item lines="none" routerLink="/map" routerLinkActive="active-link">
-
-                        <ion-icon name="map" slot="start"></ion-icon>
-                        <ion-label>{{"page-map.title" | translate}}</ion-label>
-
-                    </ion-item>
-
-                </ion-menu-toggle>
-    
-                <!-- News -->
-                <ion-menu-toggle menu="main">
-        
-                    <ion-item lines="none" routerLink="/news" routerLinkActive="active-link">
-            
-                        <ion-icon name="calendar" slot="start"></ion-icon>
-                        <ion-label>{{"page-news.title" | translate}}</ion-label>
-        
-                    </ion-item>
-    
-                </ion-menu-toggle>
-
-                <!-- Project -->
-                <ion-menu-toggle menu="main">
-
-                    <ion-item lines="none" routerLink="/project" routerLinkActive="active-link">
-
-                        <ion-icon name="information-circle" slot="start"></ion-icon>
-                        <ion-label>{{"page-project.title" | translate}}</ion-label>
-
-                    </ion-item>
-
-                </ion-menu-toggle>
-
-                <!-- Settings -->
-                <ion-menu-toggle menu="main">
-
-                    <ion-item lines="none" routerLink="/settings" routerLinkActive="active-link">
-
-                        <ion-icon name="settings" slot="start"></ion-icon>
-                        <ion-label>{{"page-settings.title" | translate}}</ion-label>
-
-                    </ion-item>
-
-                </ion-menu-toggle>
-
-            </ion-list>
-
-        </ion-content>
-
-    </ion-menu>
-
-    <ion-router-outlet id="main"></ion-router-outlet>
+	
+	<ion-menu side="start" swipeGesture="false" menuId="main" content-id="main">
+		
+		<ion-header>
+			
+			<ion-toolbar color="primary">
+                
+                <ion-title>SIMILE</ion-title>
+			
+			</ion-toolbar>
+		
+		</ion-header>
+		
+		<ion-content>
+			
+			<ion-list>
+				
+				<!-- Map -->
+				<ion-menu-toggle menu="main">
+					
+					<ion-item lines="none" routerLink="/map" routerLinkActive="active-link">
+						
+						<ion-icon name="map" slot="start"></ion-icon>
+						<ion-label>{{"page-map.title" | translate}}</ion-label>
+					
+					</ion-item>
+				
+				</ion-menu-toggle>
+				
+				<!-- News -->
+				<ion-menu-toggle menu="main">
+					
+					<ion-item lines="none" routerLink="/news" routerLinkActive="active-link">
+						
+						<ion-icon name="calendar" slot="start"></ion-icon>
+						<ion-label>{{"page-news.title" | translate}}</ion-label>
+					
+					</ion-item>
+				
+				</ion-menu-toggle>
+				
+				<!-- Project -->
+				<ion-menu-toggle menu="main">
+					
+					<ion-item lines="none" routerLink="/project" routerLinkActive="active-link">
+						
+						<ion-icon name="information-circle" slot="start"></ion-icon>
+						<ion-label>{{"page-project.title" | translate}}</ion-label>
+					
+					</ion-item>
+				
+				</ion-menu-toggle>
+				
+				<!-- Settings -->
+				<ion-menu-toggle menu="main">
+					
+					<ion-item lines="none" routerLink="/settings" routerLinkActive="active-link">
+						
+						<ion-icon name="settings" slot="start"></ion-icon>
+						<ion-label>{{"page-settings.title" | translate}}</ion-label>
+					
+					</ion-item>
+				
+				</ion-menu-toggle>
+			
+			</ion-list>
+		
+		</ion-content>
+	
+	</ion-menu>
+	
+	<ion-router-outlet id="main"></ion-router-outlet>
 
 </ion-app>

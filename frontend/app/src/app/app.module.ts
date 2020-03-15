@@ -17,6 +17,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
 import { interceptorProviders } from "./shared/interceptors/interceptors";
@@ -47,6 +48,7 @@ import { NgxIonicImageViewerModule } from "ngx-ionic-image-viewer";
         })
     ],
     providers      : [
+        AppVersion,
         StatusBar,
         SplashScreen,
         Geolocation,

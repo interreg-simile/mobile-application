@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 import { TranslateService } from "@ngx-translate/core";
-import { logger } from "codelyzer/util/logger";
 
 
 @Injectable({ providedIn: 'root' })
@@ -9,6 +8,8 @@ export class LangService {
 
     public readonly supportedLanguages = ["it", "en"];
     public readonly defaultLanguage    = "en";
+
+    public currLanguage: string;
 
     private readonly _storageKeyLanguage = "language";
 
@@ -62,6 +63,8 @@ export class LangService {
         this.i18n.use(lang);
 
         await this.saveAppLanguage(lang);
+
+        this.currLanguage = lang;
 
     }
 

@@ -14,6 +14,92 @@
 
 </ion-header>
 
-<ion-content>
+
+<ion-content class="custom-container bg-off-white">
+	
+	
+	<!-- General -->
+	<section>
+		
+		<p class="card-header">{{"page-settings.general.head" | translate}}</p>
+		
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content class="ion-no-padding">
+				
+				<ion-list>
+					
+					<!-- Language -->
+					<ion-item lines="none" (click)="onLangClick()">
+						
+						<ion-icon name="globe" slot="start"></ion-icon>
+						
+						<ion-label class="flex-label">
+							
+							<p class="name">{{"page-settings.general.language.head" | translate}}</p>
+							
+							<p class="choice">{{ langService.currLanguage }}</p>
+						
+						</ion-label>
+
+					</ion-item>
+					
+				</ion-list>
+			
+			</ion-card-content>
+		
+		</ion-card>
+		
+		
+	</section>
+	
+	
+	<!-- Info -->
+	<section class="last">
+		
+		
+		<p class="card-header">{{"page-settings.info.head" | translate}}</p>
+		
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content class="ion-no-padding">
+				
+				<ion-list>
+					
+					<!-- Version -->
+					<ion-item lines="none">
+						
+						<ion-icon name="build" slot="start"></ion-icon>
+						
+						<ion-label class="flex-label">
+							
+							<p class="name">{{"page-settings.info.version" | translate}}</p>
+							
+							<p class="choice">{{ _version }}</p>
+						
+						</ion-label>
+					
+					</ion-item>
+					
+					<!-- Contact us -->
+					<ion-item lines="none">
+						
+						<ion-icon name="people" slot="start"></ion-icon>
+						
+						<ion-label>{{"page-settings.info.contact-us" | translate}}</ion-label>
+					
+					</ion-item>
+					
+				</ion-list>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	
+	</section>
+	
 
 </ion-content>

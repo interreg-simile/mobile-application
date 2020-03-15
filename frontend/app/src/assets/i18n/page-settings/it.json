@@ -1,3 +1,18 @@
 {
-  "title": "Impostazioni"
+  "title": "Impostazioni",
+  "general": {
+    "head": "Generali",
+    "language": {
+      "head": "Lingua",
+      "header": "Scegli la lingua",
+      "it": "Italiano",
+      "en": "English",
+      "msg-change": "La lingua sarà cambiata al prossimo riavvio."
+    }
+  },
+  "info": {
+    "head": "Info",
+    "version": "Versione",
+    "contact-us": "Contattaci"
+  }
 }
