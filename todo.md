@@ -10,7 +10,7 @@
 
 - [ ] Tradurre il sistema in inglese
     - [x] Riconoscere lingua del telefono
-    - [ ] Implementare cambio lingua nelle impostazioni
+    - [x] Implementare cambio lingua nelle impostazioni
 
 
 #### Done
@@ -43,7 +43,7 @@
     - [x] Togliere da osservazioni
     - [x] Togliere da drawer
     
-- [ ] Iscriversi a tutte i servizi con la mail di progetto
+- [x] Iscriversi a tutti i servizi con la mail di progetto
 
 
 #### Known bugs
@@ -53,7 +53,7 @@
 - [x] Le tile della basemap si rompono dopo che si lascia la mappa
     
     
-#### Future realeases
+#### Future releases
 
 - [ ] Implementare login/registrazione utenti in app
     - [ ] Implementare cancellazione delle osservazioni

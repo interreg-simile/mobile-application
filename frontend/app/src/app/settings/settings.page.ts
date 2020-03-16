@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { AlertController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
+import { NGXLogger } from "ngx-logger";
 
 import { LangService } from "../shared/lang.service";
+import { projectEmail } from "../app.component";
 
 
 @Component({
@@ -19,12 +21,13 @@ export class SettingsPage implements OnInit {
     constructor(private appVersion: AppVersion,
                 public langService: LangService,
                 private alertController: AlertController,
-                private i18n: TranslateService) { }
+                private i18n: TranslateService,
+                private logger: NGXLogger) { }
 
 
     ngOnInit() {
 
-        this.getAppVersion();
+        this.getAppVersion().catch(err => this.logger.error("Error retrieving the app version", err));
 
     }
 
@@ -37,6 +40,9 @@ export class SettingsPage implements OnInit {
             const input = [];
 
             this.langService.supportedLanguages.forEach(lang => {
+
+                // ToDo remove when translation is available
+                if (lang !== "it") return;
 
                 input.push({
                     name   : lang,
@@ -77,6 +83,14 @@ export class SettingsPage implements OnInit {
     async getAppVersion(): Promise<void> {
 
         this._version = await this.appVersion.getVersionNumber();
+
+    }
+
+
+    /** Fired when the user clicks the contact us button. */
+    onContactUsClick(): void {
+
+        window.open(`mailto:${projectEmail}`, "_system");
 
     }
 

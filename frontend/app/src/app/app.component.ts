@@ -4,12 +4,13 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LangService } from "./shared/lang.service";
 import { Router } from "@angular/router";
-import { AppVersion } from '@ionic-native/app-version/ngx';
 
 import { Duration, ToastService } from "./shared/toast.service";
 
 
 export const statusBarColor = "#00515F";
+
+export const projectEmail = "interreg-simile@polimi.it";
 
 
 @Component({ selector: 'app-root', templateUrl: 'app.component.html', styleUrls: ['app.component.scss'] })
@@ -29,8 +30,7 @@ export class AppComponent {
                 private modalCtr: ModalController,
                 private menuCtr: MenuController,
                 private toastService: ToastService,
-                private router: Router,
-                private appVersion: AppVersion) {
+                private router: Router) {
 
         this.initializeApp()
             .then(() => {
