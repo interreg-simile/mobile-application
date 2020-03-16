@@ -36,13 +36,15 @@ $photo-thumb-height : 120px;
   margin-top      : 8px;
 
   .photo-container {
-    flex          : 1;
-    max-width     : 100%;
-    height        : $photo-thumb-height;
-    border        : 1px solid $color-border;
-    border-radius : 5px;
-    overflow      : hidden;
-    align-items   : center;
+    flex            : 1;
+    max-width       : 100%;
+    height          : $photo-thumb-height;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    border          : 1px solid $color-border;
+    border-radius   : 5px;
+    overflow        : hidden;
 
     img {
       min-width  : 100%;
