@@ -12,7 +12,7 @@
 	
 	<ion-item *ngFor="let alert of alerts"
 			  button detail="false"
-			  [routerLink]="['/', 'news', 'alerts', alert.id]">
+			  (click)="onAlertClick(alert)">
 		
 		<section class="container ion-padding-vertical">
 			

@@ -8,12 +8,7 @@ import { Diagnostic } from "@ionic-native/diagnostic/ngx";
 import { NGXLogger } from "ngx-logger";
 
 import { MapService } from "./map.service";
-import {
-    customMarkerIcon, eventMarkerIcon,
-    observationMarkerIcon,
-    userMarkerIcon,
-    userObservationMarkerIcon
-} from "../shared/utils";
+import { customMarkerIcon, userMarkerIcon } from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { ObservationsService } from "../observations/observations.service";
@@ -23,6 +18,7 @@ import { Observation } from "../observations/observation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../shared/toast.service";
 import { LegendComponent, Markers } from "./legend/legend.component";
+import { ConnectionStatus, NetworkService } from "../shared/network.service";
 
 
 /**
@@ -52,6 +48,7 @@ export class MapPage implements OnInit, OnDestroy {
 
     private _positionSub: Subscription;
     private _pauseSub: Subscription;
+    private _networkSub: Subscription;
     private _eventsSub: Subscription;
     private _obsSub: Subscription;
     private _newEventsSub: Subscription;
@@ -96,7 +93,8 @@ export class MapPage implements OnInit, OnDestroy {
                 private alertCtr: AlertController,
                 private toastService: ToastService,
                 private popoverCtr: PopoverController,
-                private events: Events) { }
+                private events: Events,
+                private networkService: NetworkService) { }
 
 
     ngOnInit(): void {
@@ -128,31 +126,13 @@ export class MapPage implements OnInit, OnDestroy {
 
 
         this._eventsSub = this.newsService.events.subscribe(events => {
-
-            // Remove the previous markers
             this._eventMarkers.clearLayers();
-
-            events.forEach(e => {
-                new Marker(e.coordinates, { icon: eventMarkerIcon(), zIndexOffset: 1 })
-                    .on("click", () => this.router.navigate(["news/events/", e.id]))
-                    .addTo(this._eventMarkers);
-            })
-
+            events.forEach(e => this.mapService.createEventMarker(e).addTo(this._eventMarkers));
         });
 
         this._obsSub = this.obsService.observations.subscribe(obs => {
-
             this._obsMarkers.clearLayers();
-
-            obs.forEach(o => {
-                new Marker(
-                    new LatLng(o.position.coordinates[1], o.position.coordinates[0]),
-                    { icon: userObservationMarkerIcon(), zIndexOffset: 2 }
-                )
-                    .on("click", () => this.router.navigate(["/observations", o._id]))
-                    .addTo(this._obsMarkers);
-            });
-
+            obs.forEach(o => this.mapService.createObservationMarker(o).addTo(this._obsMarkers));
         });
 
         this._newEventsSub = this.newsService.areNewEvents.subscribe(v => this._areNewEvents = v);
@@ -403,6 +383,8 @@ export class MapPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the synchronize button. */
     async onSyncClick(): Promise<void> {
 
+        if (!this.networkService.checkOnlineContentAvailability()) return;
+
         await this.populateMap();
 
         // ToDo checks for locally saved data and sync those with the server
@@ -412,6 +394,8 @@ export class MapPage implements OnInit, OnDestroy {
 
     /** Fetches the data that has to be visualized on the map. */
     async populateMap(): Promise<void> {
+
+        if (!this.networkService.checkOnlineContentAvailability()) return;
 
         await this.presentLoading();
 
@@ -477,7 +461,7 @@ export class MapPage implements OnInit, OnDestroy {
      * @param {Markers} marker - The marker cluster corresponding to the changed checkbox.
      * @param {boolean} checked - The current state of the checkbox.
      */
-    onPopoverChange(marker: Markers, checked: boolean) {
+    onPopoverChange(marker: Markers, checked: boolean): void {
 
         switch (marker) {
 
@@ -499,7 +483,7 @@ export class MapPage implements OnInit, OnDestroy {
      * @param {MarkerClusterGroup} cluster - The marker cluster.
      * @param {boolean} toShow - True if the cluster has to be shown.
      */
-    toggleMarkerCluster(cluster: MarkerClusterGroup, toShow: boolean) {
+    toggleMarkerCluster(cluster: MarkerClusterGroup, toShow: boolean): void {
 
         const hasCluster = this._map.hasLayer(cluster);
 
@@ -622,7 +606,7 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
-    ionViewWillLeave() {
+    ionViewWillLeave(): void {
 
         this._savedMapCenter = this._map.getCenter();
         this._savedZoomLevel = this._map.getZoom();
@@ -638,6 +622,7 @@ export class MapPage implements OnInit, OnDestroy {
         this.stopWatcher();
 
         if (this._positionSub) this._positionSub.unsubscribe();
+        if (this._networkSub) this._networkSub.unsubscribe();
         if (this._pauseSub) this._pauseSub.unsubscribe();
         if (this._eventsSub) this._eventsSub.unsubscribe();
         if (this._obsSub) this._obsSub.unsubscribe();

@@ -5,11 +5,17 @@ import { AlertController } from "@ionic/angular";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
-import { LatLng } from "leaflet";
+import { LatLng, Marker } from "leaflet";
+import { Router } from "@angular/router";
 
 import { LocationErrors } from "../shared/common.enum";
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
+import { MinimalObservation } from "../observations/observations.service";
+import { eventMarkerIcon, userObservationMarkerIcon } from "../shared/utils";
+import { ConnectionStatus, NetworkService } from "../shared/network.service";
+import { Duration, ToastService } from "../shared/toast.service";
+import { Event } from "../news/events/event.model";
 
 
 @Injectable({ providedIn: 'root' })
@@ -22,7 +28,9 @@ export class MapService {
                 private i18n: TranslateService,
                 private geolocation: Geolocation,
                 private diagnostic: Diagnostic,
-                private alertCtr: AlertController) { }
+                private alertCtr: AlertController,
+                private networkService: NetworkService,
+                private router: Router) { }
 
 
     /** Starts registering the user location. */
@@ -106,6 +114,54 @@ export class MapService {
         if (res.data.rois.length) return res.data.rois[0]._id;
 
         return;
+
+    }
+
+
+    /**
+     * Creates a marker for an observation.
+     *
+     * @param {MinimalObservation} obs - The observation.
+     * @return {Marker} The marker.
+     */
+    createObservationMarker(obs: MinimalObservation): Marker {
+
+        const marker = new Marker(
+            new LatLng(obs.position.coordinates[1], obs.position.coordinates[0]),
+            { icon: userObservationMarkerIcon(), zIndexOffset: 2 }
+        );
+
+        marker.on("click", () => this.onMarkerClick(["/observations", obs._id]));
+
+        return marker;
+
+    }
+
+    /**
+     * Creates a marker for an event.
+     *
+     * @param {Event} event - The event.
+     * @return {Marker} The marker.
+     */
+    createEventMarker(event: Event): Marker {
+
+        const marker = new Marker(event.coordinates, { icon: eventMarkerIcon(), zIndexOffset: 1 });
+
+        marker.on("click", () => this.onMarkerClick(["news/events/", event.id]));
+
+        return marker;
+
+    }
+
+    /**
+     * Fired when a marker is clicked to open the corresponding details page.
+     *
+     * @param {string[]} url - The url to open.
+     */
+    private onMarkerClick(url: Array<string>): void {
+
+        if (this.networkService.checkOnlineContentAvailability())
+            this.router.navigate(url);
 
     }
 

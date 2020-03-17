@@ -6,6 +6,7 @@ import { NewsService } from "./news.service";
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
 import { Duration, ToastService } from "../shared/toast.service";
+import { ConnectionStatus, NetworkService } from "../shared/network.service";
 
 
 enum Segments { ALERTS, EVENTS}
@@ -31,7 +32,10 @@ export class NewsPage implements OnInit, OnDestroy {
     public newEvents: boolean;
 
 
-    constructor(private newsService: NewsService, private toastService: ToastService, private logger: NGXLogger) { }
+    constructor(private newsService: NewsService,
+                private toastService: ToastService,
+                private logger: NGXLogger,
+                private networkService: NetworkService) { }
 
 
     ngOnInit(): void {
@@ -60,6 +64,11 @@ export class NewsPage implements OnInit, OnDestroy {
      */
     onRefresh(e: any): void {
 
+        if (!this.networkService.checkOnlineContentAvailability()) {
+            e.target.complete();
+            return;
+        }
+
         const pEvents = this.newsService.fetchEvents();
         const pAlerts = this.newsService.fetchAlerts();
 
@@ -73,7 +82,7 @@ export class NewsPage implements OnInit, OnDestroy {
     }
 
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
 
         if (this._alertsSub) this._alertsSub.unsubscribe();
         if (this._eventsSub) this._eventsSub.unsubscribe();

@@ -13,7 +13,7 @@
 	
 	<ion-item *ngFor="let event of events"
 			  button detail="false"
-			  [routerLink]="['/', 'news', 'events', event.id]">
+			  (click)="onEventClick(event)">
 		
 		<section class="container ion-padding-vertical">
 			

@@ -6,6 +6,7 @@ import { LangService } from "./shared/lang.service";
 import { Router } from "@angular/router";
 
 import { Duration, ToastService } from "./shared/toast.service";
+import { NetworkService } from "./shared/network.service";
 
 
 export const statusBarColor = "#00515F";
@@ -30,7 +31,8 @@ export class AppComponent {
                 private modalCtr: ModalController,
                 private menuCtr: MenuController,
                 private toastService: ToastService,
-                private router: Router) {
+                private router: Router,
+                private networkService: NetworkService) {
 
         this.initializeApp()
             .then(() => {
@@ -45,6 +47,8 @@ export class AppComponent {
     async initializeApp(): Promise<void> {
 
         await this.platform.ready();
+
+        this.networkService.init();
 
         this.statusBar.backgroundColorByHexString(statusBarColor);
         this.statusBar.styleLightContent();
