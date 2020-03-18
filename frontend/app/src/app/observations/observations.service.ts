@@ -190,7 +190,6 @@ export class ObservationsService {
 
                         reader.onloadend = () => {
                             const imgBlob = new Blob([reader.result], { type: "image/jpeg" });
-                            console.log(field, imgBlob.size);
                             formData.append(field, imgBlob, file.name);
                             resolve()
                         };

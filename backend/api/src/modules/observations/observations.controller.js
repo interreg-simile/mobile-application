@@ -92,35 +92,27 @@ export const getAll = (req, res, next) => {
  */
 export const create = (req, res, next) => {
 
-    // Validate the body of the request
     if (!checkValidation(req, next)) return;
 
-    // Retrieve the query parameters
     const minimalRes = req.query.minimalRes || "false";
 
-    // Create the data
     const data = {
         // uid   : req.userId,
-        ...req.body,
-        photos: req.files.photos.map(p => p.path)
+        ...req.body
     };
 
-    // If the signage photo has been provided, add it to the data
-    if (req.files.signage) _.set(
-        data,
-        ["details", "outlets", "signagePhoto"],
-        req.files.signage[0].path.substring(req.files.signage[0].path)
-    );
+    if (_.has(req, ["files", "photos"]))
+        data.photos = req.files.photos.map(p => p.path);
 
-    // Create the new observation
+    if (_.has(req, ["files", "signage"]))
+        _.set(data, ["details", "outlets", "signagePhoto"], req.files.signage[0].path);
+
     observationService.create(data)
         .then(observation => {
 
-            // Initialize the response object
             let resData;
 
-            // If the response has to be minimal, return only the id, uid and coordinates of the observation
-            if (minimalRes === "true")
+            if (minimalRes === "true") {
                 resData = {
                     _id     : observation._id,
                     // uid     : observation.uid,
@@ -129,12 +121,10 @@ export const create = (req, res, next) => {
                         roi        : observation.position.roi
                     }
                 };
-
-            // Else, return the whole observation
-            else
+            } else {
                 resData = observation;
+            }
 
-            // Send the response
             res.status(201).json({ meta: { code: 201 }, data: resData });
 
         })

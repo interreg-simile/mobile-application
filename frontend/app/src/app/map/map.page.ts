@@ -503,6 +503,12 @@ export class MapPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the "add" button. */
     async onAddClick(): Promise<void> {
 
+        // ToDo alert user that he is offline
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+            this.logger.log("Starting new observation with app offline.")
+        }
+
+
         let pos, accuracy, custom;
 
         if (this._customMarker) {
@@ -520,29 +526,39 @@ export class MapPage implements OnInit, OnDestroy {
             return;
         }
 
+        this.obsService.newObservation = new Observation(pos, accuracy, custom);
 
-        await this.presentLoading();
 
-        const [roi, roiErr] = await this.mapService.pointInRoi(pos)
-            .then(v => [v, undefined])
-            .catch(e => [undefined, e]);
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
 
-        await this.dismissLoading();
+            await this.presentLoading();
 
-        if (!roi && await this.presentRoiAlert(!!roiErr) === "cancel") return;
+            const [roi, roiErr] = await this.mapService.pointInRoi(pos)
+                .then(v => [v, undefined])
+                .catch(e => [undefined, e]);
 
-        this.obsService.newObservation              = new Observation(pos, accuracy, custom);
-        this.obsService.newObservation.position.roi = roi;
+            await this.dismissLoading();
+
+            if (!roi && await this.presentRoiAlert(!!roiErr) === "cancel") {
+                this.obsService.resetNewObservation();
+                return;
+            }
+
+            this.obsService.newObservation.position.roi = roi;
+
+        }
 
 
         const pic = await this.cameraService.takePicture();
 
-        if (pic === PicResult.NO_IMAGE)
+        if (pic === PicResult.NO_IMAGE) {
+            this.obsService.resetNewObservation();
             return;
-        if (pic === PicResult.ERROR)
+        } else if (pic === PicResult.ERROR) {
             await this.toastService.presentToast("common.errors.photo", Duration.short);
-        else
+        } else {
             this.obsService.newObservation.photos[0] = pic;
+        }
 
 
         await this.router.navigate(["/observations/new"]);

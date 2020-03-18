@@ -44,8 +44,7 @@ export default async function () {
                 },
                 foams: { checked: true }
             },
-            other   : "Altri dettagli sull'osservazione...",
-            photos  : ["uploads/observations/default.jpg"]
+            other   : "Altri dettagli sull'osservazione..."
         },
         {
             // uid     : "5dd7bbe0701d5bdd685c1f19", // User 2

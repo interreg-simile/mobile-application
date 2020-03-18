@@ -27,7 +27,7 @@
 		
 		
 		<!-- Photos -->
-		<section class="photos section-space">
+		<section *ngIf="_obs.photos.length > 0" class="photos section-space">
 			
 			<div *ngFor="let photo of _obs.photos; index as i"
 				 class="photo-container" [ngClass]="i === 0 ? '' : 'ion-margin-start' "

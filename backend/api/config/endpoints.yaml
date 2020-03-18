@@ -141,7 +141,7 @@
     upload:
       dest: ./uploads/observations
       fields:
-        - min: 1
+        - min: 0
           max: 3
           name: photos
         - min: 0
