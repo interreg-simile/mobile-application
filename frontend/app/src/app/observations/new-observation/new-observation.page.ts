@@ -3,7 +3,7 @@ import {
     AlertController,
     Events,
     LoadingController,
-    ModalController,
+    ModalController, NavController,
     PickerController,
     Platform
 } from "@ionic/angular";
@@ -14,11 +14,12 @@ import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { MeasuresImpl } from "../observation.model";
+import { MeasuresImpl, Observation } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
 import { Subscription } from "rxjs";
 import { HelpsService } from "../../shared/helps/helps.service";
+import { LatLng } from "leaflet";
 
 
 @Component({
@@ -30,7 +31,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     private _backButtonSub: Subscription;
 
-    public _isLoading = true;
+    public _isLoading        = true;
+    public _isWeatherLoading = false;
 
     public _newObservation: any;
 
@@ -51,6 +53,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
 
     constructor(private router: Router,
+                private navCtr: NavController,
                 private obsService: ObservationsService,
                 private alertCtr: AlertController,
                 private loadingCtr: LoadingController,
@@ -66,6 +69,11 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
+
+        if (!this.obsService.newObservation) {
+            this.navCtr.navigateBack("/map");
+            return;
+        }
 
         this._newObservation = this.obsService.newObservation;
         this._imageSrc[0]    = this.cameraService.getImgSrc(this._newObservation.photos[0]);
@@ -104,16 +112,11 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /** Called when the user click on the refresh icon of the weather box. It requests the weather data from the API. */
     async onRefreshWeatherClick(): Promise<void> {
 
-        const loading = await this.loadingCtr.create({
-            message     : this.i18n.instant("common.wait"),
-            showBackdrop: false
-        });
-
-        await loading.present();
+        this._isWeatherLoading = true;
 
         await this.getWeatherData(true);
 
-        await loading.dismiss();
+        this._isWeatherLoading = false;
 
     }
 
@@ -311,10 +314,11 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the send button. */
     async onSendClick(): Promise<void> {
 
-        if (this._newObservation.photos.every(p => p === undefined)) {
-            await this.toastService.presentToast("page-new-obs.msg-no-photo", Duration.short);
-            return;
-        }
+        // ToDo uncomment
+        // if (this._newObservation.photos.every(p => p === undefined)) {
+        //     await this.toastService.presentToast("page-new-obs.msg-no-photo", Duration.short);
+        //     return;
+        // }
 
         this.postObservation();
 
@@ -358,6 +362,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
             return;
         }
 
+        // ToDo fix for offline saving
         this.events.publish("observation:inserted");
 
         await this.router.navigate(["map"]);

@@ -10,7 +10,7 @@
 		
 		<ion-title>{{"page-map.title" | translate}}</ion-title>
 		
-		<ion-buttons slot="end">
+		<ion-buttons slot="secondary">
 			
 			<ion-button [routerLink]="['/', 'news']">
 				
@@ -22,8 +22,8 @@
 			
 			<ion-button (click)="onSyncClick()">
 				
-				<ion-icon slot="icon-only" name="sync"></ion-icon>
-				
+				<ion-icon slot="icon-only" name="sync" [ngClass]="_isLoading ? 'anim-spinning-ccw' : ''"></ion-icon>
+			
 			</ion-button>
 		
 		</ion-buttons>
@@ -31,6 +31,7 @@
 	</ion-toolbar>
 
 </ion-header>
+
 
 <ion-content>
 	

@@ -4,12 +4,15 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import cloneDeep from "lodash-es/cloneDeep";
 import { File, FileEntry } from "@ionic-native/file/ngx";
 import get from "lodash-es/get";
+import { NGXLogger } from "ngx-logger";
+import { LatLng } from "leaflet";
 
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
 import { Observation } from "./observation.model";
-import { LatLng } from "leaflet";
 import { ObsInfo } from "./info/obs-info.model";
+import { ConnectionStatus, NetworkService } from "../shared/network.service";
+import { OfflineService } from "./offline.service";
 
 
 export interface MinimalObservation {
@@ -30,7 +33,11 @@ export class ObservationsService {
     get observations() { return this._obs.asObservable() }
 
 
-    constructor(private http: HttpClient, private file: File) { }
+    constructor(private http: HttpClient,
+                private file: File,
+                private networkService: NetworkService,
+                private logger: NGXLogger,
+                private offlineService: OfflineService) { }
 
 
     /** Retrieves all the observations from the server. */
@@ -97,16 +104,50 @@ export class ObservationsService {
     /** Sends a new observation to the server. */
     async postObservation(): Promise<void> {
 
+        const cleanObs = this.cleanObservationFields();
+
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline)
+            await this.offlineService.storeObservation(cleanObs);
+        else
+            await this.sendObservation(cleanObs);
+
+    }
+
+
+    async postStoredObservations(): Promise<void> {
+
+        // ToDo check if offline
+
+        const savedObs = await this.offlineService.getStoredObservations();
+
+        console.log(savedObs);
+
+        if (!savedObs) return;
+
+        const pObs: Array<Promise<void>> = [];
+
+        savedObs.forEach((obs, i) => {
+
+            console.log(obs);
+
+            pObs.push(
+                this.sendObservation(obs)
+                    .then(() => console.log(i + " done"))
+                    .catch(() => console.log(i + " err"))
+            );
+
+        });
+
+        await Promise.all(pObs);
+
+        console.log(await this.offlineService.getStoredObservations());
+
+    }
+
+
+    private cleanObservationFields(): any {
+
         const obs = cloneDeep(this.newObservation);
-
-        const formData = new FormData();
-
-        for (let i = 0; i < obs.photos.length; i++) {
-            if (obs.photos[i])
-                await this.appendImage(formData, obs.photos[i], "photos");
-        }
-
-        delete obs.photos;
 
         // @ts-ignore
         obs.position.coordinates = [obs.position.coordinates.lng, obs.position.coordinates.lat];
@@ -134,10 +175,7 @@ export class ObservationsService {
 
         });
 
-        if (get(obs, "details.outlets.signagePhoto")) {
-            await this.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
-            obs.details.outlets.signagePhoto = undefined;
-        }
+        if (Object.keys(obs.details).length === 0) delete obs.details;
 
         if (obs.measures) {
 
@@ -155,17 +193,49 @@ export class ObservationsService {
 
         }
 
+        return obs;
+
+    }
+
+
+    async sendObservation(obs: any): Promise<void> {
+
+        const formData = await this.setRequestBody(obs);
+
+        formData.forEach(f => console.log(f));
+
+        // const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
+        // const qParams = new HttpParams().set("minimalRes", "true");
+        //
+        // const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
+        //
+        // const resData = <MinimalObservation>res.data;
+        //
+        // if (resData.position.roi)
+        //     this._obs.next([...this._obs.value, resData]);
+
+    }
+
+
+    private async setRequestBody(obs: any): Promise<FormData> {
+
+        const formData = new FormData();
+
+        for (let i = 0; i < obs.photos.length; i++) {
+            if (obs.photos[i])
+                await this.appendImage(formData, obs.photos[i], "photos");
+        }
+
+        delete obs.photos;
+
+        if (get(obs, "details.outlets.signagePhoto")) {
+            await this.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
+            obs.details.outlets.signagePhoto = undefined;
+        }
+
         Object.keys(obs).forEach(k => formData.append(k, JSON.stringify(obs[k])));
 
-
-        const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
-        const qParams = new HttpParams().set("minimalRes", "true");
-
-        const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
-
-        const data = <MinimalObservation>res.data;
-
-        if (data.position.roi) this._obs.next([...this._obs.value, data]);
+        return formData;
 
     }
 
@@ -177,7 +247,7 @@ export class ObservationsService {
      * @param {string} url - The url of the photo.
      * @param {string} field - The name of the field.
      */
-    appendImage(formData: FormData, url: string, field: string): Promise<void> {
+    private appendImage(formData: FormData, url: string, field: string): Promise<void> {
 
         return new Promise((resolve, reject) => {
 

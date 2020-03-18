@@ -11,6 +11,10 @@
 - [ ] Tradurre il sistema in inglese
     - [x] Riconoscere lingua del telefono
     - [x] Implementare cambio lingua nelle impostazioni
+    
+- [ ] Rifare icone del sync e alert
+
+- [ ] Scrivere testo x alert inserimento offline
 
 
 #### Done

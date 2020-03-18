@@ -19,6 +19,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../shared/toast.service";
 import { LegendComponent, Markers } from "./legend/legend.component";
 import { ConnectionStatus, NetworkService } from "../shared/network.service";
+import { OfflineService } from "../observations/offline.service";
 
 
 /**
@@ -67,6 +68,8 @@ export class MapPage implements OnInit, OnDestroy {
     private _savedMapCenter: LatLng;
     private _savedZoomLevel: number;
 
+    public _isLoading     = false;
+
     public _isMapFollowing = false;
     public _locationErrors = LocationErrors;
     public _locationStatus = LocationErrors.NO_ERROR;
@@ -94,7 +97,8 @@ export class MapPage implements OnInit, OnDestroy {
                 private toastService: ToastService,
                 private popoverCtr: PopoverController,
                 private events: Events,
-                private networkService: NetworkService) { }
+                private networkService: NetworkService,
+                private offlineService: OfflineService) { }
 
 
     ngOnInit(): void {
@@ -149,7 +153,7 @@ export class MapPage implements OnInit, OnDestroy {
                 if (!this._hasBeenAlreadyOpened) {
 
                     this.startWatcher().catch(err => this.logger.error("Error starting the position watcher.", err));
-                    this.populateMap().catch(err => this.logger.error("Error populating the map.", err));
+                    this.populateMap();
 
                 }
 
@@ -380,35 +384,37 @@ export class MapPage implements OnInit, OnDestroy {
 
     }
 
+
     /** Fired when the user clicks on the synchronize button. */
     async onSyncClick(): Promise<void> {
 
-        if (!this.networkService.checkOnlineContentAvailability()) return;
+        // ToDo show eventual errors
 
-        await this.populateMap();
+        // ToDo uncomment
+        // this.populateMap();
 
-        // ToDo checks for locally saved data and sync those with the server
+        this.obsService.postStoredObservations();
 
     }
 
 
     /** Fetches the data that has to be visualized on the map. */
-    async populateMap(): Promise<void> {
+    populateMap(): void {
 
-        if (!this.networkService.checkOnlineContentAvailability()) return;
-
-        await this.presentLoading();
+        this._isLoading = true;
 
         const pEvents = this.newsService.fetchEvents();
         const pAlerts = this.newsService.fetchAlerts();
         const pObs    = this.obsService.fetchObservations();
 
         Promise.all([pEvents, pAlerts, pObs])
+            .then(() => {
+                this._isLoading     = false;
+            })
             .catch(err => {
                 this.logger.error("Error fetching the data.", err);
-                this.toastService.presentToast("page-map.fetch-error", Duration.short);
-            })
-            .finally(() => this.dismissLoading());
+                this._isLoading     = false;
+            });
 
     }
 
@@ -421,6 +427,9 @@ export class MapPage implements OnInit, OnDestroy {
      * @return {boolean} Returns false to prevent the default event.
      */
     onLegendIconClick(e: MouseEvent): boolean {
+
+        // ToDo remove
+        this.offlineService.clearAll();
 
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -549,16 +558,17 @@ export class MapPage implements OnInit, OnDestroy {
         }
 
 
-        const pic = await this.cameraService.takePicture();
-
-        if (pic === PicResult.NO_IMAGE) {
-            this.obsService.resetNewObservation();
-            return;
-        } else if (pic === PicResult.ERROR) {
-            await this.toastService.presentToast("common.errors.photo", Duration.short);
-        } else {
-            this.obsService.newObservation.photos[0] = pic;
-        }
+        // ToDo uncomment
+        // const pic = await this.cameraService.takePicture();
+        //
+        // if (pic === PicResult.NO_IMAGE) {
+        //     this.obsService.resetNewObservation();
+        //     return;
+        // } else if (pic === PicResult.ERROR) {
+        //     await this.toastService.presentToast("common.errors.photo", Duration.short);
+        // } else {
+        //     this.obsService.newObservation.photos[0] = pic;
+        // }
 
 
         await this.router.navigate(["/observations/new"]);

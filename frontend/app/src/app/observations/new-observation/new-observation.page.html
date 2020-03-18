@@ -53,6 +53,7 @@
 				
 				<ion-icon name="refresh"
 						  class="btn-icon icon-right"
+						  [ngClass]="_isWeatherLoading ? 'anim-spinning-cw' : ''"
 						  (click)="onRefreshWeatherClick()"></ion-icon>
 			
 			</div>
