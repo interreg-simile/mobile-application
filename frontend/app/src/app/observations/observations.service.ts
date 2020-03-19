@@ -106,41 +106,31 @@ export class ObservationsService {
 
         const cleanObs = this.cleanObservationFields();
 
-        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline)
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
             await this.offlineService.storeObservation(cleanObs);
-        else
+        } else {
             await this.sendObservation(cleanObs);
+        }
 
     }
 
 
     async postStoredObservations(): Promise<void> {
 
-        // ToDo check if offline
-
         const savedObs = await this.offlineService.getStoredObservations();
 
-        console.log(savedObs);
+        if (!savedObs || savedObs.length === 0) return;
 
-        if (!savedObs) return;
+        const pObs   = [];
+        const errObs = [];
 
-        const pObs: Array<Promise<void>> = [];
-
-        savedObs.forEach((obs, i) => {
-
-            console.log(obs);
-
-            pObs.push(
-                this.sendObservation(obs)
-                    .then(() => console.log(i + " done"))
-                    .catch(() => console.log(i + " err"))
-            );
-
+        savedObs.forEach(obs => {
+            pObs.push(this.sendObservation(obs).catch(() => errObs.push(obs)));
         });
 
         await Promise.all(pObs);
 
-        console.log(await this.offlineService.getStoredObservations());
+        await this.offlineService.storeObservations(errObs);
 
     }
 
@@ -198,21 +188,19 @@ export class ObservationsService {
     }
 
 
-    async sendObservation(obs: any): Promise<void> {
+    private async sendObservation(obs: any): Promise<void> {
 
         const formData = await this.setRequestBody(obs);
 
-        formData.forEach(f => console.log(f));
+        const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
+        const qParams = new HttpParams().set("minimalRes", "true");
 
-        // const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
-        // const qParams = new HttpParams().set("minimalRes", "true");
-        //
-        // const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
-        //
-        // const resData = <MinimalObservation>res.data;
-        //
-        // if (resData.position.roi)
-        //     this._obs.next([...this._obs.value, resData]);
+        const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
+
+        const resData = <MinimalObservation>res.data;
+
+        if (resData.position.roi)
+            this._obs.next([...this._obs.value, resData]);
 
     }
 

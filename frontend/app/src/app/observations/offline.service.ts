@@ -23,8 +23,6 @@ export class OfflineService {
 
     async storeObservation(data: any): Promise<void> {
 
-        this.logger.log("Storing the observation...");
-
         let storedObs = await this.getStoredObservations();
 
         if (storedObs)
@@ -33,6 +31,13 @@ export class OfflineService {
             storedObs = [data];
 
         await this.storage.set(this._storageKey, JSON.stringify(storedObs));
+
+    }
+
+
+    async storeObservations(data: Array<any>): Promise<void> {
+
+        await this.storage.set(this._storageKey, JSON.stringify(data));
 
     }
 

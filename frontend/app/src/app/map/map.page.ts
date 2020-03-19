@@ -12,7 +12,7 @@ import { customMarkerIcon, userMarkerIcon } from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { ObservationsService } from "../observations/observations.service";
-import { CameraService, PicResult } from "../shared/camera.service";
+import { CameraService } from "../shared/camera.service";
 import { Router } from "@angular/router";
 import { Observation } from "../observations/observation.model";
 import { TranslateService } from "@ngx-translate/core";
@@ -20,6 +20,7 @@ import { Duration, ToastService } from "../shared/toast.service";
 import { LegendComponent, Markers } from "./legend/legend.component";
 import { ConnectionStatus, NetworkService } from "../shared/network.service";
 import { OfflineService } from "../observations/offline.service";
+import { count } from "rxjs/operators";
 
 
 /**
@@ -31,8 +32,6 @@ import { OfflineService } from "../observations/offline.service";
  */
 @Component({ selector: 'app-map', templateUrl: './map.page.html', styleUrls: ['./map.page.scss'] })
 export class MapPage implements OnInit, OnDestroy {
-
-    private _hasBeenAlreadyOpened = false;
 
     private readonly _storageKeyPosition = "position";
 
@@ -68,7 +67,9 @@ export class MapPage implements OnInit, OnDestroy {
     private _savedMapCenter: LatLng;
     private _savedZoomLevel: number;
 
-    public _isLoading     = false;
+    public _isLoading         = false;
+    private _hasFetchedData   = false;
+    private _isFetchDataError = false;
 
     public _isMapFollowing = false;
     public _locationErrors = LocationErrors;
@@ -121,13 +122,13 @@ export class MapPage implements OnInit, OnDestroy {
 
         });
 
-        this.initMarkerClusters();
-
 
         this.events.subscribe("popover:change", data => this.onPopoverChange(data.marker, data.checked));
 
         this.events.subscribe("observation:inserted", () => this._customMarker = null);
 
+
+        this.initMarkerClusters();
 
         this._eventsSub = this.newsService.events.subscribe(events => {
             this._eventMarkers.clearLayers();
@@ -147,19 +148,26 @@ export class MapPage implements OnInit, OnDestroy {
 
     ionViewDidEnter(): void {
 
-        this.initMap()
-            .then(() => {
+        this.initMap().then(() => {
 
-                if (!this._hasBeenAlreadyOpened) {
+            this.startWatcher().catch(() => {});
 
-                    this.startWatcher().catch(err => this.logger.error("Error starting the position watcher.", err));
-                    this.populateMap();
+            this.handleMapData().finally(() => this.subscribeNetworkChanges());
 
-                }
+        });
 
-                this._hasBeenAlreadyOpened = true;
+    }
 
-            });
+
+    private subscribeNetworkChanges() {
+
+        if (this._networkSub) return;
+
+        this._networkSub = this.networkService.onNetworkChange().subscribe(status => {
+
+            if (status === ConnectionStatus.Online) this.handleMapData();
+
+        });
 
     }
 
@@ -256,6 +264,8 @@ export class MapPage implements OnInit, OnDestroy {
      */
     async startWatcher(fromClick = false): Promise<void> {
 
+        if (this._positionSub) return;
+
         this._locationStatus = await this.mapService.checkPositionAvailability(fromClick);
         this.changeRef.detectChanges();
 
@@ -271,7 +281,10 @@ export class MapPage implements OnInit, OnDestroy {
     /** Stops the position watcher. */
     stopWatcher(): void {
 
-        if (this._positionSub) this._positionSub.unsubscribe();
+        if (this._positionSub) {
+            this._positionSub.unsubscribe();
+            this._positionSub = null;
+        }
 
         this._locationStatus = LocationErrors.GPS_ERROR;
         this.changeRef.detectChanges();
@@ -390,31 +403,90 @@ export class MapPage implements OnInit, OnDestroy {
 
         // ToDo show eventual errors
 
-        // ToDo uncomment
-        // this.populateMap();
+        this._hasFetchedData = false;
 
-        this.obsService.postStoredObservations();
+        this.handleMapData();
 
     }
 
 
-    /** Fetches the data that has to be visualized on the map. */
-    populateMap(): void {
+    /** Handles the retrieval and the synchronization of the map data. */
+    private handleMapData(): Promise<Array<any>> {
+
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline)
+            return Promise.all([]);
 
         this._isLoading = true;
 
-        const pEvents = this.newsService.fetchEvents();
-        const pAlerts = this.newsService.fetchAlerts();
-        const pObs    = this.obsService.fetchObservations();
+        const promises: Array<Promise<any>> = [];
 
-        Promise.all([pEvents, pAlerts, pObs])
-            .then(() => {
-                this._isLoading     = false;
-            })
-            .catch(err => {
-                this.logger.error("Error fetching the data.", err);
-                this._isLoading     = false;
-            });
+        if (!this._hasFetchedData && this.networkService.checkOnlineContentAvailability()) {
+
+            promises.push(
+                this.populateMap()
+                    .then(() => this.logger.log("Done populating map."))
+                    .catch(() => this.logger.error("Error populating map."))
+                    .finally(() => {
+
+                        this._hasFetchedData = true;
+
+                        if (this._isFetchDataError) {
+                            this.toastService.presentToast("page-map.fetch-error", Duration.short);
+                            this._isFetchDataError = false;
+                        }
+
+                    })
+            );
+
+        }
+
+        promises.push(
+            this.obsService.postStoredObservations()
+                .then(() => this.logger.log("Done posting stored observations."))
+                .catch(() => this.logger.error("Error posting stored observations."))
+        );
+
+        return Promise.all(promises).finally(() => this._isLoading = false);
+
+    }
+
+
+    // ToDo remove
+    async t() {
+        this.logger.log(await this.offlineService.getStoredObservations());
+    }
+
+
+    /** Fetches the data that has to be visualized on the map. */
+    private populateMap(): Promise<Array<void>> {
+
+        const promises: Array<Promise<void>> = [];
+
+        promises.push(
+            this.newsService.fetchEvents()
+                .catch(err => {
+                    this.logger.error("Error fetching the events.", err);
+                    this._isFetchDataError = true;
+                })
+        );
+
+        promises.push(
+            this.newsService.fetchAlerts()
+                .catch(err => {
+                    this.logger.error("Error fetching the alerts.", err);
+                    this._isFetchDataError = true;
+                })
+        );
+
+        promises.push(
+            this.obsService.fetchObservations()
+                .catch(err => {
+                    this.logger.error("Error fetching the observations.", err);
+                    this._isFetchDataError = true;
+                })
+        );
+
+        return Promise.all(promises);
 
     }
 

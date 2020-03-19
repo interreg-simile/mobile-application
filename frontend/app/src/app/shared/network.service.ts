@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Network } from '@ionic-native/network/ngx';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { NGXLogger } from "ngx-logger";
 
 import { Duration, ToastService } from "./toast.service";
@@ -55,6 +55,18 @@ export class NetworkService {
             }
 
         });
+
+    }
+
+
+    /**
+     * Return an observable that yields the current network state.
+     *
+     * @return {Observable<ConnectionStatus>} The observable.
+     */
+    onNetworkChange(): Observable<ConnectionStatus> {
+
+        return this.status.asObservable();
 
     }
 

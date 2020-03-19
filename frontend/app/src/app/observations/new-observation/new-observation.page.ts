@@ -3,7 +3,8 @@ import {
     AlertController,
     Events,
     LoadingController,
-    ModalController, NavController,
+    ModalController,
+    NavController,
     PickerController,
     Platform
 } from "@ionic/angular";
@@ -14,12 +15,12 @@ import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { MeasuresImpl, Observation } from "../observation.model";
+import { MeasuresImpl } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
 import { Subscription } from "rxjs";
 import { HelpsService } from "../../shared/helps/helps.service";
-import { LatLng } from "leaflet";
+import { ConnectionStatus, NetworkService } from "../../shared/network.service";
 
 
 @Component({
@@ -65,7 +66,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 private platform: Platform,
                 private logger: NGXLogger,
                 private events: Events,
-                public helpsService: HelpsService) { }
+                public helpsService: HelpsService,
+                public networkService: NetworkService) { }
 
 
     ngOnInit(): void {
@@ -94,6 +96,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
      */
     async getWeatherData(showErr: boolean): Promise<void> {
 
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) return;
+
         const [data, err] = await this.obsService.getWeatherData(this._newObservation.position.coordinates)
             .then(v => [v, undefined])
             .catch(e => [undefined, e]);
@@ -111,6 +115,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     /** Called when the user click on the refresh icon of the weather box. It requests the weather data from the API. */
     async onRefreshWeatherClick(): Promise<void> {
+
+        if (!this.networkService.checkOnlineContentAvailability()) return;
 
         this._isWeatherLoading = true;
 
