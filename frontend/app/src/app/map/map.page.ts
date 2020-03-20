@@ -12,7 +12,7 @@ import { customMarkerIcon, userMarkerIcon } from "../shared/utils";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { ObservationsService } from "../observations/observations.service";
-import { CameraService } from "../shared/camera.service";
+import { CameraService, PicResult } from "../shared/camera.service";
 import { Router } from "@angular/router";
 import { Observation } from "../observations/observation.model";
 import { TranslateService } from "@ngx-translate/core";
@@ -20,7 +20,6 @@ import { Duration, ToastService } from "../shared/toast.service";
 import { LegendComponent, Markers } from "./legend/legend.component";
 import { ConnectionStatus, NetworkService } from "../shared/network.service";
 import { OfflineService } from "../observations/offline.service";
-import { count } from "rxjs/operators";
 
 
 /**
@@ -125,7 +124,12 @@ export class MapPage implements OnInit, OnDestroy {
 
         this.events.subscribe("popover:change", data => this.onPopoverChange(data.marker, data.checked));
 
-        this.events.subscribe("observation:inserted", () => this._customMarker = null);
+        this.events.subscribe("observation:inserted-online", () => this._customMarker = null);
+
+        this.events.subscribe("observation:inserted-offline", () => {
+            this.toastService.presentToast("page-map.msg-saved-offline", Duration.short);
+            this._customMarker = null
+        });
 
 
         this.initMarkerClusters();
@@ -452,9 +456,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     // ToDo remove
-    async t() {
-        this.logger.log(await this.offlineService.getStoredObservations());
-    }
+    async t() { this.logger.log(await this.offlineService.getStoredObservations()) }
 
 
     /** Fetches the data that has to be visualized on the map. */
@@ -584,10 +586,17 @@ export class MapPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the "add" button. */
     async onAddClick(): Promise<void> {
 
-        // ToDo alert user that he is offline
-        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
-            this.logger.log("Starting new observation with app offline.")
-        }
+        // ToDo uncomment
+        // if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+        //
+        //     const networkAlertChoice = await this.presentInsertionAlert("page-map.alert-msg-offline");
+        //
+        //     if (networkAlertChoice === "cancel") {
+        //         this.obsService.resetNewObservation();
+        //         return;
+        //     }
+        //
+        // }
 
 
         let pos, accuracy, custom;
@@ -620,9 +629,16 @@ export class MapPage implements OnInit, OnDestroy {
 
             await this.dismissLoading();
 
-            if (!roi && await this.presentRoiAlert(!!roiErr) === "cancel") {
-                this.obsService.resetNewObservation();
-                return;
+            if (!roi) {
+
+                const roiAlertMsg    = `page-map.alert-msg-roi-${ !!roiErr ? 'error' : 'undefined' }`;
+                const roiAlertChoice = await this.presentInsertionAlert(roiAlertMsg);
+
+                if (roiAlertChoice === "cancel") {
+                    this.obsService.resetNewObservation();
+                    return;
+                }
+
             }
 
             this.obsService.newObservation.position.roi = roi;
@@ -630,17 +646,16 @@ export class MapPage implements OnInit, OnDestroy {
         }
 
 
-        // ToDo uncomment
-        // const pic = await this.cameraService.takePicture();
-        //
-        // if (pic === PicResult.NO_IMAGE) {
-        //     this.obsService.resetNewObservation();
-        //     return;
-        // } else if (pic === PicResult.ERROR) {
-        //     await this.toastService.presentToast("common.errors.photo", Duration.short);
-        // } else {
-        //     this.obsService.newObservation.photos[0] = pic;
-        // }
+        const pic = await this.cameraService.takePicture();
+
+        if (pic === PicResult.NO_IMAGE) {
+            this.obsService.resetNewObservation();
+            return;
+        } else if (pic === PicResult.ERROR) {
+            await this.toastService.presentToast("common.errors.photo", Duration.short);
+        } else {
+            this.obsService.newObservation.photos[0] = pic;
+        }
 
 
         await this.router.navigate(["/observations/new"]);
@@ -649,16 +664,16 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /**
-     * Presents an alert to warn the user that the roi in which the point falls is undefined.
+     * Presents an alert to warn the user about something at the start of an observation insertion.
      *
-     * @param {boolean} isError - True if the alert is undefined because of an error.
+     * @param {string} msg - The message to display.
      * @returns {Promise<string>} A promise containing the role of the button clicked.
      */
-    async presentRoiAlert(isError: boolean): Promise<string> {
+    private async presentInsertionAlert(msg: string): Promise<string> {
 
-        const roiAlert = await this.alertCtr.create({
+        const alert = await this.alertCtr.create({
             header         : this.i18n.instant("common.alerts.header-warning"),
-            message        : this.i18n.instant(`page-map.alert-message-roi-${ isError ? 'error' : 'undefined' }`),
+            message        : this.i18n.instant(msg),
             buttons        : [
                 { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel" },
                 { text: this.i18n.instant("common.alerts.btn-continue"), role: "continue" }
@@ -666,15 +681,15 @@ export class MapPage implements OnInit, OnDestroy {
             backdropDismiss: false
         });
 
-        await roiAlert.present();
+        await alert.present();
 
-        return (await roiAlert.onDidDismiss()).role;
+        return (await alert.onDidDismiss()).role;
 
     }
 
 
     /** Shows the loading dialog. */
-    async presentLoading(): Promise<void> {
+    private async presentLoading(): Promise<void> {
 
         this.loading = await this.loadingCtr.create({
             message     : this.i18n.instant("common.wait"),
@@ -686,7 +701,7 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
     /** Dismisses the loading dialog. */
-    async dismissLoading(): Promise<void> {
+    private async dismissLoading(): Promise<void> {
 
         if (this.loading) await this.loading.dismiss();
 
@@ -696,7 +711,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Saves the current position of the user in the local storage of the phone. */
-    async cachePosition(): Promise<void> {
+    private async cachePosition(): Promise<void> {
 
         if (this._coords)
             await this.storage.set(this._storageKeyPosition, [this._coords.lat, this._coords.lng]);

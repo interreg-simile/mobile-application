@@ -2,7 +2,7 @@ interface Position {
     open?: boolean,
     type: string,
     coordinates: Array<number>,
-    crs?: { code: number, description: string }
+    crs: { code: number, description: string }
     accuracy?: number,
     custom: boolean,
     roi?: string

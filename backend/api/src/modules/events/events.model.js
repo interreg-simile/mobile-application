@@ -40,8 +40,6 @@ const schema = new Schema({
     position         : { type: position, required: true },
     date             : { type: Date, required: true },
     contacts         : { type: contacts, required: true },
-    participants     : { type: Number, required: false },
-    photos           : { type: [String], required: false },
     markedForDeletion: { type: Boolean, required: true, default: false }
 }, { timestamps: true });
 

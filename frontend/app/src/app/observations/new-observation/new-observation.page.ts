@@ -15,12 +15,13 @@ import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { MeasuresImpl } from "../observation.model";
+import { MeasuresImpl, Observation } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
 import { Subscription } from "rxjs";
 import { HelpsService } from "../../shared/helps/helps.service";
 import { ConnectionStatus, NetworkService } from "../../shared/network.service";
+import { LatLng } from "leaflet";
 
 
 @Component({
@@ -71,6 +72,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
+
+        this.obsService.newObservation = new Observation(new LatLng(0, 0), 0, true);
 
         if (!this.obsService.newObservation) {
             this.navCtr.navigateBack("/map");
@@ -351,14 +354,14 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
         await loading.present();
 
-        let obsErr = undefined;
-        await this.obsService.postObservation().catch(err => obsErr = err);
+        const [res, err] = await this.obsService.postObservation()
+            .then(v => [v, undefined])
+            .catch(err => [undefined, err]);
 
         await loading.dismiss();
 
-        // ToDo give user the possibility to save offline
-        if (obsErr) {
-            this.logger.error("Error posting the observation.", obsErr);
+        if (err) {
+            this.logger.error("Error posting the observation.", err);
             const alert = await this.alertCtr.create({
                 header : this.i18n.instant("page-new-obs.err-title"),
                 message: this.i18n.instant("page-new-obs.err-msg"),
@@ -368,10 +371,12 @@ export class NewObservationPage implements OnInit, OnDestroy {
             return;
         }
 
-        // ToDo fix for offline saving
-        this.events.publish("observation:inserted");
+        if (res === "online")
+            this.events.publish("observation:inserted-online");
+        else if (res === "offline")
+            this.events.publish("observation:inserted-offline");
 
-        await this.router.navigate(["map"]);
+        // await this.router.navigate(["map"]);
 
     }
 

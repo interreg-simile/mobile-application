@@ -62,9 +62,7 @@ export default async function () {
                 city       : "Paradiso"
             },
             date        : new Date().setMonth(new Date().getMonth() - 2),
-            cover       : "events/default.jpg",
-            contacts    : { mail: "info@simile.it" },
-            participants: 20
+            contacts    : { mail: "info@simile.it" }
         }
     ];
 

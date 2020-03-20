@@ -4,9 +4,11 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LangService } from "./shared/lang.service";
 import { Router } from "@angular/router";
+import { NGXLogger } from "ngx-logger";
 
 import { Duration, ToastService } from "./shared/toast.service";
 import { NetworkService } from "./shared/network.service";
+import { FileService } from "./shared/file.service";
 
 
 export const statusBarColor = "#00515F";
@@ -32,7 +34,9 @@ export class AppComponent {
                 private menuCtr: MenuController,
                 private toastService: ToastService,
                 private router: Router,
-                private networkService: NetworkService) {
+                private networkService: NetworkService,
+                private fileService: FileService,
+                private logger: NGXLogger) {
 
         this.initializeApp()
             .then(() => {
@@ -53,7 +57,11 @@ export class AppComponent {
         this.statusBar.backgroundColorByHexString(statusBarColor);
         this.statusBar.styleLightContent();
 
-        await this.langService.initAppLanguage();
+        await this.fileService.createImageDir()
+            .catch(err => this.logger.error("Error initializing the images directory", err));
+
+        await this.langService.initAppLanguage()
+            .catch(err => this.logger.error("Error initializing the app language", err));
 
     }
 

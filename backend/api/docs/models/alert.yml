@@ -6,11 +6,11 @@ Event:
 
   title:
     it: string
-    # Any other language...
+    en?: string
 
   content:
     it: string
-    # Any other language...
+    en?: string
 
   dateEnd: Date
 

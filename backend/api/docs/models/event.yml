@@ -2,32 +2,27 @@ Event:
 
   _id: Mongoose.id
 
-  uid: Mongoose.id # Id of the user who has inserted the event
+  uid: Mongoose.id
 
   title:
     it: string
-    # Any other language...
+    en?: string
 
   description:
     it: string
-    # Any other language...
+    en?: string
 
   position:
     type: "Point"
     coordinates: [number]
     address: string
-
-  rois: [Mongoose.id]
+    city: string
 
   date: Date
 
   constacts:
-    email: string
-    phone: string
-
-  participants: number
-
-  photos: [string]
+    email?: string
+    phone?: string
 
   markedForDeletion: boolean
 

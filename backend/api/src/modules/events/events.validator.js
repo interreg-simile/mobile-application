@@ -20,11 +20,7 @@ export const getAllQuery = [
 
     ...vQuery.includeDeletedAdmin,
 
-    ...vQuery.sort,
-
-    query("rois")
-        .optional()
-        .custom(v => v.split(",").every(r => mongoose.Types.ObjectId.isValid(r)))
+    ...vQuery.sort
 
 ];
 
@@ -52,13 +48,6 @@ export const event = [
 
     body("position.city").trim().escape().not().isEmpty(),
 
-    body("rois")
-        .not().isEmpty()
-        .isArray({ min: 1 })
-        .custom(v => new Set(v).size === v.length),
-
-    body("rois.*").isMongoId(),
-
     body("date").not().isEmpty().isISO8601(),
 
     body("contacts").not().isEmpty(),
@@ -67,10 +56,6 @@ export const event = [
         body("contacts.email").not().isEmpty().isEmail().normalizeEmail(),
         body("contacts.phone").not().isEmpty().isMobilePhone("any", { strictMode: true })
     ]),
-
-    body("participants").optional().isInt({ min: 0 }),
-
-    body("photos").isEmpty(),
 
     body("markedForDeletion").isEmpty()
 

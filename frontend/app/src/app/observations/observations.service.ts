@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import cloneDeep from "lodash-es/cloneDeep";
-import { File, FileEntry } from "@ionic-native/file/ngx";
 import get from "lodash-es/get";
 import { NGXLogger } from "ngx-logger";
 import { LatLng } from "leaflet";
@@ -13,6 +12,7 @@ import { Observation } from "./observation.model";
 import { ObsInfo } from "./info/obs-info.model";
 import { ConnectionStatus, NetworkService } from "../shared/network.service";
 import { OfflineService } from "./offline.service";
+import { FileService } from "../shared/file.service";
 
 
 export interface MinimalObservation {
@@ -25,7 +25,6 @@ export interface MinimalObservation {
 @Injectable({ providedIn: 'root' })
 export class ObservationsService {
 
-
     private _obs = new BehaviorSubject<Array<MinimalObservation>>([]);
 
     public newObservation: Observation;
@@ -34,7 +33,7 @@ export class ObservationsService {
 
 
     constructor(private http: HttpClient,
-                private file: File,
+                private fileService: FileService,
                 private networkService: NetworkService,
                 private logger: NGXLogger,
                 private offlineService: OfflineService) { }
@@ -101,15 +100,21 @@ export class ObservationsService {
     }
 
 
-    /** Sends a new observation to the server. */
-    async postObservation(): Promise<void> {
+    /**
+     * Sends a new observation to the server.
+     *
+     * @return {Promise<"online" | "offline">} A promise containing the place where the observation has been stored.
+     */
+    async postObservation(): Promise<"online" | "offline"> {
 
         const cleanObs = this.cleanObservationFields();
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
             await this.offlineService.storeObservation(cleanObs);
+            return "offline";
         } else {
             await this.sendObservation(cleanObs);
+            return "online";
         }
 
     }
@@ -211,56 +216,19 @@ export class ObservationsService {
 
         for (let i = 0; i < obs.photos.length; i++) {
             if (obs.photos[i])
-                await this.appendImage(formData, obs.photos[i], "photos");
+                await this.fileService.appendImage(formData, obs.photos[i], "photos");
         }
 
         delete obs.photos;
 
         if (get(obs, "details.outlets.signagePhoto")) {
-            await this.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
+            await this.fileService.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
             obs.details.outlets.signagePhoto = undefined;
         }
 
         Object.keys(obs).forEach(k => formData.append(k, JSON.stringify(obs[k])));
 
         return formData;
-
-    }
-
-
-    /**
-     * Appends an image to a given formData.
-     *
-     * @param {FormData} formData - The formData.
-     * @param {string} url - The url of the photo.
-     * @param {string} field - The name of the field.
-     */
-    private appendImage(formData: FormData, url: string, field: string): Promise<void> {
-
-        return new Promise((resolve, reject) => {
-
-            this.file.resolveLocalFilesystemUrl(url)
-                .then((entry: FileEntry) => {
-
-                    entry.file(file => {
-
-                        const reader = new FileReader();
-
-                        reader.onloadend = () => {
-                            const imgBlob = new Blob([reader.result], { type: "image/jpeg" });
-                            formData.append(field, imgBlob, file.name);
-                            resolve()
-                        };
-
-                        reader.onerror = err => reject(err);
-
-                        reader.readAsArrayBuffer(file);
-
-                    }, err => reject(err));
-
-                })
-                .catch(err => reject(err));
-        });
 
     }
 

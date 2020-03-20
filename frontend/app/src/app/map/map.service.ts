@@ -83,7 +83,7 @@ export class MapService {
      */
     async presetErrAlert(errType: LocationErrors): Promise<void> {
 
-        const mKey = errType === LocationErrors.AUTH_ERROR ? "page-map.alert-message-auth" : "page-map.alert-message-gps";
+        const mKey = errType === LocationErrors.AUTH_ERROR ? "page-map.alert-msg-auth" : "page-map.alert-msg-gps";
 
         const alert = await this.alertCtr.create({
             subHeader: this.i18n.instant(mKey),
