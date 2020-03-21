@@ -30,7 +30,6 @@ export default async function () {
                 coordinates: [9.079017, 45.824735],
                 crs        : { code: 1 },
                 accuracy   : 20.86549,
-                custom     : false,
                 roi        : "000000000000000000000001"
             },
             weather : { temperature: 25.8, sky: { code: 1 }, wind: 32 },
@@ -51,7 +50,6 @@ export default async function () {
             position: {
                 coordinates: [8.947198, 45.935249],
                 crs        : { code: 1 },
-                custom     : true,
                 roi        : "000000000000000000000004"
             },
             weather : { temperature: 25.8, sky: { code: 2 }, wind: 32 },
@@ -69,7 +67,6 @@ export default async function () {
                 coordinates: [9.102516, 45.861128],
                 crs        : { code: 1 },
                 accuracy   : 20.86549,
-                custom     : true,
                 roi        : "000000000000000000000001"
             },
             weather : { temperature: 25.8, sky: { code: 3 } },

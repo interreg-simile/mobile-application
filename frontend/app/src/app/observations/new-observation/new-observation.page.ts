@@ -73,7 +73,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        this.obsService.newObservation = new Observation(new LatLng(0, 0), 0, true);
+        // ToDo delete
+        this.obsService.newObservation = new Observation(new LatLng(0, 0), 0);
 
         if (!this.obsService.newObservation) {
             this.navCtr.navigateBack("/map");

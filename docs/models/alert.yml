@@ -6,11 +6,11 @@ Event:
 
   title:
     it: string
-    en?: string
+    en: string
 
   content:
     it: string
-    en?: string
+    en: string
 
   dateEnd: Date
 

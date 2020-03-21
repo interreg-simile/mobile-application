@@ -17,7 +17,6 @@ import { BacteriaComponent } from "./measures/bacteria/bacteria.component";
 export interface Position {
     coordinates: LatLng,
     accuracy: number,
-    custom: boolean,
     roi?: string
 }
 
@@ -266,15 +265,13 @@ export class Observation {
      *
      * @param {LatLng} coords - The coordinated of the new observation.
      * @param {number} accuracy - The accuracy of the coordinates.
-     * @param {boolean} custom - True is the user has chosen the observation position long tapping on the map.
      */
-    constructor(coords: LatLng, accuracy: number, custom: boolean) {
+    constructor(coords: LatLng, accuracy: number) {
 
 
         this.position = {
             coordinates: coords,
-            accuracy   : accuracy,
-            custom     : custom
+            accuracy   : accuracy
         };
 
         this.weather = {

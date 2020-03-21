@@ -18,7 +18,6 @@ alerts:
 observations:
 
   position:
-    lake: { 1: "Altro", 2: "Lago Maggiore", 3: "Lago di Como", 4: "Lago di Lugano" }
     crs: { 1: "WGS 84", 2: "WGS 84 / UTM zone 32N", 3: "CH1903+ / LV95" }
 
   weather:

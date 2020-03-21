@@ -4,7 +4,6 @@ interface Position {
     coordinates: Array<number>,
     crs: { code: number, description: string }
     accuracy?: number,
-    custom: boolean,
     roi?: string
 }
 

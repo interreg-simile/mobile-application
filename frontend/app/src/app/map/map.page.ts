@@ -604,19 +604,17 @@ export class MapPage implements OnInit, OnDestroy {
         if (this._customMarker) {
             pos      = this._customMarker.getLatLng();
             accuracy = 0;
-            custom   = true;
         } else if (this._userMarker) {
             this._map.panTo(this._coords);
             this._isMapFollowing = true;
             pos                  = this._coords;
             accuracy             = this._accuracy;
-            custom               = false;
         } else {
             await this.toastService.presentToast("page-map.msg-wait-position", Duration.short);
             return;
         }
 
-        this.obsService.newObservation = new Observation(pos, accuracy, custom);
+        this.obsService.newObservation = new Observation(pos, accuracy);
 
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {

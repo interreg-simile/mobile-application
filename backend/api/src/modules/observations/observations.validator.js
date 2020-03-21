@@ -55,8 +55,6 @@ const vPosition = [
 
     body("position.accuracy").optional().isFloat(),
 
-    body("position.custom").not().isEmpty().isBoolean(),
-
     body("position.roi").optional().isMongoId()
 
 ];
