@@ -3,14 +3,14 @@
 
 /auth:
 
-  - path: /keys/
+  - path: /keys
     method: POST
     key_required: false
     admin_required: false
     token_required: false
     paternity: false
 
-  - path: /register/
+  - path: /register
     method: POST
     key_required: false
     admin_required: false
@@ -20,7 +20,7 @@
 
 /rois:
 
-  - path: /
+  - path: ""
     method: GET
     key_required: false
     admin_required: false
@@ -30,7 +30,7 @@
 
 /events:
 
-  - path: /
+  - path: ""
     method: GET
     key_required: false
     admin_required: false
@@ -39,7 +39,7 @@
     sort:
       - date
 
-  - path: /
+  - path: ""
     method: POST
     key_required: false
     admin_required: true
@@ -77,7 +77,7 @@
 
 /alerts:
 
-  - path: /
+  - path: ""
     method: GET
     key_required: false
     admin_required: false
@@ -87,7 +87,7 @@
       - createdAt
       - dateEnd
 
-  - path: /
+  - path: ""
     method: POST
     key_required: false
     admin_required: true
@@ -125,14 +125,14 @@
 
 /observations:
 
-  - path: /
+  - path: ""
     method: GET
     key_required: false
     admin_required: false
     token_required: false
     paternity: false
 
-  - path: /
+  - path: ""
     method: POST
     key_required: false
     admin_required: false

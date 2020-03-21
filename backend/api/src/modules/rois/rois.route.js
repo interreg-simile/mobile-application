@@ -12,8 +12,8 @@ import * as controller from "./rois.controller";
 // Create a router object
 const router = Router();
 
-// GET - rois/
-router.get("/", validator.getRois, controller.getRois);
+// GET - rois
+router.get("", validator.getRois, controller.getRois);
 
 // Export the router
 export default router;

@@ -14,11 +14,11 @@ import { vPath } from "../../utils/common-validations";
 // Create a router object
 const router = Router();
 
-// GET - /observations/
-router.get("/", validator.getAllQuery, controller.getAll);
+// GET - /observations
+router.get("", validator.getAllQuery, controller.getAll);
 
-// POST - /observations/
-router.post("/", validator.observation, controller.create);
+// POST - /observations
+router.post("", validator.observation, controller.create);
 
 // GET - /observations/{obs_id}
 router.get("/:id", validator.getByIdQuery, controller.getById);

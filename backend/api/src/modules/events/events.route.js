@@ -14,11 +14,11 @@ import * as controller from "./events.controller";
 // Create a router object
 const router = Router();
 
-// GET - /events/
-router.get("/", validator.getAllQuery, controller.getAll);
+// GET - /events
+router.get("", validator.getAllQuery, controller.getAll);
 
-// POST - /events/
-router.post("/", validator.event, controller.create);
+// POST - /events
+router.post("", validator.event, controller.create);
 
 // GET - /events/{event_id}
 router.get("/:id", vPath.id, controller.getById);

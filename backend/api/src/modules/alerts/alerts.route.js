@@ -14,11 +14,11 @@ import * as controller from "./alerts.controller";
 // Create a router object
 const router = Router();
 
-// GET - /alerts/
-router.get("/", validator.getAllQuery, controller.getAll);
+// GET - /alerts
+router.get("", validator.getAllQuery, controller.getAll);
 
-// POST - /alerts/
-router.post("/", validator.alert, controller.create);
+// POST - /alerts
+router.post("", validator.alert, controller.create);
 
 // GET - /alerts/{alert_id}
 router.get("/:id", vPath.id, controller.getById);

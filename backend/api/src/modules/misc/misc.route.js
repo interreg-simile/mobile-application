@@ -12,7 +12,7 @@ import * as controller from "./misc.controller";
 // Create a router object
 const router = Router();
 
-// GET - misc/weather/
+// GET - misc/weather
 router.get("/weather", validator.weather, controller.getWeather);
 
 // Export the router
