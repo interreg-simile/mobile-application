@@ -8,11 +8,11 @@ info:
   description: Complete the description...
   contact:
     name: Edoardo Pessina
-    email: edoardo.pessina@polimi.it
+    email: interreg-simile@polimi.it
 servers:
   - url: 'https://api-simile.como.polimi.it/v1'
 paths:
-  /alerts/:
+  /alerts:
     get:
       summary: Get all the alerts
       tags:
