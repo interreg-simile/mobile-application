@@ -75,16 +75,39 @@ paths:
     parameters: []
   /observations:
     get:
-      summary: Your GET endpoint
+      summary: Get all the observations
       tags:
         - Observations
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Observation'
       operationId: get-observations
       description: Retrieves all the observations stored in the database.
+      parameters:
+        - $ref: '#/components/parameters/acceptLanguageHeader'
 components:
-  schemas: {}
+  schemas:
+    Observation:
+      $ref: ./models/observation.v1.yaml
+  parameters:
+    acceptLanguageHeader:
+      name: Accept-Language
+      description: Defines which natural languge is preferred by the client.
+      in: header
+      schema:
+        type: string
+        default: it
+        enum:
+          - it
+          - en
+      allowEmptyValue: true
+      required: false
 tags:
   - name: Alerts
   - name: Observations
