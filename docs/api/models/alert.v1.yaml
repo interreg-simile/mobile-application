@@ -1,19 +1,6 @@
-title: alert.v1
+title: Alert
 type: object
-x-examples:
-  example:
-    _id: 5e56861fb4b85a544423b35e
-    uid: 5dd7bbe0701d5bdd685c1f17
-    title:
-      it: Titolo della comunicazione
-      en: Title of the alert
-    content:
-      it: Contenuto della comunicazione
-      en: Content of the alert
-    dateEnd: '2020-03-26T14:52:15.168+00:00'
-    markedForDeletion: false
-    createdAt: '2020-02-26T14:52:15.171+00:00'
-    updatedAt: '2020-02-26T14:52:15.171+00:00'
+x-examples: {}
 description: A single alert.
 properties:
   _id:
@@ -79,3 +66,5 @@ required:
   - markedForDeletion
   - createdAt
   - upadtedAt
+x-tags:
+  - Alerts
