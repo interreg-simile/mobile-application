@@ -64,7 +64,6 @@
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "nyc": "^14.1.1",
-    "sinon": "^7.5.0",
-    "swagger-ui-express": "^4.1.2"
+    "sinon": "^7.5.0"
   }
 }

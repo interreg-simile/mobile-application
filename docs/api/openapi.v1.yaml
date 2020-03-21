@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: SIMILE Api
+  license:
+    name: GNU GPLv3
+    url: 'https://choosealicense.com/licenses/gpl-3.0/'
+  description: Complete the description...
+  contact:
+    name: Edoardo Pessina
+    email: edoardo.pessina@polimi.it
+servers:
+  - url: 'https://api-simile.como.polimi.it/v1'
+paths:
+  /alerts/:
+    get:
+      summary: Get all the alerts
+      tags:
+        - Alerts
+      responses:
+        '200':
+          description: |-
+            OK
+
+            If the request is performed by a non-admin user, the resources in the response will not contain the ```uid``` field.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alerts'
+              examples: {}
+      operationId: get-alerts
+      description: Retrieves all the alerts saved in the system.
+      parameters:
+        - schema:
+            type: boolean
+            default: 'true'
+          in: query
+          name: includePast
+          description: Whether the expired alerts should be returned or not.
+        - schema:
+            type: boolean
+            default: 'false'
+          in: query
+          name: includeDeleted
+          description: |-
+            Whether the deleted alerts should be returned or not.
+
+            **Only admin users can set this flag to true.**
+        - schema:
+            type: string
+          in: query
+          name: sort
+          description: |-
+            The sorting rule to apply to the results.
+
+            Possible values are:
+            - ```createdAt:(asc/desc)```
+            - ```dateEnd:(asc/desc)```
+    parameters: []
+components:
+  schemas:
+    Alerts:
+      title: Alerts
+      type: array
+      items:
+        title: alert.v1
+        type: object
+        x-examples:
+          example:
+            _id: 5e56861fb4b85a544423b35e
+            uid: 5dd7bbe0701d5bdd685c1f17
+            title:
+              it: Titolo della comunicazione
+              en: Title of the alert
+            content:
+              it: Contenuto della comunicazione
+              en: Content of the alert
+            dateEnd: '2020-03-26T14:52:15.168+00:00'
+            markedForDeletion: false
+            createdAt: '2020-02-26T14:52:15.171+00:00'
+            updatedAt: '2020-02-26T14:52:15.171+00:00'
+        description: A single alert.
+        properties:
+          _id:
+            type: string
+            description: Unique id of the resource.
+            format: uuid
+            minLength: 24
+            maxLength: 24
+          uid:
+            type: string
+            description: Id of the user who has created the resource.
+            format: uuid
+            minLength: 24
+            maxLength: 24
+          title:
+            type: object
+            description: An object containing the title of the altert in different languages (Italian and English are required).
+            required:
+              - it
+              - en
+            properties:
+              it:
+                type: string
+                description: The title of the alert in Italian.
+              en:
+                type: string
+                description: The title of the alert in English.
+          content:
+            type: object
+            description: An object containing the content of the alert in different languages (Italian and English are required).
+            required:
+              - it
+              - en
+            properties:
+              it:
+                type: string
+                description: The content of the alert in Italian.
+              en:
+                type: string
+                description: The content of the alert in English.
+          dateEnd:
+            type: string
+            description: 'The date from which the alert is no longer valid. '
+            format: date-time
+          markedForDeletion:
+            type: boolean
+            default: false
+            description: Flag that stated if the resource is marked for deletion.
+          createdAt:
+            type: string
+            format: date-time
+            description: The date of creation of the resource.
+          upadtedAt:
+            type: string
+            format: date-time
+            description: The date of the last update of the resource.
+        required:
+          - _id
+          - uid
+          - title
+          - content
+          - dateEnd
+          - markedForDeletion
+          - createdAt
+          - upadtedAt
+      x-examples: {}
+      x-tags:
+        - Alerts
+      description: A list of alerts.
