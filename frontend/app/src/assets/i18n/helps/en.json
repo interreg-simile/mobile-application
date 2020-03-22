@@ -1,1 +1,67 @@
-{}
+{
+  "o": "Condividi un’osservazione sullo stato del lago. Carica un’immagine e identifica ciò che stai osservando. Se ritieni la situazione particolarmente grave puoi avvertire l’autorità competente.",
+  "o2": "Puoi modificare le condizioni metereologiche se ritieni che siano errate o mancanti.",
+  "o3": "Puoi indicare la presenza di uno o più fenomeni tra quelli elencati. Clicca sul nome per accedere a tutte le opzioni di ogni singola voce. Utilizza gli help per imparare a riconoscere e classificare i fenomeni del lago e inserire informazioni più specifiche.",
+  "o3.1": {
+    "title": "Alghe",
+    "text": "<p>Con il termine alghe si intende il <a href='http://www.ise.cnr.it/crypta/limnol/plancton/fitoplan.htm'>fitoplancton</a>, ovvero piccoli organismi vegetali appartenenti al plancton lacustre.</p><p>Da non confondere con le piante acquatiche (macrofite).</p>"
+  },
+  "o3.11": {
+    "title": "Alghe disperse",
+    "text": "Le alghe sono visibili per un’aumentata densità, ma sono disperse nell’acqua senza formare ammassi."
+  },
+  "o3.12": {
+    "title": "Alghe compatte",
+    "text": "Le alghe formano uno strato compatto sulla superficie dell’acqua."
+  },
+  "o3.13": {
+    "title": "Raggruppamenti di alghe",
+    "text": "Le alghe sono raggruppate a formare ammassi o chiazze di dimensioni variabili."
+  },
+  "o3.14": {
+    "title": "Striature superficiali algali",
+    "text": "Le alghe formano delle strisce, che spesso seguono il moto ondoso."
+  },
+  "o3.21": {
+    "title": "Schiume disperse",
+    "text": "Le schiume sono distribuite in ammassi piccoli e isolati sulla superficie dell’acqua e si disperdono facilmente."
+  },
+  "o3.22": {
+    "title": "Schiume compatte",
+    "text": "Le schiume si presentano compatte (quasi solide) e fanno fatica a disperdersi."
+  },
+  "o3.23": {
+    "title": "Schiume lineari",
+    "text": "Le schiume si dispongono a strisce, anche seguendo il moto ondoso."
+  },
+  "o3.31": {
+    "title": "Chiazze superficiali",
+    "text": "Le chiazze ricoprono solo la superficie dell’acqua."
+  },
+  "o3.32": "Le chiazze sono distribuite anche in verticale, lungo la colonna d’acqua.",
+  "o3.511" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/42-specie-19'>scheda informativa</a>.",
+  "o3.521" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/60-specie-37'>scheda informativa</a>.",
+  "o3.522" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/59-specie-36'>scheda informativa</a>.",
+  "o3.531" : "Vai alla <a href='https://en.wikipedia.org/wiki/Corbicula_fluminea'>scheda informativa</a>.",
+  "o3.532" : "Vai alla <a href='https://it.wikipedia.org/wiki/Dreissena_polymorpha'>scheda informativa</a>.",
+  "o3.533" : "Vai alla <a href='https://en.wikipedia.org/wiki/Sinanodonta_woodiana'>scheda informativa</a>.",
+  "o3.541" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/61-specie-38'>scheda informativa</a>.",
+  "o3.542" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/54-specie-31'>scheda informativa</a>.",
+  "o3.543" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/56-specie-33'>scheda informativa</a>.",
+  "o3.551" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/44-specie-21'>scheda informativa</a>.",
+  "o4": "Puoi aggiungere ulteriori immagini se pensi siano utili per una migliore comprensione del fenomeno osservato.",
+  "o5": "Puoi usare questo spazio per fornire maggiori dettagli sul luogo dell’osservazione, su altre eventuali condizioni al contorno che ritieni possano essere rilevanti o se tra le voci in elenco non ne hai trovata una che corrisponda a quanto stai osservando.",
+  "m": "Aggiungi una misura alla tua osservazione, i dati raccolti serviranno a validare altre tecnologie di monitoraggio e migliorare la comprensione del lago.",
+  "m0": "Indica le specifiche dello strumento utilizzato.",
+  "m0.1": "Indica se vuoi inserire un valore singolo a una data profondità o una serie di valori lungo la colonna d’acqua.",
+  "m1": {
+    "title": "Trasparenza",
+    "text": "<p>La trasparenza rappresenta la misura dell’attenuazione della radiazione luminosa nella colonna d’acqua. Dipende dalla presenza nell’acqua di particelle di soluti.</p><p>Può essere misurata con il <a href='http://www.ise.cnr.it/crypta/limnol/energia/discosec.htm'>Disco di Secchi</a>, un disco bianco, di 20-30cm di diametro, fissato all’estremità di una fune metrata: il disco viene calato in acqua e si misura la profondità alla quale esso diviene invisibile e quella alla quale ricompare. La media tra le due misure è la trasparenza di un lago viene espressa in metri.</p>"
+  },
+  "m2": "La <a href='http://www.ise.cnr.it/crypta/limnol/energia/termica.htm'>temperatura</a> è una delle proprietà fisiche principali dell’acqua. La temperatura delle acque di un lago in un determinato momento stagionale dipende dal suo bilancio termico, cioè dalla differenza fra gli apporti e le perdite di calore.",
+  "m3": "Il pH è un valore numerico che indica l’acidità di una soluzione.L’acqua contiene in soluzione sia ioni idrogeno H+ che ioni OH-; le concentrazioni relative di questi due ioni determinano il valore del pH. Il pH dell’acqua è un parametro molto importante per la vita acquatica. Valori compresi tra 6 e 9 sono in genere compatibili con la vita degli organismi acquatici. Valori inferiori a 6 e superiori a 9 si manifestano solo in conseguenza di scarichi di sostanze inquinanti acide o basiche e possono avere effetti letali su piante e animali.",
+  "m4": "<p>L'<a href='http://www.ise.cnr.it/crypta/limnol/idrochim/idrochim.htm'>ossigeno</a> è un gas fondamentale per tutte le forme di vita. In qualsiasi ambiente acquatico, la presenza di ossigeno deriva sostanzialmente dalla lenta cessione di questo gas nell'atmosfera (che ne è ricca) e dai processi biologici operati dagli organismi acquatici.I processi biologici che regolano la concentrazione di ossigeno nelle acque sono la fotosintesi e la respirazione.</p><p>L’ossigeno disciolto nelle acque può essere espresso come concentrazione, ovvero mg di ossigeno in 1 L d’acqua (mg/L) o come % rispetto alla saturazione, ovvero la quantità di ossigeno presente rispetto al valore massimo, preso uguale a cento, che si può avere nelle stesse condizioni di salinità, di temperatura e pressione atmosferica.</p>",
+  "m5": "I principali indicatori di fecalizzazione dei corpi idrici sono l’Escherichia coli e gli enterococchi. Si tratta di batteri che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo). Sono necessari per la digestione corretta del cibo. La loro presenza indica un recente inquinamento fecale, dovuto probabilmente ad una inadeguata disinfezione o ad una mancanza di integrità del sistema idrico.",
+  "m5.1": "La specie Escherichia coli è un microrganismo a forma di bastoncello, gram-negativo, aerobio e anaerobio facoltativo, non sporigeno, che cresce alla temperatura di 44,5 °C, lattosio-fermentante, indolo-positivo in terreni contenenti triptofano, beta-D-glucuronidasi-positivo. Il valore limite per la balneabilità delle acque interne è di 500 UFC/100ml.",
+  "m5.2": "Gli enterococchi sono batteri Lattacidi appartenenti al phylum dei Firmicutes. Essi sono microrganismi Gram-positivi e catalasi-negativi di forma tondeggiante che si dispongono sotto forma di diplococchi oppure in corte catene. Sono organismi anaerobi facoltativi e sopportano un ampio intervallo di temperature. Il valore limite per la balneabilità delle acque interne è di 1000 UFC/100ml."
+}

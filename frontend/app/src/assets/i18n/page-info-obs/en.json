@@ -1,1 +1,106 @@
-{}
+{
+  "err-get": "Errore durante il recupero dell'osservazione.",
+  "yes": "Sì",
+  "no": "No",
+  "view": "Visualizza",
+  "position": {
+    "head": "Posizione",
+    "label-coordinates": "Coordinate",
+    "label-crs": "CRS",
+    "label-accuracy": "Accuratezza"
+  },
+  "weather": {
+    "head": "Condizioni meteo",
+    "label-temperature": "Temperatura",
+    "label-sky": "Cielo",
+    "label-wind": "Vento"
+  },
+  "details": {
+    "head": "Dettagli",
+    "algae": {
+      "head": "Alghe",
+      "label-extension": "Estensione",
+      "label-colour": "Colore",
+      "value-iridescent": "Iridescente",
+      "label-look": "Aspetto"
+    },
+    "foams": {
+      "head": "Schiume",
+      "label-extension": "Estensione",
+      "label-look": "Aspetto",
+      "label-height": "Altezza"
+    },
+    "oils": {
+      "head": "Macchie oleose",
+      "label-extension": "Estensione",
+      "label-type": "Tipologia"
+    },
+    "litters": {
+      "head": "Rifiuti",
+      "label-quantity": "Quantità",
+      "label-type": "Tipologia"
+    },
+    "odours": {
+      "head": "Odori",
+      "label-intensity": "Intensità",
+      "label-origin": "Origine"
+    },
+    "outlets": {
+      "head": "Scarichi",
+      "label-in-place": "In atto",
+      "label-terminal": "Terminale",
+      "label-colour": "Colore",
+      "label-vapour": "Vapore",
+      "label-signage": "Segnaletica",
+      "label-signage-photo": "Foto della segnaletica",
+      "label-prod-activities": "Attività produttive nelle vicinanze",
+      "label-prod-activities-details": "Dettagli sulle attività produttive"
+    },
+    "fauna": {
+      "head": "Fauna",
+      "label-number": "Numero",
+      "label-deceased": "Esemplari deceduti",
+      "label-abnormal": "Comportamenti anomali",
+      "label-alien": "Specie aliene",
+      "fish": "Pesci",
+      "birds": "Uccelli",
+      "molluscs": "Molluschi",
+      "crustaceans": "Crostacei",
+      "turtles": "Tartarughe"
+    }
+  },
+  "measures": {
+    "head": "Misure",
+    "transparency": {
+      "head": "Trasparenza",
+      "label-value": "Valore"
+    },
+    "temperature": {
+      "head": "Temperatura",
+      "label-depth": "Profondità",
+      "label-value": "Valore"
+    },
+    "ph": {
+      "head": "pH",
+      "label-depth": "Profondità",
+      "label-value": "Valore"
+    },
+    "oxygen": {
+      "head": "Ossigeno",
+      "label-depth": "Profondità",
+      "label-value": "Valore"
+    },
+    "bacteria": {
+      "head": "Batteri",
+      "label-eColi": "Escherichia Coli",
+      "label-enterococci": "Enterococchi"
+    },
+    "instrument": {
+      "head": "Strumento",
+      "label-type": "Tipologia",
+      "label-precision": "Precisione",
+      "label-details": "Dettagli"
+    }
+  },
+  "other": "Altre informazioni"
+}

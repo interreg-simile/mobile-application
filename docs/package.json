@@ -1,0 +1,25 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "Documentation of SIMILE project.",
+  "main": "index.js",
+  "scripts": {
+    "redoc:serve": "live-server --watch=api/ --open=api/www/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epessina/SIMILE-App.git"
+  },
+  "author": "Edoardo Pessina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/epessina/SIMILE-App/issues"
+  },
+  "homepage": "https://github.com/epessina/SIMILE-App#readme",
+  "dependencies": {
+    "redoc": "2.0.0-rc.24"
+  },
+  "devDependencies": {
+    "live-server": "1.2.1"
+  }
+}
