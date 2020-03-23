@@ -15,13 +15,12 @@ import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { MeasuresImpl, Observation } from "../observation.model";
+import { MeasuresImpl } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
 import { Subscription } from "rxjs";
 import { HelpsService } from "../../shared/helps/helps.service";
 import { ConnectionStatus, NetworkService } from "../../shared/network.service";
-import { LatLng } from "leaflet";
 
 
 @Component({
@@ -72,9 +71,6 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
-
-        // ToDo delete
-        this.obsService.newObservation = new Observation(new LatLng(0, 0), 0);
 
         if (!this.obsService.newObservation) {
             this.navCtr.navigateBack("/map");
@@ -324,11 +320,10 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the send button. */
     async onSendClick(): Promise<void> {
 
-        // ToDo uncomment
-        // if (this._newObservation.photos.every(p => p === undefined)) {
-        //     await this.toastService.presentToast("page-new-obs.msg-no-photo", Duration.short);
-        //     return;
-        // }
+        if (this._newObservation.photos.every(p => p === undefined)) {
+            await this.toastService.presentToast("page-new-obs.msg-no-photo", Duration.short);
+            return;
+        }
 
         this.postObservation();
 
@@ -363,12 +358,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
         if (err) {
             this.logger.error("Error posting the observation.", err);
-            const alert = await this.alertCtr.create({
-                header : this.i18n.instant("page-new-obs.err-title"),
-                message: this.i18n.instant("page-new-obs.err-msg"),
-                buttons: [this.i18n.instant("common.alerts.btn-ok")]
-            });
-            await alert.present();
+            await this.toastService.presentToast("page-new-obs.err-msg", Duration.short);
             return;
         }
 
@@ -377,7 +367,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
         else if (res === "offline")
             this.events.publish("observation:inserted-offline");
 
-        // await this.router.navigate(["map"]);
+        await this.router.navigate(["map"]);
 
     }
 

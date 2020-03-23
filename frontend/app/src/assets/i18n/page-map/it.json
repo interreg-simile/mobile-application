@@ -2,7 +2,6 @@
   "title": "Mappa",
   "alert-msg-auth": "Devi abilitare i permessi di localizzazione nelle impostazioni del telefono.",
   "alert-msg-gps": "Accendi il servizio di localizzazione.",
-  "alert-msg-offline": "Vuoi inserire l'osservazione offline?",
   "alert-msg-roi-error": "Non siamo riusciti a capire se il punto che hai indicato è in una zona supportata dall'applicazione. Riproveremo più tardi automaticamente.<br>Se fosse in una zona non supportata, i dati che inserirai verranno salvati ma non saranno visualizzati sulla mappa.<br>Continuare?",
   "alert-msg-roi-undefined": "Sembra che il punto che hai indicato non sia in una zona supportata dall'applicazione.<br>Puoi comunque proseguire con l'inserimento, i dati verranno salvati ma non saranno visualizzati sulla mappa.<br>Continuare?",
   "msg-wait-position": "Aspetta di avere una posizione valida o tieni premuto sul punto della mappa in cui vuoi inserire l'osservazione.",

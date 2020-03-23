@@ -39,7 +39,7 @@ export class NewsService {
     /** Fetches all the not-ended alerts from the server ordered by date descending. */
     async fetchAlerts(): Promise<void> {
 
-        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/alerts/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/alerts`;
 
         const qParams = new HttpParams()
             .set("includePast", "false")
@@ -75,7 +75,7 @@ export class NewsService {
     /** Fetches all the not-ended events from the server ordered by date ascending. */
     async fetchEvents(): Promise<void> {
 
-        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/events/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/events`;
 
         const qParams = new HttpParams()
             .set("includePast", "false")

@@ -297,9 +297,7 @@ export const observation = [
     ...vDetails,
     ...vMeasures,
     body("other").optional().escape().trim(),
-    body("markedForDeletion").isEmpty(),
-    body("createdAt").isEmpty(),
-    body("upadtedAt").isEmpty()
+    body("markedForDeletion").isEmpty()
 ];
 
 

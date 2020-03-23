@@ -18,9 +18,15 @@ export class FileService {
     }
 
 
+    /** Creates the directory to contain the saved observations images. */
     async createImageDir(): Promise<void> { return this.createDirectory(this._imagesDir) }
 
 
+    /**
+     * Creates a new directory in the device memory.
+     *
+     * @param {string} dirName - The name of the directory.
+     */
     private async createDirectory(dirName: string): Promise<void> {
 
         const doesExist = await this.checkDirExistence(dirName);
@@ -31,6 +37,11 @@ export class FileService {
     }
 
 
+    /**
+     * Checks if a directory exists in the device memory.
+     *
+     * @param {string} dirName - The directory name.
+     */
     private async checkDirExistence(dirName: string): Promise<boolean> {
 
         return await this.file.checkDir(this._dataDir, dirName)
@@ -40,6 +51,12 @@ export class FileService {
     }
 
 
+    /**
+     * Moves an image from the cache to the local memory.
+     *
+     * @param {string} imgUrl - The image url.
+     * @return {Promise<string>} A promise containing the url of the moved image.
+     */
     async storeImage(imgUrl: string): Promise<string> {
 
         const fileEntry = await this.file.resolveLocalFilesystemUrl(imgUrl);
@@ -59,7 +76,6 @@ export class FileService {
                 });
 
         });
-
 
     }
 
@@ -88,7 +104,10 @@ export class FileService {
                     resolve()
                 };
 
-                reader.onerror = err => reject(err);
+                reader.onerror = err => {
+                    this.logger.error(`Error appending image ${url}`);
+                    reject(err);
+                };
 
                 reader.readAsArrayBuffer(file);
 
@@ -98,5 +117,31 @@ export class FileService {
 
     }
 
+
+    /**
+     * Removes an image form the local storage.
+     *
+     * @param {string} imgUrl - The url of the image.
+     */
+    async removeImage(imgUrl: string): Promise<void> {
+
+        const fileEntry = await this.file.resolveLocalFilesystemUrl(imgUrl);
+
+        return new Promise((resolve, reject) =>  {
+
+            fileEntry.remove(
+                () => {
+                    this.logger.log(`File ${fileEntry.name} removed.`);
+                    resolve();
+                },
+                err => {
+                    this.logger.error(`Error removing file ${fileEntry.name}`, err);
+                    reject();
+                }
+            );
+
+        });
+
+    }
 
 }

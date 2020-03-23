@@ -83,6 +83,8 @@ export async function create(data) {
         photos  : data.photos,
     });
 
+    if (data.createdAt) obs.createdAt = data.createdAt;
+
     // If the observation id is provided, set it
     if (data.id) obs._id = data.id;
 

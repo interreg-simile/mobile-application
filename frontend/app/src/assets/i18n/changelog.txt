@@ -1,0 +1,7 @@
+- page-map
+    - alert-msg-offline -> x
+
+
+- page-new-obs
+    - err-title -> x
+    - err-message -> c

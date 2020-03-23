@@ -15,6 +15,11 @@ export class OfflineService {
     constructor(private storage: Storage, private logger: NGXLogger, private fileService: FileService) { }
 
 
+    /**
+     * Fetches all the locally stored observations.
+     *
+     * @return {Promise<Object[]>} A promise containing all the stored observations.
+     */
     async getStoredObservations(): Promise<Array<any>> {
 
         const storedData = await this.storage.get(this._storageKey);
@@ -24,6 +29,11 @@ export class OfflineService {
     }
 
 
+    /**
+     * Saves an observation in the device local storage.
+     *
+     * @param {Object} data - The data to save.
+     */
     async storeObservation(data: any): Promise<void> {
 
         for (let i = 0; i < data.photos.length; i++) {
@@ -40,6 +50,10 @@ export class OfflineService {
 
         let storedObs = await this.getStoredObservations();
 
+        data.createdAt = new Date().toISOString();
+
+        console.log(data.createdAt);
+
         if (storedObs)
             storedObs.push(data);
         else
@@ -50,14 +64,15 @@ export class OfflineService {
     }
 
 
+    /**
+     * Saves an array of observations in the device local storage.
+     *
+     * @param {Array<Object>} data - The data to be saved.
+     */
     async storeObservations(data: Array<any>): Promise<void> {
 
         await this.storage.set(this._storageKey, JSON.stringify(data));
 
     }
-
-
-    // ToDo remove
-    async clearAll(): Promise<void> { await this.storage.remove(this._storageKey) }
 
 }

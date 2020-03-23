@@ -42,7 +42,7 @@ export class ObservationsService {
     /** Retrieves all the observations from the server. */
     async fetchObservations(): Promise<void> {
 
-        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
+        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations`;
 
         const qParams = new HttpParams()
             .set("minimalRes", "true")
@@ -120,6 +120,7 @@ export class ObservationsService {
     }
 
 
+    /** Sends to the server all the locally saved observations. */
     async postStoredObservations(): Promise<void> {
 
         const savedObs = await this.offlineService.getStoredObservations();
@@ -130,7 +131,17 @@ export class ObservationsService {
         const errObs = [];
 
         savedObs.forEach(obs => {
-            pObs.push(this.sendObservation(obs).catch(() => errObs.push(obs)));
+            pObs.push(
+                this.sendObservation(obs)
+                    .then(() => {
+                        this.logger.log("Observation correctly sent");
+                        this.removeStoredObservationImages(obs);
+                    })
+                    .catch(err => {
+                        this.logger.error("Error sending observation.", err);
+                        errObs.push(obs)
+                    })
+            );
         });
 
         await Promise.all(pObs);
@@ -140,11 +151,15 @@ export class ObservationsService {
     }
 
 
+    /**
+     * Cleans the fields of the new observation, preparing it to be sent to the server.
+     *
+     * @return {Object} A cleaned copy of the new observation.
+     */
     private cleanObservationFields(): any {
 
-        const obs = cloneDeep(this.newObservation);
+        const obs = <any>cloneDeep(this.newObservation);
 
-        // @ts-ignore
         obs.position.coordinates = [obs.position.coordinates.lng, obs.position.coordinates.lat];
 
         Object.keys(obs.details).forEach(k => {
@@ -193,11 +208,16 @@ export class ObservationsService {
     }
 
 
+    /**
+     * Posts an observation to the server.
+     *
+     * @param {Object} obs - The observation to be posted.
+     */
     private async sendObservation(obs: any): Promise<void> {
 
         const formData = await this.setRequestBody(obs);
 
-        const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/`;
+        const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations`;
         const qParams = new HttpParams().set("minimalRes", "true");
 
         const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
@@ -210,25 +230,70 @@ export class ObservationsService {
     }
 
 
+    /**
+     * Creates the body of a new observation post request.
+     *
+     * @param {Object} obs - The observation to post.
+     * @return {Promise<FormData>} A promise containing the created form data.
+     */
     private async setRequestBody(obs: any): Promise<FormData> {
 
         const formData = new FormData();
 
         for (let i = 0; i < obs.photos.length; i++) {
-            if (obs.photos[i])
-                await this.fileService.appendImage(formData, obs.photos[i], "photos");
+
+            console.log(obs.photos[i]);
+
+            if (obs.photos[i]) {
+                await this.fileService.appendImage(formData, obs.photos[i], "photos")
+                    .catch(err => this.logger.error(`Error appending photo ${obs.photos[i]}.`, err));
+            }
+
         }
 
-        delete obs.photos;
+        const outletPhoto = get(obs, "details.outlets.signagePhoto");
 
-        if (get(obs, "details.outlets.signagePhoto")) {
-            await this.fileService.appendImage(formData, obs.details.outlets.signagePhoto, "signage");
+        if (outletPhoto) {
+
+            await this.fileService.appendImage(formData, obs.details.outlets.signagePhoto, "signage")
+                .catch(err => this.logger.error("Error appending signage photo.", err));
+
             obs.details.outlets.signagePhoto = undefined;
+
         }
 
-        Object.keys(obs).forEach(k => formData.append(k, JSON.stringify(obs[k])));
+        Object.keys(obs).forEach(k => {
+            if (k === "photos") return;
+            formData.append(k, JSON.stringify(obs[k]));
+        });
+
+        if (outletPhoto) obs.details.outlets.signagePhoto = outletPhoto;
 
         return formData;
+
+    }
+
+
+    /**
+     * Removes all the images of an observation.
+     *
+     * @param {Object} obs - The observation.
+     */
+    async removeStoredObservationImages(obs: any): Promise<void> {
+
+        for (let i = 0; i < obs.photos.length; i++) {
+
+            if (obs.photos[i])
+                await this.fileService.removeImage(obs.photos[i])
+                    .catch(err => this.logger.error(`Error removing image ${obs.photos[i]}`, err));
+
+        }
+
+        const outletPhoto = get(obs, "details.outlets.signagePhoto");
+
+        if (outletPhoto)
+            await this.fileService.removeImage(outletPhoto)
+                .catch(err => this.logger.error(`Error removing image ${outletPhoto}`, err));
 
     }
 

@@ -153,11 +153,8 @@ export class MapPage implements OnInit, OnDestroy {
     ionViewDidEnter(): void {
 
         this.initMap().then(() => {
-
             this.startWatcher().catch(() => {});
-
-            this.handleMapData().finally(() => this.subscribeNetworkChanges());
-
+            this.subscribeNetworkChanges();
         });
 
     }
@@ -177,7 +174,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Sets the custom icons of the marker clusters. */
-    initMarkerClusters(): void {
+    private initMarkerClusters(): void {
 
         this._eventMarkers = new MarkerClusterGroup({
             iconCreateFunction: cluster => {
@@ -199,7 +196,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Initializes the Leaflet map. */
-    async initMap(): Promise<void> {
+    private async initMap(): Promise<void> {
 
         if (!this._savedMapCenter) {
 
@@ -266,7 +263,7 @@ export class MapPage implements OnInit, OnDestroy {
      *
      * @param {boolean} fromClick - True if the request to start the watcher comes from a click action.
      */
-    async startWatcher(fromClick = false): Promise<void> {
+    private async startWatcher(fromClick = false): Promise<void> {
 
         if (this._positionSub) return;
 
@@ -283,7 +280,7 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
     /** Stops the position watcher. */
-    stopWatcher(): void {
+    private stopWatcher(): void {
 
         if (this._positionSub) {
             this._positionSub.unsubscribe();
@@ -316,7 +313,7 @@ export class MapPage implements OnInit, OnDestroy {
      *
      * @param {Object} data - The position data received.
      */
-    onPositionReceived(data: any): void {
+    private onPositionReceived(data: any): void {
 
         // If the data does not contain any coordinate, raise an error and return
         if (!data.coords) {
@@ -362,7 +359,7 @@ export class MapPage implements OnInit, OnDestroy {
      *
      * @param {LatLng} latLng - The coordinates of the marker.
      */
-    createUserMarker(latLng: LatLng): void {
+    private createUserMarker(latLng: LatLng): void {
 
         this._userMarker = new Marker(latLng, { icon: userMarkerIcon(), zIndexOffset: 3 }).addTo(this._map);
 
@@ -372,7 +369,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Fired when the user clicks on the GPS button. */
-    onGPSClick(): void {
+    private onGPSClick(): void {
 
         if (this._customMarker) {
             this._map.removeLayer(this._customMarker);
@@ -405,7 +402,7 @@ export class MapPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the synchronize button. */
     async onSyncClick(): Promise<void> {
 
-        // ToDo show eventual errors
+        if (!this.networkService.checkOnlineContentAvailability()) return;
 
         this._hasFetchedData = false;
 
@@ -424,7 +421,7 @@ export class MapPage implements OnInit, OnDestroy {
 
         const promises: Array<Promise<any>> = [];
 
-        if (!this._hasFetchedData && this.networkService.checkOnlineContentAvailability()) {
+        if (!this._hasFetchedData) {
 
             promises.push(
                 this.populateMap()
@@ -453,10 +450,6 @@ export class MapPage implements OnInit, OnDestroy {
         return Promise.all(promises).finally(() => this._isLoading = false);
 
     }
-
-
-    // ToDo remove
-    async t() { this.logger.log(await this.offlineService.getStoredObservations()) }
 
 
     /** Fetches the data that has to be visualized on the map. */
@@ -502,9 +495,6 @@ export class MapPage implements OnInit, OnDestroy {
      */
     onLegendIconClick(e: MouseEvent): boolean {
 
-        // ToDo remove
-        this.offlineService.clearAll();
-
         e.preventDefault();
         e.stopImmediatePropagation();
         e.cancelBubble = true;
@@ -544,7 +534,7 @@ export class MapPage implements OnInit, OnDestroy {
      * @param {Markers} marker - The marker cluster corresponding to the changed checkbox.
      * @param {boolean} checked - The current state of the checkbox.
      */
-    onPopoverChange(marker: Markers, checked: boolean): void {
+    private onPopoverChange(marker: Markers, checked: boolean): void {
 
         switch (marker) {
 
@@ -566,7 +556,7 @@ export class MapPage implements OnInit, OnDestroy {
      * @param {MarkerClusterGroup} cluster - The marker cluster.
      * @param {boolean} toShow - True if the cluster has to be shown.
      */
-    toggleMarkerCluster(cluster: MarkerClusterGroup, toShow: boolean): void {
+    private toggleMarkerCluster(cluster: MarkerClusterGroup, toShow: boolean): void {
 
         const hasCluster = this._map.hasLayer(cluster);
 
@@ -586,20 +576,17 @@ export class MapPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the "add" button. */
     async onAddClick(): Promise<void> {
 
-        // ToDo uncomment
-        // if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
-        //
-        //     const networkAlertChoice = await this.presentInsertionAlert("page-map.alert-msg-offline");
-        //
-        //     if (networkAlertChoice === "cancel") {
-        //         this.obsService.resetNewObservation();
-        //         return;
-        //     }
-        //
-        // }
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+
+            const networkAlertChoice = await this.presentInsertionAlert("page-map.msg-insert-offline");
+
+            if (networkAlertChoice === "cancel")
+                return;
+
+        }
 
 
-        let pos, accuracy, custom;
+        let pos, accuracy;
 
         if (this._customMarker) {
             pos      = this._customMarker.getLatLng();
