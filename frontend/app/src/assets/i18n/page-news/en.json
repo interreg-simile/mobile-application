@@ -1,15 +1,15 @@
 {
-  "title": "Novità",
-  "segment-alerts": "Avvisi",
-  "segment-events": "Eventi",
-  "no-alerts": "Nessun avviso",
-  "no-events": "Nessun evento",
-  "fetch-error": "Errore durante la richiesta dei dati.",
+  "title": "News",
+  "segment-alerts": "Alerts",
+  "segment-events": "Events",
+  "no-alerts": "No alert",
+  "no-events": "No event",
+  "fetch-error": "Error getting the data.",
   "single-event": {
-    "header-description": "Descrizione",
-    "header-details": "dettagli",
-    "header-contacts": "contatti",
-    "at": "alle",
-    "get-route": "Indicazioni stradali"
+    "header-description": "Description",
+    "header-details": "details",
+    "header-contacts": "contacts",
+    "at": "at",
+    "get-route": "Directions"
   }
 }

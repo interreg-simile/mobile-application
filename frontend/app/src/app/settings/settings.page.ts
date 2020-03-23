@@ -41,9 +41,6 @@ export class SettingsPage implements OnInit {
 
             this.langService.supportedLanguages.forEach(lang => {
 
-                // ToDo remove when translation is available
-                if (lang !== "it") return;
-
                 input.push({
                     name   : lang,
                     type   : "radio",

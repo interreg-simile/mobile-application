@@ -1,15 +1,15 @@
 {
-  "title": "Progetto",
+  "title": "Project",
   "sec-simile": {
     "head": "Simile",
-    "text": "Il progetto <a>SIMILE</a> ha l’obiettivo di migliorare, attraverso un sistema informativo avanzato e la partecipazione dei cittadini, l’attuale sistema di monitoraggio dei laghi insubrici e di creare una politica condivisa per la gestione delle acque. Grazie a questa applicazione è possibile contribuire alla raccolta di informazioni sullo stato dei laghi della zona transfrontaliera e oltre. Tutti i dati pervenuti sono disponibili con licenza open source e confluiscono in un modello matematico per l’analisi della qualità dell’acqua e la simulazione di scenari."
+    "text": "The <a>SIMILE</a> project, through an advanced informative system and citizen participation, aims to improve the actual insubric lakes monitoring system and to create a shared policy for water management. Thanks to this application it is possible to contribute to the collection of information on the state of the lakes in the cross-border area and beyond. All data received is available with an open source license and flows into a mathematical model for water quality analysis and scenario simulation."
   },
   "sec-interreg": {
     "head": "Interreg",
-    "text-primary": "Il progetto <a>SIMILE</a>, all’interno del quale è stata realizzata questa applicazione, è stato finanziato nell’ambito del Programma di Cooperazione Interreg Italia-Svizzera allo scopo di sviluppare strategie per la salvaguardia dei laghi. In linea con la sostenibilità del progetto, l’applicazione è stata sviluppata per poter essere utilizzata anche al di fuori della sua area di interesse.",
-    "text-secondary": "Operazione co-finanziata dall’Unione europea, Fondo Europeo di Sviluppo Regionale, dallo Stato Italiano, dalla Confederazione elvetica e dai Cantoni nell’ambito del Programma di Cooperazione Interreg V-A Italia-Svizzera."
+    "text-primary": "The <a>SIMILE</a> project, within which this application was created, is funded under the Interreg Italy-Switzerland Cooperation Program in order to develop strategies for the protection of lakes. In line with the sustainability of the project, the application was developed to be used even outside its area of ​​interest. ",
+    "text-secondary": "Operation co-financed by the European Union, European Regional Development Fund, the Italian State, the Swiss Confederation and the cantons within the framework of the Interreg V-A Italy-Switzerland Cooperation Program."
   },
   "sec-partners": {
-    "head": "Partner"
+    "head": "Partners"
   }
 }

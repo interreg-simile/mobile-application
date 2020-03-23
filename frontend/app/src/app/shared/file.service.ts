@@ -6,20 +6,14 @@ import { NGXLogger } from "ngx-logger";
 @Injectable({ providedIn: 'root' })
 export class FileService {
 
-    private readonly _dataDir: string;
-
     private readonly _imagesDir = "images";
 
 
-    constructor(private file: File, private logger: NGXLogger) {
-
-        this._dataDir = this.file.dataDirectory;
-
-    }
+    constructor(private file: File, private logger: NGXLogger) { }
 
 
     /** Creates the directory to contain the saved observations images. */
-    async createImageDir(): Promise<void> { return this.createDirectory(this._imagesDir) }
+    async createImageDir(): Promise<void> { return this.createDirectory("images") }
 
 
     /**
@@ -31,8 +25,12 @@ export class FileService {
 
         const doesExist = await this.checkDirExistence(dirName);
 
-        if (!doesExist)
-            await this.file.createDir(this._dataDir, dirName, false);
+        if (!doesExist) {
+
+            await this.file.createDir(this.file.dataDirectory || this.file.dataDirectory, dirName, false)
+                .catch(err => this.logger.error("Error creating image directory.", err));
+
+        }
 
     }
 
@@ -44,7 +42,7 @@ export class FileService {
      */
     private async checkDirExistence(dirName: string): Promise<boolean> {
 
-        return await this.file.checkDir(this._dataDir, dirName)
+        return await this.file.checkDir(this.file.dataDirectory, dirName)
             .then(() => true)
             .catch(() => false);
 
@@ -62,7 +60,7 @@ export class FileService {
         const fileEntry = await this.file.resolveLocalFilesystemUrl(imgUrl);
         const fileName  = fileEntry.name;
 
-        const dataDirEntry = await this.file.resolveDirectoryUrl(this._dataDir);
+        const dataDirEntry = await this.file.resolveDirectoryUrl(this.file.dataDirectory);
         const dirEntry     = await this.file.getDirectory(dataDirEntry, this._imagesDir, null);
 
         return new Promise((resolve, reject) => {

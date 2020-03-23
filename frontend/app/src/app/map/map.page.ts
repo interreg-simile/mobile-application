@@ -369,7 +369,7 @@ export class MapPage implements OnInit, OnDestroy {
 
 
     /** Fired when the user clicks on the GPS button. */
-    private onGPSClick(): void {
+    onGPSClick(): void {
 
         if (this._customMarker) {
             this._map.removeLayer(this._customMarker);

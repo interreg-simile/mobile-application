@@ -1,285 +1,284 @@
 {
   "close": {
-    "msg": "Annullare le modifiche apportate?",
-    "btn-continue": "Continua a modificare",
-    "btn-cancel": "Annulla"
+    "msg": "Discard the changes already made?",
+    "btn-continue": "Continue to edit",
+    "btn-cancel": "Cancel"
   },
-  "title": "Nuova osservazione",
-  "info-mandatory": "* indica un campo obbligatorio",
+  "title": "New observation",
+  "info-mandatory": "* indicate a mandatory field",
   "location": {
-    "title": "Luogo *",
-    "not-recognized": "Posizione non riconosciuta",
-    "msg-missing-address": "Devi specificare il nome del luogo."
+    "title": "Place *",
+    "not-recognized": "Position not recognized",
+    "msg-missing-address": "You have to spacify the name of the place."
   },
   "weather": {
-    "title": "Meteo",
-    "temperature": "Temperatura",
-    "temperature-head": "Specifica la temperatura in °C",
-    "temperature-ph": "Temperatura in °C",
+    "title": "Weather",
+    "temperature": "Temperature",
+    "temperature-head": "Specify the temperature in °C",
+    "temperature-ph": "Temperature in °C",
     "sky": {
-      "title": "Cielo",
-      "1": "Cielo limpido",
-      "2": "Qualche nuvola",
-      "3": "Nuvoloso",
-      "4": "Pioggia",
-      "5": "Neve",
-      "6": "Nebbia"
+      "title": "Sky",
+      "1": "Clear sky",
+      "2": "Few clouds",
+      "3": "Cloudy",
+      "4": "Rain",
+      "5": "Snow",
+      "6": "Fog"
     },
-    "wind": "Vento",
-    "wind-head": "Specifica la velocità del vento in m/s",
-    "wind-ph": "Velocità del vento in m/s",
-    "err": "Errore nella richista dei dati meteo."
+    "wind": "Wind",
+    "wind-head": "Specify wind speed in m/s",
+    "wind-ph": "Wind speed in m/s",
+    "err": "Error getting weather data."
   },
   "details": {
-    "title": "Dettagli",
+    "title": "Details",
     "algae": {
-      "title": "Alghe",
+      "title": "Algae",
       "extension": {
-        "head": "Estensione",
-        "1": "< 5 mq",
-        "2": "5 - 20 mq",
-        "3": "> 20 mq"
+        "head": "Extension",
+        "1": "< 5 sq. m",
+        "2": "5 - 20 sq. m",
+        "3": "> 20 sq. m"
       },
       "colour": {
-        "head": "Colore",
-        "iridescent": "Iridescente"
+        "head": "Colour",
+        "iridescent": "Iridescent"
       },
       "look": {
-        "head": "Aspetto",
-        "1": "Disperse",
-        "2": "Compatte",
-        "3": "Raggruppamenti",
-        "4": "Striature superficiali"
+        "head": "Aspect",
+        "1": "Scattered",
+        "2": "Compact",
+        "3": "Grouped",
+        "4": "Surface stripes"
       }
     },
     "foams": {
-      "title": "Schiume",
+      "title": "Foams",
       "extension": {
-        "head": "Estensione",
-        "1": "< 5 mq",
-        "2": "5 - 20 mq",
-        "3": "> 20 mq"
+        "head": "Extension",
+        "1": "< 5 sq. m",
+        "2": "5 - 20 sq. m",
+        "3": "> 20 sq. m"
       },
       "look": {
-        "head": "Aspetto",
-        "1": "Disperse",
-        "2": "Compatte",
-        "3": "Lineari"
+        "head": "Aspect",
+        "1": "Scattered",
+        "2": "Compact",
+        "3": "Linear"
       },
       "height": {
-        "head": "Altezza",
+        "head": "Height",
         "1": "< 3 cm",
         "2": "3 - 20 cm",
         "3": "> 20 cm"
       }
     },
     "oils": {
-      "title": "Macchie oleose",
+      "title": "Oil stains",
       "extension": {
-        "head": "Estensione",
-        "1": "< 5 mq",
-        "2": "5 - 20 mq",
-        "3": "> 20 mq"
+        "head": "Extension",
+        "1": "< 5 sq. m",
+        "2": "5 - 20 sq. m",
+        "3": "> 20 sq. m"
       },
       "type": {
-        "head": "Tipologia",
-        "1": "Superficiale",
-        "2": "In profondità"
+        "head": "Type",
+        "1": "On surface",
+        "2": "In depth"
       }
     },
     "litters": {
-      "title": "Rifiuti",
+      "title": "Litters",
       "quantity": {
-        "head": "Quantità",
+        "head": "Quantity",
         "1": "1",
         "2": "2 - 20",
         "3": "> 20"
       },
       "type": {
-        "head": "Tipologia",
-        "1": "Plastica",
-        "2": "Vetro / Ceramica",
-        "3": "Metallo",
-        "4": "Carta / Cartone",
-        "5": "Tessili",
-        "6": "Gomma",
-        "7": "Legno trattato / lavorato",
-        "8": "Laterizi",
-        "9": "Detriti vegetali",
-        "10": "Materiale organico in decomposizione"
+        "head": "Type",
+        "1": "Plastic",
+        "2": "Glass / Ceramic",
+        "3": "Metal",
+        "4": "Paper / Cardboard",
+        "5": "Textiles",
+        "6": "Rubber",
+        "7": "Treated / processed wood",
+        "8": "Bricks",
+        "9": "Vegetal debris",
+        "10": "Decaying organic material"
       }
     },
     "odours": {
-      "title": "Odori",
+      "title": "Odours",
       "intensity": {
-        "head": "Intensità",
-        "1": "Lieve",
-        "2": "Medio",
-        "3": "Forte"
+        "head": "Intensity",
+        "1": "Slight",
+        "2": "Medium",
+        "3": "Strong"
       },
       "origin": {
-        "head": "Origine",
-        "1": "Pesce",
-        "2": "Muffa",
-        "3": "Idrocarburi",
-        "4": "Solventi",
-        "5": "Fogna",
-        "6": "Materiale in decomposizione"
+        "head": "Origin",
+        "1": "Fish",
+        "2": "Mold",
+        "3": "Hydrocarbon",
+        "4": "Solvent",
+        "5": "Sewer",
+        "6": "Decaying material"
       }
     },
     "outlets": {
-      "title": "Scarichi",
-      "inPlace": "In atto",
+      "title": "Drains",
+      "inPlace": "Active",
       "terminal": {
-        "head": "Terminale",
-        "1": "Visibile",
-        "2": "Sommerso"
+        "head": "Terminal",
+        "1": "Visible",
+        "2": "Submerged"
       },
       "colour": {
-        "head": "Colore",
-        "1": "Rosso",
-        "2": "Blu",
-        "3": "Verde",
-        "4": "Grigio",
-        "5": "Marrone",
-        "6": "Giallo",
-        "7": "Bianco"
+        "head": "Colour",
+        "1": "Red",
+        "2": "Blue",
+        "3": "Green",
+        "4": "Gray",
+        "5": "Brown",
+        "6": "Yellow",
+        "7": "White"
       },
-      "vapour": "Vapore",
+      "vapour": "Vapour",
       "signage": {
-        "head": "Segnaletica",
-        "photo-add": "Aggiungi una foto",
-        "photo-edit": "Modifica la foto"
+        "head": "Signage",
+        "photo-add": "Add a photo",
+        "photo-edit": "Modify the photo"
       },
       "prod-act": {
-        "head": "Attività produttive nelle vicinanze",
-        "ph": "Dettagli (max 250 characters)..."
+        "head": "Productive activity nearby",
+        "ph": "Details (max 250 characters)..."
       }
     },
     "fauna": {
       "title": "Fauna",
-      "fish": "Pesci",
-      "birds": "Uccelli",
-      "molluscs": "Molluschi",
-      "crustaceans": "Crostacei",
-      "turtles": "Tartarughe",
+      "fish": "Fishes",
+      "birds": "Birds",
+      "molluscs": "Clams",
+      "crustaceans": "Shellfishes",
+      "turtles": "Turtlees",
       "deceased": {
-        "head": "Deceduti",
-        "number": "Numero",
-        "err-positive-number": "Inserisci un numero maggiore di 0."
+        "head": "Deceased",
+        "number": "Number",
+        "err-positive-number": "Insert a number bigger than 0."
       },
       "abnormal": {
-        "head": "Comportamenti anomali",
-        "ph": "Descrivi i comportamenti..."
+        "head": "Abnormal behaviours",
+        "ph": "Describe the behaviours..."
       },
       "alien": {
-        "head": "Specie aliene",
+        "head": "Alien species",
         "fish": {
-          "1": "Pseudorasbora"
+          "1": "Pseudorasbora parva"
         },
         "birds": {
-          "1": "Oca egiziana",
-          "2": "Ibis sacro"
+          "1": "Alopochen egyptiacus",
+          "2": "Threskiornis aethiopicus"
         },
         "molluscs": {
-          "1": "Cozza dorata",
-          "2": "Cozza zebra",
-          "3": "Cozza cigno (o libbra)"
+          "1": "Corbicula fluminea",
+          "2": "Dreissena polymorpha",
+          "3": "Sinanodonta woodiana"
         },
         "crustaceans": {
-          "1": "Gambero americano",
-          "2": "Gambero della California",
-          "3": "Gambero rosso della Louisiana"
+          "1": "Orconectes limosus",
+          "2": "Pacifastacus leniusculus",
+          "3": "Procambarus clarkii"
         },
         "turtles": {
-          "1": "Testuggine palustre americana"
+          "1": "Trachemys scripta"
         }
       }
     }
   },
   "measures": {
-    "title": "Misure",
-    "add": "Aggiungi una o più misure",
-    "edit": "Modifica le tue misure",
+    "title": "Measures",
+    "add": "Add one or more measure",
+    "edit": "Modify your measures",
     "hub": {
-      "title": "Le tue misure",
-      "head": "Tipi di misura"
+      "title": "Your measures",
+      "head": "Type of measure"
     },
     "type": {
-      "head": "Tipo di misura",
-      "single": "Singola",
-      "multiple": "Multipla"
+      "head": "Type of measure",
+      "single": "Single",
+      "multiple": "Multiple"
     },
     "errors": {
-      "add-measure": "Devi completare prima la misura corrente.",
-      "remove-measure": "Non puoi eliminare l'ultima misura."
+      "add-measure": "You must first complete the current measure.",
+      "remove-measure": "You can't delete the last measure."
     },
     "transparency": {
-      "title": "Trasparenza",
-      "label-val": "Profondità (m) *",
-      "label-instrument-precision": "Precisione (m)",
-      "error-msg-val": "Devi specificare il valore della misura."
+      "title": "Trasparency",
+      "label-val": "Depth (m) *",
+      "label-instrument-precision": "Precision (m)",
+      "error-msg-val": "You have to specify the value of the measure."
     },
     "temperature": {
-      "title": "Temperatura",
-      "label-depth": "Profondità (m) *",
-      "label-val": "Valore (°C) *",
-      "label-instrument-precision": "Precisione (°C)",
-      "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
+      "title": "Temperature",
+      "label-depth": "Depth (m) *",
+      "label-val": "Value (°C) *",
+      "label-instrument-precision": "Precision (°C)",
+      "error-msg-val": "You have to specify the values of both measure and depth."
     },
     "ph": {
       "title": "Ph",
-      "label-depth": "Profondità (m) *",
-      "label-val": "Valore *",
-      "label-instrument-precision": "Precisione",
-      "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
+      "label-depth": "Depth (m) *",
+      "label-val": "Value *",
+      "label-instrument-precision": "Precision",
+      "error-msg-val": "You have to specify the values of both measure and depth."
     },
     "oxygen": {
-      "title": "Ossigeno",
-      "label-depth": "Profondità (m) *",
-      "label-val": "Valore (mg/l) *",
-      "label-val-percentage": "Valore (%) *",
-      "label-instrument-precision": "Precisione",
-      "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
+      "title": "Oxygen",
+      "label-depth": "Depth (m) *",
+      "label-val": "Value (mg/l) *",
+      "label-val-percentage": "Value (%) *",
+      "label-instrument-precision": "Precision",
+      "error-msg-val": "You have to specify the values of both measure and depth."
     },
     "bacteria": {
-      "title": "Batteri",
+      "title": "Bacteria",
       "eColi": "Escherichia Coli (UFC/100ml)",
-      "enterococci": "Enterococchi (UFC/100ml)",
-      "error-msg-val": "Devi inserire almeno uno dei due valori."
+      "enterococci": "Enterococci (UFC/100ml)",
+      "error-msg-val": "You have to insert at least one of the two values."
     },
     "instrument": {
-      "head": "Strumento utilizzato",
+      "head": "Instrument used",
       "type": {
-        "label": "Tipologia *",
-        "1": "Professionale",
-        "2": "Artigianale",
-        "error-msg": "Devi specificare la tipologia dello strumento utilizzato."
+        "label": "Type *",
+        "1": "Professional",
+        "2": "Artisanal",
+        "error-msg": "You have to specify the typology of the instrument used."
       },
       "details": {
-        "label": "Dettagli",
-        "placeholder": "Marca, modello, tolleranza..."
+        "label": "Details",
+        "placeholder": "Brand, model, tolerance..."
       }
     }
   },
   "other": {
-    "title": "Altre informazioni",
-    "ph": "Massimo 500 caratteri..."
+    "title": "Other information",
+    "ph": "Max 500 characters..."
   },
-  "photos": "Foto",
-  "btn-send": "Invia l'osservazione",
-  "or": "- o -",
-  "btn-call": "Contatta le autorità",
-  "err-title": "Oops!",
-  "err-msg": "Qualcosa è andato storto, ci scusiamo per il disagio.",
-  "msg-no-photo": "È richiesta almeno una foto.",
-  "msg-weather-error": "Errore durante la richiesta dei dati meteo.",
-  "alert-message-cancel": "Annullare le modifiche apportate?",
-  "alert-btn-continue": "Continua a modificare",
-  "alert-btn-cancel": "Annulla",
+  "photos": "Photo",
+  "btn-send": "Send the observation",
+  "or": "- or -",
+  "btn-call": "Contact the authorities",
+  "err-msg": "Error posting the observation, we are sorry for the inconvenience.",
+  "msg-no-photo": "At least one photo is requested.",
+  "msg-weather-error": "Error getting weather data.",
+  "alert-message-cancel": "Discard the changes already made?",
+  "alert-btn-continue": "Continue to edit",
+  "alert-btn-cancel": "Cancel",
   "modal-choices": {
-    "heading": "Cosa vuoi fare?",
-    "msg-call-1": "Se pensi che sia necessario attivare un'intervento, chiama questo numero:",
-    "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
+    "heading": "What do you want to do?",
+    "msg-call-1": "If you think that is necessary to activate an intervention, call this number:",
+    "msg-call-2": "An {{company}} operator will answer you. Tell him the code reported here below."
   }
 }

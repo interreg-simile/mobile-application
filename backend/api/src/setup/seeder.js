@@ -22,32 +22,23 @@ async function seeder() {
 
     console.info("SEED - Started");
 
-    // Connect to the database
     await connectDb();
 
-    // Try to seed the database
     try {
 
-        // Seed the data
-        // await apiKeys();
         // await users();
         // await rois();
         // await events();
         // await alerts();
         await observations();
 
-        // Close the connection
         await mongoose.connection.close();
 
         console.info("SEED - Complete");
 
     } catch (e) {
-
-        // Close the connection
         await mongoose.connection.close();
-
         console.error(`SEED - Error: ${e}`);
-
     }
 
 }
@@ -61,17 +52,16 @@ async function seeder() {
  */
 export async function dropCollection(collection) {
 
-    // If the application is not running in development mode, return
     if (appConf.env !== "development") return;
 
-    // Fetch the list of the collection in the database
     const collections = await mongoose.connection.db.listCollections().toArray();
 
-    // Drop the collection if it exists
-    for (const c of collections) { if (c.name === collection) await mongoose.connection.dropCollection(collection) }
+    for (const c of collections) {
+        if (c.name === collection)
+            await mongoose.connection.dropCollection(collection)
+    }
 
 }
 
 
-// Run the seeder
 seeder().catch(err => console.error(`Error - Seed failed: ${err}`));

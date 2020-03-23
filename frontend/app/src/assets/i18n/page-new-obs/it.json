@@ -153,7 +153,7 @@
       },
       "prod-act": {
         "head": "Attività produttive nelle vicinanze",
-        "ph": "Dettagli (max 250 characters)..."
+        "ph": "Dettagli (max 250 caratteri)..."
       }
     },
     "fauna": {
@@ -270,7 +270,7 @@
   "btn-send": "Invia l'osservazione",
   "or": "- o -",
   "btn-call": "Contatta le autorità",
-  "err-msg": "Impossibile inviare l'ooservazione, ci scusiamo per il disagio.",
+  "err-msg": "Impossibile inviare l'osservazione, ci scusiamo per il disagio.",
   "msg-no-photo": "È richiesta almeno una foto.",
   "msg-weather-error": "Errore durante la richiesta dei dati meteo.",
   "alert-message-cancel": "Annullare le modifiche apportate?",

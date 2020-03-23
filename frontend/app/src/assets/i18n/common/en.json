@@ -1,22 +1,22 @@
 {
-  "msg-exit-app": "Premi ancora per uscire dall'app.",
-  "error-occurred": "Errore!",
-  "msg-to-be-implemented": "Funzione non ancora implementata...",
+  "msg-exit-app": "Press again to quit the app.",
+  "error-occurred": "Error!",
+  "msg-to-be-implemented": "Function still to be implemented...",
   "errors": {
-    "photo": "Errore durante la foto.",
-    "offline": "Dati non disponibili offline."
+    "photo": "Error during the photo.",
+    "offline": "Data not available offline."
   },
-  "wait": "Attendi...",
+  "wait": "Wait...",
   "rois": {
-    "lake_como": "Lago di Como",
-    "lake_maggiore": "Lago Maggiore",
-    "lake_lugano": "Lago di Lugano"
+    "lake_como": "Como Lake",
+    "lake_maggiore": "Maggiore Lake",
+    "lake_lugano": "Lugano Lake"
   },
   "alerts": {
-    "header-warning": "Attenzione",
+    "header-warning": "Warning",
     "btn-ok": "OK",
-    "btn-cancel": "Cancella",
-    "btn-confirm": "Conferma",
-    "btn-continue": "Continua"
+    "btn-cancel": "Cancel",
+    "btn-confirm": "Confirm",
+    "btn-continue": "Continue"
   }
 }

@@ -1,106 +1,106 @@
 {
-  "err-get": "Errore durante il recupero dell'osservazione.",
-  "yes": "Sì",
+  "err-get": "Error while recovering the information.",
+  "yes": "Yes",
   "no": "No",
-  "view": "Visualizza",
+  "view": "Visualize",
   "position": {
-    "head": "Posizione",
-    "label-coordinates": "Coordinate",
+    "head": "Position",
+    "label-coordinates": "Coordinates",
     "label-crs": "CRS",
-    "label-accuracy": "Accuratezza"
+    "label-accuracy": "Accuracy"
   },
   "weather": {
-    "head": "Condizioni meteo",
-    "label-temperature": "Temperatura",
-    "label-sky": "Cielo",
-    "label-wind": "Vento"
+    "head": "Weather conditions",
+    "label-temperature": "Temperature",
+    "label-sky": "Sky",
+    "label-wind": "Wind"
   },
   "details": {
-    "head": "Dettagli",
+    "head": "Details",
     "algae": {
-      "head": "Alghe",
-      "label-extension": "Estensione",
-      "label-colour": "Colore",
-      "value-iridescent": "Iridescente",
-      "label-look": "Aspetto"
+      "head": "Algae",
+      "label-extension": "EXtension",
+      "label-colour": "Colour",
+      "value-iridescent": "Iridescent",
+      "label-look": "Aspect"
     },
     "foams": {
-      "head": "Schiume",
-      "label-extension": "Estensione",
-      "label-look": "Aspetto",
-      "label-height": "Altezza"
+      "head": "Foams",
+      "label-extension": "Extension",
+      "label-look": "Aspect",
+      "label-height": "Height"
     },
     "oils": {
-      "head": "Macchie oleose",
-      "label-extension": "Estensione",
-      "label-type": "Tipologia"
+      "head": "Oil stains",
+      "label-extension": "Extension",
+      "label-type": "Type"
     },
     "litters": {
-      "head": "Rifiuti",
-      "label-quantity": "Quantità",
-      "label-type": "Tipologia"
+      "head": "Litters",
+      "label-quantity": "Quantity",
+      "label-type": "Type"
     },
     "odours": {
-      "head": "Odori",
-      "label-intensity": "Intensità",
-      "label-origin": "Origine"
+      "head": "Odours",
+      "label-intensity": "Intensity",
+      "label-origin": "Origin"
     },
     "outlets": {
-      "head": "Scarichi",
-      "label-in-place": "In atto",
-      "label-terminal": "Terminale",
-      "label-colour": "Colore",
-      "label-vapour": "Vapore",
-      "label-signage": "Segnaletica",
-      "label-signage-photo": "Foto della segnaletica",
-      "label-prod-activities": "Attività produttive nelle vicinanze",
-      "label-prod-activities-details": "Dettagli sulle attività produttive"
+      "head": "Drains",
+      "label-in-place": "Active",
+      "label-terminal": "Terminal",
+      "label-colour": "Colour",
+      "label-vapour": "Vapour",
+      "label-signage": "Signage",
+      "label-signage-photo": "Signage photo",
+      "label-prod-activities": "Productive activity nearby",
+      "label-prod-activities-details": "Details on productive activity"
     },
     "fauna": {
       "head": "Fauna",
-      "label-number": "Numero",
-      "label-deceased": "Esemplari deceduti",
-      "label-abnormal": "Comportamenti anomali",
-      "label-alien": "Specie aliene",
-      "fish": "Pesci",
-      "birds": "Uccelli",
-      "molluscs": "Molluschi",
-      "crustaceans": "Crostacei",
-      "turtles": "Tartarughe"
+      "label-number": "Number",
+      "label-deceased": "Deceased",
+      "label-abnormal": "Abnormal behaviours",
+      "label-alien": "Alien species",
+      "fish": "Fishes",
+      "birds": "Birds",
+      "molluscs": "Clams",
+      "crustaceans": "Shellfishes",
+      "turtles": "Turtles"
     }
   },
   "measures": {
-    "head": "Misure",
+    "head": "Measures",
     "transparency": {
-      "head": "Trasparenza",
-      "label-value": "Valore"
+      "head": "Transparency",
+      "label-value": "Value"
     },
     "temperature": {
-      "head": "Temperatura",
-      "label-depth": "Profondità",
-      "label-value": "Valore"
+      "head": "Temperature",
+      "label-depth": "Depth",
+      "label-value": "Value"
     },
     "ph": {
       "head": "pH",
-      "label-depth": "Profondità",
-      "label-value": "Valore"
+      "label-depth": "Depth",
+      "label-value": "Value"
     },
     "oxygen": {
-      "head": "Ossigeno",
-      "label-depth": "Profondità",
-      "label-value": "Valore"
+      "head": "Oxygen",
+      "label-depth": "Depth",
+      "label-value": "Value"
     },
     "bacteria": {
-      "head": "Batteri",
+      "head": "Bacteria",
       "label-eColi": "Escherichia Coli",
-      "label-enterococci": "Enterococchi"
+      "label-enterococci": "Enterococci"
     },
     "instrument": {
-      "head": "Strumento",
-      "label-type": "Tipologia",
-      "label-precision": "Precisione",
-      "label-details": "Dettagli"
+      "head": "Instrument",
+      "label-type": "Type",
+      "label-precision": "Precision",
+      "label-details": "Details"
     }
   },
-  "other": "Altre informazioni"
+  "other": "Other information"
 }

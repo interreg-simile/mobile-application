@@ -1,67 +1,67 @@
 {
-  "o": "Condividi un’osservazione sullo stato del lago. Carica un’immagine e identifica ciò che stai osservando. Se ritieni la situazione particolarmente grave puoi avvertire l’autorità competente.",
-  "o2": "Puoi modificare le condizioni metereologiche se ritieni che siano errate o mancanti.",
-  "o3": "Puoi indicare la presenza di uno o più fenomeni tra quelli elencati. Clicca sul nome per accedere a tutte le opzioni di ogni singola voce. Utilizza gli help per imparare a riconoscere e classificare i fenomeni del lago e inserire informazioni più specifiche.",
+  "o": "Share an observation on lake condition. Upload an image and identify what you're observing. If you believe that the situation is particularly serious you can contact the authority in charge.",
+  "o2": "You can modify the weather conditions if you think they're wrong or missing.",
+  "o3": "You can indicate the presence of one or more phenomena among those listed. Click on them to access all the options of every single voice. Use the help (?) to learn how to recognize lake phenomena and insert more specific information.",
   "o3.1": {
-    "title": "Alghe",
-    "text": "<p>Con il termine alghe si intende il <a href='http://www.ise.cnr.it/crypta/limnol/plancton/fitoplan.htm'>fitoplancton</a>, ovvero piccoli organismi vegetali appartenenti al plancton lacustre.</p><p>Da non confondere con le piante acquatiche (macrofite).</p>"
+    "title": "Algae",
+    "text": "<p>The term algae refers to phytoplankton, that is a set of small plant organisms belonging to lake plankton. The lake plankton is made up of a series of microorganisms that are transported by the currents (in Greek, plankton means 'vagabond') and is divided into the vegetable (phytoplankton), animal (zooplankton) and bacterial (bacterioplankton) components.</p><p>Phytoplanktonic algae should not be confused with aquatic plants (macrophytes)! Phytoplankton is composed of autotrophic organisms (= producers), that is, capable of building the organic substance from which they are made starting from inorganic substances and solar energy through photosynthesis.</p><p>There are several taxonomic classes of phytoplankton such as Cloroficee, Bacillarioficee, Cryptoficee and Cyanobacteria. In particular, the Cyanobacteria in lakes, in certain environmental conditions, can reach high concentrations called 'blooms'; some species can produce toxins and pose a risk to human and animal health.</p>"
   },
   "o3.11": {
-    "title": "Alghe disperse",
-    "text": "Le alghe sono visibili per un’aumentata densità, ma sono disperse nell’acqua senza formare ammassi."
+    "title": "Scattered algae",
+    "text": "The algae are visibles due to an augmented density, but scattered in the water without creating clusters."
   },
   "o3.12": {
-    "title": "Alghe compatte",
-    "text": "Le alghe formano uno strato compatto sulla superficie dell’acqua."
+    "title": "Compact algae",
+    "text": "The algae form a compact layer on water surface."
   },
   "o3.13": {
-    "title": "Raggruppamenti di alghe",
-    "text": "Le alghe sono raggruppate a formare ammassi o chiazze di dimensioni variabili."
+    "title": "Grouped algae",
+    "text": "The algae are grouped in clusters or stains of variable size."
   },
   "o3.14": {
-    "title": "Striature superficiali algali",
-    "text": "Le alghe formano delle strisce, che spesso seguono il moto ondoso."
+    "title": "Algal surface stripes",
+    "text": "The algae form some stripes often following the waves movemnt."
   },
   "o3.21": {
-    "title": "Schiume disperse",
-    "text": "Le schiume sono distribuite in ammassi piccoli e isolati sulla superficie dell’acqua e si disperdono facilmente."
+    "title": "Scattered foams",
+    "text": "The foams are distributed in small and isolated clusters on water surface that disperse easily."
   },
   "o3.22": {
-    "title": "Schiume compatte",
-    "text": "Le schiume si presentano compatte (quasi solide) e fanno fatica a disperdersi."
+    "title": "Compact foams",
+    "text": "The foams are compact (almost solid) and disperse with difficulty."
   },
   "o3.23": {
-    "title": "Schiume lineari",
-    "text": "Le schiume si dispongono a strisce, anche seguendo il moto ondoso."
+    "title": "Linear foams",
+    "text": "The foams are arranged in stripes also following the waves movement."
   },
   "o3.31": {
-    "title": "Chiazze superficiali",
-    "text": "Le chiazze ricoprono solo la superficie dell’acqua."
+    "title": "Surface stains",
+    "text": "The stains cover only water surface."
   },
-  "o3.32": "Le chiazze sono distribuite anche in verticale, lungo la colonna d’acqua.",
-  "o3.511" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/42-specie-19'>scheda informativa</a>.",
-  "o3.521" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/60-specie-37'>scheda informativa</a>.",
-  "o3.522" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/59-specie-36'>scheda informativa</a>.",
-  "o3.531" : "Vai alla <a href='https://en.wikipedia.org/wiki/Corbicula_fluminea'>scheda informativa</a>.",
-  "o3.532" : "Vai alla <a href='https://it.wikipedia.org/wiki/Dreissena_polymorpha'>scheda informativa</a>.",
-  "o3.533" : "Vai alla <a href='https://en.wikipedia.org/wiki/Sinanodonta_woodiana'>scheda informativa</a>.",
-  "o3.541" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/61-specie-38'>scheda informativa</a>.",
-  "o3.542" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/54-specie-31'>scheda informativa</a>.",
-  "o3.543" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/56-specie-33'>scheda informativa</a>.",
-  "o3.551" : "Vai alla <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/44-specie-21'>scheda informativa</a>.",
-  "o4": "Puoi aggiungere ulteriori immagini se pensi siano utili per una migliore comprensione del fenomeno osservato.",
-  "o5": "Puoi usare questo spazio per fornire maggiori dettagli sul luogo dell’osservazione, su altre eventuali condizioni al contorno che ritieni possano essere rilevanti o se tra le voci in elenco non ne hai trovata una che corrisponda a quanto stai osservando.",
-  "m": "Aggiungi una misura alla tua osservazione, i dati raccolti serviranno a validare altre tecnologie di monitoraggio e migliorare la comprensione del lago.",
-  "m0": "Indica le specifiche dello strumento utilizzato.",
-  "m0.1": "Indica se vuoi inserire un valore singolo a una data profondità o una serie di valori lungo la colonna d’acqua.",
+  "o3.32": "The stains are distributed also in vertical along the water column.",
+  "o3.511" : "Go to the <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/42-specie-19'>information sheet</a>.",
+  "o3.521" : "Go to the <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/60-specie-37'>information sheet</a>.",
+  "o3.522" : "Go to the <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/59-specie-36'>information sheet</a>.",
+  "o3.531" : "Go to the <a href='https://en.wikipedia.org/wiki/Corbicula_fluminea'>information sheet</a>.",
+  "o3.532" : "Go to the <a href='https://it.wikipedia.org/wiki/Dreissena_polymorpha'>information sheet</a>.",
+  "o3.533" : "Go to the <a href='https://en.wikipedia.org/wiki/Sinanodonta_woodiana'>information sheet</a>.",
+  "o3.541" : "Go to the <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/61-specie-38'>information sheet</a>.",
+  "o3.542" : "Go to the <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/54-specie-31'>information sheet</a>.",
+  "o3.543" : "Go to the <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/56-specie-33'>information sheet</a>.",
+  "o3.551" : "Go to the <a href='https://www.specieinvasive.it/index.php/it/specie-aliene-invasive/2-le-specie-invasive/44-specie-21'>information sheet</a>.",
+  "o4": "You can add further images if you think thay're useful for a better understanding of the observed phenomenon.",
+  "o5": "You can use this space to provide additional details on where the observation has been made, on other relevant boundary conditions or if in you didn't find any voice corresponding to the observed phenomenon among the listed ones.",
+  "m": "Add a measure to your observation, the data gathred in this way will be used to validate the products of other monitoring technologies and improving the lake understanding.",
+  "m0": "Indicate the specifications of the instrument you used.",
+  "m0.1": "Indicate if you want to insert a single value at a certain depth or a series of valuesalong the water column.",
   "m1": {
-    "title": "Trasparenza",
-    "text": "<p>La trasparenza rappresenta la misura dell’attenuazione della radiazione luminosa nella colonna d’acqua. Dipende dalla presenza nell’acqua di particelle di soluti.</p><p>Può essere misurata con il <a href='http://www.ise.cnr.it/crypta/limnol/energia/discosec.htm'>Disco di Secchi</a>, un disco bianco, di 20-30cm di diametro, fissato all’estremità di una fune metrata: il disco viene calato in acqua e si misura la profondità alla quale esso diviene invisibile e quella alla quale ricompare. La media tra le due misure è la trasparenza di un lago viene espressa in metri.</p>"
+    "title": "Transparency",
+    "text": "<p>Transparency represents the measure of the attenuation of light radiation along the water column. It depends on the presence of particles and solutes in the water, which can absorb or disperse light. Transparency can be measured with the <a href='http://www.ise.cnr.it/crypta/limnol/energia/discosec.htm'>Secchi disk</a>, a white disc, 20-30 cm in diameter, attached to the end of a metric cord: the disc is lowered into the water measuring the depth at which it becomes invisible and that the depth at which it reappears. The average between the two measures is the transparency of a lake and is expressed in meters.</p><p>The transparency of very productive lakes (eutrophic) can also be less than 1 meter while in the less productive lakes (oligotrophic) it can also be tens of meters. In our latitudes the transparency of a lake is greater in winter, when algal production is minimal, and smaller in summer and autumn. The euphotic area of a lake, that is, photosynthetically active, is estimated by multiplying the transparency measured by the Secchi Disc by 2.5.</p>"
   },
-  "m2": "La <a href='http://www.ise.cnr.it/crypta/limnol/energia/termica.htm'>temperatura</a> è una delle proprietà fisiche principali dell’acqua. La temperatura delle acque di un lago in un determinato momento stagionale dipende dal suo bilancio termico, cioè dalla differenza fra gli apporti e le perdite di calore.",
-  "m3": "Il pH è un valore numerico che indica l’acidità di una soluzione.L’acqua contiene in soluzione sia ioni idrogeno H+ che ioni OH-; le concentrazioni relative di questi due ioni determinano il valore del pH. Il pH dell’acqua è un parametro molto importante per la vita acquatica. Valori compresi tra 6 e 9 sono in genere compatibili con la vita degli organismi acquatici. Valori inferiori a 6 e superiori a 9 si manifestano solo in conseguenza di scarichi di sostanze inquinanti acide o basiche e possono avere effetti letali su piante e animali.",
-  "m4": "<p>L'<a href='http://www.ise.cnr.it/crypta/limnol/idrochim/idrochim.htm'>ossigeno</a> è un gas fondamentale per tutte le forme di vita. In qualsiasi ambiente acquatico, la presenza di ossigeno deriva sostanzialmente dalla lenta cessione di questo gas nell'atmosfera (che ne è ricca) e dai processi biologici operati dagli organismi acquatici.I processi biologici che regolano la concentrazione di ossigeno nelle acque sono la fotosintesi e la respirazione.</p><p>L’ossigeno disciolto nelle acque può essere espresso come concentrazione, ovvero mg di ossigeno in 1 L d’acqua (mg/L) o come % rispetto alla saturazione, ovvero la quantità di ossigeno presente rispetto al valore massimo, preso uguale a cento, che si può avere nelle stesse condizioni di salinità, di temperatura e pressione atmosferica.</p>",
-  "m5": "I principali indicatori di fecalizzazione dei corpi idrici sono l’Escherichia coli e gli enterococchi. Si tratta di batteri che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo). Sono necessari per la digestione corretta del cibo. La loro presenza indica un recente inquinamento fecale, dovuto probabilmente ad una inadeguata disinfezione o ad una mancanza di integrità del sistema idrico.",
-  "m5.1": "La specie Escherichia coli è un microrganismo a forma di bastoncello, gram-negativo, aerobio e anaerobio facoltativo, non sporigeno, che cresce alla temperatura di 44,5 °C, lattosio-fermentante, indolo-positivo in terreni contenenti triptofano, beta-D-glucuronidasi-positivo. Il valore limite per la balneabilità delle acque interne è di 500 UFC/100ml.",
-  "m5.2": "Gli enterococchi sono batteri Lattacidi appartenenti al phylum dei Firmicutes. Essi sono microrganismi Gram-positivi e catalasi-negativi di forma tondeggiante che si dispongono sotto forma di diplococchi oppure in corte catene. Sono organismi anaerobi facoltativi e sopportano un ampio intervallo di temperature. Il valore limite per la balneabilità delle acque interne è di 1000 UFC/100ml."
+  "m2": "The <a href='http://www.ise.cnr.it/crypta/limnol/energia/termica.htm'>temperature</a> is one of the main physical properties of water. The water temperature of a lake at a specific seasonal time depends on its thermal balance, that is, on the difference between the heat contributions and losses. If the temperature of a lake is measured from the surface to the bottom, very different thermal profiles are obtained during the year. In particular, there are periods in which the water column has the same temperature from the bottom to the surface and others in which there is a high thermal gradient. This is because lakes have a thermal cycle, which mainly depends on the latitude and altitude at which the lake is located and which directly affect the quantity and intensity of solar radiation, i.e. the source of thermal energy. The thermal cycle is also influenced by climatic (rainfall and wind) and morphological factors (depth and shape of the lake basin).",
+  "m3": "<p>The pH is a numerical value indicating the acidity of a solution. The water contains both hydrogen H+ and OH- ions in solution; the relative concentrations of these two ions determine the pH value. Water with a pH of 7 has equal concentrations of H + and OH- ions and is considered a neutral solution. In an acid solution the concentration of H + ions is higher than that of OH- ions (the opposite in a basic solution). The pH values can range from 0 (most acidic value) to 14 (most basic value).</p><p>The pH of water is a very important parameter for aquatic life. In natural environments (rivers, lakes, seas) the pH does not vary from 0 to 14 but remains within a range of a few units around the value 7. Values​between 6 and 9 are generally compatible with the life of aquatic organisms. Values below 6 and above 9 occur only as a consequence of discharges of acid or basic pollutants and can have lethal effects on plants and animals.</p>",
+  "m4": "<p>The<a href='http://www.ise.cnr.it/crypta/limnol/idrochim/idrochim.htm'>oxygen</a> is a fundamental gas for all forms of life. In any aquatic environment, the presence of oxygen derives substantially from the slow release of this gas into the atmosphere (which is rich in it) and from the biological processes operated by aquatic organisms. The biological processes that regulate the concentration of oxygen in the water are photosynthesis and respiration.</p><p>The dissolved oxygen in the water can be expressed as concentration, i.e. mg of oxygen in 1 L of water (mg/L) or as % with respect to saturation, or the quantity of oxygen present with respect to the maximum value, taken equal to one hundred, which can be had in the same conditions of salinity, temperature and atmospheric pressure. Values​above 100% (supersaturation) can be measured, for example, in the surface waters of lakes in the summer. Low saturation values, on the other hand, occur in the presence of pollution which leads to the consumption of oxygen for the demolition of the organic substance. Low oxygen values ​​(hypoxia) or total absence of oxygen (anoxia) can characterize the deep waters of eutrophicated lakes, in which the organic substance produced in large quantities in the surface layers is decomposed by the aerobic organisms that take oxygen away from the water.</p>",
+  "m5": "The main indicators of the presence of fecal materials in water bodies are the Escherichia coli and the Enterococci. They are bacteria living in the lower part of the intestine of warm-blooded animals (birds and mammals, including man). They are necessary for the correct digestion of food. Their presence indicates a recent fecal contamination, probably due to an inadequate disinfection or to a lck of integrity in the idric system.",
+  "m5.1": "Escherichia coli is a Gram-negative, facultative anaerobic, rod-shaped, coliform bacterium growing at the temperature of 44,5 °C. The limit value for internal water bathing is 500 UFC/100ml.",
+  "m5.2": "Enterococcus is a large genus of lactic acid bacteria of the phylum Firmicutes. Enterococci are gram-positive cocci that often occur in pairs (diplococci) or short chains. The limit value for internal water bathing is 1000 UFC/100ml."
 }

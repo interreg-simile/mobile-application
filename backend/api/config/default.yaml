@@ -1,13 +1,14 @@
 --- # Default general configuration for the API.
 
 app:
-  env: development  # Type of environment
-  version: 1        # API version
-  port: 8000        # API port
-  lngs:             # Supported languages
+  env: development
+  version: 1
+  port: 8000
+#  port: 8001
+  lngs:
     - it
     - en
-  defaultLng: it    # Default language
+  defaultLng: it
 
 crs:
   1: "+proj=longlat +datum=WGS84 +no_defs" # EPSG:4326 - WGS 84
