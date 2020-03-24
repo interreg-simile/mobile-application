@@ -404,6 +404,8 @@ export class MapPage implements OnInit, OnDestroy {
 
         if (!this.networkService.checkOnlineContentAvailability()) return;
 
+        if (this._isLoading) return;
+
         this._hasFetchedData = false;
 
         this.handleMapData();
