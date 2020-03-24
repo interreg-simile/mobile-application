@@ -2,25 +2,6 @@ import { Icon } from "leaflet";
 
 
 /**
- * Creates the default icon marker of Leaflet.
- *
- * @returns {Icon} - The icon of the marker.
- */
-export function defaultMarkerIcon(): Icon {
-    return new Icon({
-        iconUrl      : "leaflet/marker-icon.png",
-        iconRetinaUrl: "leaflet/marker-icon-2x.png",
-        shadowUrl    : "leaflet/marker-shadow.png",
-        iconSize     : [25, 41],
-        iconAnchor   : [12, 41],
-        popupAnchor  : [1, -34],
-        tooltipAnchor: [16, -28],
-        shadowSize   : [41, 41]
-    });
-}
-
-
-/**
  * Creates the user marker icon.
  *
  * @returns {Icon} - The icon of the marker.
@@ -78,6 +59,23 @@ export function observationMarkerIcon(): Icon {
     return new Icon({
         iconUrl      : "assets/images/observation-marker.png",
         iconRetinaUrl: "assets/images/observation-marker-2x.png",
+        shadowUrl    : "leaflet/marker-shadow.png",
+        iconSize     : [25, 46],
+        iconAnchor   : [12.5, 46],
+        shadowSize   : [41, 41]
+    });
+}
+
+
+/**
+ * Creates the locally saved observation marker icon.
+ *
+ * @returns {Icon} - The icon of the marker.
+ */
+export function localObservationMarkerIcon(): Icon {
+    return new Icon({
+        iconUrl      : "assets/images/local-observation-marker.png",
+        iconRetinaUrl: "assets/images/local-observation-marker-2x.png",
         shadowUrl    : "leaflet/marker-shadow.png",
         iconSize     : [25, 46],
         iconAnchor   : [12.5, 46],

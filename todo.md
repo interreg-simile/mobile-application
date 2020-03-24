@@ -11,6 +11,12 @@
     - [x] Impedire click su sincronizza se sta già sincronizzando
 	- [ ] Cache delle tiles di OSM
 
+- Creare simile github
+- News from menu has not the hamburger
+- Cose storte
+
+- Checkmark generico misure
+
 
 #### Done
 

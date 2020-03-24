@@ -8,7 +8,7 @@ import { Diagnostic } from "@ionic-native/diagnostic/ngx";
 import { NGXLogger } from "ngx-logger";
 
 import { MapService } from "./map.service";
-import { customMarkerIcon, userMarkerIcon } from "../shared/utils";
+import { customMarkerIcon, userMarkerIcon } from "../shared/markers";
 import { LocationErrors } from "../shared/common.enum";
 import { NewsService } from "../news/news.service";
 import { ObservationsService } from "../observations/observations.service";

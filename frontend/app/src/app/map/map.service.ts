@@ -12,7 +12,7 @@ import { LocationErrors } from "../shared/common.enum";
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
 import { MinimalObservation } from "../observations/observations.service";
-import { eventMarkerIcon, userObservationMarkerIcon } from "../shared/utils";
+import { eventMarkerIcon, userObservationMarkerIcon } from "../shared/markers";
 import { ConnectionStatus, NetworkService } from "../shared/network.service";
 import { Duration, ToastService } from "../shared/toast.service";
 import { Event } from "../news/events/event.model";
