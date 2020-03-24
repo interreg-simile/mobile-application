@@ -15,6 +15,7 @@ export class HelpModalComponent implements OnInit {
 
     public _id: string;
     public _text: string;
+    public _hasImage: boolean;
 
 
     constructor(private modalCtr: ModalController,
@@ -30,6 +31,8 @@ export class HelpModalComponent implements OnInit {
         if (!this._id) this.closeModal();
 
         this._text = this.i18n.instant(`helps.${ this._id }.text`);
+
+        this._hasImage = this.navParams.get("hasImage");
 
     }
 

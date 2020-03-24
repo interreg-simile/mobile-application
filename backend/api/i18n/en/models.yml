@@ -43,7 +43,7 @@ observations:
         4: "Paper / Cardboard"
         5: "Textiles"
         6: "Rubber"
-        7: "Treated / processed wood"
+        7: "Treated wood"
         8: "Bricks"
         9: "Vegetal debris"
         10: "Decaying organic material"
@@ -59,19 +59,19 @@ observations:
     fauna:
       fish:
         alien:
-          species: { 1: "Pseudorasbora parva" }
+          species: { 1: "Stone moroko" }
       birds:
         alien:
-          species: { 1: "Alopochen egyptiacus", 2: "Threskiornis aethiopicus" }
+          species: { 1: "Egyptian goose", 2: "African sacred ibis" }
       molluscs:
         alien:
           species: { 1: "Corbicula fluminea", 2: "Dreissena polymorpha", 3: "Sinanodonta woodiana" }
       crustaceans:
         alien:
-          species: { 1: "Orconectes limosus", 2: "Pacifastacus leniusculus", 3: "Procambarus clarkii" }
+          species: { 1: "Spinycheek crayfish", 2: "Signal crayfish", 3: "Louisiana crayfish" }
       turtles:
         alien:
-          species: { 1: "Trachemys scripta" }
+          species: { 1: "Pond slider" }
 
   measures:
 

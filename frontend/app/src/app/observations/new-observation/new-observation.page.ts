@@ -6,7 +6,7 @@ import {
     ModalController,
     NavController,
     PickerController,
-    Platform
+    Platform, PopoverController
 } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
@@ -67,7 +67,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 private logger: NGXLogger,
                 private events: Events,
                 public helpsService: HelpsService,
-                public networkService: NetworkService) { }
+                public networkService: NetworkService,
+                private popoverCrt: PopoverController) { }
 
 
     ngOnInit(): void {
@@ -374,6 +375,14 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     /** Called when the user wants to close the page without saving the data. */
     async onClose(): Promise<void> {
+
+        try {
+            const el = await this.popoverCrt.getTop();
+            if (el) {
+                await el.dismiss();
+                return;
+            }
+        } catch (err) { }
 
         try {
             const el = await this.modalCtr.getTop();

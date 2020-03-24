@@ -103,7 +103,7 @@
         "4": "Paper / Cardboard",
         "5": "Textiles",
         "6": "Rubber",
-        "7": "Treated / processed wood",
+        "7": "Treated wood",
         "8": "Bricks",
         "9": "Vegetal debris",
         "10": "Decaying organic material"
@@ -175,11 +175,11 @@
       "alien": {
         "head": "Alien species",
         "fish": {
-          "1": "Pseudorasbora parva"
+          "1": "Stone moroko"
         },
         "birds": {
-          "1": "Alopochen egyptiacus",
-          "2": "Threskiornis aethiopicus"
+          "1": "Egyptian goose",
+          "2": "African sacred ibis"
         },
         "molluscs": {
           "1": "Corbicula fluminea",
@@ -187,12 +187,12 @@
           "3": "Sinanodonta woodiana"
         },
         "crustaceans": {
-          "1": "Orconectes limosus",
-          "2": "Pacifastacus leniusculus",
-          "3": "Procambarus clarkii"
+          "1": "Spinycheek crayfish",
+          "2": "Signal crayfish",
+          "3": "Louisiana crayfish"
         },
         "turtles": {
-          "1": "Trachemys scripta"
+          "1": "Pond slider"
         }
       }
     }

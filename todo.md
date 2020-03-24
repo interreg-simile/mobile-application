@@ -6,15 +6,10 @@
 	- [ ] Termini e condizioni GDPR
 
 - [ ] Implementare uso offline
+    - [x] Inserimento e sincronizzazione osservazioni
+    - [ ] Mostrare osservazioni salvate in grigio (+ errori e cancella)
+    - [ ] Impedire click su sincronizza se sta già sincronizzando
 	- [ ] Cache delle tiles di OSM
-
-- [ ] Tradurre il sistema in inglese
-    - [x] Riconoscere lingua del telefono
-    - [x] Implementare cambio lingua nelle impostazioni
-    
-- [ ] Rifare icone del sync e alert
-
-- [ ] Scrivere testo x alert inserimento offline
 
 
 #### Done
@@ -48,6 +43,10 @@
     - [x] Togliere da drawer
     
 - [x] Iscriversi a tutti i servizi con la mail di progetto
+
+- [x] Tradurre il sistema in inglese
+    - [x] Riconoscere lingua del telefono
+    - [x] Implementare cambio lingua nelle impostazioni
 
 
 #### Known bugs

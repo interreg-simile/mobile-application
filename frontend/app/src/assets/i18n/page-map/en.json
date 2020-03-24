@@ -3,9 +3,9 @@
   "alert-msg-auth": "You have to enable the locationing permits in the telephon settings.",
   "alert-msg-gps": "Turn on the locationing service.",
   "alert-msg-roi-error": "We weren't able to understand if the point that you indicated is inside an area supported by the application. We'll automatically try again later.<br>In case you are in a not supported area, the data you insert will be saved but they won't be visualized on the map.<br>Continue?",
-  "alert-msg-roi-undefined": "It seems that the point that you indicated is not inside an area supported by the application.<br>You can proceed with the insertion, the data you will be saved but they won't be visualized on the map.<br>Continue?",
+  "alert-msg-roi-undefined": "It seems that the point that you indicated is not inside an area supported by the application.<br>You can proceed with the insertion, the data will be saved but they won't be visualized on the map.<br>Continue?",
   "msg-wait-position": "Wait to have a valid position or hold down on the point of the map where you want to insert the observation.",
-  "msg-insert-offline": "It seema that you currently don't have a valid connection. You can proceed with the offline insertion, the data will be saved and we'll try to upload them once a connection is restored.<br>Continue?",
+  "msg-insert-offline": "It seems that you currently don't have a valid connection. You can proceed with the offline insertion, the data will be saved and we'll try to upload them once a connection is restored.<br>Continue?",
   "msg-saved-offline": "The osservation has been correctly saved offline.",
   "fetch-error": "Error during the data request.",
   "legend": {

@@ -14,6 +14,12 @@ export class HelpsService {
                 private i18n: TranslateService) { }
 
 
+    /**
+     * Opes a popover that displays the help text related to the clicked element.
+     *
+     * @param {MouseEvent} e - The click event.
+     * @param {string} helpId - The id of the help text.
+     */
     async openHelpPopover(e: MouseEvent, helpId: string): Promise<void> {
 
         e.preventDefault();
@@ -33,11 +39,17 @@ export class HelpsService {
     }
 
 
-    async openHelpModal(helpId: string): Promise<void> {
+    /**
+     * Opes a modal that displays the help text related to the clicked element.
+     *
+     * @param {string} helpId - The id of the help text.
+     * @param {boolean} [hasImage=true] - True if the modal has to display an image.
+     */
+    async openHelpModal(helpId: string, hasImage: boolean = true): Promise<void> {
 
         const modal = await this.modalCtr.create({
             component     : HelpModalComponent,
-            componentProps: { id: helpId }
+            componentProps: { id: helpId, hasImage: hasImage }
         });
 
         await modal.present();
@@ -45,6 +57,12 @@ export class HelpsService {
     }
 
 
+    /**
+     * Fetches the right help text from the text id.
+     *
+     * @param {string} textId - The text id.
+     * @return {string} The text.
+     */
     private resolveHelpText(textId: string): string {
 
         return this.i18n.instant(`helps.${ textId }`);

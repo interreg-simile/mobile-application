@@ -22,11 +22,10 @@
 
 <ion-content class="bg-off-white custom-container">
 	
-	<ion-img [src]="'assets/images/helps/' + _id + '.jpg'"
-			 (click)="onImgClick('assets/images/helps/' + _id + '.jpg')"
-			 alt="Help image"
-			 class="ion-margin-bottom"></ion-img>
-
+	<ion-img *ngIf="_hasImage" class="ion-margin-bottom"
+			 [src]="'assets/images/helps/' + _id + '.jpg'" alt="Help image"
+			 (click)="onImgClick('assets/images/helps/' + _id + '.jpg')"></ion-img>
+	
 	<div [innerHTML]="_text"></div>
 
 </ion-content>
