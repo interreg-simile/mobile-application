@@ -154,19 +154,20 @@
 			
 			<ion-card class="ion-no-margin">
 				
-				<ion-card-content class="ion-no-padding ion-activatable ripple-parent">
+				<ion-card-content class="ion-no-padding">
 					
-					<ion-item detail lines="none" (click)="onAddMeasureClick()">
+					<ion-item detail lines="none">
 						
-						<ion-label>
+						<ion-checkbox slot="start" (click)="onMeasuresCheckboxClick($event)"
+									  [checked]="_newObservation.measures && _newObservation.measures.checked"></ion-checkbox>
+						
+						<ion-label class="clickable" (click)="onMeasuresLabelClick($event)">
 							
 							{{"page-new-obs.measures.add" | translate}}
 						
 						</ion-label>
 					
 					</ion-item>
-					
-					<ion-ripple-effect></ion-ripple-effect>
 				
 				</ion-card-content>
 			

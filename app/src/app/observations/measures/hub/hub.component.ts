@@ -77,6 +77,12 @@ export class HubComponent implements OnInit {
 
 
     /** Closes the modal. */
-    async closeModal(): Promise<void> { await this.modalCtr.dismiss() }
+    async closeModal(): Promise<void> {
+
+        this._measures.checked = Object.keys(this._measures).some(k => k !== "checked" && this._measures[k].checked);
+
+        await this.modalCtr.dismiss();
+
+    }
 
 }

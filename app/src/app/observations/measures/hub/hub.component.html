@@ -33,20 +33,23 @@
 			
 			<ion-card-content class="ion-no-padding">
 				
-				<ion-item *ngFor="let measure of _measures | keyvalue: originalOrder"
-						  lines="none" detail>
+				<div *ngFor="let measure of _measures | keyvalue: originalOrder">
 					
-					<ion-checkbox slot="start"
-								  [checked]="measure.value.checked"
-								  (click)="onMeasureCheckboxClick($event, measure.value)"></ion-checkbox>
-					
-					<ion-label class="clickable" (click)="onMeasureLabelClick($event, measure.value.component)">
+					<ion-item *ngIf="measure.key !== 'checked'" lines="none" detail>
 						
-						{{"page-new-obs.measures." + measure.key + ".title" | translate}}
+						<ion-checkbox slot="start"
+									  [checked]="measure.value.checked"
+									  (click)="onMeasureCheckboxClick($event, measure.value)"></ion-checkbox>
+						
+						<ion-label class="clickable" (click)="onMeasureLabelClick($event, measure.value.component)">
+							
+							{{"page-new-obs.measures." + measure.key + ".title" | translate}}
+						
+						</ion-label>
 					
-					</ion-label>
+					</ion-item>
 				
-				</ion-item>
+				</div>
 			
 			</ion-card-content>
 		

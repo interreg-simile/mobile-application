@@ -189,17 +189,25 @@ export class ObservationsService {
 
         if (obs.measures) {
 
-            Object.keys(obs.measures).forEach(k => {
+            if (!obs.measures.checked) {
 
-                if (!obs.measures[k].checked) {
-                    delete obs.measures[k];
-                    return;
-                }
+                delete obs.measures;
 
-                delete obs.measures[k].checked;
-                delete obs.measures[k].component;
+            } else {
 
-            });
+                Object.keys(obs.measures).forEach(k => {
+
+                    if (!obs.measures[k].checked) {
+                        delete obs.measures[k];
+                        return;
+                    }
+
+                    delete obs.measures[k].checked;
+                    delete obs.measures[k].component;
+
+                });
+
+            }
 
         }
 

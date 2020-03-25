@@ -15,12 +15,13 @@ import { ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
-import { MeasuresImpl } from "../observation.model";
+import { MeasuresImpl, Observation } from "../observation.model";
 import { HubComponent } from "../measures/hub/hub.component";
 import { NGXLogger } from "ngx-logger";
 import { Subscription } from "rxjs";
 import { HelpsService } from "../../shared/helps/helps.service";
 import { ConnectionStatus, NetworkService } from "../../shared/network.service";
+import { LatLng } from "leaflet";
 
 
 @Component({
@@ -249,8 +250,34 @@ export class NewObservationPage implements OnInit, OnDestroy {
     }
 
 
+    async onMeasuresCheckboxClick(e: MouseEvent): Promise<void> {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+        if (!this._newObservation.measures.checked)
+            await this.openMeasuresModal();
+        else
+            this._newObservation.measures.checked = false;
+
+    }
+
     /** Called when the user clicks on the card to add a new measure. It opens the hub with all the options. */
-    async onAddMeasureClick(): Promise<void> {
+    async onMeasuresLabelClick(e: MouseEvent): Promise<void> {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.cancelBubble = true;
+        e.stopPropagation();
+
+       await this.openMeasuresModal();
+
+    }
+
+    /** Opens the measures hub. */
+    async openMeasuresModal(): Promise<void> {
 
         if (!this.obsService.newObservation.measures)
             this.obsService.newObservation.measures = new MeasuresImpl();

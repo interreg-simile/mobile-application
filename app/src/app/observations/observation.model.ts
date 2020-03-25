@@ -177,6 +177,7 @@ export interface Bacteria {
 }
 
 export interface Measures {
+    checked: boolean
     transparency: Transparency,
     temperature: Temperature,
     ph: Ph,
@@ -187,6 +188,7 @@ export interface Measures {
 
 export class MeasuresImpl implements Measures {
 
+    checked: boolean;
     transparency: Transparency;
     temperature: Temperature;
     ph: Ph;
@@ -194,6 +196,8 @@ export class MeasuresImpl implements Measures {
     bacteria: Bacteria;
 
     constructor() {
+
+        this.checked = false;
 
         this.transparency = {
             checked   : false,
