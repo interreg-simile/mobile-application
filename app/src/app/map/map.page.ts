@@ -19,7 +19,6 @@ import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../shared/toast.service";
 import { LegendComponent, Markers } from "./legend/legend.component";
 import { ConnectionStatus, NetworkService } from "../shared/network.service";
-import { OfflineService } from "../observations/offline.service";
 
 
 /**
@@ -34,6 +33,9 @@ export class MapPage implements OnInit, OnDestroy {
 
     private readonly _storageKeyPosition = "position";
 
+    private readonly _onlineUrlTemplate  = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+    private readonly _offlineUrlTemplate = "assets/tiles/{z}/{x}/{y}.png";
+
     private readonly _initialLatLon = new LatLng(45.95388572325957, 8.958533937111497);
 
     /** Initial zoom level of the map.  */
@@ -45,6 +47,9 @@ export class MapPage implements OnInit, OnDestroy {
     /** Minimum level of zoom below which the map is reset to the default level when the GPS button is clicked. */
     private readonly _minZoomLvl = 14;
 
+    /** Zoom level usable offline. */
+    private readonly _offlineZoomLvl = 12;
+
     private _positionSub: Subscription;
     private _pauseSub: Subscription;
     private _networkSub: Subscription;
@@ -55,6 +60,8 @@ export class MapPage implements OnInit, OnDestroy {
 
     private loading: HTMLIonLoadingElement;
     private _map: Map;
+    private _onlineBaseMap: TileLayer;
+    private _offlineBaseMap: TileLayer;
     private _userMarker: Marker;
     private _accuracyCircle: Circle;
     private _customMarker: Marker;
@@ -73,6 +80,8 @@ export class MapPage implements OnInit, OnDestroy {
     public _isMapFollowing = false;
     public _locationErrors = LocationErrors;
     public _locationStatus = LocationErrors.NO_ERROR;
+
+    public _isAppOffline = false;
 
     private _eventMarkers: MarkerClusterGroup;
     private _obsMarkers: MarkerClusterGroup;
@@ -97,8 +106,7 @@ export class MapPage implements OnInit, OnDestroy {
                 private toastService: ToastService,
                 private popoverCtr: PopoverController,
                 private events: Events,
-                private networkService: NetworkService,
-                private offlineService: OfflineService) { }
+                private networkService: NetworkService) { }
 
 
     ngOnInit(): void {
@@ -166,7 +174,13 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._networkSub = this.networkService.onNetworkChange().subscribe(status => {
 
-            if (status === ConnectionStatus.Online) this.handleMapData();
+            this._isAppOffline = status === ConnectionStatus.Offline;
+            this.changeRef.detectChanges();
+
+            if (status === ConnectionStatus.Online) {
+                this.handleMapData()
+                    .finally(() => this.changeRef.detectChanges());
+            }
 
         });
 
@@ -216,9 +230,24 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._map.setView(this._savedMapCenter, this._savedZoomLevel);
 
-        new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            { attribution: '&copy; OpenStreetMap contributors' })
-            .addTo(this._map);
+
+        this._offlineBaseMap = new TileLayer(
+            this._offlineUrlTemplate,
+            {
+                attribution: "&copy; OpenStreetMap contributors",
+                minZoom    : this._offlineZoomLvl,
+                maxZoom    : this._offlineZoomLvl,
+            }
+        );
+
+        this._onlineBaseMap = new TileLayer(
+            this._onlineUrlTemplate,
+            {
+                attribution: '&copy; OpenStreetMap contributors',
+                minZoom    : 0,
+                maxZoom    : 18
+            }
+        ).addTo(this._map);
 
 
         this._eventMarkers.addTo(this._map);
@@ -368,6 +397,16 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
+    onOfflineClick(): void {
+
+        this._offlineBaseMap.addTo(this._map);
+        this._onlineBaseMap.remove();
+
+        this._map.setZoom(this._offlineZoomLvl);
+
+    }
+
+
     /** Fired when the user clicks on the GPS button. */
     onGPSClick(): void {
 
@@ -408,7 +447,8 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._hasFetchedData = false;
 
-        this.handleMapData();
+        this.handleMapData()
+            .finally(() => this.changeRef.detectChanges());
 
     }
 

@@ -40,6 +40,18 @@
 	<div id="map"></div>
 	
 	
+	<!-- FAB offline -->
+	<ion-fab *ngIf="_isAppOffline" vertical="top" horizontal="start" slot="fixed">
+		
+		<ion-fab-button color="light" size="small" (click)="onOfflineClick()">
+			
+			<i class="material-icons">map</i>
+		
+		</ion-fab-button>
+	
+	</ion-fab>
+	
+	
 	<!-- FAB layers -->
 	<ion-fab vertical="top" horizontal="end" slot="fixed">
 		

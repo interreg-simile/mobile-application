@@ -2,9 +2,10 @@
 
 - [ ] Implementare uso offline
     - [x] Inserimento e sincronizzazione osservazioni
-    - [ ] Mostrare osservazioni salvate in grigio (+ errori e cancella)
     - [x] Impedire click su sincronizza se sta già sincronizzando
 	- [ ] Cache delle tiles di OSM
+	
+- [ ] Controllare che le risposte siano nella lingua giusta
 
 
 #### Future releases
