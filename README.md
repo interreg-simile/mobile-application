@@ -24,6 +24,9 @@ data about the quality of the insubric lakes.
 
 #### Android 
 
+**N.B.** The minimum Android version required to run the application is **Nougat** (version 7.0, API
+level 24).
+
 1. Download the latest ```.apk``` file from the [releases page](https://github.com/interreg-simile/mobile-application/releases).
 2. Open the ```.apk``` file with you file manager of choice.
 3. Install the application.

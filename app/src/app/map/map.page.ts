@@ -81,7 +81,8 @@ export class MapPage implements OnInit, OnDestroy {
     public _locationErrors = LocationErrors;
     public _locationStatus = LocationErrors.NO_ERROR;
 
-    public _isAppOffline = false;
+    public _isAppOffline           = false;
+    public _isOfflineBasemapActive = false;
 
     private _eventMarkers: MarkerClusterGroup;
     private _obsMarkers: MarkerClusterGroup;
@@ -178,6 +179,7 @@ export class MapPage implements OnInit, OnDestroy {
             this.changeRef.detectChanges();
 
             if (status === ConnectionStatus.Online) {
+                this.setOnlineBasemap();
                 this.handleMapData()
                     .finally(() => this.changeRef.detectChanges());
             }
@@ -397,12 +399,40 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
 
+    /** Fired when the user clicks on the button to toggle the offline map. */
     onOfflineClick(): void {
+
+        if (this._isOfflineBasemapActive)
+            this.setOnlineBasemap();
+        else
+            this.setOfflineBasemap();
+
+    }
+
+    /** Sets the offline basemap. */
+    private setOfflineBasemap(): void {
+
+        if (this._isOfflineBasemapActive) return;
 
         this._offlineBaseMap.addTo(this._map);
         this._onlineBaseMap.remove();
 
         this._map.setZoom(this._offlineZoomLvl);
+
+        this._isOfflineBasemapActive = true;
+
+    }
+
+    /** Sets the online basemap */
+    private setOnlineBasemap(): void {
+
+        if (!this._isOfflineBasemapActive) return;
+
+        this._onlineBaseMap.addTo(this._map);
+
+        this._offlineBaseMap.remove();
+
+        this._isOfflineBasemapActive = false;
 
     }
 

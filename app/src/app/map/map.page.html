@@ -40,24 +40,25 @@
 	<div id="map"></div>
 	
 	
-	<!-- FAB offline -->
-	<ion-fab *ngIf="_isAppOffline" vertical="top" horizontal="start" slot="fixed">
-		
-		<ion-fab-button color="light" size="small" (click)="onOfflineClick()">
-			
-			<i class="material-icons">map</i>
-		
-		</ion-fab-button>
-	
-	</ion-fab>
-	
-	
 	<!-- FAB layers -->
 	<ion-fab vertical="top" horizontal="end" slot="fixed">
 		
 		<ion-fab-button id="btn-legend" color="light" size="small" (click)="onLegendClick($event)">
 			
 			<i class="material-icons" (click)="onLegendIconClick($event)">layers</i>
+		
+		</ion-fab-button>
+	
+	</ion-fab>
+	
+	
+	<!-- FAB offline -->
+	<ion-fab *ngIf="_isAppOffline"
+			 class="fab-secondary" vertical="top" horizontal="end" slot="fixed">
+		
+		<ion-fab-button [color]="_isOfflineBasemapActive ? 'primary' : 'light'" size="small" (click)="onOfflineClick()">
+			
+			<i class="material-icons">map</i>
 		
 		</ion-fab-button>
 	

@@ -1,11 +1,9 @@
 ## ToDo
 
-- [ ] Implementare uso offline
+- [x] Implementare uso offline
     - [x] Inserimento e sincronizzazione osservazioni
     - [x] Impedire click su sincronizza se sta già sincronizzando
-	- [ ] Cache delle tiles di OSM
-	
-- [ ] Controllare che le risposte siano nella lingua giusta
+	- [x] Basemap offline
 
 
 #### Future releases

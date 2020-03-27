@@ -1,4 +1,6 @@
 $fab-size     : 56px;
+$fab-min-size : 40px;
+$fab-top      : 8px;
 $fab-bottom   : 36px;
 $fab-distance : 16px;
 
@@ -17,6 +19,12 @@ $fab-distance : 16px;
 #map {
   width  : 100%;
   height : 100%;
+}
+
+ion-fab[vertical=top] {
+
+  &.fab-secondary { top : $fab-top + $fab-min-size + $fab-distance }
+
 }
 
 ion-fab[vertical=bottom] {
