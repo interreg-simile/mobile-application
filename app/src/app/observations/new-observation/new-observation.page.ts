@@ -348,29 +348,6 @@ export class NewObservationPage implements OnInit, OnDestroy {
     /** Fired when the user clicks on the send button. */
     async onSendClick(): Promise<void> {
 
-        if (this._newObservation.photos.every(p => p === undefined)) {
-            await this.toastService.presentToast("page-new-obs.msg-no-photo", Duration.short);
-            return;
-        }
-
-        this.postObservation();
-
-    }
-
-
-    // ToDo implement call to the authorities
-    async onAlertClick(): Promise<void> {
-
-        await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
-
-        return
-
-    }
-
-
-    /** Posts the new observation. */
-    async postObservation(): Promise<void> {
-
         const loading = await this.loadingCtr.create({
             message     : this.i18n.instant("common.wait"),
             showBackdrop: false
@@ -396,6 +373,16 @@ export class NewObservationPage implements OnInit, OnDestroy {
             this.events.publish("observation:inserted-offline");
 
         await this.router.navigate(["map"]);
+
+    }
+
+
+    // ToDo implement call to the authorities
+    async onAlertClick(): Promise<void> {
+
+        await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
+
+        return
 
     }
 

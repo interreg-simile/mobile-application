@@ -3,11 +3,12 @@ import { Observable } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
 
 import { LangService } from "../lang.service";
+import { NGXLogger } from "ngx-logger";
 
 
 export class LngInterceptorService implements HttpInterceptor {
 
-    constructor(private i18n: TranslateService, private langService: LangService) {}
+    constructor(private langService: LangService, private logger: NGXLogger) {}
 
     /**
      * Intercepts an http request and add the headers to it.
@@ -18,14 +19,14 @@ export class LngInterceptorService implements HttpInterceptor {
      */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        let newReq = null;
+        this.logger.log("Intercepting request...");
 
-        if (this.i18n.currentLang)
-            newReq = req.clone({
-                headers: req.headers.append("Accept-Language", this.langService.currLanguage)
-            });
-
-        return next.handle(newReq || req);
+        if (this.langService.currLanguage) {
+            const newReq = req.clone({ headers: req.headers.append("Accept-Language", this.langService.currLanguage) });
+            return next.handle(newReq);
+        } else {
+            return next.handle(req);
+        }
 
     }
 

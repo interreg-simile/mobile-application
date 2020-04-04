@@ -21,11 +21,11 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Network } from '@ionic-native/network/ngx';
 
 import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
-import { interceptorProviders } from "./shared/interceptors/interceptors";
 import { environment } from "../environments/environment";
 import { HelpModalComponent } from "./shared/helps/help-modal/help-modal.component";
 import { HelpPopoverComponent } from "./shared/helps/help-popover/help-popover.component";
 import { NgxIonicImageViewerModule } from "ngx-ionic-image-viewer";
+import { interceptorProviders } from "./shared/interceptors/interceptors";
 
 
 @NgModule({

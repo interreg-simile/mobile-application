@@ -9,6 +9,7 @@ import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface"
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
+import { NGXLogger } from "ngx-logger";
 
 
 @Injectable({ providedIn: 'root' })
@@ -33,7 +34,8 @@ export class NewsService {
 
     constructor(private http: HttpClient,
                 private storage: Storage,
-                private i18n: TranslateService) {}
+                private i18n: TranslateService,
+                private logger: NGXLogger) {}
 
 
     /** Fetches all the not-ended alerts from the server ordered by date descending. */
