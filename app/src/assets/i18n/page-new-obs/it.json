@@ -228,7 +228,7 @@
       "error-msg-val": "Devi specificare tutti i valori di misura e profondità."
     },
     "ph": {
-      "title": "Ph",
+      "title": "pH",
       "label-depth": "Profondità (m) *",
       "label-val": "Valore *",
       "label-instrument-precision": "Precisione",
