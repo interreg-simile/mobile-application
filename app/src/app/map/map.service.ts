@@ -111,7 +111,7 @@ export class MapService {
 
         const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
 
-        if (res.data.rois.length) return res.data.rois[0]._id;
+        if (res.data.length) return res.data[0]._id;
 
         return;
 
