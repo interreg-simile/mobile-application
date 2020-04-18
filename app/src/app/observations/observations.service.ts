@@ -250,8 +250,6 @@ export class ObservationsService {
 
         for (let i = 0; i < obs.photos.length; i++) {
 
-            console.log(obs.photos[i]);
-
             if (obs.photos[i]) {
                 await this.fileService.appendImage(formData, obs.photos[i], "photos")
                     .catch(err => this.logger.error(`Error appending photo ${obs.photos[i]}.`, err));

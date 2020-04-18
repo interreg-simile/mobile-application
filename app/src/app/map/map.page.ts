@@ -83,6 +83,7 @@ export class MapPage implements OnInit, OnDestroy {
 
     public _isAppOffline           = false;
     public _isOfflineBasemapActive = false;
+    private _restoreOfflineBasemap = false;
 
     private _eventMarkers: MarkerClusterGroup;
     private _obsMarkers: MarkerClusterGroup;
@@ -162,6 +163,7 @@ export class MapPage implements OnInit, OnDestroy {
     ionViewDidEnter(): void {
 
         this.initMap().then(() => {
+            if (this._isAppOffline && this._restoreOfflineBasemap) this.setOfflineBasemap();
             this.startWatcher().catch(() => {});
             this.subscribeNetworkChanges();
         });
@@ -182,6 +184,8 @@ export class MapPage implements OnInit, OnDestroy {
                 this.setOnlineBasemap();
                 this.handleMapData()
                     .finally(() => this.changeRef.detectChanges());
+            } else {
+                this.toastService.presentToast("common.errors.offline", Duration.short)
             }
 
         });
@@ -200,12 +204,20 @@ export class MapPage implements OnInit, OnDestroy {
             }
         });
 
+        this._eventMarkers.on("clusterclick", () => {
+            if (this._isAppOffline) this.toastService.presentToast("common.errors.offline", Duration.short)
+        });
+
         this._obsMarkers = new MarkerClusterGroup({
             iconCreateFunction: cluster => {
                 const icon             = this._eventMarkers._defaultIconCreateFunction(cluster);
                 icon.options.className = "marker-cluster marker-cluster-user-obs";
                 return icon;
             }
+        });
+
+        this._obsMarkers.on("clusterclick", () => {
+            if (this._isAppOffline) this.toastService.presentToast("common.errors.offline", Duration.short)
         });
 
     }
@@ -412,7 +424,7 @@ export class MapPage implements OnInit, OnDestroy {
     /** Sets the offline basemap. */
     private setOfflineBasemap(): void {
 
-        if (this._isOfflineBasemapActive) return;
+        if (this._isOfflineBasemapActive && !this._restoreOfflineBasemap) return;
 
         this._offlineBaseMap.addTo(this._map);
         this._onlineBaseMap.remove();
@@ -420,6 +432,7 @@ export class MapPage implements OnInit, OnDestroy {
         this._map.setZoom(this._offlineZoomLvl);
 
         this._isOfflineBasemapActive = true;
+        this._restoreOfflineBasemap = true;
 
     }
 
@@ -433,6 +446,7 @@ export class MapPage implements OnInit, OnDestroy {
         this._offlineBaseMap.remove();
 
         this._isOfflineBasemapActive = false;
+        this._restoreOfflineBasemap = false;
 
     }
 

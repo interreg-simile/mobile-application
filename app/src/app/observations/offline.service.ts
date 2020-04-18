@@ -52,8 +52,6 @@ export class OfflineService {
 
         data.createdAt = new Date().toISOString();
 
-        console.log(data.createdAt);
-
         if (storedObs)
             storedObs.push(data);
         else
