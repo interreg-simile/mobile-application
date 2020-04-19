@@ -1,0 +1,86 @@
+<ion-header>
+	
+	<ion-toolbar>
+		
+		<ion-buttons slot="start">
+			
+			<ion-menu-button menu="main"></ion-menu-button>
+		
+		</ion-buttons>
+		
+		<ion-title>{{"page-glossary.title" | translate}}</ion-title>
+	
+	</ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="bg-off-white custom-container">
+	
+	<!-- Spinner -->
+	<section *ngIf="isLoading" class="central-spinner">
+		
+		<ion-spinner color="primary"></ion-spinner>
+	
+	</section>
+	
+	<!-- Data -->
+	<section *ngIf="!isLoading">
+		
+		<!-- Terms -->
+		<div class="terms">
+			
+			<div *ngFor="let letter of _terms | keyvalue: originalOrder" class="letter">
+				
+				<p class="card-header">{{letter.key}}</p>
+				
+				<ion-card class="ion-no-margin">
+					
+					<ion-card-content class="ion-no-padding">
+						
+						<ion-item *ngFor="let term of letter.value | keyvalue: alphabeticalOrder" lines="none" detail>
+							
+							<ion-label class="clickable" (click)="openTermModal(term.value.idx)">
+								{{term.value.term}}
+							</ion-label>
+						
+						</ion-item>
+					
+					</ion-card-content>
+				
+				</ion-card>
+			
+			</div>
+		
+		</div>
+		
+		<!-- Bibliography -->
+		<div class="bibliography">
+			
+			<p class="card-header">{{"page-glossary.bibliography" | translate}}</p>
+			
+			<ion-card class="ion-no-margin">
+				
+				<ion-card-content>
+					
+					<p>
+						<a href="http://www.ise.cnr.it/crypta/ebooks/laghi%20e%20scienza%20100618.pdf">
+							R. Bertoni, <i>"Laghi e scienza"</i>, 2018
+						</a>
+					</p>
+					
+					<p>
+						<a href="http://www.ise.cnr.it/ebooks/e-tonollino.pdf">
+							V. Tonolli, <i>"Introduzione allo studio della limnologia"</i>, 1964
+						</a>
+					</p>
+				
+				</ion-card-content>
+			
+			</ion-card>
+		
+		</div>
+	
+	</section>
+
+</ion-content>

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalController, NavParams } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { PhotoViewerService } from "../../photo-viewer/photo-viewer.service";
-import { ancestorWhere } from "tslint";
 
 
 @Component({

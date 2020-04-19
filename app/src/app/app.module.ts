@@ -94,6 +94,7 @@ export function translateLoader(http: HttpClient): ModuleTranslateLoader {
             { moduleName: "page-new-obs", baseTranslateUrl, fileType },
             { moduleName: "page-info-obs", baseTranslateUrl, fileType },
             { moduleName: "page-news", baseTranslateUrl, fileType },
+            { moduleName: "page-glossary", baseTranslateUrl, fileType },
             { moduleName: "page-project", baseTranslateUrl, fileType },
             { moduleName: "page-settings", baseTranslateUrl, fileType }
         ]
