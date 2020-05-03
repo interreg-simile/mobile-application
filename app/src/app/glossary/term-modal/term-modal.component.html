@@ -21,5 +21,24 @@
 </ion-header>
 
 <ion-content class="bg-off-white custom-container">
+	
+	<section *ngIf="_hasImages" class="images">
+		
+		<ion-img *ngFor="let url of _imagesUrl; index as i"
+				 [src]="url" alt="Image"
+				 [className]="i < _imagesUrl.length - 1 ? 'margin' : ''"
+				 (click)="onImgClick(url)"></ion-img>
+	
+	</section>
+	
+	<div [innerHTML]="_text"></div>
+	
+	<section *ngIf="_hasSources" class="sources" >
+		
+		<p class="card-header">{{"page-glossary.sources" | translate}}</p>
+		
+		<div [innerHTML]="_sources"></div>
+	
+	</section>
 
 </ion-content>

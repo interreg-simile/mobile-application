@@ -30,7 +30,7 @@
 		<!-- Terms -->
 		<div class="terms">
 			
-			<div *ngFor="let letter of _terms | keyvalue: originalOrder" class="letter">
+			<div *ngFor="let letter of _terms | keyvalue" class="letter">
 				
 				<p class="card-header">{{letter.key}}</p>
 				
@@ -38,8 +38,10 @@
 					
 					<ion-card-content class="ion-no-padding">
 						
-						<ion-item *ngFor="let term of letter.value | keyvalue: alphabeticalOrder" lines="none" detail>
+						<!--suppress TypeScriptValidateTypes -->
+						<ion-item *ngFor="let term of letter.value | keyvalue: alphabeticalOrderTerms" lines="none" detail>
 							
+							<!--suppress TypeScriptUnresolvedVariable -->
 							<ion-label class="clickable" (click)="openTermModal(term.value.idx)">
 								{{term.value.term}}
 							</ion-label>

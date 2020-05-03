@@ -1,85 +1,147 @@
 {
   "title": "Glossario",
   "bibliography": "Bibliografia",
+  "sources": "Fonti",
   "1": {
-    "title": "Autotrofo"
+    "title": "Autotrofo",
+    "text": "Organismo capace di costruirsi la sostanza organica dalla quale è costituito a partire da sostanze inorganiche ed energia solare tramite la fotosintesi. Gli autotrofi appartengono al primo livello trofico (principalmente piante, <a class='link' href='14'>fitoplancton</a> e alcuni <a class='link' href='2'>batteri</a>).",
+    "imgCount": "0"
   },
   "2": {
-    "title": "Batteri"
+    "title": "Batteri",
+    "text": "I batteri sono microrganismi unicellulari procarioti, ovvero formati da una sola cellula semplice e primitiva rispetto a quelle di organismi più evoluti. Il batterioplancton è costituito dai batteri presenti nelle acque come singole celle flottanti o adese a particelle di detrito. La maggior parte dei batteri nelle acque sono <a class='link' href='12'>eterotrofi</a> e si nutrono di sostanze organiche morte (detrito organico).<br>I principali batteri indicatori di contaminazione fecale dei corpi idrici sono <a class='link' href='10'>Escherichia coli</a> ed <a class='link' href='9'>enterococchi</a>. Sono batteri che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico.",
+    "imgCount": "0"
   },
   "3": {
-    "title": "Clorofilla"
+    "title": "Clorofilla",
+    "text": "Pigmento di colore verde presente nei cloroplasti delle cellule vegetali, o negli organismi procarioti che realizzano la <a class='link' href='15'>fotosintesi</a> clorofilliana. Nei laghi la clorofilla è presente nel fitoplancton. La sua misura può essere quindi utilizzata come indicatore della densità del fitoplancton e della biomassa algale presente. I suoi valori variano nell'arco dell'anno e a seconda della profondità: i massimi si hanno solitamente nei mesi estivi, quando è massima la produttività delle <a class='link' href='14'>alghe fitoplanctoniche</a>, con valori più alti negli strati d'acqua superficiali. La concentrazione di clorofilla è più alta nei laghi maggiormente produttivi o eutrofi; è infatti utilizzata tra gli indicatori dello stato trofico dei laghi. Monitorare i valori di clorofilla in continuo e in diversi punti del lago può permettere di individuare fenomeni di <a class='link' href='13'>fioriture algali</a> o comunque aumenti della produttività fitoplanctonica.",
+    "imgCount": "0"
   },
   "4": {
-    "title": "Cianobatteri"
+    "title": "Cianobatteri",
+    "text": "Microrganismi <a class='link' href='4'>autrotofi</a> procarioti, che presentano però alcune caratteristiche delle cellule algali eucariote tra cui la grandezza e la capacità di svolgere la fotosintesi sia in condizioni aerobiche (= in presenza di ossigeno) che anaerobiche (= in assenza di ossigeno). I cianobatteri possono colonizzare una grande varietà di ambienti, anche estremi, ma il maggior numero di specie si trova nelle acque dolci quale componente normale del <a class='link' href='14'>fitoplancton</a> lacustre. In condizioni ambientali favorevoli il loro numero può diventare dominante rispetto alla densità di altri gruppi algali dando origine a <a class='link' href='13'>fioriture</a>. A volte possono produrre biotossine aventi effetti importanti sulla salute umana e sugli animali.",
+    "imgCount": "0"
   },
   "5": {
-    "title": "Ciclo termico"
+    "title": "Ciclo termico",
+    "text": "Le fasi che caratterizzano un lago nel corso dell'anno per quanto riguarda la distribuzione della <a class='link' href='24'>temperatura</a> e di altri parametri (es. <a class='link' href='18'>ossigeno</a>) lungo la colonna d'acqua. Se si misura la temperatura di un lago dalla superficie al fondo si ottengono, nel corso dell'anno, profili differenti: in alcuni periodi la colonna d'acqua ha la stessa temperatura dalla superficie al fondo (<a class='link' href='6'>circolazione</a>) mentre in altri vi è un elevato gradiente termico (<a class='link' href='22'>stratificazione</a>). I laghi si possono classificare in base al loro ciclo termico in: monomittici, se presentano durante l'anno un'unica piena circolazione; dimittici, se circolano due volte nel corso dell'anno (primavera e autunno), oligomittici, se la piena circolazione non si verifica tutti gli anni. Nei laghi meromittici, l'acqua di fondo non si mescola mai con l'acqua degli strati superficiali, solitamente a causa di un elevato accumulo di soluti nelle acque profonde.",
+    "imgCount": "1",
+    "sources": "<a href='http://www.ise.cnr.it/crypta/limnol/energia/termica'>http://www.ise.cnr.it/crypta/limnol/energia/termica</a>"
   },
   "6": {
-    "title": "Circolazione"
+    "title": "Circolazione",
+    "text": "Fase del <a class='link' href='5'>ciclo termico</a> di un lago nella quale la colonna d'acqua risulta omogenea dal punto di vista termico. La circolazione primaverile, che avviene solitamente a febbraio-marzo, ricarica di <a class='link' href='18'>ossigeno</a> l'intera colonna d'acqua. Nei laghi molto profondi, la circolazione non avviene in modo completo tutti gli anni ma solo ma al termine di inverni particolarmente freddi e ventosi (laghi oligomittici); negli altri anni la circolazione interessa solo una porzione della colonna d'acqua (profondità di mescolamento).",
+    "imgCount": "0"
   },
   "7": {
-    "title": "Conducibilità elettrica"
+    "title": "Conducibilità elettrica",
+    "text": "La capacità dell'acqua di trasmettere elettricità. In generale l'acqua pura non è un buon conduttore di elettricità. La conducibilità dell'acqua dipende dagli ioni in soluzione, quindi aumenta all'aumentare della concentrazione dei soluti presenta nell'acqua stessa. Si misura in genere in microsiemens per cm (µS cm-1). ",
+    "imgCount": "0"
   },
   "8": {
-    "title": "Disco di Secchi"
+    "title": "Disco di Secchi",
+    "text": "Lo strumento comunemente utilizzato per misurare la <a class='link' href='23'>trasparenza</a> dell'acqua. Fu inventato nel 1865 da Padre Angelo Secchi. È un disco bianco, di 20-30 cm di diametro, fissato all'estremità di una fune metrata: il disco viene calato in acqua e si misura la profondità alla quale esso diviene invisibile e quella alla quale ricompare. La media tra le due misure è la trasparenza di un lago e viene espressa in metri.",
+    "imgCount": "0"
   },
   "9": {
-    "title": "Enterococchi"
+    "title": "Enterococchi",
+    "text": "Gli enterococchi sono <a class='link' href='2'>batteri</a> che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico. Sono organismi Gram-positivi e catalasi-negativi di forma tondeggiante che si dispongono sotto forma di diplococchi oppure in corte catene. Sono organismi anaerobi facoltativi e sopportano un ampio intervallo di temperature. Il valore limite per la balneabilità delle acque interne è di 1000 UFC/100ml.",
+    "imgCount": "0"
   },
   "10": {
-    "title": "Escherichia Coli"
+    "title": "Escherichia Coli",
+    "text": "La specie Escherichia coli è un <a class='link' href='2'>batterio</a> che vive nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico. è un microrganismo a forma di bastoncello, Gram-negativo, aerobio e anaerobio facoltativo, con crescita ottimale alla temperatura di circa 30 °C. Il valore limite per la balneabilità delle acque interne è di 500 UFC/100ml.",
+    "imgCount": "0"
   },
   "11": {
-    "title": "Eutrofizzazione"
+    "title": "Eutrofizzazione",
+    "text": "Il processo di arricchimento di un ambiente acquatico di sostanze nutrienti. I <a class='link' href='17'>nutrienti</a> principalmente coinvolti nell'eutrofizzazione dei laghi sono fosforo e azoto, che possono provenire da scarichi urbani e industriali e da attività agricole e zootecniche. Un apporto eccessivo di nutrienti aumenta fortemente la produttività algale, innescando una serie di effetti negativi sulla qualità delle acque, tra cui diminuzione della <a class='link' href='23'>trasparenza</a> in superficie e dell'<a class='link' href='18'>ossigeno</a> disciolto in profondità, colorazioni e odori anomali delle acque a causa delle fioriture algali, limitazioni o impossibilità di utilizzo delle acque per vari scopi come l'approvvigionamento in acqua potabile e la balneazione.",
+    "imgCount": "1",
+    "sources": "Archivio CNR IRSA"
   },
   "12": {
-    "title": "Eterotrofo"
+    "title": "Eterotrofo",
+    "text": "Organismo che si deve nutrire di altri organismi e di loro resti (=consumatore). Gli organismi eterotrofi appartengono ai livelli trofici superiori al primo.",
+    "imgCount": "0"
   },
   "13": {
-    "title": "Fioritura algale (o bloom algale)"
+    "title": "Fioritura algale (o bloom algale)",
+    "text": "Rapida produzione di <a class='link' href='14'>alghe fitoplanctoniche</a> in un breve periodo di tempo. Può dar luogo a chiazze visibili ed estese sulla superficie dei laghi. Le alghe possono formare delle striature oppure ammassi più o meno densi e compatti.",
+    "imgCount": "2",
+    "sources": "Archivio CNR IRSA"
   },
   "14": {
-    "title": "Fitoplancton"
+    "title": "Fitoplancton",
+    "text": "Il fitoplancton (alghe fitoplanctoniche) è costituito da piccoli organismi vegetali appartenenti al plancton lacustre. Le alghe fitoplanctoniche non devono essere confuse con le piante acquatiche (macrofite)! Il fitoplancton è composto da organismi autotrofi.<br>Esistono diverse classi tassonomiche di fitoplancton come Cloroficee, Bacillarioficee, Crisoficee, Criptoficee, Dinoficee e <a class='link' href='4'>Cianobatteri</a>. ",
+    "imgCount": "1",
+    "sources": "oc.ntu.edu"
   },
   "15": {
-    "title": "Fotosintesi"
+    "title": "Fotosintesi",
+    "text": "La fotosintesi clorofilliana è un processo biochimico che porta alla costruzione di molecole di carboidrati, cioè di alimento, a partire da biossido di carbonio (CO2) e acqua in presenza di clorofilla, utilizzando energia luminosa e liberando ossigeno (O2). In un lago l'energia fornita dal sole è utilizzata dagli organismi produttori (alghe, piante acquatiche, batteri) per svolgere la fotosintesi. La materia così prodotta viene utilizzata dai consumatori primari (plancton animale e pesci fitofagi), e questi, a loro volta, sono utilizzati dai pesci carnivori e da altri organismi predatori (consumatori secondari). ",
+    "imgCount": "1",
+    "sources": "<a href='http://www.ponzaracconta.it/wp-content/uploads/2014/02/fotosintesi-294x300.jpg'>http://www.ponzaracconta.it/wp-content/uploads/2014/02/fotosintesi-294x300.jpg</a>"
   },
   "16": {
-    "title": "Limnologia"
+    "title": "Limnologia",
+    "text": "Lo studio dei laghi (dal greco limnè, che significa lago). Compito della limnologia è lo studio delle acque continentali o acque interne (acque ferme o con moto non apprezzabile come laghi, stagni, pozze, paludi, e acque correnti come ruscelli, torrenti, fiumi, ecc.).",
+    "imgCount": "0"
   },
   "17": {
-    "title": "Nutrienti"
+    "title": "Nutrienti",
+    "text": "Elementi chimici inorganici necessari agli organismi <a class='link' href='1'>autotrofi</a> per la <a class='link' href='15'>fotosintesi</a>. Nei laghi i principali nutrienti che limitano la produzione algale sono fosforo, carbonio e azoto. ",
+    "imgCount": "0"
   },
   "18": {
-    "title": "Ossigeno"
+    "title": "Ossigeno",
+    "text": "L'ossigeno è un gas fondamentale per tutte le forme di vita. In qualsiasi ambiente acquatico, la presenza di ossigeno deriva sostanzialmente dalla lenta cessione di questo gas nell'atmosfera (che ne è ricca) e dai processi biologici operati dagli organismi acquatici. I processi biologici che regolano la concentrazione di ossigeno nelle acque sono la <a class='link' href='15'>fotosintesi</a> e la respirazione.<br>L'ossigeno disciolto nelle acque può essere espresso come concentrazione, ovvero mg di ossigeno in 1 L d'acqua (mg/L) o come % rispetto alla saturazione, ovvero la quantità di ossigeno presente rispetto al valore massimo, preso uguale a cento, che si può avere nelle stesse condizioni di salinità, di temperatura e pressione atmosferica.<br>Valori superiori a 100% (soprassaturazione) si possono misurare, ad esempio, nelle acque superficiali dei laghi nel periodo estivo. Bassi valori di saturazione si hanno invece in presenza di un inquinamento che comporta un consumo di ossigeno per la demolizione della sostanza organica. Bassi valori di ossigeno (ipossia) o totale assenza di ossigeno (anossia) possono caratterizzare le acque profonde dei laghi <a class='link' href='11'>eutrofi</a>, in cui la sostanza organica prodotta in gran quantità negli strati superficiali viene decomposta dagli organismi aerobi che sottraggono ossigeno all'acqua. ",
+    "imgCount": "0"
   },
   "19": {
-    "title": "pH"
+    "title": "pH",
+    "text": "Il pH è un valore numerico che indica l'acidità di una soluzione. L'acqua contiene in soluzione sia ioni idrogeno H+ che ioni OH-; le concentrazioni relative di questi due ioni determinano il valore del pH. L'acqua con pH pari a 7 possiede uguali concentrazioni di ioni H+ e OH- e viene considerata una soluzione neutra. In una soluzione acida la concentrazione di ioni H+ è maggiore di quella di ioni OH- (il contrario in una soluzione basica). I valori di pH possono andare da 0 (valore maggiormente acido) a 14 (valore maggiormente basico).\nIl pH dell'acqua è un parametro molto importante per la vita acquatica. In ambienti naturali (fiumi, laghi, mari) il pH non varia da 0 a 14 ma rimane compreso in un intervallo di poche unità intorno al valore 7. Valori compresi tra 6 e 9 sono in genere compatibili con la vita degli organismi acquatici. Valori inferiori a 6 e superiori a 9 si manifestano solo in conseguenza di scarichi di sostanze inquinanti acide o basiche e possono avere effetti letali su piante e animali.\n",
+    "imgCount": "0"
   },
   "20": {
-    "title": "Plancton"
+    "title": "Plancton",
+    "text": "Con il termine plancton si indicano degli organismi non in grado di muoversi autonomamente, che vengono quindi trasportati dalle correnti (in greco plancton significa “vagabondo”). Il plancton lacustre si suddivide nelle componenti vegetale (fitoplancton), animale (zooplancton) e batterica (batterioplancton).",
+    "imgCount": "0"
   },
   "21": {
-    "title": "Stato trofico"
+    "title": "Stato trofico",
+    "text": "Lo stato (o livello) trofico di un lago è lo stadio che un lago raggiunge nel corso della sua evoluzione morfologica e funzionale. Il cambiamento dello stato trofico può avvenire per cause naturali o antropiche (<a class='link' href='11'>eutrofizzazione</a>). Gli stati trofici principali sono l'oligotrofia, la mesotrofia e l'eutrofia.",
+    "imgCount": "0"
   },
   "22": {
-    "title": "Stratificazione termica"
+    "title": "Stratificazione termica",
+    "text": "Stadio del <a class='link' href='5'>ciclo termico</a> di un lago in cui la colonna d'acqua risulta suddivisa in tre zone, caratterizzate da temperature diverse: l'epilimnio, o strato superficiale, con acque calde, il termoclino (o metalimnio), caratterizzato da una rapida diminuzione della temperatura lungo la verticale, e l'ipolimnio, cioè lo strato profondo di acque fredde. Durante la stratificazione estiva, gli scambi tra le acque superficiali e quelle profonde sono quasi nulli. Se il lago è molto produttivo (eutrofo) l'ossidazione microbica della sostanza organica precipitata sul fondo può consumare l'<a class='link' href='18'>ossigeno</a> disciolto nelle acque fino ad una condizione di anossia (=assenza di ossigeno). ",
+    "imgCount": "0"
   },
   "23": {
-    "title": "Trasparenza"
+    "title": "Trasparenza",
+    "text": "La trasparenza rappresenta la misura dell'attenuazione della radiazione luminosa lungo la colonna d'acqua. Dipende dalla presenza nell'acqua di soluti e particelle, tra cui le cellule di fitoplancton, che possono assorbire o disperdere la luce. La trasparenza può essere misurata con il <a class='link' href='8'>Disco di Secchi</a>, La trasparenza di laghi molto produttivi (eutrofi) può anche essere inferiore ad 1 metro mentre nei laghi poco produttivi (oligotrofi) può essere anche di decine di metri. Alle nostre latitudini la trasparenza di un lago è maggiore in inverno, quando è minima la produzione algale, e minore in estate e autunno. La <a class='link' href='26'>zona eufotica</a> di un lago, cioè fotosinteticamente attiva, viene stimata moltiplicando per 2,5 la trasparenza misurata con il Disco di Secchi. ",
+    "imgCount": "0"
   },
   "24": {
-    "title": "Temperatura"
+    "title": "Temperatura",
+    "text": "La temperatura è una delle proprietà fisiche principali dell'acqua. La temperatura delle acque di un lago in un determinato momento stagionale dipende dal suo bilancio termico, cioè dalla differenza fra gli apporti e le perdite di calore. I laghi durante l'anno presentano delle variazioni del profilo di temperatura lungo la colonna d'acqua (<a class='link' href='5'>ciclo termico</a>), che dipendono principalmente dalla latitudine e dall'altitudine a cui il lago si trova e che influenzano direttamente la quantità e l'intensità della radiazione solare, cioè la sorgente di energia termica. Il ciclo termico è influenzato anche da fattori climatici (piovosità e ventosità) e morfologici (profondità e forma del bacino lacustre). ",
+    "imgCount": "0"
   },
   "25": {
-    "title": "Zona afotica"
+    "title": "Zona afotica",
+    "text": "La zona di un lago dove non penetra la luce. Coincide con le acque più profonde.",
+    "imgCount": "1",
+    "sources": "<a href='http://www.ise.cnr.it/crypta/limnol/zone/zonelago'>http://www.ise.cnr.it/crypta/limnol/zone/zonelago</a>"
   },
   "26": {
-    "title": "Zona eufotica"
+    "title": "Zona eufotica",
+    "text": "La zona che normalmente va dalla superficie di un lago fino a 20 metri di profondità, dove la luce riesce a penetrare e dove vivono gli organismi vegetali che svolgono la <a class='link' href='15'>fotosintesi</a>. Le acque più profonde, completamente al buio, costituiscono la zona afotica (senza luce).",
+    "imgCount": "1",
+    "sources": "<a href='http://www.ise.cnr.it/crypta/limnol/zone/zonelago'>http://www.ise.cnr.it/crypta/limnol/zone/zonelago</a>"
   },
   "27": {
-    "title": "Zooplancton"
+    "title": "Zooplancton",
+    "text": "Porzione del plancton costituita da organismi animali. Nei laghi i gruppi principali di organismi zooplanctonici sono crostacei (cladoceri e copepodi) e rotiferi. Possono essere consumatori primari (= si nutrono di fitoplancton) o predatori (= si nutrono di altro zooplancton).",
+    "imgCount": "0"
   }
 }

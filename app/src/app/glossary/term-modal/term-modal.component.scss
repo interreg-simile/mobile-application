@@ -1,0 +1,18 @@
+@import "../../../theme/variables";
+
+.images {
+  margin-bottom : 24px;
+
+  .margin { margin-bottom : 8px }
+
+}
+
+.sources {
+  margin : 24px 0;
+
+  .card-header {
+    color: var(--ion-color-primary);
+    padding-bottom : 8px;
+  }
+
+}

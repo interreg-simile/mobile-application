@@ -12,32 +12,29 @@ export class GlossaryPage implements OnInit {
 
     public isLoading = false;
 
-    originalOrder     = (a, b) => { return 0 };
-    alphabeticalOrder = (a, b) => { return a.value.term.localeCompare(b.value.term) };
+    alphabeticalOrderTerms = (a, b) => { return a.value.term.localeCompare(b.value.term) };
 
 
     constructor(private i18n: TranslateService, private modalCtr: ModalController) { }
 
     ngOnInit(): void {
-
         this.isLoading = true;
-
-        // ToDo remove timeout
-        setTimeout(() => this.orderTerms(), 2000)
-
+        this.orderTerms();
     }
 
     private orderTerms(): void {
+
+        const unorderedTerms = {};
 
         for (let i = 1; i < this._wordsNumber + 1; i++) {
             const term        = this.i18n.instant(`page-glossary.${ i }.title`);
             const firstLetter = term.charAt(0).toLowerCase();
 
-            if (!this._terms[firstLetter]) this._terms[firstLetter] = [];
-            this._terms[firstLetter].push({ idx: i, term: term });
+            if (!unorderedTerms[firstLetter]) unorderedTerms[firstLetter] = [];
+            unorderedTerms[firstLetter].push({ idx: i, term: term });
         }
 
-        console.log(this._terms);
+        Object.keys(unorderedTerms).sort().forEach(k => this._terms[k] = unorderedTerms[k]);
 
         this.isLoading = false;
 
@@ -48,7 +45,9 @@ export class GlossaryPage implements OnInit {
         const modal = await this.modalCtr.create({
             component     : TermModalComponent,
             componentProps: { id: idx }
-        })
+        });
+
+        await modal.present();
 
     }
 
