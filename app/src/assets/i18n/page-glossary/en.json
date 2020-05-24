@@ -3,145 +3,145 @@
   "bibliography": "Bibliography",
   "sources": "Sources",
   "1": {
-    "title": "Autotrofo",
-    "text": "Organismo capace di costruirsi la sostanza organica dalla quale è costituito a partire da sostanze inorganiche ed energia solare tramite la fotosintesi. Gli autotrofi appartengono al primo livello trofico (principalmente piante, <a class='link' href='14'>fitoplancton</a> e alcuni <a class='link' href='2'>batteri</a>).",
+    "title": "Autotrophic",
+    "text": "Organism capable of building the organic substance, from which it is made, from inorganic substances and solar energy through photosynthesis. Autotrophics belong to the first trophic level (mainly plants, phytoplankton and some bacteria).",
     "imgCount": "0"
   },
   "2": {
-    "title": "Batteri",
-    "text": "I batteri sono microrganismi unicellulari procarioti, ovvero formati da una sola cellula semplice e primitiva rispetto a quelle di organismi più evoluti. Il batterioplancton è costituito dai batteri presenti nelle acque come singole celle flottanti o adese a particelle di detrito. La maggior parte dei batteri nelle acque sono <a class='link' href='12'>eterotrofi</a> e si nutrono di sostanze organiche morte (detrito organico).<br>I principali batteri indicatori di contaminazione fecale dei corpi idrici sono <a class='link' href='10'>Escherichia coli</a> ed <a class='link' href='9'>enterococchi</a>. Sono batteri che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico.",
+    "title": "Bacteria",
+    "text": "Bacteria are single-celled prokaryotic microorganisms, that is, formed by a single simple and primitive cell compared to those of more evolved organisms. The bacterium-plankton consists of bacteria present in the water as single floating cells or attached to debris particles. Most of the bacteria in the water are <a class='link' href='12'>heterotrophic</a> and feed on dead organic substances (organic debris).<br>The main bacteria indicating faecal contamination of water bodies are <a class='link' href='10'>Escherichia coli</a> and <a class='link' href='9'>enterococci</a>. They are bacteria that live in the lower part of the intestine of warm-blooded animals (birds and mammals, including humans) and are necessary for the digestion of food. Their presence in a water body is a sign of faecal contamination by untreated discharges and jeopardizes the bathing of the water body.",
     "imgCount": "0"
   },
   "3": {
-    "title": "Clorofilla",
-    "text": "Pigmento di colore verde presente nei cloroplasti delle cellule vegetali, o negli organismi procarioti che realizzano la <a class='link' href='15'>fotosintesi</a> clorofilliana. Nei laghi la clorofilla è presente nel fitoplancton. La sua misura può essere quindi utilizzata come indicatore della densità del fitoplancton e della biomassa algale presente. I suoi valori variano nell'arco dell'anno e a seconda della profondità: i massimi si hanno solitamente nei mesi estivi, quando è massima la produttività delle <a class='link' href='14'>alghe fitoplanctoniche</a>, con valori più alti negli strati d'acqua superficiali. La concentrazione di clorofilla è più alta nei laghi maggiormente produttivi o eutrofi; è infatti utilizzata tra gli indicatori dello stato trofico dei laghi. Monitorare i valori di clorofilla in continuo e in diversi punti del lago può permettere di individuare fenomeni di <a class='link' href='13'>fioriture algali</a> o comunque aumenti della produttività fitoplanctonica.",
+    "title": "Chlorophyll",
+    "text": "Green pigment present in plant cells' chloroplasts, or in prokaryotic organisms that perform chlorophyll <a class='link' href='15'>photosynthesis</a>. In lakes, chlorophyll is present in phytoplankton. Its measurement can therefore be used as an indicator of the density of phytoplankton and of the present algal biomass. Its values vary throughout the year and depending on the depth: the maximums are usually found in the summer months, when the productivity of <a class='link' href='14'>phytoplanktonic algae</a> is highest, with higher values in the surface water layers. The chlorophyll concentration is higher in the more productive or eutrophic lakes; it is in fact used among the indicators of the trophic status of lakes. Monitoring the chlorophyll values continuously and in different points of the lake can allow to identify phenomena of <a class='link' href='13'>algal blooms</a> or in any case increases in phytoplanktonic productivity.",
     "imgCount": "0"
   },
   "4": {
-    "title": "Cianobatteri",
-    "text": "Microrganismi <a class='link' href='4'>autrotofi</a> procarioti, che presentano però alcune caratteristiche delle cellule algali eucariote tra cui la grandezza e la capacità di svolgere la fotosintesi sia in condizioni aerobiche (= in presenza di ossigeno) che anaerobiche (= in assenza di ossigeno). I cianobatteri possono colonizzare una grande varietà di ambienti, anche estremi, ma il maggior numero di specie si trova nelle acque dolci quale componente normale del <a class='link' href='14'>fitoplancton</a> lacustre. In condizioni ambientali favorevoli il loro numero può diventare dominante rispetto alla densità di altri gruppi algali dando origine a <a class='link' href='13'>fioriture</a>. A volte possono produrre biotossine aventi effetti importanti sulla salute umana e sugli animali.",
+    "title": "Cyanobacteria",
+    "text": "<a class='link' href='14'>Autotrophic</a> prokaryotic microorganisms, which however have some characteristics of eukaryotic algal cells including the size and ability to perform photosynthesis both in aerobic (= in the presence of <a class='link' href='18'>oxygen</a>) and anaerobic (= in the absence of oxygen) conditions. Cyanobacteria can colonize a wide variety of environments, even extreme ones, but the greatest number of species are found in fresh water as a normal component of lake <a class='link' href='14'>phytoplankton</a>. Under favorable environmental conditions their number can become dominant with respect to the density of other algal groups giving rise to <a class='link' href='13'>blooms</a>. Sometimes they can produce biotoxins that have important effects on human and animal health.",
     "imgCount": "0"
   },
   "5": {
-    "title": "Ciclo termico",
-    "text": "Le fasi che caratterizzano un lago nel corso dell'anno per quanto riguarda la distribuzione della <a class='link' href='24'>temperatura</a> e di altri parametri (es. <a class='link' href='18'>ossigeno</a>) lungo la colonna d'acqua. Se si misura la temperatura di un lago dalla superficie al fondo si ottengono, nel corso dell'anno, profili differenti: in alcuni periodi la colonna d'acqua ha la stessa temperatura dalla superficie al fondo (<a class='link' href='6'>circolazione</a>) mentre in altri vi è un elevato gradiente termico (<a class='link' href='22'>stratificazione</a>). I laghi si possono classificare in base al loro ciclo termico in: monomittici, se presentano durante l'anno un'unica piena circolazione; dimittici, se circolano due volte nel corso dell'anno (primavera e autunno), oligomittici, se la piena circolazione non si verifica tutti gli anni. Nei laghi meromittici, l'acqua di fondo non si mescola mai con l'acqua degli strati superficiali, solitamente a causa di un elevato accumulo di soluti nelle acque profonde.",
+    "title": "Thermal cycle",
+    "text": "The phases that characterize a lake during the year as regards the distribution of <a class='link' href='24'>temperature</a> and other parameters (e.g. <a class='link' href='18'>oxygen</a>) along the water column. If the temperature of a lake is measured from the surface to the bottom, different profiles are obtained during the year: in some periods the water column has the same temperature from the surface to the bottom (<a class='link' href='6'>circulation</a>) while in others there is a high thermal gradient (<a class='link' href='22'>stratification</a>). Lakes can be classified according to their thermal cycle in: monomictic, if they have a single full circulation during the year; dimictic, if they circulate twice during the year (spring and autumn), oligomyctic, if full circulation does not occur every year. In meromictic lakes, bottom water never mixes with water from the surface layers, usually due to a high accumulation of solutes in deep waters.",
     "imgCount": "1",
-    "sources": "<a href='http://www.ise.cnr.it/crypta/limnol/energia/termica'>http://www.ise.cnr.it/crypta/limnol/energia/termica</a>"
+    "sources": "<a class='link' href='http://www.ise.cnr.it/crypta/limnol/energia/termica'>http://www.ise.cnr.it/crypta/limnol/energia/termica</a>"
   },
   "6": {
-    "title": "Circolazione",
-    "text": "Fase del <a class='link' href='5'>ciclo termico</a> di un lago nella quale la colonna d'acqua risulta omogenea dal punto di vista termico. La circolazione primaverile, che avviene solitamente a febbraio-marzo, ricarica di <a class='link' href='18'>ossigeno</a> l'intera colonna d'acqua. Nei laghi molto profondi, la circolazione non avviene in modo completo tutti gli anni ma solo ma al termine di inverni particolarmente freddi e ventosi (laghi oligomittici); negli altri anni la circolazione interessa solo una porzione della colonna d'acqua (profondità di mescolamento).",
+    "title": "Circulation",
+    "text": "Phase of the <a class='link' href='5'>thermal cycle</a> of a lake in which the water column is homogeneous from a thermal point of view. The spring circulation, which usually takes place in February-March, recharges the entire water column with <a class='link' href='18'>oxygen</a>. In very deep lakes, circulation does not take place completely every year but only at the end of particularly cold and windy winters (oligomictic lakes); in other years the circulation affects only a portion of the water column (mixing depth).",
     "imgCount": "0"
   },
   "7": {
-    "title": "Conducibilità elettrica",
-    "text": "La capacità dell'acqua di trasmettere elettricità. In generale l'acqua pura non è un buon conduttore di elettricità. La conducibilità dell'acqua dipende dagli ioni in soluzione, quindi aumenta all'aumentare della concentrazione dei soluti presenta nell'acqua stessa. Si misura in genere in microsiemens per cm (µS cm-1). ",
+    "title": "Electric conducibility",
+    "text": "The ability of water to transmit electricity. In general, pure water is not a good conductor of electricity. The conductivity of the water depends on the ions in solution; therefore it increases as the concentration of solutes increases in the water itself. It is generally measured in microsiemens per cm (µS cm-1).",
     "imgCount": "0"
   },
   "8": {
-    "title": "Disco di Secchi",
-    "text": "Lo strumento comunemente utilizzato per misurare la <a class='link' href='23'>trasparenza</a> dell'acqua. Fu inventato nel 1865 da Padre Angelo Secchi. È un disco bianco, di 20-30 cm di diametro, fissato all'estremità di una fune metrata: il disco viene calato in acqua e si misura la profondità alla quale esso diviene invisibile e quella alla quale ricompare. La media tra le due misure è la trasparenza di un lago e viene espressa in metri.",
-    "imgCount": "0"
+    "title": "Disk of Secchi",
+    "text": "The tool commonly used to measure the <a class='link' href='23'>transparency</a> of water. It was invented in 1865 by Father Angelo Secchi. It is a white disk, 20-30 cm in diameter, fixed to the end of a meter rope: the disc is lowered into the water and the depth at which it becomes invisible and the one at which it reappears are measured. The average between the two measures is the transparency of a lake and is expressed in meters.",
+    "imgCount": "1"
   },
   "9": {
-    "title": "Enterococchi",
-    "text": "Gli enterococchi sono <a class='link' href='2'>batteri</a> che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico. Sono organismi Gram-positivi e catalasi-negativi di forma tondeggiante che si dispongono sotto forma di diplococchi oppure in corte catene. Sono organismi anaerobi facoltativi e sopportano un ampio intervallo di temperature. Il valore limite per la balneabilità delle acque interne è di 1000 UFC/100ml.",
+    "title": "Enterococci",
+    "text": "Enterococci are <a class='link' href='2'>bacteria</a> that live in the lower part of the intestine of warm-blooded animals (birds and mammals, including humans) and are necessary for the digestion of food. Their presence in a water body is a sign of faecal contamination by untreated discharges and jeopardizes the bathing of the water body. They are round-shaped Gram-positive and catalase-negative organisms that are arranged in the form of diplococci or in short chains. They are optional anaerobic organisms and withstand a wide temperature range. The limit value for inland water bathing is 1000 CFU / 100ml.",
     "imgCount": "0"
   },
   "10": {
     "title": "Escherichia Coli",
-    "text": "La specie Escherichia coli è un <a class='link' href='2'>batterio</a> che vive nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico. è un microrganismo a forma di bastoncello, Gram-negativo, aerobio e anaerobio facoltativo, con crescita ottimale alla temperatura di circa 30 °C. Il valore limite per la balneabilità delle acque interne è di 500 UFC/100ml.",
+    "text": "The Escherichia coli species is a <a class='link' href='2'>bacterium</a> that lives in the lower part of the intestine of warm-blooded animals (birds and mammals, including humans) and necessary for the digestion of food. Their presence in a water body is a sign of faecal contamination by untreated discharges and jeopardizes the bathing of the water body. is a rod-shaped microorganism, Gram-negative, aerobic and optional anaerobe, with optimal growth at a temperature of about 30°C. The limit value for inland water bathing is 500 CFU / 100ml.",
     "imgCount": "0"
   },
   "11": {
-    "title": "Eutrofizzazione",
-    "text": "Il processo di arricchimento di un ambiente acquatico di sostanze nutrienti. I <a class='link' href='17'>nutrienti</a> principalmente coinvolti nell'eutrofizzazione dei laghi sono fosforo e azoto, che possono provenire da scarichi urbani e industriali e da attività agricole e zootecniche. Un apporto eccessivo di nutrienti aumenta fortemente la produttività algale, innescando una serie di effetti negativi sulla qualità delle acque, tra cui diminuzione della <a class='link' href='23'>trasparenza</a> in superficie e dell'<a class='link' href='18'>ossigeno</a> disciolto in profondità, colorazioni e odori anomali delle acque a causa delle fioriture algali, limitazioni o impossibilità di utilizzo delle acque per vari scopi come l'approvvigionamento in acqua potabile e la balneazione.",
+    "title": "Eutrophication",
+    "text": "The process of enriching an aquatic environment with nutrients. The <a class='link' href='17'>nutrients</a> mainly involved in the eutrophication of lakes are phosphorus and nitrogen, which can come from urban and industrial discharges and from agricultural and livestock activities. An excessive supply of nutrients greatly increases algal productivity, triggering a series of negative effects on the quality of the water, including a decrease in surface <a class='link' href='23'>transparency</a> and in depth dissolved <a class='link' href='18'>oxygen</a>, anomalous colouring and odours of the waters due to algal blooms, limitations or impossibility of using water for various purposes such as drinking water supply and bathing.",
     "imgCount": "1",
     "sources": "Archivio CNR IRSA"
   },
   "12": {
-    "title": "Eterotrofo",
-    "text": "Organismo che si deve nutrire di altri organismi e di loro resti (=consumatore). Gli organismi eterotrofi appartengono ai livelli trofici superiori al primo.",
+    "title": "Heterotrophic",
+    "text": "Organism that must feed on other organisms and their remains (= consumer). Heterotrophic organisms belong to the trophic levels above the first.",
     "imgCount": "0"
   },
   "13": {
-    "title": "Fioritura algale (o bloom algale)",
-    "text": "Rapida produzione di <a class='link' href='14'>alghe fitoplanctoniche</a> in un breve periodo di tempo. Può dar luogo a chiazze visibili ed estese sulla superficie dei laghi. Le alghe possono formare delle striature oppure ammassi più o meno densi e compatti.",
+    "title": "Algal bloom",
+    "text": "Rapid production of <a class='link' href='14'>phytoplanktonic algae</a> in a short period of time. It can give rise to visible and extensive patches on the surface of the lakes. Algae can form streaks or compact clusters with variable density.",
     "imgCount": "2",
     "sources": "Archivio CNR IRSA"
   },
   "14": {
-    "title": "Fitoplancton",
-    "text": "Il fitoplancton (alghe fitoplanctoniche) è costituito da piccoli organismi vegetali appartenenti al plancton lacustre. Le alghe fitoplanctoniche non devono essere confuse con le piante acquatiche (macrofite)! Il fitoplancton è composto da organismi autotrofi.<br>Esistono diverse classi tassonomiche di fitoplancton come Cloroficee, Bacillarioficee, Crisoficee, Criptoficee, Dinoficee e <a class='link' href='4'>Cianobatteri</a>. ",
+    "title": "Phytoplankton",
+    "text": "Phytoplankton (phytoplanktonic algae) is made up of small plant organisms belonging to lake <a class='link' href='20'>plankton</a>. Phytoplanktonic algae should not be confused with aquatic plants (macrophytes)! Phytoplankton is composed of autotrophic organisms.<br>There are several taxonomic classes of phytoplankton such as Chlorophyceae, Bacillarioficee, Crisoficee, Cryptoficee, Dinoficee and <a class='link' href='4'>Cyanobacteria</a>.",
     "imgCount": "1",
     "sources": "oc.ntu.edu"
   },
   "15": {
-    "title": "Fotosintesi",
-    "text": "La fotosintesi clorofilliana è un processo biochimico che porta alla costruzione di molecole di carboidrati, cioè di alimento, a partire da biossido di carbonio (CO2) e acqua in presenza di clorofilla, utilizzando energia luminosa e liberando ossigeno (O2). In un lago l'energia fornita dal sole è utilizzata dagli organismi produttori (alghe, piante acquatiche, batteri) per svolgere la fotosintesi. La materia così prodotta viene utilizzata dai consumatori primari (plancton animale e pesci fitofagi), e questi, a loro volta, sono utilizzati dai pesci carnivori e da altri organismi predatori (consumatori secondari). ",
+    "title": "Photosynthesis",
+    "text": "Chlorophyll photosynthesis is a biochemical process that leads to the construction of carbohydrate molecules, i.e. food, starting from carbon dioxide (CO2) and water in the presence of chlorophyll, using light energy and releasing oxygen (O2). In a lake, the energy supplied by the sun is used by the producers organisms (algae, aquatic plants, bacteria) to carry out photosynthesis. The matter thus produced is used by primary consumers (animal plankton and phytophagous fish), and these, in turn, are used by carnivorous fish and other predatory organisms (secondary consumers).",
     "imgCount": "1",
-    "sources": "<a href='http://www.ponzaracconta.it/wp-content/uploads/2014/02/fotosintesi-294x300.jpg'>http://www.ponzaracconta.it/wp-content/uploads/2014/02/fotosintesi-294x300.jpg</a>"
+    "sources": "<a class='link' href='http://www.ponzaracconta.it/wp-content/uploads/2014/02/fotosintesi-294x300.jpg'>http://www.ponzaracconta.it/wp-content/uploads/2014/02/fotosintesi-294x300.jpg</a>"
   },
   "16": {
-    "title": "Limnologia",
-    "text": "Lo studio dei laghi (dal greco limnè, che significa lago). Compito della limnologia è lo studio delle acque continentali o acque interne (acque ferme o con moto non apprezzabile come laghi, stagni, pozze, paludi, e acque correnti come ruscelli, torrenti, fiumi, ecc.).",
+    "title": "Limnology",
+    "text": "The study of lakes (from the Greek limnè, which means lake). The task of limnology is the study of continental waters or inland waters (still waters or with insignificant motion such as lakes, ponds, pools, swamps, and running waters such as streams, streams, rivers, etc.).",
     "imgCount": "0"
   },
   "17": {
-    "title": "Nutrienti",
-    "text": "Elementi chimici inorganici necessari agli organismi <a class='link' href='1'>autotrofi</a> per la <a class='link' href='15'>fotosintesi</a>. Nei laghi i principali nutrienti che limitano la produzione algale sono fosforo, carbonio e azoto. ",
+    "title": "Nutrients",
+    "text": "Inorganic chemical elements necessary for <a class='link' href='1'>autotrophic</a> organisms for <a class='link' href='15'>photosynthesis</a>. In lakes, the main nutrients that limit algal production are phosphorus, carbon and nitrogen.",
     "imgCount": "0"
   },
   "18": {
-    "title": "Ossigeno",
-    "text": "L'ossigeno è un gas fondamentale per tutte le forme di vita. In qualsiasi ambiente acquatico, la presenza di ossigeno deriva sostanzialmente dalla lenta cessione di questo gas nell'atmosfera (che ne è ricca) e dai processi biologici operati dagli organismi acquatici. I processi biologici che regolano la concentrazione di ossigeno nelle acque sono la <a class='link' href='15'>fotosintesi</a> e la respirazione.<br>L'ossigeno disciolto nelle acque può essere espresso come concentrazione, ovvero mg di ossigeno in 1 L d'acqua (mg/L) o come % rispetto alla saturazione, ovvero la quantità di ossigeno presente rispetto al valore massimo, preso uguale a cento, che si può avere nelle stesse condizioni di salinità, di temperatura e pressione atmosferica.<br>Valori superiori a 100% (soprassaturazione) si possono misurare, ad esempio, nelle acque superficiali dei laghi nel periodo estivo. Bassi valori di saturazione si hanno invece in presenza di un inquinamento che comporta un consumo di ossigeno per la demolizione della sostanza organica. Bassi valori di ossigeno (ipossia) o totale assenza di ossigeno (anossia) possono caratterizzare le acque profonde dei laghi <a class='link' href='11'>eutrofi</a>, in cui la sostanza organica prodotta in gran quantità negli strati superficiali viene decomposta dagli organismi aerobi che sottraggono ossigeno all'acqua. ",
+    "title": "Oxygen",
+    "text": "Oxygen is a fundamental gas for all forms of life. In any aquatic environment, the presence of oxygen derives substantially from the slow release of this gas into the atmosphere (which is rich in it) and from the biological processes operated by aquatic organisms. The biological processes that regulate the concentration of oxygen in the water are <a class='link' href='15'>photosynthesis</a> and respiration.<br>The dissolved oxygen in the water can be expressed as concentration, i.e. mg of oxygen in 1 L of water (mg / L) or as % with respect to saturation, or the quantity of oxygen present with respect to the maximum value, taken equal to one hundred, which can be had in the same conditions of salinity, temperature and atmospheric pressure.<br>Values above 100% (supersaturation) can be measured, for example, in the surface waters of lakes in the summer. Low saturation values, on the other hand, occur in the presence of pollution which leads to the consumption of oxygen for the demolition of the organic substance. Low oxygen values (hypoxia) or total absence of oxygen (anoxia) can characterize the deep waters of <a class='link' href='11'>eutrophic</a> lakes, in which the organic substance produced in large quantities in the surface layers is decomposed by the aerobic organisms that take oxygen away from the water.",
     "imgCount": "0"
   },
   "19": {
     "title": "pH",
-    "text": "Il pH è un valore numerico che indica l'acidità di una soluzione. L'acqua contiene in soluzione sia ioni idrogeno H+ che ioni OH-; le concentrazioni relative di questi due ioni determinano il valore del pH. L'acqua con pH pari a 7 possiede uguali concentrazioni di ioni H+ e OH- e viene considerata una soluzione neutra. In una soluzione acida la concentrazione di ioni H+ è maggiore di quella di ioni OH- (il contrario in una soluzione basica). I valori di pH possono andare da 0 (valore maggiormente acido) a 14 (valore maggiormente basico).\nIl pH dell'acqua è un parametro molto importante per la vita acquatica. In ambienti naturali (fiumi, laghi, mari) il pH non varia da 0 a 14 ma rimane compreso in un intervallo di poche unità intorno al valore 7. Valori compresi tra 6 e 9 sono in genere compatibili con la vita degli organismi acquatici. Valori inferiori a 6 e superiori a 9 si manifestano solo in conseguenza di scarichi di sostanze inquinanti acide o basiche e possono avere effetti letali su piante e animali.\n",
+    "text": "The pH is a numerical value indicating the acidity of a solution. The water contains both hydrogen H + and OH- ions in solution; the relative concentrations of these two ions determine the pH value. Water with a pH of 7 has equal concentrations of H + and OH- ions and is considered a neutral solution. In an acid solution the concentration of H + ions is higher than that of OH- ions (the opposite in a basic solution). The pH values can range from 0 (most acidic value) to 14 (most basic value).<br>The pH of the water is a very important parameter for aquatic life. In natural environments (rivers, lakes, seas) the pH does not vary from 0 to 14 but remains within a range of a few units around the value 7. Values between 6 and 9 are generally compatible with the life of aquatic organisms. Values lower than 6 and higher than 9 occur only as a consequence of discharges of acid or basic pollutants and can have lethal effects on plants and animals.",
     "imgCount": "0"
   },
   "20": {
-    "title": "Plancton",
-    "text": "Con il termine plancton si indicano degli organismi non in grado di muoversi autonomamente, che vengono quindi trasportati dalle correnti (in greco plancton significa “vagabondo”). Il plancton lacustre si suddivide nelle componenti vegetale (fitoplancton), animale (zooplancton) e batterica (batterioplancton).",
+    "title": "Plankton",
+    "text": "The term plankton indicates organisms that are unable to move independently, which are therefore transported by currents (in Greek, plankton means \"wanderer\"). The lake plankton is divided into the plant (phytoplankton), animal (zooplankton) and bacterial (bacterium plankton) components.",
     "imgCount": "0"
   },
   "21": {
-    "title": "Stato trofico",
-    "text": "Lo stato (o livello) trofico di un lago è lo stadio che un lago raggiunge nel corso della sua evoluzione morfologica e funzionale. Il cambiamento dello stato trofico può avvenire per cause naturali o antropiche (<a class='link' href='11'>eutrofizzazione</a>). Gli stati trofici principali sono l'oligotrofia, la mesotrofia e l'eutrofia.",
+    "title": "Trophic state",
+    "text": "The trophic state (or level) of a lake is the stage that a lake reaches during its morphological and functional evolution. The change in the trophic state can occur due to natural or anthropic causes (<a class='link' href='11'>eutrophication</a>). The main trophic states are oligotrophy, mesotrophy and eutrophy.",
     "imgCount": "0"
   },
   "22": {
-    "title": "Stratificazione termica",
-    "text": "Stadio del <a class='link' href='5'>ciclo termico</a> di un lago in cui la colonna d'acqua risulta suddivisa in tre zone, caratterizzate da temperature diverse: l'epilimnio, o strato superficiale, con acque calde, il termoclino (o metalimnio), caratterizzato da una rapida diminuzione della temperatura lungo la verticale, e l'ipolimnio, cioè lo strato profondo di acque fredde. Durante la stratificazione estiva, gli scambi tra le acque superficiali e quelle profonde sono quasi nulli. Se il lago è molto produttivo (eutrofo) l'ossidazione microbica della sostanza organica precipitata sul fondo può consumare l'<a class='link' href='18'>ossigeno</a> disciolto nelle acque fino ad una condizione di anossia (=assenza di ossigeno). ",
+    "title": "Thermal stratification",
+    "text": "Stage of the <a class='link' href='5'>thermal cycle</a> of a lake in which the water column is divided into three zones, characterized by different temperatures: the epilimnium, or surface layer, with warm waters, the thermocline (or metalimnium), characterized by a rapid decrease in the temperature along the vertical, and hypolimnium, that is, the deep layer of cold water. During the summer stratification, the exchanges between surface and deep waters is almost nil. If the lake is very productive (eutrophic) the microbial oxidation of the organic substance precipitated on the bottom can consume the <a class='link' href='18'>oxygen</a> dissolved in the waters up to an anoxic condition (= absence of oxygen).",
     "imgCount": "0"
   },
   "23": {
-    "title": "Trasparenza",
-    "text": "La trasparenza rappresenta la misura dell'attenuazione della radiazione luminosa lungo la colonna d'acqua. Dipende dalla presenza nell'acqua di soluti e particelle, tra cui le cellule di fitoplancton, che possono assorbire o disperdere la luce. La trasparenza può essere misurata con il <a class='link' href='8'>Disco di Secchi</a>, La trasparenza di laghi molto produttivi (eutrofi) può anche essere inferiore ad 1 metro mentre nei laghi poco produttivi (oligotrofi) può essere anche di decine di metri. Alle nostre latitudini la trasparenza di un lago è maggiore in inverno, quando è minima la produzione algale, e minore in estate e autunno. La <a class='link' href='26'>zona eufotica</a> di un lago, cioè fotosinteticamente attiva, viene stimata moltiplicando per 2,5 la trasparenza misurata con il Disco di Secchi. ",
+    "title": "Transparency",
+    "text": "Transparency represents the measure of the attenuation of light radiation along the water column. It depends on the presence of solutes and particles in the water, including phytoplankton cells, which can absorb or disperse light. Transparency can be measured with the <a class='link' href='8'>Secchi Disk</a>. The transparency of very productive lakes (eutrophic) can also be less than 1 meter while in the less productive lakes (oligotrophic) it can also be tens of meters. In our latitudes the transparency of a lake is greater in winter, when algal production is minimal, and less in summer and autumn. The <a class='link' href='26'>euphotic zone</a> of a lake, i.e. photosynthetically active, is estimated by multiplying by 2.5 the transparency measured with the Secchi Disc.",
     "imgCount": "0"
   },
   "24": {
-    "title": "Temperatura",
-    "text": "La temperatura è una delle proprietà fisiche principali dell'acqua. La temperatura delle acque di un lago in un determinato momento stagionale dipende dal suo bilancio termico, cioè dalla differenza fra gli apporti e le perdite di calore. I laghi durante l'anno presentano delle variazioni del profilo di temperatura lungo la colonna d'acqua (<a class='link' href='5'>ciclo termico</a>), che dipendono principalmente dalla latitudine e dall'altitudine a cui il lago si trova e che influenzano direttamente la quantità e l'intensità della radiazione solare, cioè la sorgente di energia termica. Il ciclo termico è influenzato anche da fattori climatici (piovosità e ventosità) e morfologici (profondità e forma del bacino lacustre). ",
+    "title": "Temperature",
+    "text": "Temperature is one of the main physical properties of water. The temperature of the waters of a lake at a specific seasonal time depends on its thermal balance, that is, on the difference between the contributions and the heat losses. During the year the lakes show variations in the temperature profile along the water column (<a class='link' href='5'>thermal cycle</a>), which mainly depend on the latitude and altitude at which the lake is located and which directly influence the quantity and intensity of the solar radiation, i.e. the source of thermal energy. The thermal cycle is also influenced by climatic (rainfall and wind) and morphological factors (depth and shape of the lake basin).",
     "imgCount": "0"
   },
   "25": {
-    "title": "Zona afotica",
-    "text": "La zona di un lago dove non penetra la luce. Coincide con le acque più profonde.",
+    "title": "Aphotic zone",
+    "text": "The area of a lake where light does not penetrate. It coincides with the deeper waters.",
     "imgCount": "1",
-    "sources": "<a href='http://www.ise.cnr.it/crypta/limnol/zone/zonelago'>http://www.ise.cnr.it/crypta/limnol/zone/zonelago</a>"
+    "sources": "<a class='link' href='http://www.ise.cnr.it/crypta/limnol/zone/zonelago'>http://www.ise.cnr.it/crypta/limnol/zone/zonelago</a>"
   },
   "26": {
-    "title": "Zona eufotica",
-    "text": "La zona che normalmente va dalla superficie di un lago fino a 20 metri di profondità, dove la luce riesce a penetrare e dove vivono gli organismi vegetali che svolgono la <a class='link' href='15'>fotosintesi</a>. Le acque più profonde, completamente al buio, costituiscono la zona afotica (senza luce).",
+    "title": "Euphotic area",
+    "text": "The area that normally goes from the surface of a lake to a depth of 20 meters, where light can penetrate and where the plant organisms that carry out <a class='link' href='15'>photosynthesis</a> live. The deeper waters, completely in the dark, constitute the <a class='link' href='25'>aphotic zone</a> (without light).",
     "imgCount": "1",
-    "sources": "<a href='http://www.ise.cnr.it/crypta/limnol/zone/zonelago'>http://www.ise.cnr.it/crypta/limnol/zone/zonelago</a>"
+    "sources": "<a class='link' href='http://www.ise.cnr.it/crypta/limnol/zone/zonelago'>http://www.ise.cnr.it/crypta/limnol/zone/zonelago</a>"
   },
   "27": {
-    "title": "Zooplancton",
-    "text": "Porzione del plancton costituita da organismi animali. Nei laghi i gruppi principali di organismi zooplanctonici sono crostacei (cladoceri e copepodi) e rotiferi. Possono essere consumatori primari (= si nutrono di fitoplancton) o predatori (= si nutrono di altro zooplancton).",
+    "title": "Zooplankton",
+    "text": "Portion of <a class='link' href='20'>plankton</a> made up of animal organisms. In lakes the main groups of zooplanktonic organisms are crustaceans (cladocera and copepods) and rotifers. They can be primary consumers (= feed on <a class='link' href='14'>phytoplankton</a>) or predators (= feed on other zooplankton).",
     "imgCount": "0"
   }
 }

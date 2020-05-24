@@ -18,7 +18,12 @@ import { FileService } from "../shared/file.service";
 export interface MinimalObservation {
     _id: string,
     // uid: string,
-    position: { coordinates: Array<number>, roi?: string }
+    callId?: number,
+    position: {
+        coordinates: Array<number>,
+        roi?: string,
+        area?: number
+    }
 }
 
 
@@ -116,6 +121,14 @@ export class ObservationsService {
             await this.sendObservation(cleanObs);
             return "online";
         }
+
+    }
+
+    async postObservationWithCall(): Promise<MinimalObservation> {
+
+        const cleanObs = this.cleanObservationFields();
+
+        return this.sendObservation(cleanObs, true);
 
     }
 
@@ -220,13 +233,17 @@ export class ObservationsService {
      * Posts an observation to the server.
      *
      * @param {Object} obs - The observation to be posted.
+     * @param {boolean} [generateCallId=false] - Flag that states if a call id has to be generated.
+     * @return {Promise<MinimalObservation>} The inserted observation.
      */
-    private async sendObservation(obs: any): Promise<void> {
+    private async sendObservation(obs: any, generateCallId: boolean = false): Promise<MinimalObservation> {
 
         const formData = await this.setRequestBody(obs);
 
         const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations`;
-        const qParams = new HttpParams().set("minimalRes", "true");
+        const qParams = new HttpParams()
+            .set("minimalRes", "true")
+            .set("callId", String(generateCallId));
 
         const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
 
@@ -234,6 +251,8 @@ export class ObservationsService {
 
         if (resData.position.roi)
             this._obs.next([...this._obs.value, resData]);
+
+        return resData;
 
     }
 

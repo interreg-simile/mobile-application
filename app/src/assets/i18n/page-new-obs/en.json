@@ -271,14 +271,24 @@
   "or": "- or -",
   "btn-call": "Contact the authorities",
   "err-msg": "Error posting the observation, we are sorry for the inconvenience.",
+  "call-no-roi-msg": "It's not possible to contact the authorities because the point indicated is inside an area not supported by the application.",
+  "call-data-error": "Error contacting the authorities, we are sorry for the inconvenience. The observation has been inserted anyway.",
   "msg-no-photo": "At least one photo is requested.",
   "msg-weather-error": "Error getting weather data.",
   "alert-message-cancel": "Discard the changes already made?",
   "alert-btn-continue": "Continue to edit",
   "alert-btn-cancel": "Cancel",
-  "modal-choices": {
-    "heading": "What do you want to do?",
-    "msg-call-1": "If you think that is necessary to activate an intervention, call this number:",
-    "msg-call-2": "An {{company}} operator will answer you. Tell him the code reported here below."
+  "modal-call": {
+    "first-text": {
+      "1": "To report a problem to the competent authorities, please call the following number:",
+      "2": "To report a problem to the competent authorities, please call the following number:",
+      "3": "To report a problem to the competent authorities, please open the following link:"
+    },
+    "second-text": {
+      "1": "<span class=\"bold-primary\">The operative room of Lombardy Region civil protection</span> will answer the call. Please communicate the following code so that they can identify the observation you just made:",
+      "2": "<span class=\"bold-primary\">The ???</span> will answer the call. Please communicate the following code so that they can identify the observation you just made:",
+      "3": "Click on the link <span class=\"bold-primary\">scrivici</span> under the phone contacts and fill the form inserting <span class=\"bold-primary\">SIMILE</span> as object and the following code as message:"
+    },
+    "btn-close": "Close"
   }
 }

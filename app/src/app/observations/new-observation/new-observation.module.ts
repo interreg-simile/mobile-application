@@ -21,6 +21,7 @@ import { PhComponent } from "../measures/ph/ph.component";
 import { TemperatureComponent } from "../measures/temperature/temperature.component";
 import { TransparencyComponent } from "../measures/transparency/transparency.component";
 import { InstrumentComponent } from "../measures/instrument/instrument.component";
+import { CallAuthoritiesComponent } from "../call-authorities/call-authorities.component";
 
 
 const routes: Routes = [{ path: '', component: NewObservationPage }];
@@ -39,7 +40,8 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         OxygenComponent,
         PhComponent,
         TemperatureComponent,
-        TransparencyComponent
+        TransparencyComponent,
+        CallAuthoritiesComponent
     ],
     imports        : [
         CommonModule,
@@ -63,7 +65,8 @@ const routes: Routes = [{ path: '', component: NewObservationPage }];
         PhComponent,
         TemperatureComponent,
         TransparencyComponent,
-        InstrumentComponent
+        InstrumentComponent,
+        CallAuthoritiesComponent
     ]
 })
 export class NewObservationPageModule {}

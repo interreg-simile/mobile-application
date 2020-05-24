@@ -19,6 +19,9 @@ export class GlossaryPage implements OnInit {
 
     ngOnInit(): void {
         this.isLoading = true;
+    }
+
+    ionViewWillEnter() {
         this.orderTerms();
     }
 

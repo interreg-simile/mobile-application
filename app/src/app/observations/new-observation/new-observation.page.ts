@@ -11,7 +11,7 @@ import {
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 
-import { ObservationsService } from "../observations.service";
+import { MinimalObservation, ObservationsService } from "../observations.service";
 import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 import { CameraService, PicResult } from "../../shared/camera.service";
 import { Duration, ToastService } from "../../shared/toast.service";
@@ -22,6 +22,7 @@ import { Subscription } from "rxjs";
 import { HelpsService } from "../../shared/helps/helps.service";
 import { ConnectionStatus, NetworkService } from "../../shared/network.service";
 import { LatLng } from "leaflet";
+import { CallAuthoritiesComponent } from "../call-authorities/call-authorities.component";
 
 
 @Component({
@@ -377,12 +378,62 @@ export class NewObservationPage implements OnInit, OnDestroy {
     }
 
 
-    // ToDo implement call to the authorities
-    async onAlertClick(): Promise<void> {
+    async onCallAuthoritiesClick(): Promise<void> {
 
-        await this.toastService.presentToast("common.msg-to-be-implemented", Duration.short);
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+            await this.toastService.presentToast("common.errors.offline-function", Duration.short);
+            return;
+        }
 
-        return
+        if (!this.obsService.newObservation.position.roi) {
+            await this.toastService.presentToast("page-new-obs.call-no-roi-msg", Duration.short);
+            return;
+        }
+
+        const loading = await this.loadingCtr.create({
+            message     : this.i18n.instant("common.wait"),
+            showBackdrop: false
+        });
+
+        await loading.present();
+
+        const [res, err] = await this.obsService.postObservationWithCall()
+            .then(v => [v, undefined])
+            .catch(err => [undefined, err]);
+
+        await loading.dismiss();
+
+        if (err) {
+            this.logger.error("Error posting the observation.", err);
+            await this.toastService.presentToast("page-new-obs.err-msg", Duration.short);
+            return;
+        }
+
+        this.events.publish("observation:inserted-online");
+
+        const obs = <MinimalObservation>res;
+
+        if (!obs.position.roi || !obs.position.area || !obs.callId) {
+            await this.toastService.presentToast("page-new-obs.call-data-error", Duration.short);
+            await this.router.navigate(["map"]);
+            return;
+        }
+
+        const modal = await this.modalCtr.create({
+            component      : CallAuthoritiesComponent,
+            cssClass       : "auto-height",
+            backdropDismiss: false,
+            componentProps : {
+                "area"  : obs.position.area,
+                "callId": obs.callId
+            }
+        });
+
+        await modal.present();
+
+        await modal.onDidDismiss();
+
+        await this.router.navigate(["map"]);
 
     }
 

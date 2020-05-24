@@ -4,7 +4,8 @@
   "msg-to-be-implemented": "Funzione non ancora implementata...",
   "errors": {
     "photo": "Errore durante la foto.",
-    "offline": "Dati non disponibili offline."
+    "offline": "Dati non disponibili offline.",
+    "offline-function": "Funzione non disponibile offline."
   },
   "wait": "Attendi...",
   "rois": {

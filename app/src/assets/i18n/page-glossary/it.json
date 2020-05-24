@@ -9,7 +9,7 @@
   },
   "2": {
     "title": "Batteri",
-    "text": "I batteri sono microrganismi unicellulari procarioti, ovvero formati da una sola cellula semplice e primitiva rispetto a quelle di organismi più evoluti. Il batterioplancton è costituito dai batteri presenti nelle acque come singole celle flottanti o adese a particelle di detrito. La maggior parte dei batteri nelle acque sono <a class='link' href='12'>eterotrofi</a> e si nutrono di sostanze organiche morte (detrito organico).<br>I principali batteri indicatori di contaminazione fecale dei corpi idrici sono <a class='link' href='10'>Escherichia coli</a> ed <a class='link' href='9'>enterococchi</a>. Sono batteri che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico.",
+    "text": "I batteri sono microrganismi unicellulari procarioti, ovvero formati da una sola cellula semplice e primitiva rispetto a quelle di organismi più evoluti. Il batterioplancton è costituito dai batteri presenti nelle acque come singole celle flottanti o adese a particelle di detrito. La maggior parte dei batteri nelle acque sono <a class='link' href='12'>eterotrofi</a> e si nutrono di sostanze organiche morte (detrito organico).<br>I principali batteri indicatori di contaminazione fecale dei corpi idrici sono <a class='link' href='10'>Escherichia coli</a> ed <a class='link' href='9'>enterococchi</a>. Sono batteri che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e sono necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico.",
     "imgCount": "0"
   },
   "3": {
@@ -19,7 +19,7 @@
   },
   "4": {
     "title": "Cianobatteri",
-    "text": "Microrganismi <a class='link' href='4'>autrotofi</a> procarioti, che presentano però alcune caratteristiche delle cellule algali eucariote tra cui la grandezza e la capacità di svolgere la fotosintesi sia in condizioni aerobiche (= in presenza di ossigeno) che anaerobiche (= in assenza di ossigeno). I cianobatteri possono colonizzare una grande varietà di ambienti, anche estremi, ma il maggior numero di specie si trova nelle acque dolci quale componente normale del <a class='link' href='14'>fitoplancton</a> lacustre. In condizioni ambientali favorevoli il loro numero può diventare dominante rispetto alla densità di altri gruppi algali dando origine a <a class='link' href='13'>fioriture</a>. A volte possono produrre biotossine aventi effetti importanti sulla salute umana e sugli animali.",
+    "text": "Microrganismi <a class='link' href='1'>autrotofi</a> procarioti, che presentano però alcune caratteristiche delle cellule algali eucariote tra cui la grandezza e la capacità di svolgere la fotosintesi sia in condizioni aerobiche (= in presenza di <a class='link' href='18'>ossigeno</a>) che anaerobiche (= in assenza di ossigeno). I cianobatteri possono colonizzare una grande varietà di ambienti, anche estremi, ma il maggior numero di specie si trova nelle acque dolci quale componente normale del <a class='link' href='14'>fitoplancton</a> lacustre. In condizioni ambientali favorevoli il loro numero può diventare dominante rispetto alla densità di altri gruppi algali dando origine a <a class='link' href='13'>fioriture</a>. A volte possono produrre biotossine aventi effetti importanti sulla salute umana e sugli animali.",
     "imgCount": "0"
   },
   "5": {
@@ -41,11 +41,11 @@
   "8": {
     "title": "Disco di Secchi",
     "text": "Lo strumento comunemente utilizzato per misurare la <a class='link' href='23'>trasparenza</a> dell'acqua. Fu inventato nel 1865 da Padre Angelo Secchi. È un disco bianco, di 20-30 cm di diametro, fissato all'estremità di una fune metrata: il disco viene calato in acqua e si misura la profondità alla quale esso diviene invisibile e quella alla quale ricompare. La media tra le due misure è la trasparenza di un lago e viene espressa in metri.",
-    "imgCount": "0"
+    "imgCount": "1"
   },
   "9": {
     "title": "Enterococchi",
-    "text": "Gli enterococchi sono <a class='link' href='2'>batteri</a> che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico. Sono organismi Gram-positivi e catalasi-negativi di forma tondeggiante che si dispongono sotto forma di diplococchi oppure in corte catene. Sono organismi anaerobi facoltativi e sopportano un ampio intervallo di temperature. Il valore limite per la balneabilità delle acque interne è di 1000 UFC/100ml.",
+    "text": "Gli enterococchi sono <a class='link' href='2'>batteri</a> che vivono nella parte inferiore dell'intestino di animali a sangue caldo (uccelli e mammiferi, incluso l'uomo) e sono necessari per la digestione del cibo. La loro presenza in un corpo idrico è segno di contaminazione fecale da parte di scarichi non depurati e pregiudica la balneabilità del corpo idrico. Sono organismi Gram-positivi e catalasi-negativi di forma tondeggiante che si dispongono sotto forma di diplococchi oppure in corte catene. Sono organismi anaerobi facoltativi e sopportano un ampio intervallo di temperature. Il valore limite per la balneabilità delle acque interne è di 1000 UFC/100ml.",
     "imgCount": "0"
   },
   "10": {
@@ -72,7 +72,7 @@
   },
   "14": {
     "title": "Fitoplancton",
-    "text": "Il fitoplancton (alghe fitoplanctoniche) è costituito da piccoli organismi vegetali appartenenti al plancton lacustre. Le alghe fitoplanctoniche non devono essere confuse con le piante acquatiche (macrofite)! Il fitoplancton è composto da organismi autotrofi.<br>Esistono diverse classi tassonomiche di fitoplancton come Cloroficee, Bacillarioficee, Crisoficee, Criptoficee, Dinoficee e <a class='link' href='4'>Cianobatteri</a>. ",
+    "text": "Il fitoplancton (alghe fitoplanctoniche) è costituito da piccoli organismi vegetali appartenenti al <a class='link' href='20'>plancton</a> lacustre. Le alghe fitoplanctoniche non devono essere confuse con le piante acquatiche (macrofite)! Il fitoplancton è composto da organismi autotrofi.<br>Esistono diverse classi tassonomiche di fitoplancton come Cloroficee, Bacillarioficee, Crisoficee, Criptoficee, Dinoficee e <a class='link' href='4'>Cianobatteri</a>. ",
     "imgCount": "1",
     "sources": "oc.ntu.edu"
   },
@@ -119,7 +119,7 @@
   },
   "23": {
     "title": "Trasparenza",
-    "text": "La trasparenza rappresenta la misura dell'attenuazione della radiazione luminosa lungo la colonna d'acqua. Dipende dalla presenza nell'acqua di soluti e particelle, tra cui le cellule di fitoplancton, che possono assorbire o disperdere la luce. La trasparenza può essere misurata con il <a class='link' href='8'>Disco di Secchi</a>, La trasparenza di laghi molto produttivi (eutrofi) può anche essere inferiore ad 1 metro mentre nei laghi poco produttivi (oligotrofi) può essere anche di decine di metri. Alle nostre latitudini la trasparenza di un lago è maggiore in inverno, quando è minima la produzione algale, e minore in estate e autunno. La <a class='link' href='26'>zona eufotica</a> di un lago, cioè fotosinteticamente attiva, viene stimata moltiplicando per 2,5 la trasparenza misurata con il Disco di Secchi. ",
+    "text": "La trasparenza rappresenta la misura dell'attenuazione della radiazione luminosa lungo la colonna d'acqua. Dipende dalla presenza nell'acqua di soluti e particelle, tra cui le cellule di fitoplancton, che possono assorbire o disperdere la luce. La trasparenza può essere misurata con il <a class='link' href='8'>Disco di Secchi</a>. La trasparenza di laghi molto produttivi (eutrofi) può anche essere inferiore ad 1 metro mentre nei laghi poco produttivi (oligotrofi) può essere anche di decine di metri. Alle nostre latitudini la trasparenza di un lago è maggiore in inverno, quando è minima la produzione algale, e minore in estate e autunno. La <a class='link' href='26'>zona eufotica</a> di un lago, cioè fotosinteticamente attiva, viene stimata moltiplicando per 2,5 la trasparenza misurata con il Disco di Secchi. ",
     "imgCount": "0"
   },
   "24": {
@@ -135,13 +135,13 @@
   },
   "26": {
     "title": "Zona eufotica",
-    "text": "La zona che normalmente va dalla superficie di un lago fino a 20 metri di profondità, dove la luce riesce a penetrare e dove vivono gli organismi vegetali che svolgono la <a class='link' href='15'>fotosintesi</a>. Le acque più profonde, completamente al buio, costituiscono la zona afotica (senza luce).",
+    "text": "La zona che normalmente va dalla superficie di un lago fino a 20 metri di profondità, dove la luce riesce a penetrare e dove vivono gli organismi vegetali che svolgono la <a class='link' href='15'>fotosintesi</a>. Le acque più profonde, completamente al buio, costituiscono la <a class='link' href='25'>zona afotica</a> (senza luce).",
     "imgCount": "1",
     "sources": "<a href='http://www.ise.cnr.it/crypta/limnol/zone/zonelago'>http://www.ise.cnr.it/crypta/limnol/zone/zonelago</a>"
   },
   "27": {
     "title": "Zooplancton",
-    "text": "Porzione del plancton costituita da organismi animali. Nei laghi i gruppi principali di organismi zooplanctonici sono crostacei (cladoceri e copepodi) e rotiferi. Possono essere consumatori primari (= si nutrono di fitoplancton) o predatori (= si nutrono di altro zooplancton).",
+    "text": "Porzione del <a class='link' href='20'>plancton</a> costituita da organismi animali. Nei laghi i gruppi principali di organismi zooplanctonici sono crostacei (cladoceri e copepodi) e rotiferi. Possono essere consumatori primari (= si nutrono di <a class='link' href='14'>fitoplancton</a>) o predatori (= si nutrono di altro zooplancton).",
     "imgCount": "0"
   }
 }

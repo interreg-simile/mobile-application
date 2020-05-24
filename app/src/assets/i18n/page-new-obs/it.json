@@ -271,14 +271,24 @@
   "or": "- o -",
   "btn-call": "Contatta le autorità",
   "err-msg": "Impossibile inviare l'osservazione, ci scusiamo per il disagio.",
+  "call-no-roi-msg": "Non è possibile contattare le autorità perchè il punto che hai indicato è in una zona supportata dall'applicazione.",
+  "call-data-error": "Impossibile proseguire, ci scusiamo per il disagio. L'osservazione è stata comunque inserita.",
   "msg-no-photo": "È richiesta almeno una foto.",
   "msg-weather-error": "Errore durante la richiesta dei dati meteo.",
   "alert-message-cancel": "Annullare le modifiche apportate?",
   "alert-btn-continue": "Continua a modificare",
   "alert-btn-cancel": "Annulla",
-  "modal-choices": {
-    "heading": "Cosa vuoi fare?",
-    "msg-call-1": "Se pensi che sia necessario attivare un'intervento, chiama questo numero:",
-    "msg-call-2": "Ti risponderà un operatore di {{company}}. Comunicagli il codice riportato qui sotto."
+  "modal-call": {
+    "first-text": {
+      "1": "Per segnalare un problema alle autorità competenti devi chiamare il seguente numero:",
+      "2": "Per segnalare un problema alle autorità competenti devi chiamare il seguente numero:",
+      "3": "Per segnalare un problema alle autorità competenti apri il seguente link:"
+    },
+    "second-text": {
+      "1": "Ti risponderà la <span class=\"bold-primary\">sala operativa di protezione civile di Regione Lombardia</span> e dovrai comunicare il seguente codice in modo che l'operatore possa risalire all'osservazione che hai appena eseguito:",
+      "2": "Ti risponderà la <span class=\"bold-primary\">???</span> e dovrai comunicare il seguente codice in modo che l'operatore possa risalire all'osservazione che hai appena eseguito:",
+      "3": "Clicca sul link <span class=\"bold-primary\">scrivici</span> sotto ai recapiti telefonici e compila il questionario inserendo come oggetto la dicitura <span class=\"bold-primary\">SIMILE</span> e come messaggio il seguente codice:"
+    },
+    "btn-close": "Chiudi"
   }
 }

@@ -26,6 +26,11 @@ p { margin : 0 }
   padding          : 16px;
 }
 
+.bold-primary {
+  font-weight : bold;
+  color       : var(--ion-color-primary);
+}
+
 
 .on-page-message {
   @include flex-display(column, center, center);
