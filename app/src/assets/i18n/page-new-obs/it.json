@@ -285,8 +285,8 @@
       "3": "Per segnalare un problema alle autorità competenti apri il seguente link:"
     },
     "second-text": {
-      "1": "Ti risponderà la <span class=\"bold-primary\">sala operativa di protezione civile di Regione Lombardia</span> e dovrai comunicare il seguente codice in modo che l'operatore possa risalire all'osservazione che hai appena eseguito:",
-      "2": "Ti risponderà la <span class=\"bold-primary\">???</span> e dovrai comunicare il seguente codice in modo che l'operatore possa risalire all'osservazione che hai appena eseguito:",
+      "1": "Ti risponderà la <span class=\"bold-primary\">sala operativa della protezione civile di Regione Lombardia</span>.<br>Comunica il seguente codice in modo che l'operatore possa risalire all'osservazione che hai appena eseguito:",
+      "2": "Ti risponderà la <span class=\"bold-primary\">???</span>.<br>Comunica il seguente codice in modo che l'operatore possa risalire all'osservazione che hai appena eseguito:",
       "3": "Clicca sul link <span class=\"bold-primary\">scrivici</span> sotto ai recapiti telefonici e compila il questionario inserendo come oggetto la dicitura <span class=\"bold-primary\">SIMILE</span> e come messaggio il seguente codice:"
     },
     "btn-close": "Chiudi"

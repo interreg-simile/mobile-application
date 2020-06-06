@@ -13,7 +13,7 @@ export class CallAuthoritiesComponent {
 
   contacts = {
     1: "800.061.160",
-    2: "(+39)3386336750"
+    2: ""
   }
 
   constructor(private modalCtr: ModalController) { }
