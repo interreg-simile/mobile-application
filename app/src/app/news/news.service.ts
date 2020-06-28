@@ -10,6 +10,8 @@ import { GenericApiResponse } from "../shared/utils.interface"
 import { Alert } from "./alerts/alert.model";
 import { Event } from "./events/event.model";
 import { NGXLogger } from "ngx-logger";
+import { Link } from "./common/link.model";
+import { LangService } from "../shared/lang.service";
 
 
 @Injectable({ providedIn: 'root' })
@@ -34,7 +36,7 @@ export class NewsService {
 
     constructor(private http: HttpClient,
                 private storage: Storage,
-                private i18n: TranslateService,
+                private i18n: LangService,
                 private logger: NGXLogger) {}
 
 
@@ -57,8 +59,9 @@ export class NewsService {
         for (const alert of data) {
             alerts.push({
                 id       : alert._id,
-                title    : alert.title[this.i18n.currentLang] || alert.title.it,
-                content  : alert.content[this.i18n.currentLang] || alert.content.it,
+                title    : alert.title[this.i18n.currLanguage] || alert.title.it,
+                content  : alert.content[this.i18n.currLanguage] || alert.content.it,
+                links    : this.formatLinks(alert.links),
                 dateEnd  : alert.dateEnd,
                 read     : read.includes(alert._id),
                 createdAt: alert.createdAt
@@ -93,11 +96,14 @@ export class NewsService {
         for (const event of data) {
             events.push({
                 id         : event._id,
-                title      : event.title[this.i18n.currentLang] || event.title.it,
-                description: event.description[this.i18n.currentLang] || event.description.it,
-                coordinates: new LatLng(event.position.coordinates[1], event.position.coordinates[0]),
-                address    : event.position.address,
-                city       : event.position.city,
+                title      : event.title[this.i18n.currLanguage] || event.title.it,
+                description: event.description[this.i18n.currLanguage] || event.description.it,
+                links      : this.formatLinks(event.links),
+                hasDetails : event.hasDetails,
+                coordinates: (event.position && event.position.coordinates.length > 0) ?
+                    new LatLng(event.position.coordinates[1], event.position.coordinates[0]) : null,
+                address    : event.position ? event.position.address : null,
+                city       : event.position ? event.position.city : null,
                 date       : new Date(event.date),
                 contacts   : event.contacts,
                 read       : read.includes(event._id)
@@ -110,6 +116,17 @@ export class NewsService {
 
         await this.checkNewEvents();
 
+    }
+
+    private formatLinks(originalLinks?: Array<{ nameIta: string, nameEng: string, url: string }>): Array<Link> | null {
+        if (!originalLinks) return null;
+
+        return originalLinks.map(link => {
+            return {
+                name: this.i18n.currLanguage === 'en' ? link.nameEng : link.nameIta,
+                url : link.url
+            } as Link
+        })
     }
 
 

@@ -146,7 +146,11 @@ export class MapPage implements OnInit, OnDestroy {
 
         this._eventsSub = this.newsService.events.subscribe(events => {
             this._eventMarkers.clearLayers();
-            events.forEach(e => this.mapService.createEventMarker(e).addTo(this._eventMarkers));
+            events.forEach(e => {
+                if (e.coordinates) {
+                    this.mapService.createEventMarker(e).addTo(this._eventMarkers)
+                }
+            });
         });
 
         this._obsSub = this.obsService.observations.subscribe(obs => {

@@ -8,8 +8,12 @@
   "single-event": {
     "header-description": "Descrizione",
     "header-details": "dettagli",
+    "header-links": "link utili",
     "header-contacts": "contatti",
     "at": "alle",
     "get-route": "Indicazioni stradali"
+  },
+  "single-alert": {
+    "header-links": "link utili"
   }
 }

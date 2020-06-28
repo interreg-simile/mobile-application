@@ -31,9 +31,33 @@
 	
 	</section>
 	
+	<!-- Links -->
+	<section *ngIf="event.links && event.links.length > 0" class="links">
+		
+		<div class="card-header">{{"page-news.single-event.header-links" | translate}}</div>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content>
+				
+				<div *ngFor="let link of event.links; index as i"
+					 class="link"
+					 [ngClass]="i === event.links.length - 1 ? 'last' : ''">
+					
+					<p class="name">{{link.name}}</p>
+					
+					<a [href]="link.url" class="url">{{link.url}}</a>
+				
+				</div>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
 	
 	<!-- Details -->
-	<section class="details">
+	<section *ngIf="event.hasDetails" class="details">
 		
 		<div class="card-header">{{"page-news.single-event.header-details" | translate}}</div>
 		
@@ -53,7 +77,7 @@
 						<p class="route" (click)="onDirectionsClick()">
 							{{"page-news.single-event.get-route" | translate}}
 						</p>
-						
+					
 					</div>
 				
 				</div>
@@ -79,7 +103,6 @@
 	
 	</section>
 	
-	
 	<!-- Contacts -->
 	<section class="contacts">
 		
@@ -89,7 +112,9 @@
 			
 			<ion-card-content>
 				
-				<div *ngIf="event.contacts.email" class="row ion-padding-bottom">
+				<div *ngIf="event.contacts.email"
+					 [ngClass]="event.contacts.phone ? 'ion-padding-bottom' : ''"
+					 class="row">
 					
 					<ion-icon name="mail"></ion-icon>
 					

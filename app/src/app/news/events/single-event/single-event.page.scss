@@ -32,3 +32,16 @@
 
 
 .details { padding-bottom : 24px }
+
+.links {
+  padding-bottom : 24px;
+
+  .link {
+    margin-bottom: 16px;
+
+    &.last { margin-bottom: 0 }
+
+    .name { margin-bottom: 4px }
+
+  }
+}

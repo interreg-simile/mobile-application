@@ -29,7 +29,7 @@
 					<span>{{ event.title }}</span>
 				</div>
 				
-				<div class="bottom-row">
+				<div class="bottom-row" *ngIf="event.hasDetails">
 					
 					<div class="city">
 						{{ event.city | titlecase }}

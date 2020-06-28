@@ -14,3 +14,16 @@
   padding-bottom : 24px;
 }
 
+.content.padding-bottom { padding-bottom : 24px; }
+
+.links {
+  .link {
+    margin-bottom: 16px;
+
+    &.last { margin-bottom: 0 }
+
+    .name { margin-bottom: 4px }
+
+  }
+}
+

@@ -1,21 +1,29 @@
-## ToDo
+## Registrazione
 
-- [x] Implementare uso offline
-    - [x] Inserimento e sincronizzazione osservazioni
-    - [x] Impedire click su sincronizza se sta già sincronizzando
-	- [x] Basemap offline
+- [ ] Flusso apertura
+	- si apre su schermata login
+	- possibilità di registrazione o continuare come guest
+	- si apre mappa e viene salvato isGuest o tokens
+	- le successive aperture controllano la memoria e capiscono cosa aprire
+
+- [ ] Implementare login/registrazione
+	- [ ] GDPR
+	
+- [ ] Sezione profilo in impostazione
+	- [ ] logout
+	- [ ] modifica foto e informazioni
+	- [ ] se guest gli si chiede di fare login
+	
+- [ ] Pro autenticazione
+	- [ ] chiamare le autorità
+	- [ ] vedere le proprie osservazioni
+	- [ ] cancellare le proprie osservazioni (?)
 
 
 #### Future releases
 
-- [ ] Implementare login/registrazione utenti in app
-	- [ ] Termini e condizioni GDPR
-    - [ ] Implementare cancellazione delle osservazioni
-
 - [ ] Capire dopo quanto tempo le osservazioni scompaiono dalla mappa
 
-- [ ] Implementare sezione "quiz"
-    
-- [ ] Implementare chiamata alle autorità
-
 - [ ] Implementare fade dei marker delle osservazioni in base alla data
+
+- [ ] Implementare sezione "quiz"
