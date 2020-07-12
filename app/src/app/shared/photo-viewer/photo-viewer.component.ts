@@ -59,6 +59,7 @@ export class PhotoViewerComponent implements OnInit {
 
     }
 
+    // It does not work!
     async onDownloadClick(): Promise<void> {
 
         const loading = await this.loadingCtr.create({
@@ -79,6 +80,15 @@ export class PhotoViewerComponent implements OnInit {
                 this.toastService.presentToast("common.download-photo.error", Duration.short);
             })
             .finally(() => loading.dismiss())
+
+        // this.fileService
+        //     .saveImageToGalley(this.src)
+        //     .then(() => this.toastService.presentToast("common.download-photo.success", Duration.short))
+        //     .catch(err => {
+        //         this.logger.error("Error downloading the photo", err)
+        //         this.toastService.presentToast("common.download-photo.error", Duration.short);
+        //     })
+        //     .finally(() => loading.dismiss())
 
     }
 

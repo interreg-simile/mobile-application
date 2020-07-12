@@ -103,7 +103,7 @@ export class FileService {
                 };
 
                 reader.onerror = err => {
-                    this.logger.error(`Error appending image ${url}`);
+                    this.logger.error(`Error appending image ${ url }`);
                     reject(err);
                 };
 
@@ -125,15 +125,15 @@ export class FileService {
 
         const fileEntry = await this.file.resolveLocalFilesystemUrl(imgUrl);
 
-        return new Promise((resolve, reject) =>  {
+        return new Promise((resolve, reject) => {
 
             fileEntry.remove(
                 () => {
-                    this.logger.log(`File ${fileEntry.name} removed.`);
+                    this.logger.log(`File ${ fileEntry.name } removed.`);
                     resolve();
                 },
                 err => {
-                    this.logger.error(`Error removing file ${fileEntry.name}`, err);
+                    this.logger.error(`Error removing file ${ fileEntry.name }`, err);
                     reject();
                 }
             );
@@ -145,17 +145,52 @@ export class FileService {
 
     async urlToBase64(imgUrl: string): Promise<any> {
 
-        const res = await fetch(imgUrl);
+        const res  = await fetch(imgUrl);
         const blob = await res.blob();
 
         return new Promise((resolve, reject) => {
-            const reader = new FileReader()
+            const reader     = new FileReader()
             reader.onloadend = () => resolve(reader.result)
-            reader.onerror = err => {
+            reader.onerror   = err => {
                 this.logger.error("Error converting image to base 64", err)
                 reject(err)
             }
             reader.readAsDataURL(blob)
+        })
+
+    }
+
+    // It does not work
+    async saveImageToGalley(imgUrl: string): Promise<void> {
+
+        const dataDirEntry = await this.file.resolveDirectoryUrl(this.file.dataDirectory);
+        const dirEntry     = await this.file.getDirectory(dataDirEntry, this._imagesDir, null);
+
+        const res  = await fetch(imgUrl);
+        const blob = await res.blob();
+
+        const fileName = `simile_${ new Date().toISOString() }`
+
+        return new Promise((resolve, reject) => {
+            dirEntry.getFile(
+                'test',
+                { create: true, exclusive: false },
+                fileEntry => {
+                    fileEntry.createWriter(
+                        fileWriter => {
+                            fileWriter.write(blob);
+                            resolve();
+                        },
+                        err => {
+                            this.logger.error("Error creating file writer", err);
+                            reject(err);
+                        }
+                    )
+                },
+                err => {
+                    this.logger.error("Error creating file", err);
+                    reject(err);
+                })
         })
 
     }
