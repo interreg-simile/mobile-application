@@ -267,6 +267,12 @@
     "ph": "Max 500 characters..."
   },
   "photos": "Photo",
+  "photo-choice": {
+    "header": "Take photo from:",
+    "btn-camera": "Camera",
+    "btn-gallery": "Gallery",
+    "btn-close": "Close"
+  },
   "btn-send": "Send the observation",
   "or": "- or -",
   "btn-call": "Contact the authorities",

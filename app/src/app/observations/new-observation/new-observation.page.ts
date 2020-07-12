@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
+    ActionSheetController,
     AlertController,
     Events,
     LoadingController,
@@ -70,7 +71,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
                 private events: Events,
                 public helpsService: HelpsService,
                 public networkService: NetworkService,
-                private popoverCrt: PopoverController) { }
+                private popoverCrt: PopoverController,
+                private actionSheetCtrl: ActionSheetController) { }
 
 
     ngOnInit(): void {
@@ -299,7 +301,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
     async onThumbnailClick(src: string, idx: number): Promise<void> {
 
         if (!src) {
-            this.takePhoto(idx);
+            this.presentPhotoChoice(idx);
             return;
         }
 
@@ -315,7 +317,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
         if (!data.data) return;
 
         if (data.data.edit) {
-            await this.takePhoto(idx);
+            await this.presentPhotoChoice(idx);
         } else if (data.data.delete) {
             this._newObservation.photos[idx] = undefined;
             this._imageSrc[idx]              = undefined;
@@ -323,14 +325,43 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     }
 
+    async presentPhotoChoice(idx: number): Promise<void> {
+        const actionSheet = await this.actionSheetCtrl.create({
+            header: this.i18n.instant("page-new-obs.photo-choice.header"),
+            buttons: [
+                {
+                    text: this.i18n.instant("page-new-obs.photo-choice.btn-camera"),
+                    handler: async () => {
+                        await this.takePhoto(idx, false);
+                        return null;
+                    }
+                },
+                {
+                    text: this.i18n.instant("page-new-obs.photo-choice.btn-gallery"),
+                    handler: async () => {
+                        await this.takePhoto(idx, true);
+                        return null;
+                    }
+                },
+                {
+                    text: this.i18n.instant("page-new-obs.photo-choice.btn-close"),
+                    role: "cancel"
+                }
+            ]
+        })
+
+        await actionSheet.present();
+    }
+
     /**
      * Takes a photo and assigns it to the given position of the pictures array.
      *
      * @param {number} idx - The position in the array.
+     * @param {boolean} fromGallery - True if the photo has to be taken from gallery.
      */
-    async takePhoto(idx: number): Promise<void> {
+    async takePhoto(idx: number, fromGallery: boolean): Promise<void> {
 
-        const pic = await this.cameraService.takePicture();
+        const pic = await this.cameraService.takePicture(fromGallery);
 
         if (pic === PicResult.ERROR) {
             await this.toastService.presentToast("common.errors.photo", Duration.short);

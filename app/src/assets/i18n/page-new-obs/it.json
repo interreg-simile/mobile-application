@@ -267,6 +267,12 @@
     "ph": "Massimo 500 caratteri..."
   },
   "photos": "Foto",
+  "photo-choice": {
+    "header": "Cosa vuoi utilizzare?",
+    "btn-camera": "Camera",
+    "btn-gallery": "Galleria",
+    "btn-close": "Chiudi"
+  },
   "btn-send": "Invia l'osservazione",
   "or": "- o -",
   "btn-call": "Contatta le autorità",

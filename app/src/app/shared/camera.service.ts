@@ -13,12 +13,11 @@ export class CameraService {
 
     private _win: any = window;
 
-    private _opts: CameraOptions = {
+    private _baseOpts: CameraOptions = {
         quality           : 50,
         destinationType   : this.camera.DestinationType.FILE_URI,
         encodingType      : this.camera.EncodingType.JPEG,
         mediaType         : this.camera.MediaType.PICTURE,
-        sourceType        : this.camera.PictureSourceType.CAMERA,
         cameraDirection   : this.camera.Direction.BACK,
         allowEdit         : false,
         correctOrientation: true
@@ -30,11 +29,17 @@ export class CameraService {
 
     /** Takes a picture.
      *
+     * @param {boolean} [fromGallery=false] True if the picture has to be from library.
      * @return {Promise<string | PicResult>} The uri of the picture or an error.
      */
-    async takePicture(): Promise<string | PicResult> {
+    async takePicture(fromGallery: boolean = false): Promise<string | PicResult> {
 
-        let [pic, err] = await this.camera.getPicture(this._opts)
+        const opts = {
+            ...this._baseOpts,
+            sourceType: fromGallery ? this.camera.PictureSourceType.PHOTOLIBRARY : this.camera.PictureSourceType.CAMERA
+        }
+
+        let [pic, err] = await this.camera.getPicture(opts)
             .then(v => [v, undefined])
             .catch(e => [undefined, e]);
 
