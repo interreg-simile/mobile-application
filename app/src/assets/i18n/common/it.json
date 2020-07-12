@@ -19,5 +19,9 @@
     "btn-cancel": "Cancella",
     "btn-confirm": "Conferma",
     "btn-continue": "Continua"
+  },
+  "download-photo": {
+    "success": "Immagine scaricata con successo",
+    "error": "Impossibile scaricare l'immagine"
   }
 }

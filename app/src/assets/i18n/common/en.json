@@ -19,5 +19,9 @@
     "btn-cancel": "Cancel",
     "btn-confirm": "Confirm",
     "btn-continue": "Continue"
+  },
+  "download-photo": {
+    "success": "Image successfully saved on your device",
+    "error": "An error occurred while trying to save the image"
   }
 }

@@ -13,8 +13,14 @@
 		
 		</ion-buttons>
 		
-		<!-- Edit and delete buttons -->
+		<!-- Share, edit and delete buttons -->
 		<ion-buttons slot="end">
+			
+			<ion-button *ngIf="download" (click)="onDownloadClick()">
+				
+				<ion-icon name="download"></ion-icon>
+			
+			</ion-button>
 			
 			<ion-button *ngIf="edit" (click)="onEditClick()">
 				
@@ -34,14 +40,14 @@
 
 </ion-header>
 
-
 <ion-content>
 	
-	<!-- Image container -->
-	<div class="img-container">
-		
-		<img src="{{src}}" alt="Picture">
-	
-	</div>
+	<ion-slides [options]="slideOpts" zoom>
+		<ion-slide>
+			<div class="swiper-zoom-container img-container">
+				<img [src]="sanitizer.bypassSecurityTrustUrl(src)" alt="photo">
+			</div>
+		</ion-slide>
+	</ion-slides>
 
 </ion-content>

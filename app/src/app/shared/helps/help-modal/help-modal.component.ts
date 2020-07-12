@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ModalController, NavParams } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { PhotoViewerService } from "../../photo-viewer/photo-viewer.service";
+import { PhotoViewerComponent } from "../../photo-viewer/photo-viewer.component";
 
 
 @Component({
@@ -19,8 +19,7 @@ export class HelpModalComponent implements OnInit {
 
     constructor(private modalCtr: ModalController,
                 private navParams: NavParams,
-                private i18n: TranslateService,
-                private photoViewerService: PhotoViewerService) { }
+                private i18n: TranslateService) { }
 
 
     ngOnInit(): void {
@@ -43,7 +42,12 @@ export class HelpModalComponent implements OnInit {
      */
     async onImgClick(src: string): Promise<void> {
 
-        await this.photoViewerService.openPhotoViewer(src);
+        const modal = await this.modalCtr.create({
+            component: PhotoViewerComponent,
+            componentProps: { src: src, edit: false, delete: false, download: true }
+        })
+
+        await modal.present();
 
     }
 

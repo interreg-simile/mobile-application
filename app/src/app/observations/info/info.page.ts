@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { NavController } from "@ionic/angular";
+import { ModalController, NavController } from "@ionic/angular";
 import set from "lodash-es/set";
 import get from "lodash-es/get";
 import { TranslateService } from "@ngx-translate/core";
@@ -9,7 +9,7 @@ import { ObservationsService } from "../observations.service";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { ObsInfo } from "./obs-info.model";
 import { DomSanitizer } from "@angular/platform-browser";
-import { PhotoViewerService } from "../../shared/photo-viewer/photo-viewer.service";
+import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
 
 
 @Component({ selector: 'app-info', templateUrl: './info.page.html', styleUrls: ['./info.page.scss'] })
@@ -31,7 +31,7 @@ export class InfoPage implements OnInit {
                 private toastService: ToastService,
                 public i18n: TranslateService,
                 public domSanitizer: DomSanitizer,
-                private photoViewerService: PhotoViewerService) { }
+                public modalCtr: ModalController) { }
 
 
     ngOnInit() {
@@ -94,7 +94,12 @@ export class InfoPage implements OnInit {
      */
     async onThumbnailClick(src: string): Promise<void> {
 
-        await this.photoViewerService.openPhotoViewer(src);
+        const modal = await this.modalCtr.create({
+            component: PhotoViewerComponent,
+            componentProps: { src: src, edit: false, delete: false, download: true }
+        })
+
+        await modal.present();
 
     }
 

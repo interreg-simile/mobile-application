@@ -142,4 +142,22 @@ export class FileService {
 
     }
 
+
+    async urlToBase64(imgUrl: string): Promise<any> {
+
+        const res = await fetch(imgUrl);
+        const blob = await res.blob();
+
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onloadend = () => resolve(reader.result)
+            reader.onerror = err => {
+                this.logger.error("Error converting image to base 64", err)
+                reject(err)
+            }
+            reader.readAsDataURL(blob)
+        })
+
+    }
+
 }

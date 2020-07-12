@@ -15,6 +15,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { Base64ToGallery } from "@ionic-native/base64-to-gallery/ngx"
 import { FileType, IModuleTranslationOptions, ModuleTranslateLoader } from "@larscom/ngx-translate-module-loader";
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -57,6 +58,7 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
         Diagnostic,
         Camera,
         File,
+        Base64ToGallery,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         interceptorProviders
     ],
