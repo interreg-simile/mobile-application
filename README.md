@@ -24,7 +24,7 @@ data about the quality of the insubric lakes.
 
 #### Android 
 
-You can download the application from the [Play Store](https://play.google.com/store/apps/details?id=com.polimi.simile&hl=it)
+You can download the application from the [Play Store](https://play.google.com/store/apps/details?id=com.polimi.simile&hl=it).
 
 #### iOS
 
