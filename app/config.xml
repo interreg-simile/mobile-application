@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.polimi.simile" version="1.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.polimi.simile" version="1.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SIMILE - Monitoraggio Laghi</name>
     <description>Mobile application for crowdsourcing monitoring of lakes.</description>
     <author email="interreg-simile@polimi.it">Edoardo Pessina @ Politecnico di Milano</author>
