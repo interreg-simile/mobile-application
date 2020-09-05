@@ -3,7 +3,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-    { path: "", redirectTo: "/map", pathMatch: "full" },
+    { path: "", redirectTo: "/login", pathMatch: "full" },
+    { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
     { path: "map", loadChildren: "./map/map.module#MapPageModule" },
     {
         path: "observations", children: [
@@ -33,8 +34,7 @@ const routes: Routes = [
     },
     { path: "glossary", loadChildren: "./glossary/glossary.module#GlossaryPageModule" },
     { path: "project", loadChildren: "./project/project.module#ProjectPageModule" },
-    { path: "settings", loadChildren: "./settings/settings.module#SettingsPageModule" }
-
+    { path: "settings", loadChildren: "./settings/settings.module#SettingsPageModule" },
 ];
 
 

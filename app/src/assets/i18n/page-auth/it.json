@@ -1,0 +1,24 @@
+{
+  "login": "login",
+  "noAccount": "Non hai un account?",
+  "register": "registrati",
+  "or": "- o -",
+  "continueAsGuest": "continua come ospite",
+  "modalRegister": {
+    "title": "Registrazione",
+    "mandatoryText": "* Campi obbligatori",
+    "phEmail": "Email *",
+    "phPassword": "Password *",
+    "phConfirmPassword": "Conferma password *",
+    "phName": "Nome *",
+    "phSurname": "Cognome *",
+    "phCity": "Città",
+    "phYearOfBirth": "Anno di nascita",
+    "phGender": "Sesso",
+    "male": "Maschio",
+    "female": "Femmina",
+    "other": "Altro",
+    "termsText": "Cliccando sul bottone accetti i ",
+    "termsLink": "temini & condizioni"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "login": "login",
+  "noAccount": "Don't have an account?",
+  "register": "register",
+  "or": "- or -",
+  "continueAsGuest": "continue as guest",
+  "modalRegister": {
+    "title": "Registration",
+    "mandatoryText": "* Mandatory fields",
+    "phEmail": "Email *",
+    "phPassword": "Password *",
+    "phConfirmPassword": "Confirm password *",
+    "phName": "Name *",
+    "phSurname": "Surname *",
+    "phCity": "City",
+    "phYearOfBirth": "Year of birth",
+    "phGender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "termsText": "By tapping the button you agree to the ",
+    "termsLink": "terms & conditions"
+  }
+}

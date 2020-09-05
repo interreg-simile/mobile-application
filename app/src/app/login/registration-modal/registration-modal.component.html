@@ -1,0 +1,86 @@
+<ion-header>
+	
+	<ion-toolbar>
+		
+		<ion-buttons slot="start">
+			
+			<ion-button (click)="closeModal()">
+				
+				<ion-icon name="arrow-back"></ion-icon>
+			
+			</ion-button>
+		
+		</ion-buttons>
+		
+		<ion-title>{{"page-auth.modalRegister.title" | translate}}</ion-title>
+	
+	</ion-toolbar>
+
+</ion-header>
+
+<ion-content class="bg-off-white custom-container">
+	
+	<p class="small ion-margin-bottom">
+		{{'page-auth.modalRegister.mandatoryText' | translate}}
+	</p>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phEmail' | translate}}"
+				   type="email"
+				   inputmode="email"></ion-input>
+	</ion-item>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phPassword' | translate}}"
+				   type="password"
+				   inputmode="password"></ion-input>
+	</ion-item>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phConfirmPassword' | translate}}"
+				   type="password"
+				   inputmode="password"></ion-input>
+	</ion-item>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phName' | translate}}"
+				   type="text"
+				   inputmode="text"></ion-input>
+	</ion-item>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phSurname' | translate}}"
+				   type="text"
+				   inputmode="text"></ion-input>
+	</ion-item>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phCity' | translate}}"
+				   type="text"
+				   inputmode="text"></ion-input>
+	</ion-item>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phYearOfBirth' | translate}}"
+				   readonly
+				   (ionFocus)="openYearPicker()"
+				   [value]="year"></ion-input>
+	</ion-item>
+	
+	<ion-item class="val-input">
+		<ion-input placeholder="{{'page-auth.modalRegister.phGender' | translate}}"
+				   readonly
+				   (ionFocus)="openGenderPicker()"
+				   [value]="shownGender"></ion-input>
+	</ion-item>
+	
+	<p class="small terms ion-margin-bottom">
+		{{'page-auth.modalRegister.termsText' | translate}}
+		<a href="">{{'page-auth.modalRegister.termsLink' | translate}}</a>
+	</p>
+	
+	<ion-button expand="block" color="primary" class="ion-margin-top">
+		{{"page-auth.register" | translate}}
+	</ion-button>
+
+</ion-content>

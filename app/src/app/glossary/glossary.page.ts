@@ -14,7 +14,6 @@ export class GlossaryPage implements OnInit {
 
     alphabeticalOrderTerms = (a, b) => { return a.value.term.localeCompare(b.value.term) };
 
-
     constructor(private i18n: TranslateService, private modalCtr: ModalController) { }
 
     ngOnInit(): void {
