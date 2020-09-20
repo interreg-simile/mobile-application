@@ -5,7 +5,8 @@
   "errors": {
     "photo": "Error during the photo.",
     "offline": "Data not available offline.",
-    "offline-function": "Function not available offline."
+    "offline-function": "Function not available offline.",
+    "generic": "Something went wrong. Please, try again later."
   },
   "wait": "Wait...",
   "rois": {

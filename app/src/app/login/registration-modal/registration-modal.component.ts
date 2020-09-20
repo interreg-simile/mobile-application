@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, PickerController } from "@ionic/angular";
+import { LoadingController, ModalController, PickerController } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
+import { Duration, ToastService } from "../../shared/toast.service";
+import { AuthService } from "../../shared/auth.service";
 
 @Component({
     selector   : 'app-registration-modal',
@@ -9,20 +11,28 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class RegistrationModalComponent implements OnInit {
 
+    public email: string;
+    public password: string;
+    public confirmPassword: string;
+    public name: string;
+    public surname: string;
+    public city: string;
     public year: number;
-
     public gender: string;
     public shownGender: string;
 
     constructor(private modalCtr: ModalController,
                 private pickerCtr: PickerController,
-                private i18n: TranslateService) { }
+                private i18n: TranslateService,
+                private loadingCtr: LoadingController,
+                private toastService: ToastService,
+                private authService: AuthService) { }
 
     ngOnInit() {}
 
     async openYearPicker(): Promise<void> {
         const colOptions = []
-        let currYear = new Date().getFullYear()
+        let currYear     = new Date().getFullYear()
         const startYear  = 1920
         while (currYear >= startYear) {
             colOptions.push({
@@ -66,7 +76,7 @@ export class RegistrationModalComponent implements OnInit {
                 {
                     text   : this.i18n.instant("common.alerts.btn-confirm"),
                     handler: val => {
-                        this.gender = val["col"].value
+                        this.gender      = val["col"].value
                         this.shownGender = val["col"].text
                     }
                 }
@@ -74,6 +84,46 @@ export class RegistrationModalComponent implements OnInit {
         })
 
         await picker.present();
+    }
+
+    async onRegisterClick(): Promise<void> {
+        const loading = await this.loadingCtr.create({
+            message     : this.i18n.instant("common.wait"),
+            showBackdrop: false
+        });
+
+        await loading.present();
+
+        if (!this.email || !this.password || !this.confirmPassword || !this.name || !this.surname) {
+            await loading.dismiss();
+            await this.toastService.presentToast("page-auth.modalRegister.missingInfo", Duration.short)
+            return
+        }
+
+        if (this.password !== this.confirmPassword) {
+            await loading.dismiss();
+            await this.toastService.presentToast("page-auth.modalRegister.passwordMismatch", Duration.short)
+            return
+        }
+
+        try {
+            await this.authService.register(this.email, this.password, this.confirmPassword, this.city, this.name,
+                this.surname, this.year, this.gender)
+        } catch (err) {
+            await loading.dismiss();
+            if (err.status === 500) {
+                await this.toastService.presentToast("common.generic", Duration.short)
+            } else if (err.status === 409) {
+                await this.toastService.presentToast("page-auth.modalRegister.emailInUse", Duration.short)
+            } else {
+                await this.toastService.presentToast("page-auth.modalRegister.invalidInfo", Duration.short)
+            }
+            return
+        }
+
+        await loading.dismiss();
+        await this.toastService.presentToast("page-auth.modalRegister.success", Duration.short)
+        await this.closeModal()
     }
 
     async closeModal(): Promise<void> {

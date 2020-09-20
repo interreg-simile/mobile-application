@@ -27,37 +27,47 @@
 	<ion-item class="val-input">
 		<ion-input placeholder="{{'page-auth.modalRegister.phEmail' | translate}}"
 				   type="email"
-				   inputmode="email"></ion-input>
+				   inputmode="email"
+				   [(ngModel)]="email"></ion-input>
 	</ion-item>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input no-margin">
 		<ion-input placeholder="{{'page-auth.modalRegister.phPassword' | translate}}"
 				   type="password"
-				   inputmode="password"></ion-input>
+				   inputmode="password"
+				   [(ngModel)]="password"></ion-input>
 	</ion-item>
+	
+	<p class="small password-rules">
+		{{'page-auth.modalRegister.passwordRules' | translate}}
+	</p>
 	
 	<ion-item class="val-input">
 		<ion-input placeholder="{{'page-auth.modalRegister.phConfirmPassword' | translate}}"
 				   type="password"
-				   inputmode="password"></ion-input>
+				   inputmode="password"
+				   [(ngModel)]="confirmPassword"></ion-input>
 	</ion-item>
 	
 	<ion-item class="val-input">
 		<ion-input placeholder="{{'page-auth.modalRegister.phName' | translate}}"
 				   type="text"
-				   inputmode="text"></ion-input>
+				   inputmode="text"
+				   [(ngModel)]="name"></ion-input>
 	</ion-item>
 	
 	<ion-item class="val-input">
 		<ion-input placeholder="{{'page-auth.modalRegister.phSurname' | translate}}"
 				   type="text"
-				   inputmode="text"></ion-input>
+				   inputmode="text"
+				   [(ngModel)]="surname"></ion-input>
 	</ion-item>
 	
 	<ion-item class="val-input">
 		<ion-input placeholder="{{'page-auth.modalRegister.phCity' | translate}}"
 				   type="text"
-				   inputmode="text"></ion-input>
+				   inputmode="text"
+				   [(ngModel)]="city"></ion-input>
 	</ion-item>
 	
 	<ion-item class="val-input">
@@ -79,7 +89,7 @@
 		<a href="">{{'page-auth.modalRegister.termsLink' | translate}}</a>
 	</p>
 	
-	<ion-button expand="block" color="primary" class="ion-margin-top">
+	<ion-button expand="block" color="primary" class="ion-margin-top" (click)="onRegisterClick()">
 		{{"page-auth.register" | translate}}
 	</ion-button>
 

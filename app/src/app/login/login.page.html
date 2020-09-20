@@ -14,7 +14,8 @@
 				</ion-label>
 				<ion-input placeholder="Email"
 						   type="email"
-						   inputmode="email"></ion-input>
+						   inputmode="email"
+						   [(ngModel)]="email"></ion-input>
 			</ion-item>
 			
 			<ion-item class="val-input">
@@ -23,10 +24,11 @@
 				</ion-label>
 				<ion-input placeholder="Password"
 						   type="password"
-						   inputmode="password"></ion-input>
+						   inputmode="password"
+						   [(ngModel)]="password"></ion-input>
 			</ion-item>
 			
-			<ion-button expand="block" color="primary" class="ion-margin-top">
+			<ion-button expand="block" color="primary" class="ion-margin-top" (click)="onLoginClick()">
 				{{"page-auth.login" | translate}}
 			</ion-button>
 		
@@ -36,16 +38,13 @@
 			
 			<p class="ion-text-center ion-margin-bottom">{{"page-auth.noAccount" | translate}}</p>
 			
-			<ion-button expand="block"
-						color="primary"
-						class="ion-margin-bottom"
-						(click)="onRegisterClick()">
+			<ion-button expand="block" color="primary" class="ion-margin-bottom" (click)="onRegisterClick()">
 				{{"page-auth.register" | translate}}
 			</ion-button>
 			
 			<p class="ion-text-center ion-margin-bottom">{{"page-auth.or" | translate}}</p>
 			
-			<ion-button expand="block" color="primary" fill="outline">
+			<ion-button expand="block" color="primary" fill="outline" (click)="onGuestClick()">
 				{{"page-auth.continueAsGuest" | translate}}
 			</ion-button>
 		

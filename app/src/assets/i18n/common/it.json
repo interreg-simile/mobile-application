@@ -5,7 +5,8 @@
   "errors": {
     "photo": "Errore durante la foto.",
     "offline": "Dati non disponibili offline.",
-    "offline-function": "Funzione non disponibile offline."
+    "offline-function": "Funzione non disponibile offline.",
+    "generic": "Qualcosa è andato storto. Riprova più tardi."
   },
   "wait": "Attendi...",
   "rois": {

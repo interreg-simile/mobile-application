@@ -1,14 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from "@ionic/angular";
+import { LoadingController, ModalController } from "@ionic/angular";
 import { RegistrationModalComponent } from "./registration-modal/registration-modal.component";
+import { Duration, ToastService } from "../shared/toast.service";
+import { AuthService } from "../shared/auth.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({ selector: 'app-login', templateUrl: './login.page.html', styleUrls: ['./login.page.scss'] })
 export class LoginPage implements OnInit {
 
-    constructor(private modalCtr: ModalController) { }
+    public email: string
+    public password: string
 
-    ngOnInit() {
-        this.onRegisterClick()
+    constructor(private modalCtr: ModalController,
+                private toastService: ToastService,
+                private authService: AuthService,
+                private loadingCtr: LoadingController,
+                private i18n: TranslateService) { }
+
+    ngOnInit() { }
+
+    async onLoginClick(): Promise<void> {
+        const loading = await this.loadingCtr.create({
+            message     : this.i18n.instant("common.wait"),
+            showBackdrop: false
+        });
+
+        await loading.present();
+
+        if (!this.email || !this.password) {
+            await loading.dismiss();
+            await this.toastService.presentToast("page-auth.missingCredentials", Duration.short)
+            return
+        }
+
+        try {
+            await this.authService.login(this.email, this.password)
+        } catch (err) {
+            await loading.dismiss();
+            if (err.status === 500) {
+                await this.toastService.presentToast("common.generic", Duration.short)
+            } else {
+                await this.toastService.presentToast("page-auth.invalidCredentials", Duration.short)
+            }
+            return
+        }
+
+        await loading.dismiss();
     }
 
     async onRegisterClick(): Promise<void> {
@@ -17,6 +54,25 @@ export class LoginPage implements OnInit {
             backdropDismiss: false,
         })
         await modal.present();
+    }
+
+    async onGuestClick(): Promise<void> {
+        const loading = await this.loadingCtr.create({
+            message     : this.i18n.instant("common.wait"),
+            showBackdrop: false
+        });
+
+        await loading.present();
+
+        try {
+            await this.authService.signAsGuest()
+        } catch (err) {
+            await loading.dismiss();
+            await this.toastService.presentToast("common.generic", Duration.short)
+            return
+        }
+
+        await loading.dismiss();
     }
 
 }

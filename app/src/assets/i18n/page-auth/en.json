@@ -4,11 +4,14 @@
   "register": "register",
   "or": "- or -",
   "continueAsGuest": "continue as guest",
+  "missingCredentials": "Please, insert email and password",
+  "invalidCredentials": "Invalid credentials",
   "modalRegister": {
     "title": "Registration",
     "mandatoryText": "* Mandatory fields",
     "phEmail": "Email *",
     "phPassword": "Password *",
+    "passwordRules": "Password must be of at least 8 characters",
     "phConfirmPassword": "Confirm password *",
     "phName": "Name *",
     "phSurname": "Surname *",
@@ -19,6 +22,11 @@
     "female": "Female",
     "other": "Other",
     "termsText": "By tapping the button you agree to the ",
-    "termsLink": "terms & conditions"
+    "termsLink": "terms & conditions",
+    "missingInfo": "Please, fill all the mandatory fields",
+    "passwordMismatch": "Passwords don't match",
+    "invalidInfo": "Error in inserted data",
+    "emailInUse": "Email already in use",
+    "success": "Registration successful"
   }
 }
