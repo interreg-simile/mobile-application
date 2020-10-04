@@ -13,7 +13,13 @@ $color-border : #E1E1E1;
   }
 
   ion-label {
-    margin-right : 8px;
+    opacity: 0.5;
+  }
+
+  &.item-has-focus {
+    ion-label {
+      opacity: 1;
+    }
   }
 
 }
