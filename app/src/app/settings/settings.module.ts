@@ -3,14 +3,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from "@ngx-translate/core";
 
 import { SettingsPage } from './settings.page';
-import { TranslateModule } from "@ngx-translate/core";
+import { ChangeEmailComponent } from "./change-email/change-email.component";
+import { ChangeInfoComponent } from "./change-info/change-info.component";
+import { ChangePasswordComponent } from "./change-password/change-password.component";
 
 
 const routes: Routes = [{ path: '', component: SettingsPage }];
 
 @NgModule({
+    entryComponents: [
+        ChangeEmailComponent,
+        ChangePasswordComponent,
+        ChangeInfoComponent
+    ],
     imports     : [
         CommonModule,
         FormsModule,
@@ -18,6 +26,11 @@ const routes: Routes = [{ path: '', component: SettingsPage }];
         RouterModule.forChild(routes),
         TranslateModule
     ],
-    declarations: [SettingsPage]
+    declarations: [
+        SettingsPage,
+        ChangeEmailComponent,
+        ChangeInfoComponent,
+        ChangePasswordComponent
+    ]
 })
 export class SettingsPageModule {}

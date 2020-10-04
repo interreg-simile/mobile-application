@@ -20,6 +20,6 @@ const routes: Routes = [{ path: '', component: LoginPage }];
         RouterModule.forChild(routes),
         TranslateModule
     ],
-  declarations: [LoginPage, RegistrationModalComponent]
+    declarations: [LoginPage, RegistrationModalComponent]
 })
 export class LoginPageModule {}

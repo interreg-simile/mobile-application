@@ -3,6 +3,7 @@ import { LoadingController, ModalController, PickerController } from "@ionic/ang
 import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { AuthService } from "../../shared/auth.service";
+import { NetworkService } from "../../shared/network.service";
 
 @Component({
     selector   : 'app-registration-modal',
@@ -26,7 +27,8 @@ export class RegistrationModalComponent implements OnInit {
                 private i18n: TranslateService,
                 private loadingCtr: LoadingController,
                 private toastService: ToastService,
-                private authService: AuthService) { }
+                private authService: AuthService,
+                private networkService: NetworkService) { }
 
     ngOnInit() {}
 
@@ -87,6 +89,8 @@ export class RegistrationModalComponent implements OnInit {
     }
 
     async onRegisterClick(): Promise<void> {
+        if (!this.networkService.checkOnlineContentAvailability()) return;
+
         const loading = await this.loadingCtr.create({
             message     : this.i18n.instant("common.wait"),
             showBackdrop: false
@@ -112,7 +116,7 @@ export class RegistrationModalComponent implements OnInit {
         } catch (err) {
             await loading.dismiss();
             if (err.status === 500) {
-                await this.toastService.presentToast("common.generic", Duration.short)
+                await this.toastService.presentToast("common.errors.generic", Duration.short)
             } else if (err.status === 409) {
                 await this.toastService.presentToast("page-auth.modalRegister.emailInUse", Duration.short)
             } else {
@@ -127,9 +131,7 @@ export class RegistrationModalComponent implements OnInit {
     }
 
     async closeModal(): Promise<void> {
-
         await this.modalCtr.dismiss();
-
     }
 
 }

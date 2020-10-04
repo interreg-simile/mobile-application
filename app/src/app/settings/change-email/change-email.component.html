@@ -1,0 +1,34 @@
+<ion-header>
+  
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      
+      <ion-button (click)="closeModal()">
+        
+        <ion-icon name="arrow-back"></ion-icon>
+      
+      </ion-button>
+    
+    </ion-buttons>
+    
+    <ion-title>{{"page-settings.general.changeEmail.head" | translate}}</ion-title>
+  
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="bg-off-white custom-container">
+  
+  <ion-item class="val-input">
+    <ion-label position="floating">{{'page-settings.general.changeEmail.phEmail' | translate}}</ion-label>
+    <ion-input type="email"
+               inputmode="email"
+               [(ngModel)]="email"></ion-input>
+  </ion-item>
+  
+  <ion-button expand="block" color="primary" class="ion-margin-top" (click)="onConfirmClick()">
+    {{"page-settings.general.btn-confirm" | translate}}
+  </ion-button>
+
+</ion-content>

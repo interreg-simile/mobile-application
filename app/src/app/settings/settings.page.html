@@ -14,24 +14,20 @@
 
 </ion-header>
 
-
 <ion-content class="custom-container bg-off-white">
-	
 	
 	<!-- General -->
 	<section>
-		
 		<p class="card-header">{{"page-settings.general.head" | translate}}</p>
-		
 		
 		<ion-card class="ion-no-margin">
 			
 			<ion-card-content class="ion-no-padding">
 				
-				<ion-list>
+				<ion-list class="ion-no-padding">
 					
 					<!-- Language -->
-					<ion-item lines="none" (click)="onLangClick()">
+					<ion-item (click)="onLangClick()">
 						
 						<ion-icon name="globe" slot="start"></ion-icon>
 						
@@ -42,34 +38,97 @@
 							<p class="choice">{{ langService.currLanguage }}</p>
 						
 						</ion-label>
-
+					
 					</ion-item>
 					
+					<!-- Register -->
+					<ion-item *ngIf="authService.isGuest"
+										(click)="onRegisterClick()"
+										[lines]="authService.isGuest ? 'none' : ''">
+						
+						<ion-icon name="log-in" slot="start"></ion-icon>
+						
+						<ion-label>
+							
+							<p class="name">{{"page-settings.general.register" | translate}}</p>
+						
+						</ion-label>
+					
+					</ion-item>
+					
+					<!-- Change email -->
+					<ion-item *ngIf="authService.isLoggedIn()" (click)="onChangeEmailClick()">
+						
+						<ion-icon name="mail" slot="start"></ion-icon>
+						
+						<ion-label>
+							
+							<p class="name">{{"page-settings.general.changeEmail.head" | translate}}</p>
+						
+						</ion-label>
+					
+					</ion-item>
+					
+					<!-- Change password -->
+					<ion-item *ngIf="authService.isLoggedIn()" (click)="onChangePasswordClick()">
+						
+						<ion-icon name="lock" slot="start"></ion-icon>
+						
+						<ion-label>
+							
+							<p class="name">{{"page-settings.general.changePassword.head" | translate}}</p>
+						
+						</ion-label>
+					
+					</ion-item>
+					
+					<!-- Change info -->
+					<ion-item *ngIf="authService.isLoggedIn()" (click)="onChangeInfoClick()">
+						
+						<ion-icon name="person" slot="start"></ion-icon>
+						
+						<ion-label>
+							
+							<p class="name">{{"page-settings.general.changeInfo.head" | translate}}</p>
+						
+						</ion-label>
+					
+					</ion-item>
+					
+					<!-- Logout -->
+					<ion-item lines="none" *ngIf="authService.isLoggedIn()" (click)="onLogoutClick()">
+						
+						<ion-icon name="log-out" slot="start"></ion-icon>
+						
+						<ion-label class="flex-label">
+							
+							<p class="name">{{"page-settings.general.logout.head" | translate}}</p>
+						
+						</ion-label>
+					
+					</ion-item>
+				
 				</ion-list>
 			
 			</ion-card-content>
 		
 		</ion-card>
-		
-		
-	</section>
 	
+	</section>
 	
 	<!-- Info -->
 	<section class="last">
 		
-		
 		<p class="card-header">{{"page-settings.info.head" | translate}}</p>
-		
 		
 		<ion-card class="ion-no-margin">
 			
 			<ion-card-content class="ion-no-padding">
 				
-				<ion-list>
+				<ion-list class="ion-no-padding">
 					
 					<!-- Version -->
-					<ion-item lines="none">
+					<ion-item>
 						
 						<ion-icon name="build" slot="start"></ion-icon>
 						
@@ -91,15 +150,13 @@
 						<ion-label>{{"page-settings.info.contact-us" | translate}}</ion-label>
 					
 					</ion-item>
-					
+				
 				</ion-list>
 			
 			</ion-card-content>
 		
 		</ion-card>
 	
-	
 	</section>
-	
 
 </ion-content>

@@ -13,9 +13,9 @@ interface LoginResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    public isGuest: boolean
-    public token: string
-    public userId: string
+    public isGuest: boolean = false
+    public token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjc4NDVhOTQyYmE0MjIxZTQyN2VjZmMiLCJlbWFpbCI6ImVkb2FyZG9wZXNzaW5hQHlhaG9vLml0IiwiaWF0IjoxNjAxODA0NTE2fQ.uBZlFw2FhGDGkJShebvk1flPWFJAymedhxoQNKpQIsI'
+    public userId: string = '5f7845a942ba4221e427ecfc'
 
     private readonly _storageKeyGuest  = "isGuest";
     private readonly _storageKeyToken  = "token";
@@ -28,6 +28,16 @@ export class AuthService {
         this.isGuest = await this.storage.get(this._storageKeyGuest);
         this.token   = await this.storage.get(this._storageKeyToken);
         this.userId  = await this.storage.get(this._storageKeyUserId);
+
+        console.log(this.isGuest, this.token, this.userId)
+    }
+
+    isUserAuthenticated() {
+        return (this.isGuest || (this.token && this.userId))
+    }
+
+    isLoggedIn() {
+        return this.token && this.userId
     }
 
     async login(email: string, password: string): Promise<void> {

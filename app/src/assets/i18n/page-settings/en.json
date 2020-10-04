@@ -2,6 +2,33 @@
   "title": "Settings",
   "general": {
     "head": "General",
+    "register": "Login or register",
+    "btn-confirm": "Confirm",
+    "updateSuccess": "The update was successful",
+    "changeEmail": {
+      "head": "Change email",
+      "phEmail": "Email",
+      "missingEmail": "You have to provide the new email address"
+    },
+    "changePassword": {
+      "head": "Change password",
+      "oldPassword": "Old password",
+      "newPassword": "New password",
+      "confirmNewPassword": "Confirm new password",
+      "missingInfo": "You have to fill all the fields"
+    },
+    "changeInfo": {
+      "head": "Change personal information",
+      "name": "Name",
+      "surname": "Surname",
+      "city": "City",
+      "year": "Year of birth",
+      "gender": "Gender",
+      "missingInfo": "Name and surname are mandatory"
+    },
+    "logout": {
+      "head": "Logout"
+    },
     "language": {
       "head": "Language",
       "header": "Choose the language",

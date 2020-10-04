@@ -6,12 +6,11 @@
 	- si apre mappa e viene salvato isGuest o tokens
 	- le successive aperture controllano la memoria e capiscono cosa aprire
 
-- [ ] Implementare login/registrazione
-	- [ ] GDPR
+- [ ] GDPR
 	
 - [ ] Sezione profilo in impostazione
 	- [ ] logout
-	- [ ] modifica foto e informazioni
+	- [x] modifica informazioni
 	- [ ] se guest gli si chiede di fare login
 	
 - [ ] Pro autenticazione
@@ -20,10 +19,6 @@
 	- [ ] cancellare le proprie osservazioni (?)
 
 
-#### Future releases
+- [ ] Quando faccio logout la mappa deve in qualche modo resettarsi
 
-- [ ] Capire dopo quanto tempo le osservazioni scompaiono dalla mappa
-
-- [ ] Implementare fade dei marker delle osservazioni in base alla data
-
-- [ ] Implementare sezione "quiz"
+- [ ] Non devo poter tornare indietro dalla mappa o dall schermata di login

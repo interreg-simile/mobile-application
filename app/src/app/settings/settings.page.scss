@@ -11,13 +11,13 @@ ion-icon {
   color : var(--ion-color-primary);
 }
 
+ion-label p { color : #000000 }
+
 
 .flex-label {
   display         : flex;
   justify-content : space-between;
   align-items     : center;
-
-  p { color : #000000 }
 
   .name { flex : 1 }
 

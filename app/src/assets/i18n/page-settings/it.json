@@ -2,6 +2,33 @@
   "title": "Impostazioni",
   "general": {
     "head": "Generali",
+    "register": "Accedi o registrati",
+    "btn-confirm": "Conferma",
+    "updateSuccess": "Modifica avvenuta con successo",
+    "changeEmail": {
+      "head": "Modifica email",
+      "phEmail": "Email",
+      "missingEmail": "Devi inserire il nuovo indirizzo email"
+    },
+    "changePassword": {
+      "head": "Modifica password",
+      "oldPassword": "Vecchia password",
+      "newPassword": "Nuova password",
+      "confirmNewPassword": "Conferma nuova password",
+      "missingInfo": "Devi compilare tutti i campi"
+    },
+    "changeInfo": {
+      "head": "Modifica informazioni personali",
+      "name": "Nome",
+      "surname": "Cognome",
+      "city": "Città",
+      "year": "Anno di nascita",
+      "gender": "Sesso",
+      "missingInfo": "Nome e cognome sono obbligatori"
+    },
+    "logout": {
+      "head": "Logout"
+    },
     "language": {
       "head": "Lingua",
       "header": "Scegli la lingua",
