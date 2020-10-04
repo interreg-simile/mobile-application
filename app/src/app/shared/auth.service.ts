@@ -13,9 +13,9 @@ interface LoginResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    public isGuest: boolean = false
-    public token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Zjc4NDVhOTQyYmE0MjIxZTQyN2VjZmMiLCJlbWFpbCI6ImVkb2FyZG9wZXNzaW5hQHlhaG9vLml0IiwiaWF0IjoxNjAxODA0NTE2fQ.uBZlFw2FhGDGkJShebvk1flPWFJAymedhxoQNKpQIsI'
-    public userId: string = '5f7845a942ba4221e427ecfc'
+    public isGuest: boolean
+    public token: string
+    public userId: string
 
     private readonly _storageKeyGuest  = "isGuest";
     private readonly _storageKeyToken  = "token";

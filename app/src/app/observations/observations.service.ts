@@ -17,7 +17,7 @@ import { FileService } from "../shared/file.service";
 
 export interface MinimalObservation {
     _id: string,
-    // uid: string,
+    uid: string,
     callId?: number,
     position: {
         coordinates: Array<number>,

@@ -16,7 +16,11 @@
 - [ ] Pro autenticazione
 	- [ ] chiamare le autorità
 	- [ ] vedere le proprie osservazioni
-	- [ ] cancellare le proprie osservazioni (?)
+	    - [ ] inserimento (+ offline)
+	    - [ ] nuovo cluster
+	    - [ ] nuova icona
+	    - [ ] fix legenda
+	    - [ ] cancellazione (?)
 
 
 - [ ] Quando faccio logout la mappa deve in qualche modo resettarsi
