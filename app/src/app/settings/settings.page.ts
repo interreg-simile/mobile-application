@@ -87,6 +87,7 @@ export class SettingsPage implements OnInit {
     // TODO onRegisterClick
     async onRegisterClick(): Promise<void> {
         console.log("Register click")
+        await this.authService.logout()
     }
 
     async onChangeEmailClick(): Promise<void> {

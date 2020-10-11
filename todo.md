@@ -8,19 +8,18 @@
 
 - [ ] GDPR
 	
-- [ ] Sezione profilo in impostazione
+- [ ] Sezione profilo in impostazioni
 	- [ ] logout
 	- [x] modifica informazioni
 	- [ ] se guest gli si chiede di fare login
 	
 - [ ] Pro autenticazione
 	- [ ] chiamare le autorità
-	- [ ] vedere le proprie osservazioni
-	    - [ ] inserimento (+ offline)
-	    - [ ] nuovo cluster
-	    - [ ] nuova icona
-	    - [ ] fix legenda
-	    - [ ] cancellazione (?)
+	- [x] vedere le proprie osservazioni
+	    - [x] inserimento (+ offline)
+	    - [x] nuovo cluster
+	    - [x] nuova icona
+	    - [x] fix legenda
 
 
 - [ ] Quando faccio logout la mappa deve in qualche modo resettarsi

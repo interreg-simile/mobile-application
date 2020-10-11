@@ -12,9 +12,8 @@ import { LocationErrors } from "../shared/common.enum";
 import { environment } from "../../environments/environment";
 import { GenericApiResponse } from "../shared/utils.interface";
 import { MinimalObservation } from "../observations/observations.service";
-import { eventMarkerIcon, userObservationMarkerIcon } from "../shared/markers";
-import { ConnectionStatus, NetworkService } from "../shared/network.service";
-import { Duration, ToastService } from "../shared/toast.service";
+import { eventMarkerIcon, observationMarkerIcon, userObservationMarkerIcon } from "../shared/markers";
+import { NetworkService } from "../shared/network.service";
 import { Event } from "../news/events/event.model";
 import { AuthService } from "../shared/auth.service";
 
@@ -123,14 +122,13 @@ export class MapService {
     const markerOptions: MarkerOptions = {}
 
     if (obs.uid && obs.uid === this.authService.userId) {
-      // TODO change icon
-      markerOptions.icon = userObservationMarkerIcon()
-      markerOptions.zIndexOffset = 2
-      markerOptions['isPersonal'] = true
-    } else {
       markerOptions.icon = userObservationMarkerIcon()
       markerOptions.zIndexOffset = 3
-      markerOptions['isPersonal'] = false
+      markerOptions["isPersonal"] = true
+    } else {
+      markerOptions.icon = observationMarkerIcon()
+      markerOptions.zIndexOffset = 2
+      markerOptions["isPersonal"] = false
     }
 
     const marker = new Marker(new LatLng(obs.position.coordinates[1], obs.position.coordinates[0]), markerOptions);

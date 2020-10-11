@@ -87,6 +87,7 @@ export class MapPage implements OnInit, OnDestroy {
 
   private _eventMarkers: MarkerClusterGroup;
   private _obsMarkers: MarkerClusterGroup;
+  private _userObsMarkers: MarkerClusterGroup;
 
   public _areNewEvents: boolean;
   public _areNewAlerts: boolean;
@@ -155,10 +156,15 @@ export class MapPage implements OnInit, OnDestroy {
 
     this._obsSub = this.obsService.observations.subscribe(obs => {
       this._obsMarkers.clearLayers();
+      this._userObsMarkers.clearLayers();
       obs.forEach(o => {
+        console.log(o)
         const marker: Marker = this.mapService.createObservationMarker(o)
         console.log(marker)
-        marker.addTo(this._obsMarkers)
+        if (marker.options["isPersonal"])
+          marker.addTo(this._userObsMarkers)
+        else
+          marker.addTo(this._obsMarkers)
       });
     });
 
@@ -218,13 +224,25 @@ export class MapPage implements OnInit, OnDestroy {
 
     this._obsMarkers = new MarkerClusterGroup({
       iconCreateFunction: cluster => {
-        const icon             = this._eventMarkers._defaultIconCreateFunction(cluster);
-        icon.options.className = "marker-cluster marker-cluster-user-obs";
+        const icon             = this._obsMarkers._defaultIconCreateFunction(cluster);
+        icon.options.className = "marker-cluster marker-cluster-obs";
         return icon;
       }
     });
 
     this._obsMarkers.on("clusterclick", () => {
+      if (this._isAppOffline) this.toastService.presentToast("common.errors.offline", Duration.short)
+    });
+
+    this._userObsMarkers = new MarkerClusterGroup({
+      iconCreateFunction: cluster => {
+        const icon             = this._userObsMarkers._defaultIconCreateFunction(cluster);
+        icon.options.className = "marker-cluster marker-cluster-user-obs";
+        return icon;
+      }
+    });
+
+    this._userObsMarkers.on("clusterclick", () => {
       if (this._isAppOffline) this.toastService.presentToast("common.errors.offline", Duration.short)
     });
 
@@ -274,6 +292,7 @@ export class MapPage implements OnInit, OnDestroy {
 
     this._eventMarkers.addTo(this._map);
     this._obsMarkers.addTo(this._map);
+    this._userObsMarkers.addTo(this._map);
 
     if (this._userMarker) this._userMarker.addTo(this._map);
     if (this._accuracyCircle) this._accuracyCircle.addTo(this._map);
@@ -611,8 +630,9 @@ export class MapPage implements OnInit, OnDestroy {
     const popover = await this.popoverCtr.create({
       component     : LegendComponent,
       componentProps: {
-        hasObsMarkers   : this._map.hasLayer(this._obsMarkers),
-        hasEventsMarkers: this._map.hasLayer(this._eventMarkers)
+        hasUserObsMarkers: this._map.hasLayer(this._userObsMarkers),
+        hasObsMarkers    : this._map.hasLayer(this._obsMarkers),
+        hasEventsMarkers : this._map.hasLayer(this._eventMarkers)
       },
       event         : e,
       showBackdrop  : false
@@ -631,6 +651,10 @@ export class MapPage implements OnInit, OnDestroy {
   private onPopoverChange(marker: Markers, checked: boolean): void {
 
     switch (marker) {
+
+      case Markers.USER_OBSERVATIONS:
+        this.toggleMarkerCluster(this._userObsMarkers, checked);
+        break;
 
       case Markers.OTHER_OBSERVATIONS:
         this.toggleMarkerCluster(this._obsMarkers, checked);
