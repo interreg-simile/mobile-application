@@ -66,6 +66,8 @@ export class AlgaeComponent implements OnInit {
 
         }
 
+        console.log(this.obsService.newObservation)
+
         await this.modalCtr.dismiss();
 
     }
@@ -88,7 +90,7 @@ export class AlgaeComponent implements OnInit {
             }
 
             this._colours[c].selected = true;
-            this._props.colour = colour.key;
+            this._props.colour = parseInt(colour.key);
 
         });
 

@@ -111,8 +111,8 @@ export class RegistrationModalComponent implements OnInit {
         }
 
         try {
-            await this.authService.register(this.email, this.password, this.confirmPassword, this.city, this.name,
-                this.surname, this.year, this.gender)
+            await this.authService.register(this.email, this.password, this.confirmPassword, this.name,
+                this.surname, this.city, this.year, this.gender)
         } catch (err) {
             await loading.dismiss();
             if (err.status === 500) {

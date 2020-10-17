@@ -82,7 +82,7 @@ export class OutletsComponent implements OnInit {
             }
 
             this._colours[c].selected = true;
-            this._props.colour        = colour.key;
+            this._props.colour        = parseInt(colour.key);
 
         });
 

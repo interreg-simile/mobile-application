@@ -112,6 +112,8 @@ export class ObservationsService {
      */
     async postObservation(): Promise<"online" | "offline"> {
 
+        console.log(this.newObservation)
+
         const cleanObs = this.cleanObservationFields();
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
