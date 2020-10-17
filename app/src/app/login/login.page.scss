@@ -18,7 +18,12 @@ $color-border : #E1E1E1;
 }
 
 .login-container {
-  margin-bottom : 72px;
+  margin-bottom : 64px;
+}
+
+.forgot-password {
+  margin: 16px 0 24px 0;
+  color: var(--ion-color-primary);
 }
 
 .val-input {

@@ -29,7 +29,7 @@ import { ConnectionStatus, NetworkService } from "../shared/network.service";
  * @author Edoardo Pessina <edoardo.pessina@polimi.it>
  */
 @Component({ selector: 'app-map', templateUrl: './map.page.html', styleUrls: ['./map.page.scss'] })
-export class MapPage implements OnInit, OnDestroy {
+export class MapPage implements OnInit {
 
   private readonly _storageKeyPosition = "position";
 
@@ -158,9 +158,7 @@ export class MapPage implements OnInit, OnDestroy {
       this._obsMarkers.clearLayers();
       this._userObsMarkers.clearLayers();
       obs.forEach(o => {
-        console.log(o)
         const marker: Marker = this.mapService.createObservationMarker(o)
-        console.log(marker)
         if (marker.options["isPersonal"])
           marker.addTo(this._userObsMarkers)
         else
@@ -175,13 +173,11 @@ export class MapPage implements OnInit, OnDestroy {
 
 
   ionViewDidEnter(): void {
-
     this.initMap().then(() => {
       if (this._isAppOffline && this._restoreOfflineBasemap) this.setOfflineBasemap();
       this.startWatcher().catch(() => {});
       this.subscribeNetworkChanges();
     });
-
   }
 
 
@@ -829,23 +825,6 @@ export class MapPage implements OnInit, OnDestroy {
 
     this._map.remove();
     this._map = null;
-
-  }
-
-
-  ngOnDestroy(): void {
-
-    this.stopWatcher();
-
-    if (this._positionSub) this._positionSub.unsubscribe();
-    if (this._networkSub) this._networkSub.unsubscribe();
-    if (this._pauseSub) this._pauseSub.unsubscribe();
-    if (this._eventsSub) this._eventsSub.unsubscribe();
-    if (this._obsSub) this._obsSub.unsubscribe();
-    if (this._newAlertsSub) this._newAlertsSub.unsubscribe();
-    if (this._newEventsSub) this._newEventsSub.unsubscribe();
-
-    this._map.remove();
 
   }
 

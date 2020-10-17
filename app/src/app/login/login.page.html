@@ -28,7 +28,11 @@
 						   [(ngModel)]="password"></ion-input>
 			</ion-item>
 			
-			<ion-button expand="block" color="primary" class="ion-margin-top" (click)="onLoginClick()">
+			<p class="ion-text-center forgot-password" (click)="onForgotPasswordClick()">
+				{{"page-auth.forgot-password" | translate}}
+			</p>
+			
+			<ion-button expand="block" color="primary" (click)="onLoginClick()">
 				{{"page-auth.login" | translate}}
 			</ion-button>
 		

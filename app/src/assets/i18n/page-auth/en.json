@@ -1,5 +1,7 @@
 {
   "login": "login",
+  "forgot-password": "Forgot password",
+  "forgot-password-mg": "To recover your password send an email to {{email}}",
   "noAccount": "Don't have an account?",
   "register": "register",
   "or": "- or -",

@@ -55,8 +55,6 @@ export class ObservationsService {
 
         const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
 
-        console.log(res.data)
-
         this._obs.next(res.data);
 
     }
