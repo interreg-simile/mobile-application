@@ -34,6 +34,7 @@ export class SettingsPage implements OnInit {
               private loadingCtr: LoadingController,
               private userService: UserService,
               private toastService: ToastService,
+              private alertCtr: AlertController,
               private navController: NavController) { }
 
   ngOnInit() {
@@ -157,8 +158,58 @@ export class SettingsPage implements OnInit {
   }
 
   async onLogoutClick(): Promise<void> {
+    const alert = await this.alertCtr.create({
+      header         : this.i18n.instant("page-settings.account.logout.head"),
+      message        : this.i18n.instant("page-settings.account.logout.msg"),
+      buttons        : [
+        { text: this.i18n.instant("page-settings.account.logout.btn-cancel"), role: "cancel" },
+        { text: this.i18n.instant("page-settings.account.logout.btn-confirm"), role: "continue" }
+      ],
+      backdropDismiss: false
+    });
+
+    await alert.present();
+
+    const choice = (await alert.onDidDismiss()).role;
+
+    if (choice === "cancel") return;
+
     await this.authService.logout()
     await this.navController.navigateRoot('/login')
+  }
+
+  async onDeleteClick(): Promise<void> {
+    const alert = await this.alertCtr.create({
+      header         : this.i18n.instant("page-settings.account.delete.head"),
+      message        : this.i18n.instant("page-settings.account.delete.msg"),
+      buttons        : [
+        { text: this.i18n.instant("page-settings.account.delete.btn-cancel"), role: "cancel" },
+        { text: this.i18n.instant("page-settings.account.delete.btn-delete"), role: "continue" }
+      ],
+      backdropDismiss: false
+    });
+
+    await alert.present();
+
+    const choice = (await alert.onDidDismiss()).role;
+
+    if (choice === "cancel") return;
+
+    const loading = await this.loadingCtr.create({
+      message     : this.i18n.instant("common.wait"),
+      showBackdrop: false
+    });
+    await loading.present();
+
+    try {
+      await this.userService.deleteUser()
+      await this.authService.logout()
+      await loading.dismiss();
+      await this.navController.navigateRoot('/login')
+    } catch (error) {
+      await loading.dismiss();
+      await this.toastService.presentToast("common.errors.generic", Duration.short)
+    }
   }
 
   async getAppVersion(): Promise<void> {

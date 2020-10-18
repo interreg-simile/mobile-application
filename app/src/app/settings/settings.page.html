@@ -27,7 +27,7 @@
 				<ion-list class="ion-no-padding">
 					
 					<!-- Language -->
-					<ion-item (click)="onLangClick()">
+					<ion-item lines="none" (click)="onLangClick()">
 						
 						<ion-icon name="globe" slot="start"></ion-icon>
 						
@@ -40,17 +40,35 @@
 						</ion-label>
 					
 					</ion-item>
+				
+				</ion-list>
+			
+			</ion-card-content>
+		
+		</ion-card>
+	
+	</section>
+	
+	<!-- Account -->
+	<section>
+		<p class="card-header">{{"page-settings.account.head" | translate}}</p>
+		
+		<ion-card class="ion-no-margin">
+			
+			<ion-card-content class="ion-no-padding">
+				
+				<ion-list class="ion-no-padding">
 					
 					<!-- Register -->
 					<ion-item *ngIf="authService.isGuest"
 										(click)="onRegisterClick()"
-										[lines]="authService.isGuest ? 'none' : ''">
+										lines="none">
 						
 						<ion-icon name="log-in" slot="start"></ion-icon>
 						
 						<ion-label>
 							
-							<p class="name">{{"page-settings.general.register" | translate}}</p>
+							<p class="name">{{"page-settings.account.register" | translate}}</p>
 						
 						</ion-label>
 					
@@ -63,7 +81,7 @@
 						
 						<ion-label>
 							
-							<p class="name">{{"page-settings.general.changeEmail.head" | translate}}</p>
+							<p class="name">{{"page-settings.account.changeEmail.head" | translate}}</p>
 						
 						</ion-label>
 					
@@ -76,7 +94,7 @@
 						
 						<ion-label>
 							
-							<p class="name">{{"page-settings.general.changePassword.head" | translate}}</p>
+							<p class="name">{{"page-settings.account.changePassword.head" | translate}}</p>
 						
 						</ion-label>
 					
@@ -89,20 +107,33 @@
 						
 						<ion-label>
 							
-							<p class="name">{{"page-settings.general.changeInfo.head" | translate}}</p>
+							<p class="name">{{"page-settings.account.changeInfo.head" | translate}}</p>
 						
 						</ion-label>
 					
 					</ion-item>
 					
 					<!-- Logout -->
-					<ion-item lines="none" *ngIf="authService.isLoggedIn()" (click)="onLogoutClick()">
+					<ion-item *ngIf="authService.isLoggedIn()" (click)="onLogoutClick()">
 						
 						<ion-icon name="log-out" slot="start"></ion-icon>
 						
 						<ion-label class="flex-label">
 							
-							<p class="name">{{"page-settings.general.logout.head" | translate}}</p>
+							<p class="name">{{"page-settings.account.logout.head" | translate}}</p>
+						
+						</ion-label>
+					
+					</ion-item>
+					
+					<!-- Delete -->
+					<ion-item lines="none" *ngIf="authService.isLoggedIn()" (click)="onDeleteClick()">
+						
+						<ion-icon name="trash" slot="start"></ion-icon>
+						
+						<ion-label class="flex-label">
+							
+							<p class="name">{{"page-settings.account.delete.head" | translate}}</p>
 						
 						</ion-label>
 					

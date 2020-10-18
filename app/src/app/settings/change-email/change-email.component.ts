@@ -30,7 +30,7 @@ export class ChangeEmailComponent {
 
         if (!this.email) {
             await loading.dismiss();
-            await this.toastService.presentToast("page-settings.general.changeEmail.missingEmail", Duration.short)
+            await this.toastService.presentToast("page-settings.account.changeEmail.missingEmail", Duration.short)
             return
         }
 
@@ -38,7 +38,9 @@ export class ChangeEmailComponent {
             await this.userService.changeEmail(this.email)
         } catch (error) {
             await loading.dismiss();
-            if (error.status === 409) {
+            if (error.status === 422) {
+                await this.toastService.presentToast("page-auth.modalRegister.invalidInfo", Duration.short)
+            } else if (error.status === 409) {
                 await this.toastService.presentToast("page-auth.modalRegister.emailInUse", Duration.short)
             } else {
                 await this.toastService.presentToast("common.errors.generic", Duration.short)
@@ -48,7 +50,7 @@ export class ChangeEmailComponent {
 
         await loading.dismiss();
         await this.closeModal()
-        await this.toastService.presentToast("page-settings.general.updateSuccess", Duration.short)
+        await this.toastService.presentToast("page-settings.account.updateSuccess", Duration.short)
     }
 
     async closeModal(): Promise<void> {

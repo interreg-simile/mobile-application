@@ -31,7 +31,7 @@ export class ChangePasswordComponent {
 
     if (!this.password || !this.confirmPassword) {
       await loading.dismiss();
-      await this.toastService.presentToast("page-settings.general.changePassword.missingInfo", Duration.short)
+      await this.toastService.presentToast("page-settings.account.changePassword.missingInfo", Duration.short)
       return
     }
 
@@ -45,17 +45,17 @@ export class ChangePasswordComponent {
       await this.userService.changePassword(this.oldPassword, this.password, this.confirmPassword)
     } catch (error) {
       await loading.dismiss();
-      if (error.status === 500) {
-        await this.toastService.presentToast("common.errors.generic", Duration.short)
-      } else {
+      if (error.status === 422 || error.status === 401) {
         await this.toastService.presentToast("page-auth.modalRegister.invalidInfo", Duration.short)
+      } else {
+        await this.toastService.presentToast("common.errors.generic", Duration.short)
       }
       return
     }
 
     await loading.dismiss();
     await this.closeModal()
-    await this.toastService.presentToast("page-settings.general.updateSuccess", Duration.short)
+    await this.toastService.presentToast("page-settings.account.updateSuccess", Duration.short)
   }
 
   async closeModal(): Promise<void> {

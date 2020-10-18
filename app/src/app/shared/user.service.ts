@@ -50,4 +50,9 @@ export class UserService {
     await this.http.patch<GenericApiResponse>(url, body).toPromise();
   }
 
+  async deleteUser(): Promise<void> {
+    const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/users/${this.authService.userId}`;
+    await this.http.delete(url).toPromise()
+  }
+
 }

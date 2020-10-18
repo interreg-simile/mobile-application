@@ -12,7 +12,7 @@
     
     </ion-buttons>
     
-    <ion-title>{{"page-settings.general.changeInfo.head" | translate}}</ion-title>
+    <ion-title>{{"page-settings.account.changeInfo.head" | translate}}</ion-title>
   
   </ion-toolbar>
 
@@ -21,42 +21,42 @@
 <ion-content class="bg-off-white custom-container">
   
   <ion-item class="val-input">
-    <ion-label position="floating">{{'page-settings.general.changeInfo.name' | translate}}</ion-label>
+    <ion-label position="floating">{{'page-settings.account.changeInfo.name' | translate}}</ion-label>
     <ion-input type="text"
                inputmode="text"
                [(ngModel)]="name"></ion-input>
   </ion-item>
   
   <ion-item class="val-input">
-    <ion-label position="floating">{{'page-settings.general.changeInfo.surname' | translate}}</ion-label>
+    <ion-label position="floating">{{'page-settings.account.changeInfo.surname' | translate}}</ion-label>
     <ion-input type="text"
                inputmode="text"
                [(ngModel)]="surname"></ion-input>
   </ion-item>
   
   <ion-item class="val-input">
-    <ion-label position="floating">{{'page-settings.general.changeInfo.city' | translate}}</ion-label>
+    <ion-label position="floating">{{'page-settings.account.changeInfo.city' | translate}}</ion-label>
     <ion-input type="text"
                inputmode="text"
                [(ngModel)]="city"></ion-input>
   </ion-item>
   
   <ion-item class="val-input">
-    <ion-label position="floating">{{'page-settings.general.changeInfo.year' | translate}}</ion-label>
-    <ion-input readonly
-               (ionFocus)="openYearPicker()"
-               [value]="yearOfBirth"></ion-input>
+    <ion-label position="floating">{{'page-auth.modalRegister.phYearOfBirth' | translate}}</ion-label>
+    <ion-input type="number"
+               inputmode="number"
+               [(ngModel)]="yearOfBirth"></ion-input>
   </ion-item>
   
   <ion-item class="val-input">
-    <ion-label position="floating">{{'page-settings.general.changeInfo.gender' | translate}}</ion-label>
+    <ion-label position="floating">{{'page-settings.account.changeInfo.gender' | translate}}</ion-label>
     <ion-input readonly
                (ionFocus)="openGenderPicker()"
                [value]="shownGender"></ion-input>
   </ion-item>
   
   <ion-button expand="block" color="primary" class="ion-margin-top" (click)="onConfirmClick()">
-    {{"page-settings.general.btn-confirm" | translate}}
+    {{"page-settings.account.btn-confirm" | translate}}
   </ion-button>
 
 </ion-content>

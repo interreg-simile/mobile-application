@@ -44,10 +44,12 @@ export class LoginPage implements OnInit {
       await this.authService.login(this.email, this.password)
     } catch (err) {
       await loading.dismiss();
-      if (err.status === 500) {
-        await this.toastService.presentToast("common.errors.generic", Duration.short)
-      } else {
+      if (err.status === 401 || err.status === 404 || err.status === 422) {
         await this.toastService.presentToast("page-auth.invalidCredentials", Duration.short)
+      } else if (err.status === 403) {
+        await this.toastService.presentToast("page-auth.emailNotVerified", Duration.short)
+      } else {
+        await this.toastService.presentToast("common.errors.generic", Duration.short)
       }
       return
     }

@@ -8,6 +8,7 @@
   "continueAsGuest": "continua come ospite",
   "missingCredentials": "Devi inserire email e password",
   "invalidCredentials": "Credenziali errate",
+  "emailNotVerified": "Email non verificata",
   "modalRegister": {
     "title": "Registrazione",
     "mandatoryText": "* Campi obbligatori",
@@ -18,7 +19,7 @@
     "phName": "Nome *",
     "phSurname": "Cognome *",
     "phCity": "Città",
-    "phYearOfBirth": "Anno di nascita",
+    "phYearOfBirth": "Anno di nascita (yyyy)",
     "phGender": "Sesso",
     "male": "Maschio",
     "female": "Femmina",

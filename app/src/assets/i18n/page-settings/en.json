@@ -2,6 +2,16 @@
   "title": "Settings",
   "general": {
     "head": "General",
+    "language": {
+      "head": "Language",
+      "header": "Choose the language",
+      "it": "Italiano",
+      "en": "English",
+      "msg-change": "The language will be changed after the next reboot."
+    }
+  },
+  "account": {
+    "head": "Account",
     "register": "Login or register",
     "btn-confirm": "Confirm",
     "updateSuccess": "The update was successful",
@@ -27,14 +37,16 @@
       "missingInfo": "Name and surname are mandatory"
     },
     "logout": {
-      "head": "Logout"
+      "head": "Logout",
+      "msg": "Are you sure to logout?",
+      "btn-confirm": "Confirm",
+      "btn-cancel": "Cancel"
     },
-    "language": {
-      "head": "Language",
-      "header": "Choose the language",
-      "it": "Italiano",
-      "en": "English",
-      "msg-change": "The language will be changed after the next reboot."
+    "delete": {
+      "head": "Delete account",
+      "msg": "Are you sure to delete this account? This operation is irreversible.",
+      "btn-delete": "Delete",
+      "btn-cancel": "Cancel"
     }
   },
   "info": {

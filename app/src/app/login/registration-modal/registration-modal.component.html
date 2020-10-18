@@ -72,9 +72,9 @@
 	
 	<ion-item class="val-input">
 		<ion-label position="floating">{{'page-auth.modalRegister.phYearOfBirth' | translate}}</ion-label>
-		<ion-input readonly
-							 (ionFocus)="openYearPicker()"
-							 [value]="year"></ion-input>
+		<ion-input type="number"
+							 inputmode="number"
+							 [(ngModel)]="year"></ion-input>
 	</ion-item>
 	
 	<ion-item class="val-input">

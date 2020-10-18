@@ -2,6 +2,16 @@
   "title": "Impostazioni",
   "general": {
     "head": "Generali",
+    "language": {
+      "head": "Lingua",
+      "header": "Scegli la lingua",
+      "it": "Italiano",
+      "en": "English",
+      "msg-change": "La lingua sarà cambiata al prossimo riavvio."
+    }
+  },
+  "account": {
+    "head": "Account",
     "register": "Accedi o registrati",
     "btn-confirm": "Conferma",
     "updateSuccess": "Modifica avvenuta con successo",
@@ -27,14 +37,16 @@
       "missingInfo": "Nome e cognome sono obbligatori"
     },
     "logout": {
-      "head": "Logout"
+      "head": "Logout",
+      "msg": "Sei sicuro di voler fare logout?",
+      "btn-confirm": "Conferma",
+      "btn-cancel": "Annulla"
     },
-    "language": {
-      "head": "Lingua",
-      "header": "Scegli la lingua",
-      "it": "Italiano",
-      "en": "English",
-      "msg-change": "La lingua sarà cambiata al prossimo riavvio."
+    "delete": {
+      "head": "Elimina account",
+      "msg": "Sei sicuro di voler eliminare il tuo account? Questa operazione è irreversibile.",
+      "btn-delete": "Elimina",
+      "btn-cancel": "Annulla"
     }
   },
   "info": {
