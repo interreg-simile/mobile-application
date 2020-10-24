@@ -23,6 +23,7 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="Orientation" value="portrait" />
+    <preference name="target-device" value="handset" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="23" />
         <preference name="android-targetSdkVersion" value="28" />
