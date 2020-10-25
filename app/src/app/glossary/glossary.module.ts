@@ -1,15 +1,15 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from "@ionic/angular";
+import {IonicModule} from '@ionic/angular';
 
-import { GlossaryPage } from "./glossary.page";
-import { TranslateModule } from "@ngx-translate/core";
-import { TermModalComponent } from "./term-modal/term-modal.component";
+import {GlossaryPage} from './glossary.page';
+import {TranslateModule} from '@ngx-translate/core';
+import {TermModalComponent} from './term-modal/term-modal.component';
 
-const routes: Routes = [{ path: "", component: GlossaryPage }];
+const routes: Routes = [{path: '', component: GlossaryPage}];
 
 @NgModule({
   entryComponents: [TermModalComponent],
@@ -22,4 +22,5 @@ const routes: Routes = [{ path: "", component: GlossaryPage }];
   ],
   declarations: [GlossaryPage, TermModalComponent],
 })
-export class GlossaryPageModule {}
+export class GlossaryPageModule {
+}

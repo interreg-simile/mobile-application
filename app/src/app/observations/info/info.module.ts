@@ -1,14 +1,14 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
-import { IonicModule } from "@ionic/angular";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
+import {IonicModule} from '@ionic/angular';
 
-import { InfoPage } from "./info.page";
-import { TranslateModule } from "@ngx-translate/core";
-import { JoinDetailsPipe } from "./render.pipe";
+import {InfoPage} from './info.page';
+import {TranslateModule} from '@ngx-translate/core';
+import {JoinDetailsPipe} from './render.pipe';
 
-const routes: Routes = [{ path: "", component: InfoPage }];
+const routes: Routes = [{path: '', component: InfoPage}];
 
 @NgModule({
   imports: [
@@ -20,4 +20,5 @@ const routes: Routes = [{ path: "", component: InfoPage }];
   ],
   declarations: [InfoPage, JoinDetailsPipe],
 })
-export class InfoPageModule {}
+export class InfoPageModule {
+}

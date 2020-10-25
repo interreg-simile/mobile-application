@@ -1,5 +1,5 @@
-import { LatLng } from "leaflet";
-import { Link } from "../common/link.model";
+import {LatLng} from 'leaflet';
+import {Link} from '../common/link.model';
 
 export interface Event {
   id: string;

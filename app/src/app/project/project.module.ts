@@ -1,13 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
-import { IonicModule } from "@ionic/angular";
-import { TranslateModule } from "@ngx-translate/core";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
+import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
-import { ProjectPage } from "./project.page";
+import {ProjectPage} from './project.page';
 
-const routes: Routes = [{ path: "", component: ProjectPage }];
+const routes: Routes = [{path: '', component: ProjectPage}];
 
 @NgModule({
   imports: [
@@ -19,4 +19,5 @@ const routes: Routes = [{ path: "", component: ProjectPage }];
   ],
   declarations: [ProjectPage],
 })
-export class ProjectPageModule {}
+export class ProjectPageModule {
+}

@@ -1,29 +1,29 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from "@ionic/angular";
+import {IonicModule} from '@ionic/angular';
 
-import { NewObservationPage } from "./new-observation.page";
-import { TranslateModule } from "@ngx-translate/core";
-import { AlgaeComponent } from "../details/algae/algae.component";
-import { FoamsComponent } from "../details/foams/foams.component";
-import { OilsComponent } from "../details/oils/oils.component";
-import { LittersComponent } from "../details/litters/litters.component";
-import { OdoursComponent } from "../details/odours/odours.component";
-import { OutletsComponent } from "../details/outlets/outlets.component";
-import { FaunaComponent } from "../details/fauna/fauna.component";
-import { HubComponent } from "../measures/hub/hub.component";
-import { BacteriaComponent } from "../measures/bacteria/bacteria.component";
-import { OxygenComponent } from "../measures/oxygen/oxygen.component";
-import { PhComponent } from "../measures/ph/ph.component";
-import { TemperatureComponent } from "../measures/temperature/temperature.component";
-import { TransparencyComponent } from "../measures/transparency/transparency.component";
-import { InstrumentComponent } from "../measures/instrument/instrument.component";
-import { CallAuthoritiesComponent } from "../call-authorities/call-authorities.component";
+import {NewObservationPage} from './new-observation.page';
+import {TranslateModule} from '@ngx-translate/core';
+import {AlgaeComponent} from '../details/algae/algae.component';
+import {FoamsComponent} from '../details/foams/foams.component';
+import {OilsComponent} from '../details/oils/oils.component';
+import {LittersComponent} from '../details/litters/litters.component';
+import {OdoursComponent} from '../details/odours/odours.component';
+import {OutletsComponent} from '../details/outlets/outlets.component';
+import {FaunaComponent} from '../details/fauna/fauna.component';
+import {HubComponent} from '../measures/hub/hub.component';
+import {BacteriaComponent} from '../measures/bacteria/bacteria.component';
+import {OxygenComponent} from '../measures/oxygen/oxygen.component';
+import {PhComponent} from '../measures/ph/ph.component';
+import {TemperatureComponent} from '../measures/temperature/temperature.component';
+import {TransparencyComponent} from '../measures/transparency/transparency.component';
+import {InstrumentComponent} from '../measures/instrument/instrument.component';
+import {CallAuthoritiesComponent} from '../call-authorities/call-authorities.component';
 
-const routes: Routes = [{ path: "", component: NewObservationPage }];
+const routes: Routes = [{path: '', component: NewObservationPage}];
 
 @NgModule({
   entryComponents: [
@@ -68,4 +68,5 @@ const routes: Routes = [{ path: "", component: NewObservationPage }];
     CallAuthoritiesComponent,
   ],
 })
-export class NewObservationPageModule {}
+export class NewObservationPageModule {
+}

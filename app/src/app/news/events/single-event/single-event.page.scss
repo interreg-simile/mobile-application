@@ -1,11 +1,11 @@
-@import "../../../../theme/variables";
-@import "../../../../theme/mixins";
+@import '../../../../theme/variables';
+@import '../../../../theme/mixins';
 
 .title {
   font-size: $font-title-lg;
   font-weight: 500;
   color: var(--ion-color-primary);
-  padding: 8px 0 16px 0;
+  padding: 8px 0 16px;
 }
 
 .description {

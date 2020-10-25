@@ -1,4 +1,4 @@
-@import "../../theme/variables";
+@import '../../theme/variables';
 
 section {
   margin-bottom: 32px;
@@ -13,8 +13,8 @@ ion-card-content {
 }
 
 .text-secondary {
-  color: $text-tertiary;
   font-style: italic;
+  color: $text-tertiary;
 }
 
 #interreg {
@@ -28,9 +28,9 @@ ion-card-content {
     }
 
     .img-container {
-      width: 100%;
       display: flex;
       justify-content: center;
+      width: 100%;
 
       ion-img {
         width: 60%;
@@ -41,7 +41,7 @@ ion-card-content {
 
 #partners {
   ion-card-content {
-    p:not(:last-child) {
+    p:not( :last-child ) {
       margin-bottom: 8px;
     }
   }

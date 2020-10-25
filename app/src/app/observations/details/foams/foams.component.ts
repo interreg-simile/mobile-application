@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
-import { ObservationsService } from "../../observations.service";
-import { HelpsService } from "../../../shared/helps/helps.service";
+import {Component, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {ObservationsService} from '../../observations.service';
+import {HelpsService} from '../../../shared/helps/helps.service';
 
 interface Props {
   extension?: number;
@@ -10,9 +10,9 @@ interface Props {
 }
 
 @Component({
-  selector: "app-foams",
-  templateUrl: "./foams.component.html",
-  styleUrls: ["./foams.component.scss"],
+  selector: 'app-foams',
+  templateUrl: './foams.component.html',
+  styleUrls: ['./foams.component.scss'],
 })
 export class FoamsComponent implements OnInit {
   public _props: Props = {};
@@ -21,7 +21,8 @@ export class FoamsComponent implements OnInit {
     private modalCtr: ModalController,
     private obsService: ObservationsService,
     public helpsService: HelpsService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this._props.extension = this.obsService.newObservation.details.foams.extension.code;
@@ -29,11 +30,6 @@ export class FoamsComponent implements OnInit {
     this._props.height = this.obsService.newObservation.details.foams.height.code;
   }
 
-  /**
-   * Closes the modal and handle the data saving process.
-   *
-   * @param {Boolean} save - True if the modifications done in the modal are to be saved.
-   */
   async closeModal(save: boolean) {
     if (save) {
       this.obsService.newObservation.details.foams.checked = true;

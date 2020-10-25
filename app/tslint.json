@@ -66,6 +66,7 @@
     "no-host-metadata-property": true,
     "no-input-rename": true,
     "no-output-rename": true,
+    "no-submodule-imports": false,
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
     "one-variable-per-declaration": false,
@@ -83,6 +84,16 @@
       "app",
       "page",
       "kebab-case"
-    ]
+    ],
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore"
+      ]
+    },
+    "no-string-literal": false,
+    "radix": false,
+    "prefer-for-of": false
   }
 }

@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { ModalController, NavParams } from "@ionic/angular";
-import { TranslateService } from "@ngx-translate/core";
-import { PhotoViewerComponent } from "../../photo-viewer/photo-viewer.component";
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ModalController, NavParams} from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
+import {PhotoViewerComponent} from '../../photo-viewer/photo-viewer.component';
 
 @Component({
-  selector: "app-help-modal",
-  templateUrl: "./help-modal.component.html",
-  styleUrls: ["./help-modal.component.scss"],
+  selector: 'app-help-modal',
+  templateUrl: './help-modal.component.html',
+  styleUrls: ['./help-modal.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class HelpModalComponent implements OnInit {
@@ -18,33 +18,30 @@ export class HelpModalComponent implements OnInit {
     private modalCtr: ModalController,
     private navParams: NavParams,
     private i18n: TranslateService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this._id = this.navParams.get("id");
+    this._id = this.navParams.get('id');
 
-    if (!this._id) this.closeModal();
+    if (!this._id) {
+      this.closeModal();
+    }
 
     this._text = this.i18n.instant(`helps.${this._id}.text`);
 
-    this._hasImage = this.navParams.get("hasImage");
+    this._hasImage = this.navParams.get('hasImage');
   }
 
-  /**
-   * Fired when the user click on the photo. It opens the photo in a viewer.
-   *
-   * @param {string} src - The source of the image.
-   */
   async onImgClick(src: string): Promise<void> {
     const modal = await this.modalCtr.create({
       component: PhotoViewerComponent,
-      componentProps: { src: src, edit: false, delete: false, download: true },
+      componentProps: {src, edit: false, delete: false, download: true},
     });
 
     await modal.present();
   }
 
-  /** Closes the modal. */
   async closeModal(): Promise<void> {
     await this.modalCtr.dismiss();
   }

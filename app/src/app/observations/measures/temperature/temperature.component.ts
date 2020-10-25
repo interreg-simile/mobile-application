@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import {Component, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
 
 import {
   InstrumentService,
   SimpleInstrument,
-} from "../instrument/instrument.service";
-import { ObservationsService } from "../../observations.service";
-import { Duration, ToastService } from "../../../shared/toast.service";
-import { HelpsService } from "../../../shared/helps/helps.service";
+} from '../instrument/instrument.service';
+import {ObservationsService} from '../../observations.service';
+import {Duration, ToastService} from '../../../shared/toast.service';
+import {HelpsService} from '../../../shared/helps/helps.service';
 
 interface Props {
   multiple?: boolean;
@@ -17,14 +17,14 @@ interface Props {
 }
 
 @Component({
-  selector: "app-temperature",
-  templateUrl: "./temperature.component.html",
-  styleUrls: ["./temperature.component.scss"],
+  selector: 'app-temperature',
+  templateUrl: './temperature.component.html',
+  styleUrls: ['./temperature.component.scss'],
 })
 export class TemperatureComponent implements OnInit {
   public _props: Props = {
-    singleVal: { val: undefined, depth: undefined },
-    multipleVal: [{ val: undefined, depth: undefined }],
+    singleVal: {val: undefined, depth: undefined},
+    multipleVal: [{val: undefined, depth: undefined}],
     instrument: {},
   };
 
@@ -34,7 +34,8 @@ export class TemperatureComponent implements OnInit {
     private instrumentService: InstrumentService,
     private toastService: ToastService,
     public helpsService: HelpsService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this._props.multiple =
@@ -42,11 +43,12 @@ export class TemperatureComponent implements OnInit {
 
     this.instrumentService.setInstrumentProps(
       this._props.instrument,
-      "temperature"
+      'temperature'
     );
 
-    if (this.obsService.newObservation.measures.temperature.val.length === 0)
+    if (this.obsService.newObservation.measures.temperature.val.length === 0) {
       return;
+    }
 
     if (!this.obsService.newObservation.measures.temperature.multiple) {
       this._props.singleVal = {
@@ -60,41 +62,34 @@ export class TemperatureComponent implements OnInit {
     }
   }
 
-  /**
-   * Called when the measure type is changed.
-   *
-   * @param {CustomEvent} e - The change event.
-   */
   onTypeChange(e: CustomEvent): void {
-    this._props.multiple = e.detail.value === "multiple";
+    this._props.multiple = e.detail.value === 'multiple';
   }
 
-  /** Called when the user clicks on the button to add a new value-depth row. */
   async onAddBtnClick(): Promise<void> {
     if (
       this._props.multipleVal[this._props.multipleVal.length - 1].val ===
-        undefined ||
+      undefined ||
       this._props.multipleVal[this._props.multipleVal.length - 1].val ===
-        null ||
+      null ||
       this._props.multipleVal[this._props.multipleVal.length - 1].depth ===
-        undefined ||
+      undefined ||
       this._props.multipleVal[this._props.multipleVal.length - 1].depth === null
     ) {
       await this.toastService.presentToast(
-        "page-new-obs.measures.errors.add-measure",
+        'page-new-obs.measures.errors.add-measure',
         Duration.short
       );
       return;
     }
 
-    this._props.multipleVal.push({ val: undefined, depth: undefined });
+    this._props.multipleVal.push({val: undefined, depth: undefined});
   }
 
-  /** Called when the user clicks on the button to remove the last value-depth row. */
   async onRemoveBtnClick(): Promise<void> {
     if (this._props.multipleVal.length <= 1) {
       await this.toastService.presentToast(
-        "page-new-obs.measures.errors.remove-measure",
+        'page-new-obs.measures.errors.remove-measure',
         Duration.short
       );
       return;
@@ -103,15 +98,11 @@ export class TemperatureComponent implements OnInit {
     this._props.multipleVal.pop();
   }
 
-  /**
-   * Closes the modal and handle the data saving process.
-   *
-   * @param {Boolean} save - True if the modifications done in the modal are to be saved.
-   */
   async closeModal(save: boolean): Promise<void> {
     if (save) {
-      if (!(await this.instrumentService.checkProps(this._props.instrument)))
+      if (!(await this.instrumentService.checkProps(this._props.instrument))) {
         return;
+      }
 
       if (!this._props.multiple) {
         if (
@@ -121,7 +112,7 @@ export class TemperatureComponent implements OnInit {
           this._props.singleVal.val === null
         ) {
           await this.toastService.presentToast(
-            "page-new-obs.measures.temperature.error-msg-val",
+            'page-new-obs.measures.temperature.error-msg-val',
             Duration.short
           );
           return;
@@ -144,7 +135,7 @@ export class TemperatureComponent implements OnInit {
           )
         ) {
           await this.toastService.presentToast(
-            "page-new-obs.measures.temperature.error-msg-val",
+            'page-new-obs.measures.temperature.error-msg-val',
             Duration.short
           );
           return;
@@ -152,7 +143,7 @@ export class TemperatureComponent implements OnInit {
 
         this.obsService.newObservation.measures.temperature.val = this._props.multipleVal.map(
           (v) => {
-            return { val: v.val, depth: Math.abs(v.depth) };
+            return {val: v.val, depth: Math.abs(v.depth)};
           }
         );
       }
@@ -161,7 +152,7 @@ export class TemperatureComponent implements OnInit {
       this.obsService.newObservation.measures.temperature.checked = true;
       this.instrumentService.saveInstrumentProps(
         this._props.instrument,
-        "temperature"
+        'temperature'
       );
     }
 

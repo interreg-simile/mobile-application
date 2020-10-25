@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-import { environment } from "../../environments/environment";
-import { AuthService } from "./auth.service";
-import { GenericApiResponse } from "./utils.interface";
+import {environment} from '../../environments/environment';
+import {AuthService} from './auth.service';
+import {GenericApiResponse} from './utils.interface';
 
 export interface User {
   email: string;
@@ -14,9 +14,10 @@ export interface User {
   gender?: string;
 }
 
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: 'root'})
 export class UserService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+  }
 
   async getUser(): Promise<User> {
     const url = `${environment.apiBaseUrl}/${environment.apiVersion}/users/${this.authService.userId}`;
@@ -28,7 +29,7 @@ export class UserService {
   async changeEmail(email: string): Promise<void> {
     const url = `${environment.apiBaseUrl}/${environment.apiVersion}/users/${this.authService.userId}/change-email`;
 
-    const body = { email };
+    const body = {email};
 
     await this.http.patch<GenericApiResponse>(url, body).toPromise();
   }
@@ -40,7 +41,7 @@ export class UserService {
   ): Promise<void> {
     const url = `${environment.apiBaseUrl}/${environment.apiVersion}/users/${this.authService.userId}/change-password`;
 
-    const body = { oldPassword, newPassword, confirmNewPassword };
+    const body = {oldPassword, newPassword, confirmNewPassword};
 
     await this.http.patch<GenericApiResponse>(url, body).toPromise();
   }
@@ -54,7 +55,7 @@ export class UserService {
   ): Promise<void> {
     const url = `${environment.apiBaseUrl}/${environment.apiVersion}/users/${this.authService.userId}/change-info`;
 
-    const body = { name, surname, city, yearOfBirth, gender };
+    const body = {name, surname, city, yearOfBirth, gender};
 
     await this.http.patch<GenericApiResponse>(url, body).toPromise();
   }

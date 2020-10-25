@@ -1,4 +1,4 @@
-import { Link } from "../common/link.model";
+import {Link} from '../common/link.model';
 
 export interface Alert {
   id: string;

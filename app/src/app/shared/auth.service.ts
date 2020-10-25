@@ -1,26 +1,27 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-import { environment } from "../../environments/environment";
-import { GenericApiResponse } from "./utils.interface";
-import { Storage } from "@ionic/storage";
+import {environment} from '../../environments/environment';
+import {GenericApiResponse} from './utils.interface';
+import {Storage} from '@ionic/storage';
 
 interface LoginResponse {
   token: string;
   userId: string;
 }
 
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: 'root'})
 export class AuthService {
   public isGuest: boolean;
   public token: string;
   public userId: string;
 
-  private readonly _storageKeyGuest = "isGuest";
-  private readonly _storageKeyToken = "token";
-  private readonly _storageKeyUserId = "userId";
+  private readonly _storageKeyGuest = 'isGuest';
+  private readonly _storageKeyToken = 'token';
+  private readonly _storageKeyUserId = 'userId';
 
-  constructor(private http: HttpClient, private storage: Storage) {}
+  constructor(private http: HttpClient, private storage: Storage) {
+  }
 
   async retrieveAuthStatus(): Promise<void> {
     this.isGuest = await this.storage.get(this._storageKeyGuest);
@@ -41,7 +42,7 @@ export class AuthService {
   async login(email: string, password: string): Promise<void> {
     const url = `${environment.apiBaseUrl}/${environment.apiVersion}/auth/login`;
 
-    const body = { email, password };
+    const body = {email, password};
 
     const res = await this.http.post<GenericApiResponse>(url, body).toPromise();
     const data: LoginResponse = res.data;

@@ -11,7 +11,7 @@ ion-icon {
 }
 
 ion-label p {
-  color: #000000;
+  color: #000;
 }
 
 .flex-label {
@@ -24,7 +24,7 @@ ion-label p {
   }
 
   .choice {
-    text-transform: uppercase;
     color: var(--ion-color-primary);
+    text-transform: uppercase;
   }
 }

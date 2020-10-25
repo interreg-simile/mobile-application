@@ -1,29 +1,29 @@
-@import "../../../theme/variables";
+@import '../../../theme/variables';
 
 .container {
-  padding: 16px 16px 6px 16px;
+  padding: 16px 16px 6px;
 
   .link {
     text-align: center;
   }
 
   .code {
-    text-align: center;
     font-size: 24px;
     font-weight: bold;
     color: var(--ion-color-primary);
+    text-align: center;
   }
 
   .close {
-    width: 100%;
     display: flex;
     justify-content: flex-end;
+    width: 100%;
 
     span {
+      font-size: 14px;
+      color: $text-secondary;
       text-transform: uppercase;
       padding: 12px;
-      color: $text-secondary;
-      font-size: 14px;
     }
   }
 }

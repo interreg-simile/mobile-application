@@ -1,29 +1,28 @@
-import { Component, QueryList, ViewChildren } from "@angular/core";
+import {Component, QueryList, ViewChildren} from '@angular/core';
 import {
   IonRouterOutlet,
   MenuController,
   ModalController,
   Platform,
   PopoverController,
-} from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
-import { LangService } from "./shared/lang.service";
-import { Router } from "@angular/router";
-import { NGXLogger } from "ngx-logger";
+} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {LangService} from './shared/lang.service';
+import {Router} from '@angular/router';
+import {NGXLogger} from 'ngx-logger';
 
-import { Duration, ToastService } from "./shared/toast.service";
-import { NetworkService } from "./shared/network.service";
-import { FileService } from "./shared/file.service";
-import { AuthService } from "./shared/auth.service";
+import {Duration, ToastService} from './shared/toast.service';
+import {NetworkService} from './shared/network.service';
+import {FileService} from './shared/file.service';
 
-export const statusBarColor = "#00515F";
-export const projectEmail = "interreg-simile@polimi.it";
+export const statusBarColor = '#00515F';
+export const projectEmail = 'interreg-simile@polimi.it';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "app.component.html",
-  styleUrls: ["app.component.scss"],
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
   private _lastTimeBackPress = 0;
@@ -62,13 +61,13 @@ export class AppComponent {
     await this.fileService
       .createImageDir()
       .catch((err) =>
-        this.logger.error("Error initializing the images directory", err)
+        this.logger.error('Error initializing the images directory', err)
       );
 
     await this.langService
       .initAppLanguage()
       .catch((err) =>
-        this.logger.error("Error initializing the app language", err)
+        this.logger.error('Error initializing the app language', err)
       );
   }
 
@@ -80,7 +79,8 @@ export class AppComponent {
           await el.dismiss();
           return;
         }
-      } catch (err) {}
+      } catch (err) {
+      }
 
       try {
         const el = await this.modalCtr.getTop();
@@ -88,7 +88,8 @@ export class AppComponent {
           await el.dismiss();
           return;
         }
-      } catch (err) {}
+      } catch (err) {
+      }
 
       try {
         const el = await this.menuCtr.getOpen();
@@ -96,22 +97,23 @@ export class AppComponent {
           await this.menuCtr.close();
           return;
         }
-      } catch (err) {}
+      } catch (err) {
+      }
 
       this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
         if (
-          this.router.url === "/map" ||
-          this.router.url === "/login" ||
+          this.router.url === '/map' ||
+          this.router.url === '/login' ||
           !outlet.canGoBack()
         ) {
           if (
             new Date().getTime() - this._lastTimeBackPress <
             this._timePeriodToExit
           ) {
-            navigator["app"].exitApp();
+            navigator['app'].exitApp();
           } else {
             this.toastService.presentToast(
-              "common.msg-exit-app",
+              'common.msg-exit-app',
               Duration.short
             );
             this._lastTimeBackPress = new Date().getTime();

@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { InstrumentService } from "../instrument/instrument.service";
-import { ModalController } from "@ionic/angular";
-import { ObservationsService } from "../../observations.service";
-import { Duration, ToastService } from "../../../shared/toast.service";
-import { HelpsService } from "../../../shared/helps/helps.service";
+import {Component, OnInit} from '@angular/core';
+import {InstrumentService} from '../instrument/instrument.service';
+import {ModalController} from '@ionic/angular';
+import {ObservationsService} from '../../observations.service';
+import {Duration, ToastService} from '../../../shared/toast.service';
+import {HelpsService} from '../../../shared/helps/helps.service';
 
 interface Props {
   escherichiaColi?: number;
@@ -11,9 +11,9 @@ interface Props {
 }
 
 @Component({
-  selector: "app-bacteria",
-  templateUrl: "./bacteria.component.html",
-  styleUrls: ["./bacteria.component.scss"],
+  selector: 'app-bacteria',
+  templateUrl: './bacteria.component.html',
+  styleUrls: ['./bacteria.component.scss'],
 })
 export class BacteriaComponent implements OnInit {
   public _props: Props = {};
@@ -24,18 +24,14 @@ export class BacteriaComponent implements OnInit {
     private instrumentService: InstrumentService,
     private toastService: ToastService,
     public helpsService: HelpsService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this._props.escherichiaColi = this.obsService.newObservation.measures.bacteria.escherichiaColi;
     this._props.enterococci = this.obsService.newObservation.measures.bacteria.enterococci;
   }
 
-  /**
-   * Closes the modal and handle the data saving process.
-   *
-   * @param {Boolean} save - True if the modifications done in the modal are to be saved.
-   */
   async closeModal(save: boolean): Promise<void> {
     if (save) {
       if (
@@ -45,7 +41,7 @@ export class BacteriaComponent implements OnInit {
           this._props.enterococci === null)
       ) {
         await this.toastService.presentToast(
-          "page-new-obs.measures.bacteria.error-msg-val",
+          'page-new-obs.measures.bacteria.error-msg-val',
           Duration.short
         );
         return;

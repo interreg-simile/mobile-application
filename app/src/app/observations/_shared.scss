@@ -1,4 +1,4 @@
-@import "../../theme/variables";
+@import '../../theme/variables';
 
 $color-border: #e1e1e1;
 
@@ -18,9 +18,9 @@ ion-label {
 
 .help-icon {
   font-size: $font-title;
-  padding: 12px;
   color: $text-tertiary;
   z-index: 999;
+  padding: 12px;
 }
 
 ion-input {
@@ -30,7 +30,7 @@ ion-input {
 }
 
 ion-textarea {
-  --background: #ffffff;
+  --background: #fff;
   border: 1px solid $color-border;
   border-radius: 5px;
 }
@@ -38,7 +38,7 @@ ion-textarea {
 .card-header {
   display: flex;
   align-items: center;
-  padding: 0 0 8px 0;
+  padding: 0 0 8px;
 
   &.no-padding {
     padding: 0;
@@ -46,8 +46,8 @@ ion-textarea {
 
   .btn-icon {
     font-size: $font-body;
-    padding: 16px 12px;
     color: $text-tertiary;
+    padding: 16px 12px;
   }
 }
 
@@ -81,8 +81,8 @@ section {
 
       .colour-box {
         padding: 4px;
-        border-radius: 5px;
         border: 1px solid transparent;
+        border-radius: 5px;
 
         &.selected {
           border: 1px solid var(--ion-color-primary);
@@ -110,8 +110,8 @@ section {
   .detail-item {
     display: flex;
     align-items: center;
-    padding: 8px 16px 8px 24px;
     width: 100%;
+    padding: 8px 16px 8px 24px;
 
     ion-checkbox.md {
       width: 19.24px;
@@ -122,19 +122,19 @@ section {
     }
 
     ion-label {
+      line-height: 1.2;
+      color: $text-primary;
       display: flex;
       align-items: center;
       width: 100%;
       margin-left: 16px;
-      color: $text-primary;
-      line-height: 1.2;
 
       ion-icon {
         font-size: $font-title;
-        padding: 12px;
         color: $text-tertiary;
+        padding: 12px;
 
-        &[name="ios-arrow-forward"] {
+        &[name='ios-arrow-forward'] {
           margin-left: auto;
           padding: 0;
         }
@@ -144,15 +144,15 @@ section {
 }
 
 .info-mandatory {
-  color: $text-tertiary;
   font-size: $font-body-small;
+  color: $text-tertiary;
   margin-bottom: 8px;
 }
 
 .value-single {
-  width: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
 
   p {
     padding-right: 16px;
@@ -160,9 +160,9 @@ section {
 }
 
 .val-input {
-  --background: #ffffff;
-  border-radius: 5px;
+  --background: #fff;
   border: 1px solid $color-border;
+  border-radius: 5px;
 
   &.compact {
     --padding-top: 6px;
@@ -178,16 +178,16 @@ section {
   }
 
   .grid {
-    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
+    width: 100%;
 
     .col {
-      width: 40%;
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 40%;
 
       ion-select {
         --padding-top: 0;
@@ -199,17 +199,17 @@ section {
       }
 
       ion-input {
-        margin-top: 8px;
         width: 70%;
+        margin-top: 8px;
       }
     }
   }
 
   .buttons {
-    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
 
     ion-button {
       --padding-start: 8px;

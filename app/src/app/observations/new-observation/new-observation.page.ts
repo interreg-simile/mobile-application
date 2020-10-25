@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   ActionSheetController,
   AlertController,
@@ -9,30 +9,29 @@ import {
   PickerController,
   Platform,
   PopoverController,
-} from "@ionic/angular";
-import { TranslateService } from "@ngx-translate/core";
-import { Router } from "@angular/router";
+} from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
+import {Router} from '@angular/router';
 
 import {
   MinimalObservation,
   ObservationsService,
-} from "../observations.service";
-import { PhotoViewerComponent } from "../../shared/photo-viewer/photo-viewer.component";
-import { CameraService, PicResult } from "../../shared/camera.service";
-import { Duration, ToastService } from "../../shared/toast.service";
-import { MeasuresImpl, Observation } from "../observation.model";
-import { HubComponent } from "../measures/hub/hub.component";
-import { NGXLogger } from "ngx-logger";
-import { Subscription } from "rxjs";
-import { HelpsService } from "../../shared/helps/helps.service";
-import { ConnectionStatus, NetworkService } from "../../shared/network.service";
-import { LatLng } from "leaflet";
-import { CallAuthoritiesComponent } from "../call-authorities/call-authorities.component";
+} from '../observations.service';
+import {PhotoViewerComponent} from '../../shared/photo-viewer/photo-viewer.component';
+import {CameraService, PicResult} from '../../shared/camera.service';
+import {Duration, ToastService} from '../../shared/toast.service';
+import {MeasuresImpl} from '../observation.model';
+import {HubComponent} from '../measures/hub/hub.component';
+import {NGXLogger} from 'ngx-logger';
+import {Subscription} from 'rxjs';
+import {HelpsService} from '../../shared/helps/helps.service';
+import {ConnectionStatus, NetworkService} from '../../shared/network.service';
+import {CallAuthoritiesComponent} from '../call-authorities/call-authorities.component';
 
 @Component({
-  selector: "app-new-observation",
-  templateUrl: "./new-observation.page.html",
-  styleUrls: ["./new-observation.page.scss"],
+  selector: 'app-new-observation',
+  templateUrl: './new-observation.page.html',
+  styleUrls: ['./new-observation.page.scss'],
 })
 export class NewObservationPage implements OnInit, OnDestroy {
   private _backButtonSub: Subscription;
@@ -43,20 +42,17 @@ export class NewObservationPage implements OnInit, OnDestroy {
   public _newObservation: any;
 
   public skyIcons = {
-    1: "wi-day-sunny",
-    2: "wi-day-cloudy",
-    3: "wi-cloudy",
-    4: "wi-rain",
-    5: "wi-snowflake-cold",
-    6: "wi-windy",
+    1: 'wi-day-sunny',
+    2: 'wi-day-cloudy',
+    3: 'wi-cloudy',
+    4: 'wi-rain',
+    5: 'wi-snowflake-cold',
+    6: 'wi-windy',
   };
 
   public _imageSrc: Array<string> = [undefined, undefined, undefined];
 
-  // Utility function to keep the original key order when iterating on an object using ngFor
-  originalOrder = (a, b) => {
-    return 0;
-  };
+  originalOrder = (a, b) => 0;
 
   constructor(
     private router: Router,
@@ -76,11 +72,12 @@ export class NewObservationPage implements OnInit, OnDestroy {
     public networkService: NetworkService,
     private popoverCrt: PopoverController,
     private actionSheetCtrl: ActionSheetController
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     if (!this.obsService.newObservation) {
-      this.navCtr.navigateBack("/map");
+      this.navCtr.navigateBack('/map');
       return;
     }
 
@@ -92,7 +89,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
     this.getWeatherData(false)
       .catch(() =>
         this.toastService.presentToast(
-          "page-map.msg-weather-error",
+          'page-map.msg-weather-error',
           Duration.short
         )
       )
@@ -104,16 +101,12 @@ export class NewObservationPage implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Retrieves the weather data from the server.
-   *
-   * @param {boolean} showErr - True if any eventual error should be displayed.
-   */
   async getWeatherData(showErr: boolean): Promise<void> {
     if (
       this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline
-    )
+    ) {
       return;
+    }
 
     const [data, err] = await this.obsService
       .getWeatherData(this._newObservation.position.coordinates)
@@ -128,16 +121,18 @@ export class NewObservationPage implements OnInit, OnDestroy {
       return;
     }
 
-    if (showErr)
+    if (showErr) {
       await this.toastService.presentToast(
-        "page-new-obs.weather.err",
+        'page-new-obs.weather.err',
         Duration.short
       );
+    }
   }
 
-  /** Called when the user click on the refresh icon of the weather box. It requests the weather data from the API. */
   async onRefreshWeatherClick(): Promise<void> {
-    if (!this.networkService.checkOnlineContentAvailability()) return;
+    if (!this.networkService.checkOnlineContentAvailability()) {
+      return;
+    }
 
     this._isWeatherLoading = true;
 
@@ -146,30 +141,26 @@ export class NewObservationPage implements OnInit, OnDestroy {
     this._isWeatherLoading = false;
   }
 
-  /**
-   * Called when the user clicks on the "temperature" or "wind" property of the weather box. It opes an alert form
-   * which the user can enter a value for the property.
-   *
-   * @param {"temperature" | "wind"} name - The name of the property.
-   */
-  async onWeatherClick(name: "temperature" | "wind"): Promise<void> {
+  async onWeatherClick(name: 'temperature' | 'wind'): Promise<void> {
     const alert = await this.alertCtr.create({
       subHeader: this.i18n.instant(`page-new-obs.weather.${name}-head`),
       backdropDismiss: false,
       inputs: [
         {
-          name: "data",
-          type: "number",
+          name: 'data',
+          type: 'number',
           placeholder: this.i18n.instant(`page-new-obs.weather.${name}-ph`),
           value: this._newObservation.weather[name],
         },
       ],
       buttons: [
-        { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel" },
+        {text: this.i18n.instant('common.alerts.btn-cancel'), role: 'cancel'},
         {
-          text: this.i18n.instant("common.alerts.btn-ok"),
+          text: this.i18n.instant('common.alerts.btn-ok'),
           handler: (data) => {
-            if (data.data) this._newObservation.weather[name] = data.data;
+            if (data.data) {
+              this._newObservation.weather[name] = data.data;
+            }
           },
         },
       ],
@@ -178,16 +169,16 @@ export class NewObservationPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
-  /** Called when the user clicks on the sky property of the weather box. */
   async onSkyClick(): Promise<void> {
     const getOpts = () => {
-      let opts = [];
+      const opts = [];
 
-      for (let i = 1; i < 7; i++)
+      for (let i = 1; i < 7; i++) {
         opts.push({
           text: this.i18n.instant(`page-new-obs.weather.sky.${i}`),
           value: i,
         });
+      }
 
       return opts;
     };
@@ -195,15 +186,15 @@ export class NewObservationPage implements OnInit, OnDestroy {
     const picker = await this.pickerCtr.create({
       columns: [
         {
-          name: "data",
+          name: 'data',
           options: getOpts(),
           selectedIndex: this._newObservation.weather.sky.code - 1,
         },
       ],
       buttons: [
-        { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel" },
+        {text: this.i18n.instant('common.alerts.btn-cancel'), role: 'cancel'},
         {
-          text: this.i18n.instant("common.alerts.btn-confirm"),
+          text: this.i18n.instant('common.alerts.btn-confirm'),
           handler: (data) =>
             (this._newObservation.weather.sky.code = data.data.value),
         },
@@ -213,29 +204,19 @@ export class NewObservationPage implements OnInit, OnDestroy {
     await picker.present();
   }
 
-  /**
-   * Called when the user clicks on the checkbox of a detail. It stops the event propagation and uncheck the checkbox
-   * or open the detail modal.
-   *
-   * @param {MouseEvent} e - The click event.
-   * @param {Object} detail - The detail object.
-   */
   async onDetailCheckboxClick(e: MouseEvent, detail: any): Promise<void> {
     e.preventDefault();
     e.stopImmediatePropagation();
     e.cancelBubble = true;
     e.stopPropagation();
 
-    if (!detail.checked) await this.openDetailModal(detail.component);
-    else detail.checked = false;
+    if (!detail.checked) {
+      await this.openDetailModal(detail.component);
+    } else {
+      detail.checked = false;
+    }
   }
 
-  /**
-   * Fired when the user clicks on the label of a detail. It opens the modal associated with the detail.
-   *
-   * @param {MouseEvent} e - The click event.
-   * @param {Object} component - The detail component.
-   */
   async onDetailLabelClick(e: MouseEvent, component: any): Promise<void> {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -245,13 +226,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
     await this.openDetailModal(component);
   }
 
-  /**
-   * Opens a modal for editing a detail.
-   *
-   * @param {Component} component - The component to be used as template for the modal.
-   */
   async openDetailModal(component: any): Promise<void> {
-    const modal = await this.modalCtr.create({ component: component });
+    const modal = await this.modalCtr.create({component});
 
     await modal.present();
   }
@@ -262,11 +238,13 @@ export class NewObservationPage implements OnInit, OnDestroy {
     e.cancelBubble = true;
     e.stopPropagation();
 
-    if (!this._newObservation.measures.checked) await this.openMeasuresModal();
-    else this._newObservation.measures.checked = false;
+    if (!this._newObservation.measures.checked) {
+      await this.openMeasuresModal();
+    } else {
+      this._newObservation.measures.checked = false;
+    }
   }
 
-  /** Called when the user clicks on the card to add a new measure. It opens the hub with all the options. */
   async onMeasuresLabelClick(e: MouseEvent): Promise<void> {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -278,8 +256,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
   /** Opens the measures hub. */
   async openMeasuresModal(): Promise<void> {
-    if (!this.obsService.newObservation.measures)
+    if (!this.obsService.newObservation.measures) {
       this.obsService.newObservation.measures = new MeasuresImpl();
+    }
 
     const measuresModal = await this.modalCtr.create({
       component: HubComponent,
@@ -287,29 +266,24 @@ export class NewObservationPage implements OnInit, OnDestroy {
     await measuresModal.present();
   }
 
-  /**
-   * Called when the user click on a photo thumbnail. It opens the image if there is one and it opens the camera if
-   * not.
-   *
-   * @param {string} src - The thumbnail source. If undefined, the camera will be opened.
-   * @param {number} idx - The position of the thumbnail source in the pictures array.
-   */
   async onThumbnailClick(src: string, idx: number): Promise<void> {
     if (!src) {
-      this.presentPhotoChoice(idx);
+      await this.presentPhotoChoice(idx);
       return;
     }
 
     const modal = await this.modalCtr.create({
       component: PhotoViewerComponent,
-      componentProps: { src: src, edit: true, delete: true },
+      componentProps: {src, edit: true, delete: true},
     });
 
     await modal.present();
 
     const data = await modal.onDidDismiss();
 
-    if (!data.data) return;
+    if (!data.data) {
+      return;
+    }
 
     if (data.data.edit) {
       await this.presentPhotoChoice(idx);
@@ -321,25 +295,25 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
   async presentPhotoChoice(idx: number): Promise<void> {
     const actionSheet = await this.actionSheetCtrl.create({
-      header: this.i18n.instant("page-new-obs.photo-choice.header"),
+      header: this.i18n.instant('page-new-obs.photo-choice.header'),
       buttons: [
         {
-          text: this.i18n.instant("page-new-obs.photo-choice.btn-camera"),
+          text: this.i18n.instant('page-new-obs.photo-choice.btn-camera'),
           handler: async () => {
             await this.takePhoto(idx, false);
             return null;
           },
         },
         {
-          text: this.i18n.instant("page-new-obs.photo-choice.btn-gallery"),
+          text: this.i18n.instant('page-new-obs.photo-choice.btn-gallery'),
           handler: async () => {
             await this.takePhoto(idx, true);
             return null;
           },
         },
         {
-          text: this.i18n.instant("page-new-obs.photo-choice.btn-close"),
-          role: "cancel",
+          text: this.i18n.instant('page-new-obs.photo-choice.btn-close'),
+          role: 'cancel',
         },
       ],
     });
@@ -347,24 +321,20 @@ export class NewObservationPage implements OnInit, OnDestroy {
     await actionSheet.present();
   }
 
-  /**
-   * Takes a photo and assigns it to the given position of the pictures array.
-   *
-   * @param {number} idx - The position in the array.
-   * @param {boolean} fromGallery - True if the photo has to be taken from gallery.
-   */
   async takePhoto(idx: number, fromGallery: boolean): Promise<void> {
     const pic = await this.cameraService.takePicture(fromGallery);
 
     if (pic === PicResult.ERROR) {
       await this.toastService.presentToast(
-        "common.errors.photo",
+        'common.errors.photo',
         Duration.short
       );
       return;
     }
 
-    if (pic === PicResult.NO_IMAGE || pic === undefined) return;
+    if (pic === PicResult.NO_IMAGE || pic === undefined) {
+      return;
+    }
 
     this._newObservation.photos[idx] = pic;
 
@@ -376,7 +346,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
   /** Fired when the user clicks on the send button. */
   async onSendClick(): Promise<void> {
     const loading = await this.loadingCtr.create({
-      message: this.i18n.instant("common.wait"),
+      message: this.i18n.instant('common.wait'),
       showBackdrop: false,
     });
 
@@ -385,24 +355,26 @@ export class NewObservationPage implements OnInit, OnDestroy {
     const [res, err] = await this.obsService
       .postObservation()
       .then((v) => [v, undefined])
-      .catch((err) => [undefined, err]);
+      .catch((error) => [undefined, error]);
 
     await loading.dismiss();
 
     if (err) {
-      this.logger.error("Error posting the observation.", err);
+      this.logger.error('Error posting the observation.', err);
       await this.toastService.presentToast(
-        "page-new-obs.err-msg",
+        'page-new-obs.err-msg',
         Duration.short
       );
       return;
     }
 
-    if (res === "online") this.events.publish("observation:inserted-online");
-    else if (res === "offline")
-      this.events.publish("observation:inserted-offline");
+    if (res === 'online') {
+      this.events.publish('observation:inserted-online');
+    } else if (res === 'offline') {
+      this.events.publish('observation:inserted-offline');
+    }
 
-    await this.router.navigate(["map"]);
+    await this.router.navigate(['map']);
   }
 
   async onCallAuthoritiesClick(): Promise<void> {
@@ -410,7 +382,7 @@ export class NewObservationPage implements OnInit, OnDestroy {
       this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline
     ) {
       await this.toastService.presentToast(
-        "common.errors.offline-function",
+        'common.errors.offline-function',
         Duration.short
       );
       return;
@@ -418,14 +390,14 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     if (!this.obsService.newObservation.position.roi) {
       await this.toastService.presentToast(
-        "page-new-obs.call-no-roi-msg",
+        'page-new-obs.call-no-roi-msg',
         Duration.short
       );
       return;
     }
 
     const loading = await this.loadingCtr.create({
-      message: this.i18n.instant("common.wait"),
+      message: this.i18n.instant('common.wait'),
       showBackdrop: false,
     });
 
@@ -434,35 +406,35 @@ export class NewObservationPage implements OnInit, OnDestroy {
     const [res, err] = await this.obsService
       .postObservationWithCall()
       .then((v) => [v, undefined])
-      .catch((err) => [undefined, err]);
+      .catch((error) => [undefined, error]);
 
     await loading.dismiss();
 
     if (err) {
-      this.logger.error("Error posting the observation.", err);
+      this.logger.error('Error posting the observation.', err);
       await this.toastService.presentToast(
-        "page-new-obs.err-msg",
+        'page-new-obs.err-msg',
         Duration.short
       );
       return;
     }
 
-    this.events.publish("observation:inserted-online");
+    this.events.publish('observation:inserted-online');
 
-    const obs = <MinimalObservation>res;
+    const obs = res as MinimalObservation;
 
     if (!obs.position.roi || !obs.position.area || !obs.callId) {
       await this.toastService.presentToast(
-        "page-new-obs.call-data-error",
+        'page-new-obs.call-data-error',
         Duration.short
       );
-      await this.router.navigate(["map"]);
+      await this.router.navigate(['map']);
       return;
     }
 
     const modal = await this.modalCtr.create({
       component: CallAuthoritiesComponent,
-      cssClass: "auto-height",
+      cssClass: 'auto-height',
       backdropDismiss: false,
       componentProps: {
         area: obs.position.area,
@@ -474,10 +446,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
 
     await modal.onDidDismiss();
 
-    await this.router.navigate(["map"]);
+    await this.router.navigate(['map']);
   }
 
-  /** Called when the user wants to close the page without saving the data. */
   async onClose(): Promise<void> {
     try {
       const el = await this.popoverCrt.getTop();
@@ -485,7 +456,8 @@ export class NewObservationPage implements OnInit, OnDestroy {
         await el.dismiss();
         return;
       }
-    } catch (err) {}
+    } catch (err) {
+    }
 
     try {
       const el = await this.modalCtr.getTop();
@@ -493,18 +465,19 @@ export class NewObservationPage implements OnInit, OnDestroy {
         await el.dismiss();
         return;
       }
-    } catch (err) {}
+    } catch (err) {
+    }
 
     const alert = await this.alertCtr.create({
-      message: this.i18n.instant("page-new-obs.alert-message-cancel"),
+      message: this.i18n.instant('page-new-obs.alert-message-cancel'),
       buttons: [
         {
-          text: this.i18n.instant("page-new-obs.alert-btn-cancel"),
-          handler: () => this.router.navigate(["map"]),
+          text: this.i18n.instant('page-new-obs.alert-btn-cancel'),
+          handler: () => this.router.navigate(['map']),
         },
         {
-          text: this.i18n.instant("page-new-obs.alert-btn-continue"),
-          role: "cancel",
+          text: this.i18n.instant('page-new-obs.alert-btn-continue'),
+          role: 'cancel',
         },
       ],
       backdropDismiss: false,
@@ -514,8 +487,9 @@ export class NewObservationPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this._backButtonSub && !this._backButtonSub.closed)
+    if (this._backButtonSub && !this._backButtonSub.closed) {
       this._backButtonSub.unsubscribe();
+    }
 
     this.obsService.resetNewObservation();
   }

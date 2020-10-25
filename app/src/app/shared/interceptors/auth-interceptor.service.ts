@@ -3,21 +3,22 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-} from "@angular/common/http";
-import { Observable } from "rxjs";
+} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-import { environment } from "../../../environments/environment";
-import { AuthService } from "../auth.service";
+import {environment} from '../../../environments/environment';
+import {AuthService} from '../auth.service';
 
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     if (
-      `${req.url.split("/")[0]}//${req.url.split("/")[2]}` !==
+      `${req.url.split('/')[0]}//${req.url.split('/')[2]}` !==
       environment.apiBaseUrl
     ) {
       return next.handle(req);
@@ -29,7 +30,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     const newReq = req.clone({
       headers: req.headers.append(
-        "Authorization",
+        'Authorization',
         `Bearer ${this.authService.token}`
       ),
     });

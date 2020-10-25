@@ -1,17 +1,17 @@
-import { LatLng } from "leaflet";
+import {LatLng} from 'leaflet';
 
-import { AlgaeComponent } from "./details/algae/algae.component";
-import { FoamsComponent } from "./details/foams/foams.component";
-import { OilsComponent } from "./details/oils/oils.component";
-import { LittersComponent } from "./details/litters/litters.component";
-import { OdoursComponent } from "./details/odours/odours.component";
-import { OutletsComponent } from "./details/outlets/outlets.component";
-import { FaunaComponent } from "./details/fauna/fauna.component";
-import { TransparencyComponent } from "./measures/transparency/transparency.component";
-import { TemperatureComponent } from "./measures/temperature/temperature.component";
-import { PhComponent } from "./measures/ph/ph.component";
-import { OxygenComponent } from "./measures/oxygen/oxygen.component";
-import { BacteriaComponent } from "./measures/bacteria/bacteria.component";
+import {AlgaeComponent} from './details/algae/algae.component';
+import {FoamsComponent} from './details/foams/foams.component';
+import {OilsComponent} from './details/oils/oils.component';
+import {LittersComponent} from './details/litters/litters.component';
+import {OdoursComponent} from './details/odours/odours.component';
+import {OutletsComponent} from './details/outlets/outlets.component';
+import {FaunaComponent} from './details/fauna/fauna.component';
+import {TransparencyComponent} from './measures/transparency/transparency.component';
+import {TemperatureComponent} from './measures/temperature/temperature.component';
+import {PhComponent} from './measures/ph/ph.component';
+import {OxygenComponent} from './measures/oxygen/oxygen.component';
+import {BacteriaComponent} from './measures/bacteria/bacteria.component';
 
 export interface Position {
   coordinates: LatLng;
@@ -27,7 +27,7 @@ export interface Weather {
 
 export interface Algae {
   checked: boolean;
-  component: Object;
+  component: object;
   extension: { code: number };
   colour: { code: number };
   iridescent: boolean;
@@ -36,7 +36,7 @@ export interface Algae {
 
 export interface Foams {
   checked: boolean;
-  component: Object;
+  component: object;
   extension: { code: number };
   look: { code: number };
   height: { code: number };
@@ -44,28 +44,28 @@ export interface Foams {
 
 export interface Oils {
   checked: boolean;
-  component: Object;
+  component: object;
   extension: { code: number };
   type: { code: number };
 }
 
 export interface Litters {
   checked: boolean;
-  component: Object;
+  component: object;
   quantity: { code: number };
   type: any[];
 }
 
 export interface Odours {
   checked: boolean;
-  component: Object;
+  component: object;
   intensity: { code: number };
   origin: any[];
 }
 
 export interface Outlets {
   checked: boolean;
-  component: Object;
+  component: object;
   inPlace: boolean;
   terminal: { code: number };
   colour: { code: number };
@@ -78,7 +78,7 @@ export interface Outlets {
 
 export interface Fauna {
   checked: boolean;
-  component: Object;
+  component: object;
   fish: {
     checked: boolean;
     number: number;
@@ -135,14 +135,14 @@ export interface Instrument {
 
 export interface Transparency {
   checked: boolean;
-  component: Object;
+  component: object;
   val: number;
   instrument: Instrument;
 }
 
 export interface Temperature {
   checked: boolean;
-  component: Object;
+  component: object;
   multiple: boolean;
   val: any[];
   instrument: Instrument;
@@ -150,7 +150,7 @@ export interface Temperature {
 
 export interface Ph {
   checked: boolean;
-  component: Object;
+  component: object;
   multiple: boolean;
   val: any[];
   instrument: Instrument;
@@ -158,7 +158,7 @@ export interface Ph {
 
 export interface Oxygen {
   checked: boolean;
-  component: Object;
+  component: object;
   multiple: boolean;
   percentage: boolean;
   val: any[];
@@ -167,7 +167,7 @@ export interface Oxygen {
 
 export interface Bacteria {
   checked: boolean;
-  component: Object;
+  component: object;
   escherichiaColi: number;
   enterococci: number;
 }
@@ -197,7 +197,7 @@ export class MeasuresImpl implements Measures {
       component: TransparencyComponent,
       val: undefined,
       instrument: {
-        type: { code: undefined },
+        type: {code: undefined},
         brand: undefined,
         precision: undefined,
         details: undefined,
@@ -210,7 +210,7 @@ export class MeasuresImpl implements Measures {
       multiple: undefined,
       val: [],
       instrument: {
-        type: { code: undefined },
+        type: {code: undefined},
         brand: undefined,
         precision: undefined,
         details: undefined,
@@ -223,7 +223,7 @@ export class MeasuresImpl implements Measures {
       multiple: undefined,
       val: [],
       instrument: {
-        type: { code: undefined },
+        type: {code: undefined},
         brand: undefined,
         precision: undefined,
         details: undefined,
@@ -237,7 +237,7 @@ export class MeasuresImpl implements Measures {
       percentage: undefined,
       val: [],
       instrument: {
-        type: { code: undefined },
+        type: {code: undefined},
         brand: undefined,
         precision: undefined,
         details: undefined,
@@ -272,21 +272,15 @@ export class Observation {
 
   photos: Array<string>;
 
-  /**
-   * Create a new observation and initializes all the values except for the passed ones to undefined.
-   *
-   * @param {LatLng} coords - The coordinated of the new observation.
-   * @param {number} accuracy - The accuracy of the coordinates.
-   */
   constructor(coords: LatLng, accuracy: number) {
     this.position = {
       coordinates: coords,
-      accuracy: accuracy,
+      accuracy,
     };
 
     this.weather = {
       temperature: undefined,
-      sky: { code: 1 },
+      sky: {code: 1},
       wind: undefined,
     };
 
@@ -295,38 +289,38 @@ export class Observation {
     const algae: Algae = {
       checked: false,
       component: AlgaeComponent,
-      extension: { code: undefined },
-      look: { code: undefined },
-      colour: { code: undefined },
+      extension: {code: undefined},
+      look: {code: undefined},
+      colour: {code: undefined},
       iridescent: undefined,
     };
 
     const foams: Foams = {
       checked: false,
       component: FoamsComponent,
-      extension: { code: undefined },
-      look: { code: undefined },
-      height: { code: undefined },
+      extension: {code: undefined},
+      look: {code: undefined},
+      height: {code: undefined},
     };
 
     const oils: Oils = {
       checked: false,
       component: OilsComponent,
-      extension: { code: undefined },
-      type: { code: undefined },
+      extension: {code: undefined},
+      type: {code: undefined},
     };
 
     const litters: Litters = {
       checked: false,
       component: LittersComponent,
-      quantity: { code: undefined },
+      quantity: {code: undefined},
       type: [],
     };
 
     const odours: Odours = {
       checked: false,
       component: OdoursComponent,
-      intensity: { code: undefined },
+      intensity: {code: undefined},
       origin: [],
     };
 
@@ -334,8 +328,8 @@ export class Observation {
       checked: false,
       component: OutletsComponent,
       inPlace: undefined,
-      terminal: { code: undefined },
-      colour: { code: undefined },
+      terminal: {code: undefined},
+      colour: {code: undefined},
       vapour: undefined,
       signage: undefined,
       signagePhoto: undefined,
@@ -350,47 +344,47 @@ export class Observation {
         checked: undefined,
         number: undefined,
         deceased: undefined,
-        abnormal: { checked: undefined, details: undefined },
-        alien: { checked: undefined, species: [] },
+        abnormal: {checked: undefined, details: undefined},
+        alien: {checked: undefined, species: []},
       },
       birds: {
         checked: undefined,
         number: undefined,
         deceased: undefined,
-        abnormal: { checked: undefined, details: undefined },
-        alien: { checked: undefined, species: [] },
+        abnormal: {checked: undefined, details: undefined},
+        alien: {checked: undefined, species: []},
       },
       molluscs: {
         checked: undefined,
         number: undefined,
         deceased: undefined,
-        abnormal: { checked: undefined, details: undefined },
-        alien: { checked: undefined, species: [] },
+        abnormal: {checked: undefined, details: undefined},
+        alien: {checked: undefined, species: []},
       },
       crustaceans: {
         checked: undefined,
         number: undefined,
         deceased: undefined,
-        abnormal: { checked: undefined, details: undefined },
-        alien: { checked: undefined, species: [] },
+        abnormal: {checked: undefined, details: undefined},
+        alien: {checked: undefined, species: []},
       },
       turtles: {
         checked: undefined,
         number: undefined,
         deceased: undefined,
-        abnormal: { checked: undefined, details: undefined },
-        alien: { checked: undefined, species: [] },
+        abnormal: {checked: undefined, details: undefined},
+        alien: {checked: undefined, species: []},
       },
     };
 
     this.details = {
-      algae: algae,
-      foams: foams,
-      oils: oils,
-      litters: litters,
-      odours: odours,
-      outlets: outlets,
-      fauna: fauna,
+      algae,
+      foams,
+      oils,
+      litters,
+      odours,
+      outlets,
+      fauna,
     };
   }
 }

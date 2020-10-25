@@ -1,5 +1,5 @@
-@import "../../../theme/variables";
-@import "../shared";
+@import '../../../theme/variables';
+@import '../shared';
 
 $info-small-margin: 18px;
 $section-margin-bottom: 32px;
@@ -14,10 +14,10 @@ main section {
   margin-bottom: $section-margin-bottom;
 
   .heading {
+    font-size: $font-body-lg;
+    color: $text-tertiary;
     display: flex;
     align-items: center;
-    color: $text-tertiary;
-    font-size: $font-body-lg;
     margin-bottom: $heading-margin-bottom;
 
     ion-icon {
@@ -40,21 +40,21 @@ main section {
 
 #location {
   ion-card-content {
+    color: #000;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     min-width: 0;
-    color: #000000;
     padding: 4px 8px 4px 16px;
 
     p {
       font-size: $font-body;
-      margin: 0;
-      flex: 1;
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
+      overflow: hidden;
+      flex: 1;
+      margin: 0;
     }
 
     ion-icon {
@@ -72,9 +72,9 @@ main section {
     align-items: initial;
 
     div {
-      width: 33%;
-      text-align: center;
       color: $text-primary;
+      text-align: center;
+      width: 33%;
 
       .label {
         margin-bottom: 8px;
@@ -101,20 +101,20 @@ main section {
   margin-bottom: 40px;
 
   .photos-container {
-    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
 
     .photo {
-      width: 80px;
-      height: 80px;
       display: flex;
+      overflow: hidden;
       justify-content: center;
       align-items: center;
+      width: 80px;
+      height: 80px;
       border: 1px solid darken($color-border, 5);
       border-radius: 10px;
-      overflow: hidden;
 
       i {
         color: var(--ion-color-primary);
@@ -130,8 +130,8 @@ main section {
 
 #buttons {
   .or {
-    text-align: center;
     color: $text-secondary;
+    text-align: center;
   }
 }
 
@@ -148,9 +148,9 @@ main section {
   }
 
   .ske-heading {
+    line-height: $font-title;
     width: 50%;
     margin-bottom: $heading-margin-bottom * 2;
-    line-height: $font-title;
   }
 
   .ske-card-sm {

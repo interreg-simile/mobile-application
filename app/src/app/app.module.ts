@@ -1,36 +1,36 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { RouteReuseStrategy } from "@angular/router";
-import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
-import { AppComponent } from "./app.component";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { AppRoutingModule } from "./app-routing.module";
-import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import { registerLocaleData } from "@angular/common";
-import localeIt from "@angular/common/locales/it";
-import { IonicStorageModule } from "@ionic/storage";
-import { Geolocation } from "@ionic-native/geolocation/ngx";
-import { Diagnostic } from "@ionic-native/diagnostic/ngx";
-import { Camera } from "@ionic-native/camera/ngx";
-import { File } from "@ionic-native/file/ngx";
-import { Base64ToGallery } from "@ionic-native/base64-to-gallery/ngx";
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouteReuseStrategy} from '@angular/router';
+import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {AppComponent} from './app.component';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {registerLocaleData} from '@angular/common';
+import localeIt from '@angular/common/locales/it';
+import {IonicStorageModule} from '@ionic/storage';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
+import {Diagnostic} from '@ionic-native/diagnostic/ngx';
+import {Camera} from '@ionic-native/camera/ngx';
+import {File} from '@ionic-native/file/ngx';
+import {Base64ToGallery} from '@ionic-native/base64-to-gallery/ngx';
 import {
   FileType,
   IModuleTranslationOptions,
   ModuleTranslateLoader,
-} from "@larscom/ngx-translate-module-loader";
-import { LoggerModule, NgxLoggerLevel } from "ngx-logger";
-import { AppVersion } from "@ionic-native/app-version/ngx";
-import { Network } from "@ionic-native/network/ngx";
+} from '@larscom/ngx-translate-module-loader';
+import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {AppVersion} from '@ionic-native/app-version/ngx';
+import {Network} from '@ionic-native/network/ngx';
 
-import { PhotoViewerComponent } from "./shared/photo-viewer/photo-viewer.component";
-import { environment } from "../environments/environment";
-import { HelpModalComponent } from "./shared/helps/help-modal/help-modal.component";
-import { HelpPopoverComponent } from "./shared/helps/help-popover/help-popover.component";
-import { NgxIonicImageViewerModule } from "ngx-ionic-image-viewer";
-import { interceptorProviders } from "./shared/interceptors/interceptors";
+import {PhotoViewerComponent} from './shared/photo-viewer/photo-viewer.component';
+import {environment} from '../environments/environment';
+import {HelpModalComponent} from './shared/helps/help-modal/help-modal.component';
+import {HelpPopoverComponent} from './shared/helps/help-popover/help-popover.component';
+import {NgxIonicImageViewerModule} from 'ngx-ionic-image-viewer';
+import {interceptorProviders} from './shared/interceptors/interceptors';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
         : NgxLoggerLevel.OFF,
       serverLogLevel: NgxLoggerLevel.OFF,
       enableSourceMaps: true,
-      timestampFormat: "short",
+      timestampFormat: 'short',
     }),
   ],
   providers: [
@@ -77,48 +77,36 @@ import { interceptorProviders } from "./shared/interceptors/interceptors";
     Camera,
     File,
     Base64ToGallery,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     interceptorProviders,
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  /** @ignore */
   constructor() {
-    registerLocaleData(localeIt, "it");
+    registerLocaleData(localeIt, 'it');
   }
 }
 
-/**
- * Loads the JSON files with the translations.
- *
- * @param {HttpClient} http - The http client needed to lead the translation.
- * @return {ModuleTranslateLoader} A new ModuleTranslateLoader object.
- */
 export function translateLoader(http: HttpClient): ModuleTranslateLoader {
-  // Set the file type
   const fileType = FileType.JSON;
+  const baseTranslateUrl = './assets/i18n';
 
-  // Set the base url
-  const baseTranslateUrl = "./assets/i18n";
-
-  // Set the loader options
   const opts: IModuleTranslationOptions = {
     nameSpaceUppercase: false,
     modules: [
-      { moduleName: "common", baseTranslateUrl, fileType },
-      { moduleName: "helps", baseTranslateUrl, fileType },
-      { moduleName: "page-map", baseTranslateUrl, fileType },
-      { moduleName: "page-new-obs", baseTranslateUrl, fileType },
-      { moduleName: "page-info-obs", baseTranslateUrl, fileType },
-      { moduleName: "page-news", baseTranslateUrl, fileType },
-      { moduleName: "page-glossary", baseTranslateUrl, fileType },
-      { moduleName: "page-project", baseTranslateUrl, fileType },
-      { moduleName: "page-settings", baseTranslateUrl, fileType },
-      { moduleName: "page-auth", baseTranslateUrl, fileType },
+      {moduleName: 'common', baseTranslateUrl, fileType},
+      {moduleName: 'helps', baseTranslateUrl, fileType},
+      {moduleName: 'page-map', baseTranslateUrl, fileType},
+      {moduleName: 'page-new-obs', baseTranslateUrl, fileType},
+      {moduleName: 'page-info-obs', baseTranslateUrl, fileType},
+      {moduleName: 'page-news', baseTranslateUrl, fileType},
+      {moduleName: 'page-glossary', baseTranslateUrl, fileType},
+      {moduleName: 'page-project', baseTranslateUrl, fileType},
+      {moduleName: 'page-settings', baseTranslateUrl, fileType},
+      {moduleName: 'page-auth', baseTranslateUrl, fileType},
     ],
   };
 
-  // Return the loader
   return new ModuleTranslateLoader(http, opts);
 }

@@ -1,13 +1,13 @@
-import { Component, Input } from "@angular/core";
-import { LoadingController, ModalController } from "@ionic/angular";
-import { TranslateService } from "@ngx-translate/core";
-import { Duration, ToastService } from "../../shared/toast.service";
-import { User, UserService } from "../../shared/user.service";
+import {Component, Input} from '@angular/core';
+import {LoadingController, ModalController} from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
+import {Duration, ToastService} from '../../shared/toast.service';
+import {User, UserService} from '../../shared/user.service';
 
 @Component({
-  selector: "app-change-email",
-  templateUrl: "./change-email.component.html",
-  styleUrls: ["./change-email.component.scss"],
+  selector: 'app-change-email',
+  templateUrl: './change-email.component.html',
+  styleUrls: ['./change-email.component.scss'],
 })
 export class ChangeEmailComponent {
   @Input() user: User;
@@ -19,11 +19,12 @@ export class ChangeEmailComponent {
     private loadingCtr: LoadingController,
     private toastService: ToastService,
     private userService: UserService
-  ) {}
+  ) {
+  }
 
   async onConfirmClick(): Promise<void> {
     const loading = await this.loadingCtr.create({
-      message: this.i18n.instant("common.wait"),
+      message: this.i18n.instant('common.wait'),
       showBackdrop: false,
     });
 
@@ -32,7 +33,7 @@ export class ChangeEmailComponent {
     if (!this.email) {
       await loading.dismiss();
       await this.toastService.presentToast(
-        "page-settings.account.changeEmail.missingEmail",
+        'page-settings.account.changeEmail.missingEmail',
         Duration.short
       );
       return;
@@ -44,17 +45,17 @@ export class ChangeEmailComponent {
       await loading.dismiss();
       if (error.status === 422) {
         await this.toastService.presentToast(
-          "page-auth.modalRegister.invalidInfo",
+          'page-auth.modalRegister.invalidInfo',
           Duration.short
         );
       } else if (error.status === 409) {
         await this.toastService.presentToast(
-          "page-auth.modalRegister.emailInUse",
+          'page-auth.modalRegister.emailInUse',
           Duration.short
         );
       } else {
         await this.toastService.presentToast(
-          "common.errors.generic",
+          'common.errors.generic',
           Duration.short
         );
       }
@@ -64,7 +65,7 @@ export class ChangeEmailComponent {
     await loading.dismiss();
     await this.closeModal();
     await this.toastService.presentToast(
-      "page-settings.account.updateSuccess",
+      'page-settings.account.updateSuccess',
       Duration.short
     );
   }

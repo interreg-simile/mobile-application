@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
-import { ObservationsService } from "../../observations.service";
-import { CameraService, PicResult } from "../../../shared/camera.service";
-import { Duration, ToastService } from "../../../shared/toast.service";
-import { PhotoViewerComponent } from "../../../shared/photo-viewer/photo-viewer.component";
+import {Component, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {ObservationsService} from '../../observations.service';
+import {CameraService, PicResult} from '../../../shared/camera.service';
+import {Duration, ToastService} from '../../../shared/toast.service';
+import {PhotoViewerComponent} from '../../../shared/photo-viewer/photo-viewer.component';
 
 interface Props {
   inPlace?: boolean;
@@ -17,34 +17,32 @@ interface Props {
 }
 
 @Component({
-  selector: "app-outlets",
-  templateUrl: "./outlets.component.html",
-  styleUrls: ["./outlets.component.scss"],
+  selector: 'app-outlets',
+  templateUrl: './outlets.component.html',
+  styleUrls: ['./outlets.component.scss'],
 })
 export class OutletsComponent implements OnInit {
   public _props: Props = {};
 
   public _colours = {
-    1: { selected: false, colour: "#D64818" },
-    2: { selected: false, colour: "#1060B0" },
-    3: { selected: false, colour: "#1F7F16" },
-    4: { selected: false, colour: "#888888" },
-    5: { selected: false, colour: "#6C4B11" },
-    6: { selected: false, colour: "#D7B427" },
-    7: { selected: false, colour: "#FFFFFF" },
+    1: {selected: false, colour: '#D64818'},
+    2: {selected: false, colour: '#1060B0'},
+    3: {selected: false, colour: '#1F7F16'},
+    4: {selected: false, colour: '#888888'},
+    5: {selected: false, colour: '#6C4B11'},
+    6: {selected: false, colour: '#D7B427'},
+    7: {selected: false, colour: '#FFFFFF'},
   };
 
-  // Utility function to keep the original key order when iterating on an object using ngFor
-  _originalOrder = (a, b) => {
-    return 0;
-  };
+  _originalOrder = (a, b) => 0;
 
   constructor(
     private modalCtr: ModalController,
     private obsService: ObservationsService,
     private cameraService: CameraService,
     private toastService: ToastService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this._props.inPlace = this.obsService.newObservation.details.outlets.inPlace;
@@ -56,14 +54,11 @@ export class OutletsComponent implements OnInit {
     this._props.prodActNearby = this.obsService.newObservation.details.outlets.prodActNearby;
     this._props.prodActNearbyDetails = this.obsService.newObservation.details.outlets.prodActNearbyDetails;
 
-    if (this._props.colour) this._colours[this._props.colour].selected = true;
+    if (this._props.colour) {
+      this._colours[this._props.colour].selected = true;
+    }
   }
 
-  /**
-   * Handles a change in the selected colour.
-   *
-   * @param {Object} colour - The selected colour.
-   */
   onColourClick(colour: any): void {
     this._props.colour = undefined;
 
@@ -81,21 +76,22 @@ export class OutletsComponent implements OnInit {
     });
   }
 
-  /** Fired when the user click on the signage photo button. */
   async onSignagePhotoClick(): Promise<void> {
     if (this._props.signagePhoto) {
       const src = this.cameraService.getImgSrc(this._props.signagePhoto);
 
       const modal = await this.modalCtr.create({
         component: PhotoViewerComponent,
-        componentProps: { src: src, edit: true, delete: true },
+        componentProps: {src, edit: true, delete: true},
       });
 
       await modal.present();
 
       const data = (await modal.onDidDismiss()).data;
 
-      if (!data) return;
+      if (!data) {
+        return;
+      }
 
       if (data.delete) {
         this._props.signagePhoto = undefined;
@@ -103,28 +99,26 @@ export class OutletsComponent implements OnInit {
       }
     }
 
-    this.takePicture();
+    await this.takePicture();
   }
 
-  /** Takes a picture. */
   async takePicture(): Promise<void> {
     const pic = await this.cameraService.takePicture();
 
-    if (pic === PicResult.NO_IMAGE) return;
+    if (pic === PicResult.NO_IMAGE) {
+      return;
+    }
 
-    if (pic === PicResult.ERROR)
+    if (pic === PicResult.ERROR) {
       await this.toastService.presentToast(
-        "common.errors.photo",
+        'common.errors.photo',
         Duration.short
       );
-    else this._props.signagePhoto = pic;
+    } else {
+      this._props.signagePhoto = pic;
+    }
   }
 
-  /**
-   * Closes the modal and handle the data saving process.
-   *
-   * @param {boolean} save - True if the modifications done in the modal are to be saved.
-   */
   async closeModal(save: boolean): Promise<void> {
     if (save) {
       this.obsService.newObservation.details.outlets.checked = true;

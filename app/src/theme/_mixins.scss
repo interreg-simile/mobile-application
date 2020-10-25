@@ -1,5 +1,3 @@
-/** Utilities Sass Mixins **/
-
 @mixin flex-display($direction: row, $justify: flex-start, $align: stretch) {
   display: flex;
   flex-direction: $direction;
@@ -20,8 +18,8 @@
     @include flex-static(48px);
 
     ion-icon {
-      padding: 12px;
       font-size: 24px;
+      padding: 12px;
     }
   }
 }

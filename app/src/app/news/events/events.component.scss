@@ -1,5 +1,5 @@
-@import "../../../theme/variables";
-@import "../../../theme/mixins";
+@import '../../../theme/variables';
+@import '../../../theme/mixins';
 
 ion-item {
   --background: #{$off-white};
@@ -15,16 +15,16 @@ ion-item {
       @include flex-display(column);
 
       .title {
-        width: 100%;
         display: table;
-        table-layout: fixed;
+        width: 100%;
         padding-bottom: 8px;
+        table-layout: fixed;
 
         span {
-          display: table-cell;
           white-space: nowrap;
-          overflow: hidden;
           text-overflow: ellipsis;
+          display: table-cell;
+          overflow: hidden;
         }
       }
 
@@ -36,9 +36,9 @@ ion-item {
         }
 
         .date {
-          color: $text-secondary;
           font-size: $font-body-small;
           line-height: 1;
+          color: $text-secondary;
         }
       }
     }

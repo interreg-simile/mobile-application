@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
-import { NGXLogger } from "ngx-logger";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {NGXLogger} from 'ngx-logger';
 
-import { NewsService } from "./news.service";
-import { Alert } from "./alerts/alert.model";
-import { Event } from "./events/event.model";
-import { Duration, ToastService } from "../shared/toast.service";
-import { ConnectionStatus, NetworkService } from "../shared/network.service";
+import {NewsService} from './news.service';
+import {Alert} from './alerts/alert.model';
+import {Event} from './events/event.model';
+import {Duration, ToastService} from '../shared/toast.service';
+import {ConnectionStatus, NetworkService} from '../shared/network.service';
 
 enum Segments {
   ALERTS,
@@ -14,9 +14,9 @@ enum Segments {
 }
 
 @Component({
-  selector: "app-news",
-  templateUrl: "./news.page.html",
-  styleUrls: ["./news.page.scss"],
+  selector: 'app-news',
+  templateUrl: './news.page.html',
+  styleUrls: ['./news.page.scss'],
 })
 export class NewsPage implements OnInit, OnDestroy {
   private _alertsSub: Subscription;
@@ -40,7 +40,8 @@ export class NewsPage implements OnInit, OnDestroy {
     private toastService: ToastService,
     private logger: NGXLogger,
     private networkService: NetworkService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this._alertsSub = this.newsService.alerts.subscribe(
@@ -57,21 +58,10 @@ export class NewsPage implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Called when the user changes the segment. If it is the first time the user visits the event page, it fetches the
-   * events form the server.
-   *
-   * @param {CustomEvent} e - The Ionic change event.
-   */
   onSegmentChange(e: CustomEvent): void {
     this.selectedSegment = +e.detail.value;
   }
 
-  /**
-   * Called when the user scrolls down to refresh. It fetches the events and the alerts from the server.
-   *
-   * @param {CustomEvent} e - The refresh event.
-   */
   onRefresh(e: any): void {
     if (!this.networkService.checkOnlineContentAvailability()) {
       e.target.complete();
@@ -83,16 +73,24 @@ export class NewsPage implements OnInit, OnDestroy {
 
     Promise.all([pEvents, pAlerts])
       .catch((err) => {
-        this.logger.error("Error refreshing the page.", err);
-        this.toastService.presentToast("page-news.fetch-error", Duration.short);
+        this.logger.error('Error refreshing the page.', err);
+        this.toastService.presentToast('page-news.fetch-error', Duration.short);
       })
       .finally(() => e.target.complete());
   }
 
   ngOnDestroy(): void {
-    if (this._alertsSub) this._alertsSub.unsubscribe();
-    if (this._eventsSub) this._eventsSub.unsubscribe();
-    if (this._newAlertsSub) this._newAlertsSub.unsubscribe();
-    if (this._newEventsSub) this._newEventsSub.unsubscribe();
+    if (this._alertsSub) {
+      this._alertsSub.unsubscribe();
+    }
+    if (this._eventsSub) {
+      this._eventsSub.unsubscribe();
+    }
+    if (this._newAlertsSub) {
+      this._newAlertsSub.unsubscribe();
+    }
+    if (this._newEventsSub) {
+      this._newEventsSub.unsubscribe();
+    }
   }
 }

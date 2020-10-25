@@ -9,9 +9,15 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "tslint:check": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "stylelint:check": "stylelint \"src/**/*.scss\"",
+    "lint-all": "npm run tslint:check && npm run stylelint:check"
   },
   "private": true,
+  "pre-commit": [
+    "lint-all"
+  ],
   "dependencies": {
     "@angular/common": "~8.1.2",
     "@angular/core": "~8.1.2",
@@ -85,11 +91,18 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
-    "prettier": "2.1.2",
+    "pre-commit": "1.2.2",
     "protractor": "~5.4.0",
+    "stylelint": "13.7.2",
+    "stylelint-config-recommended": "3.0.0",
+    "stylelint-config-recommended-scss": "4.2.0",
+    "stylelint-config-sass-guidelines": "7.1.0",
+    "stylelint-order": "4.1.0",
+    "stylelint-scss": "3.18.0",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "tslint": "5.15.0",
+    "tslint-config-prettier": "1.18.0",
+    "typescript": "3.4.5"
   },
   "description": "An Ionic project",
   "cordova": {

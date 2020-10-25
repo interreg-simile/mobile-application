@@ -1,4 +1,4 @@
-@import "../../theme/variables";
+@import '../../theme/variables';
 
 .card-header {
   padding: 0 0 8px 8px;
@@ -16,7 +16,7 @@
   margin-bottom: 24px;
 
   ion-card-content {
-    p:not(:last-child) {
+    p:not( :last-child ) {
       margin-bottom: 8px;
     }
   }

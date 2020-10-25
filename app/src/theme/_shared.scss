@@ -1,5 +1,5 @@
-@import "variables";
-@import "mixins";
+@import 'variables';
+@import 'mixins';
 
 p {
   margin: 0;
@@ -16,11 +16,11 @@ p {
 }
 
 .custom-container {
-  width: 100%;
   --padding-top: 16px;
   --padding-bottom: 16px;
   --padding-start: 16px;
   --padding-end: 16px;
+  width: 100%;
   padding: 16px;
 }
 
@@ -31,8 +31,8 @@ p {
 
 .on-page-message {
   @include flex-display(column, center, center);
-  padding-top: 32px;
   color: $text-tertiary;
+  padding-top: 32px;
 
   ion-icon {
     font-size: 32px;
@@ -53,15 +53,15 @@ p {
 }
 
 ion-card {
-  background: #ffffff !important;
+  background: #fff !important;
 
   ion-card-content {
     &.card-content-md {
       font-size: $font-body;
 
       p {
-        margin: 0;
         font-size: $font-body;
+        margin: 0;
       }
     }
   }
@@ -69,22 +69,22 @@ ion-card {
 
 /* Spinner */
 .central-spinner {
+  @include flex-center();
   width: 100%;
   height: 100%;
-  @include flex-center();
 }
 
 /* Notification dot */
 .notification-dot {
   width: 10px;
   height: 10px;
+  border: 1px solid #707070;
   border-radius: 50%;
   background: transparent;
-  border: 1px solid #707070;
 
   &.active {
-    background: var(--ion-color-danger);
     border: none;
+    background: var(--ion-color-danger);
   }
 }
 

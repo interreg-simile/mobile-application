@@ -1,23 +1,18 @@
-import { Injectable } from "@angular/core";
-import { DirectoryEntry, File, FileEntry } from "@ionic-native/file/ngx";
-import { NGXLogger } from "ngx-logger";
+import {Injectable} from '@angular/core';
+import {File, FileEntry} from '@ionic-native/file/ngx';
+import {NGXLogger} from 'ngx-logger';
 
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: 'root'})
 export class FileService {
-  private readonly _imagesDir = "images";
+  private readonly _imagesDir = 'images';
 
-  constructor(private file: File, private logger: NGXLogger) {}
-
-  /** Creates the directory to contain the saved observations images. */
-  async createImageDir(): Promise<void> {
-    return this.createDirectory("images");
+  constructor(private file: File, private logger: NGXLogger) {
   }
 
-  /**
-   * Creates a new directory in the device memory.
-   *
-   * @param {string} dirName - The name of the directory.
-   */
+  async createImageDir(): Promise<void> {
+    return this.createDirectory('images');
+  }
+
   private async createDirectory(dirName: string): Promise<void> {
     const doesExist = await this.checkDirExistence(dirName);
 
@@ -29,16 +24,11 @@ export class FileService {
           false
         )
         .catch((err) =>
-          this.logger.error("Error creating image directory.", err)
+          this.logger.error('Error creating image directory.', err)
         );
     }
   }
 
-  /**
-   * Checks if a directory exists in the device memory.
-   *
-   * @param {string} dirName - The directory name.
-   */
   private async checkDirExistence(dirName: string): Promise<boolean> {
     return await this.file
       .checkDir(this.file.dataDirectory, dirName)
@@ -46,12 +36,6 @@ export class FileService {
       .catch(() => false);
   }
 
-  /**
-   * Moves an image from the cache to the local memory.
-   *
-   * @param {string} imgUrl - The image url.
-   * @return {Promise<string>} A promise containing the url of the moved image.
-   */
   async storeImage(imgUrl: string): Promise<string> {
     const fileEntry = await this.file.resolveLocalFilesystemUrl(imgUrl);
     const fileName = fileEntry.name;
@@ -71,20 +55,13 @@ export class FileService {
         fileName,
         (file) => resolve(file.nativeURL),
         (err) => {
-          this.logger.error("Error moving file.", err);
+          this.logger.error('Error moving file.', err);
           reject();
         }
       );
     });
   }
 
-  /**
-   * Appends an image to a given formData.
-   *
-   * @param {FormData} formData - The formData.
-   * @param {string} url - The url of the photo.
-   * @param {string} field - The name of the field.
-   */
   async appendImage(
     formData: FormData,
     url: string,
@@ -99,7 +76,7 @@ export class FileService {
           const reader = new FileReader();
 
           reader.onloadend = () => {
-            const imgBlob = new Blob([reader.result], { type: "image/jpeg" });
+            const imgBlob = new Blob([reader.result], {type: 'image/jpeg'});
             formData.append(field, imgBlob, file.name);
             resolve();
           };
@@ -116,11 +93,6 @@ export class FileService {
     });
   }
 
-  /**
-   * Removes an image form the local storage.
-   *
-   * @param {string} imgUrl - The url of the image.
-   */
   async removeImage(imgUrl: string): Promise<void> {
     const fileEntry = await this.file.resolveLocalFilesystemUrl(imgUrl);
 
@@ -146,50 +118,10 @@ export class FileService {
       const reader = new FileReader();
       reader.onloadend = () => resolve(reader.result);
       reader.onerror = (err) => {
-        this.logger.error("Error converting image to base 64", err);
+        this.logger.error('Error converting image to base 64', err);
         reject(err);
       };
       reader.readAsDataURL(blob);
-    });
-  }
-
-  // It does not work
-  async saveImageToGalley(imgUrl: string): Promise<void> {
-    const dataDirEntry = await this.file.resolveDirectoryUrl(
-      this.file.dataDirectory
-    );
-    const dirEntry = await this.file.getDirectory(
-      dataDirEntry,
-      this._imagesDir,
-      null
-    );
-
-    const res = await fetch(imgUrl);
-    const blob = await res.blob();
-
-    const fileName = `simile_${new Date().toISOString()}`;
-
-    return new Promise((resolve, reject) => {
-      dirEntry.getFile(
-        "test",
-        { create: true, exclusive: false },
-        (fileEntry) => {
-          fileEntry.createWriter(
-            (fileWriter) => {
-              fileWriter.write(blob);
-              resolve();
-            },
-            (err) => {
-              this.logger.error("Error creating file writer", err);
-              reject(err);
-            }
-          );
-        },
-        (err) => {
-          this.logger.error("Error creating file", err);
-          reject(err);
-        }
-      );
     });
   }
 }

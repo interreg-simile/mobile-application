@@ -1,24 +1,24 @@
-@import "../theme/mixins";
-@import "../theme/variables";
+@import '../theme/mixins';
+@import '../theme/variables';
 
 $avatar-size: 48px;
 
 .container {
-  width: 100%;
   @include flex-center();
 
+  @include icon();
+  width: 100%;
+
   ion-avatar {
-    height: $avatar-size;
     @include flex-static($avatar-size);
+    height: $avatar-size;
   }
 
   .username {
-    flex: 1;
-    font-weight: 500;
     font-size: $font-title;
+    font-weight: 500;
+    flex: 1;
   }
-
-  @include icon();
 }
 
 .active-link {

@@ -1,17 +1,17 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { User, UserService } from "../../shared/user.service";
-import { Duration, ToastService } from "../../shared/toast.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {User, UserService} from '../../shared/user.service';
+import {Duration, ToastService} from '../../shared/toast.service';
 import {
   AlertController,
   LoadingController,
   ModalController,
-} from "@ionic/angular";
-import { TranslateService } from "@ngx-translate/core";
+} from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-  selector: "app-change-info",
-  templateUrl: "./change-info.component.html",
-  styleUrls: ["./change-info.component.scss"],
+  selector: 'app-change-info',
+  templateUrl: './change-info.component.html',
+  styleUrls: ['./change-info.component.scss'],
 })
 export class ChangeInfoComponent implements OnInit {
   @Input() user: User;
@@ -23,9 +23,9 @@ export class ChangeInfoComponent implements OnInit {
   public gender: string;
   public shownGender: string;
   private _genderMap = {
-    male: this.i18n.instant("page-auth.modalRegister.male"),
-    female: this.i18n.instant("page-auth.modalRegister.female"),
-    other: this.i18n.instant("page-auth.modalRegister.other"),
+    male: this.i18n.instant('page-auth.modalRegister.male'),
+    female: this.i18n.instant('page-auth.modalRegister.female'),
+    other: this.i18n.instant('page-auth.modalRegister.other'),
   };
 
   constructor(
@@ -35,7 +35,8 @@ export class ChangeInfoComponent implements OnInit {
     private toastService: ToastService,
     private userService: UserService,
     private alertCrt: AlertController
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.shownGender = this._genderMap[this.gender];
@@ -43,41 +44,41 @@ export class ChangeInfoComponent implements OnInit {
 
   async openGenderPicker(): Promise<void> {
     const alert = await this.alertCrt.create({
-      header: this.i18n.instant("page-auth.modalRegister.phGender"),
+      header: this.i18n.instant('page-auth.modalRegister.phGender'),
       inputs: [
         {
-          name: "radio-gender",
-          type: "radio",
-          label: "-",
+          name: 'radio-gender',
+          type: 'radio',
+          label: '-',
           value: undefined,
           checked: !this.gender,
         },
         {
-          name: "radio-gender",
-          type: "radio",
+          name: 'radio-gender',
+          type: 'radio',
           label: this._genderMap.male,
-          value: "male",
-          checked: this.gender === "male",
+          value: 'male',
+          checked: this.gender === 'male',
         },
         {
-          name: "radio-gender",
-          type: "radio",
+          name: 'radio-gender',
+          type: 'radio',
           label: this._genderMap.female,
-          value: "female",
-          checked: this.gender === "female",
+          value: 'female',
+          checked: this.gender === 'female',
         },
         {
-          name: "radio-gender",
-          type: "radio",
+          name: 'radio-gender',
+          type: 'radio',
           label: this._genderMap.other,
-          value: "other",
-          checked: this.gender === "other",
+          value: 'other',
+          checked: this.gender === 'other',
         },
       ],
       buttons: [
-        { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel" },
+        {text: this.i18n.instant('common.alerts.btn-cancel'), role: 'cancel'},
         {
-          text: this.i18n.instant("common.alerts.btn-confirm"),
+          text: this.i18n.instant('common.alerts.btn-confirm'),
           handler: (value) => {
             this.gender = value;
             this.shownGender = this._genderMap[value];
@@ -92,7 +93,7 @@ export class ChangeInfoComponent implements OnInit {
 
   async onConfirmClick(): Promise<void> {
     const loading = await this.loadingCtr.create({
-      message: this.i18n.instant("common.wait"),
+      message: this.i18n.instant('common.wait'),
       showBackdrop: false,
     });
 
@@ -101,7 +102,7 @@ export class ChangeInfoComponent implements OnInit {
     if (!this.name || !this.surname) {
       await loading.dismiss();
       await this.toastService.presentToast(
-        "page-settings.account.changeInfo.missingInfo",
+        'page-settings.account.changeInfo.missingInfo',
         Duration.short
       );
       return;
@@ -119,12 +120,12 @@ export class ChangeInfoComponent implements OnInit {
       await loading.dismiss();
       if (error.status === 422) {
         await this.toastService.presentToast(
-          "page-auth.modalRegister.invalidInfo",
+          'page-auth.modalRegister.invalidInfo',
           Duration.short
         );
       } else {
         await this.toastService.presentToast(
-          "common.errors.generic",
+          'common.errors.generic',
           Duration.short
         );
       }
@@ -133,7 +134,7 @@ export class ChangeInfoComponent implements OnInit {
 
     await loading.dismiss();
     await this.toastService.presentToast(
-      "page-settings.account.updateSuccess",
+      'page-settings.account.updateSuccess',
       Duration.short
     );
     await this.closeModal();

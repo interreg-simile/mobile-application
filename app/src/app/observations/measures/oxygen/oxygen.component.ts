@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import {Component, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
 
 import {
   InstrumentService,
   SimpleInstrument,
-} from "../instrument/instrument.service";
-import { ObservationsService } from "../../observations.service";
-import { Duration, ToastService } from "../../../shared/toast.service";
-import { HelpsService } from "../../../shared/helps/helps.service";
+} from '../instrument/instrument.service';
+import {ObservationsService} from '../../observations.service';
+import {Duration, ToastService} from '../../../shared/toast.service';
+import {HelpsService} from '../../../shared/helps/helps.service';
 
 interface Props {
   multiple?: boolean;
@@ -18,14 +18,14 @@ interface Props {
 }
 
 @Component({
-  selector: "app-oxygen",
-  templateUrl: "./oxygen.component.html",
-  styleUrls: ["./oxygen.component.scss"],
+  selector: 'app-oxygen',
+  templateUrl: './oxygen.component.html',
+  styleUrls: ['./oxygen.component.scss'],
 })
 export class OxygenComponent implements OnInit {
   public _props: Props = {
-    singleVal: { val: undefined, depth: undefined },
-    multipleVal: [{ val: undefined, depth: undefined }],
+    singleVal: {val: undefined, depth: undefined},
+    multipleVal: [{val: undefined, depth: undefined}],
     instrument: {},
   };
 
@@ -35,7 +35,8 @@ export class OxygenComponent implements OnInit {
     private instrumentService: InstrumentService,
     private toastService: ToastService,
     public helpsService: HelpsService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this._props.multiple =
@@ -43,9 +44,11 @@ export class OxygenComponent implements OnInit {
     this._props.percentage =
       this.obsService.newObservation.measures.oxygen.percentage || false;
 
-    this.instrumentService.setInstrumentProps(this._props.instrument, "oxygen");
+    this.instrumentService.setInstrumentProps(this._props.instrument, 'oxygen');
 
-    if (this.obsService.newObservation.measures.oxygen.val.length === 0) return;
+    if (this.obsService.newObservation.measures.oxygen.val.length === 0) {
+      return;
+    }
 
     if (!this.obsService.newObservation.measures.oxygen.multiple) {
       this._props.singleVal = {
@@ -59,59 +62,42 @@ export class OxygenComponent implements OnInit {
     }
   }
 
-  /**
-   * Called when the measure type is changed.
-   *
-   * @param {CustomEvent} e - The change event.
-   */
   onTypeChange(e: CustomEvent): void {
-    this._props.multiple = e.detail.value === "multiple";
+    this._props.multiple = e.detail.value === 'multiple';
   }
 
-  /**
-   * Computes the starting value of the unit.
-   *
-   * @return {string} The unit.
-   */
   computeStartingUnitValue(): string {
-    return this._props.percentage ? "percentage" : "mgl";
+    return this._props.percentage ? 'percentage' : 'mgl';
   }
 
-  /**
-   * Fired when the user changes the unit.
-   *
-   * @param {CustomEvent} e - The change event.
-   */
   onUnitChange(e: CustomEvent): void {
-    this._props.percentage = e.detail.value === "percentage";
+    this._props.percentage = e.detail.value === 'percentage';
   }
 
-  /** Called when the user clicks on the button to add a new value-depth row.  */
   async onAddBtnClick(): Promise<void> {
     if (
       this._props.multipleVal[this._props.multipleVal.length - 1].val ===
-        undefined ||
+      undefined ||
       this._props.multipleVal[this._props.multipleVal.length - 1].val ===
-        null ||
+      null ||
       this._props.multipleVal[this._props.multipleVal.length - 1].depth ===
-        undefined ||
+      undefined ||
       this._props.multipleVal[this._props.multipleVal.length - 1].depth === null
     ) {
       await this.toastService.presentToast(
-        "page-new-obs.measures.errors.add-measure",
+        'page-new-obs.measures.errors.add-measure',
         Duration.short
       );
       return;
     }
 
-    this._props.multipleVal.push({ val: undefined, depth: undefined });
+    this._props.multipleVal.push({val: undefined, depth: undefined});
   }
 
-  /** Called when the user clicks on the button to remove the last value-depth row. */
   async onRemoveBtnClick(): Promise<void> {
     if (this._props.multipleVal.length <= 1) {
       await this.toastService.presentToast(
-        "page-new-obs.measures.errors.remove-measure",
+        'page-new-obs.measures.errors.remove-measure',
         Duration.short
       );
       return;
@@ -120,15 +106,11 @@ export class OxygenComponent implements OnInit {
     this._props.multipleVal.pop();
   }
 
-  /**
-   * Closes the modal and handle the data saving process.
-   *
-   * @param {Boolean} save - True if the modifications done in the modal are to be saved.
-   */
   async closeModal(save: boolean): Promise<void> {
     if (save) {
-      if (!(await this.instrumentService.checkProps(this._props.instrument)))
+      if (!(await this.instrumentService.checkProps(this._props.instrument))) {
         return;
+      }
 
       if (!this._props.multiple) {
         if (
@@ -138,7 +120,7 @@ export class OxygenComponent implements OnInit {
           this._props.singleVal.val === null
         ) {
           await this.toastService.presentToast(
-            "page-new-obs.measures.oxygen.error-msg-val",
+            'page-new-obs.measures.oxygen.error-msg-val',
             Duration.short
           );
           return;
@@ -161,7 +143,7 @@ export class OxygenComponent implements OnInit {
           )
         ) {
           await this.toastService.presentToast(
-            "page-new-obs.measures.oxygen.error-msg-val",
+            'page-new-obs.measures.oxygen.error-msg-val',
             Duration.short
           );
           return;
@@ -169,7 +151,7 @@ export class OxygenComponent implements OnInit {
 
         this.obsService.newObservation.measures.oxygen.val = this._props.multipleVal.map(
           (v) => {
-            return { val: v.val, depth: Math.abs(v.depth) };
+            return {val: v.val, depth: Math.abs(v.depth)};
           }
         );
       }
@@ -180,7 +162,7 @@ export class OxygenComponent implements OnInit {
       this.obsService.newObservation.measures.oxygen.checked = true;
       this.instrumentService.saveInstrumentProps(
         this._props.instrument,
-        "oxygen"
+        'oxygen'
       );
     }
 
