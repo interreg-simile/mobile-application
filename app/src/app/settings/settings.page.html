@@ -1,193 +1,193 @@
 <ion-header>
-	
+
 	<ion-toolbar>
-		
+
 		<ion-buttons slot="start">
-			
+
 			<ion-menu-button menu="main"></ion-menu-button>
-		
+
 		</ion-buttons>
-		
+
 		<ion-title>{{"page-settings.title" | translate}}</ion-title>
-	
+
 	</ion-toolbar>
 
 </ion-header>
 
 <ion-content class="custom-container bg-off-white">
-	
+
 	<!-- General -->
 	<section>
 		<p class="card-header">{{"page-settings.general.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin">
-			
+
 			<ion-card-content class="ion-no-padding">
-				
+
 				<ion-list class="ion-no-padding">
-					
+
 					<!-- Language -->
 					<ion-item lines="none" (click)="onLangClick()">
-						
+
 						<ion-icon name="globe" slot="start"></ion-icon>
-						
+
 						<ion-label class="flex-label">
-							
+
 							<p class="name">{{"page-settings.general.language.head" | translate}}</p>
-							
+
 							<p class="choice">{{ langService.currLanguage }}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-				
+
 				</ion-list>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
-	
+
 	<!-- Account -->
 	<section>
 		<p class="card-header">{{"page-settings.account.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin">
-			
+
 			<ion-card-content class="ion-no-padding">
-				
+
 				<ion-list class="ion-no-padding">
-					
+
 					<!-- Register -->
 					<ion-item *ngIf="authService.isGuest"
-										(click)="onRegisterClick()"
-										lines="none">
-						
+							  (click)="onRegisterClick()"
+							  lines="none">
+
 						<ion-icon name="log-in" slot="start"></ion-icon>
-						
+
 						<ion-label>
-							
+
 							<p class="name">{{"page-settings.account.register" | translate}}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-					
+
 					<!-- Change email -->
 					<ion-item *ngIf="authService.isLoggedIn()" (click)="onChangeEmailClick()">
-						
+
 						<ion-icon name="mail" slot="start"></ion-icon>
-						
+
 						<ion-label>
-							
+
 							<p class="name">{{"page-settings.account.changeEmail.head" | translate}}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-					
+
 					<!-- Change password -->
 					<ion-item *ngIf="authService.isLoggedIn()" (click)="onChangePasswordClick()">
-						
+
 						<ion-icon name="lock" slot="start"></ion-icon>
-						
+
 						<ion-label>
-							
+
 							<p class="name">{{"page-settings.account.changePassword.head" | translate}}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-					
+
 					<!-- Change info -->
 					<ion-item *ngIf="authService.isLoggedIn()" (click)="onChangeInfoClick()">
-						
+
 						<ion-icon name="person" slot="start"></ion-icon>
-						
+
 						<ion-label>
-							
+
 							<p class="name">{{"page-settings.account.changeInfo.head" | translate}}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-					
+
 					<!-- Logout -->
 					<ion-item *ngIf="authService.isLoggedIn()" (click)="onLogoutClick()">
-						
+
 						<ion-icon name="log-out" slot="start"></ion-icon>
-						
+
 						<ion-label class="flex-label">
-							
+
 							<p class="name">{{"page-settings.account.logout.head" | translate}}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-					
+
 					<!-- Delete -->
 					<ion-item lines="none" *ngIf="authService.isLoggedIn()" (click)="onDeleteClick()">
-						
+
 						<ion-icon name="trash" slot="start"></ion-icon>
-						
+
 						<ion-label class="flex-label">
-							
+
 							<p class="name">{{"page-settings.account.delete.head" | translate}}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-				
+
 				</ion-list>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
-	
+
 	<!-- Info -->
 	<section class="last">
-		
+
 		<p class="card-header">{{"page-settings.info.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin">
-			
+
 			<ion-card-content class="ion-no-padding">
-				
+
 				<ion-list class="ion-no-padding">
-					
+
 					<!-- Version -->
 					<ion-item>
-						
+
 						<ion-icon name="build" slot="start"></ion-icon>
-						
+
 						<ion-label class="flex-label">
-							
+
 							<p class="name">{{"page-settings.info.version" | translate}}</p>
-							
+
 							<p class="choice">{{ _version }}</p>
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-					
+
 					<!-- Contact us -->
 					<ion-item lines="none" (click)="onContactUsClick()">
-						
+
 						<ion-icon name="people" slot="start"></ion-icon>
-						
+
 						<ion-label>{{"page-settings.info.contact-us" | translate}}</ion-label>
-					
+
 					</ion-item>
-				
+
 				</ion-list>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
 
 </ion-content>

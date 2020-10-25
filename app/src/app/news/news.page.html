@@ -1,76 +1,76 @@
 <ion-header>
-	
+
 	<ion-toolbar>
-		
+
 		<ion-buttons slot="start">
-			
+
 			<ion-back-button defaultHref="map"></ion-back-button>
-		
+
 		</ion-buttons>
-		
+
 		<ion-title>{{"page-news.title" | translate}}</ion-title>
-	
+
 	</ion-toolbar>
-	
+
 	<ion-segment (ionChange)="onSegmentChange($event)">
-		
+
 		<ion-segment-button value="{{ segmentsEnum.EVENTS }}" checked="true">
-			
+
 			<section>
-				
+
 				<ion-label>{{"page-news.segment-events" | translate}}</ion-label>
-				
+
 				<div class="notification-dot" [class.visible]="newEvents"></div>
-			
+
 			</section>
-		
+
 		</ion-segment-button>
-		
+
 		<ion-segment-button value="{{ segmentsEnum.ALERTS }}">
-			
+
 			<section>
-				
+
 				<ion-label>{{"page-news.segment-alerts" | translate}}</ion-label>
-				
+
 				<div class="notification-dot" [class.visible]="newAlerts"></div>
-			
+
 			</section>
-		
+
 		</ion-segment-button>
-	
+
 	</ion-segment>
 
 </ion-header>
 
 
 <ion-content class="bg-off-white">
-	
-	
+
+
 	<!-- Refresh -->
 	<ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
-		
+
 		<ion-refresher-content></ion-refresher-content>
-	
+
 	</ion-refresher>
-	
-	
+
+
 	<!-- Spinner -->
 	<section *ngIf="isLoading" class="central-spinner">
-		
+
 		<ion-spinner color="primary"></ion-spinner>
-	
+
 	</section>
-	
-	
+
+
 	<!-- Data -->
 	<section *ngIf="!isLoading" class="full-size data-container">
-		
+
 		<app-events *ngIf="selectedSegment === segmentsEnum.EVENTS"
 					[events]="events"></app-events>
-		
+
 		<app-alerts *ngIf="selectedSegment === segmentsEnum.ALERTS"
 					[alerts]="alerts"></app-alerts>
-	
+
 	</section>
 
 

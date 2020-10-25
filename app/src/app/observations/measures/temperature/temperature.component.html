@@ -1,163 +1,163 @@
 <ion-header>
-	
+
 	<ion-toolbar>
-		
+
 		<!-- Back button -->
 		<ion-buttons slot="start">
-			
+
 			<ion-button (click)="closeModal(false)">
-				
+
 				<ion-icon name="close"></ion-icon>
-			
+
 			</ion-button>
-		
+
 		</ion-buttons>
-		
+
 		<!-- Title -->
 		<ion-title>{{"page-new-obs.measures.temperature.title" | translate}}</ion-title>
-		
+
 		<!-- Right buttons -->
 		<ion-buttons slot="end">
-			
+
 			<!-- Help button -->
 			<ion-button (click)="helpsService.openHelpModal('m2', false)">
-				
+
 				<ion-icon name="help-circle-outline"></ion-icon>
-			
+
 			</ion-button>
-			
+
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
-				
+
 				<ion-icon name="checkmark"></ion-icon>
-			
+
 			</ion-button>
-		
+
 		</ion-buttons>
-	
+
 	</ion-toolbar>
 
 </ion-header>
 
 
 <ion-content class="bg-off-white custom-container">
-	
-	
+
+
 	<!-- Mandatory -->
 	<p class="info-mandatory">{{"page-new-obs.info-mandatory" | translate}}</p>
-	
-	
+
+
 	<section class="measure-type">
-		
+
 		<div class="card-header no-padding">
-			
+
 			{{"page-new-obs.measures.type.head" | translate}}
-			
+
 			<ion-icon name="help-circle-outline" class="btn-icon"
 					  (click)="helpsService.openHelpPopover($event, 'm0.1')"></ion-icon>
-		
+
 		</div>
-		
-		
+
+
 		<ion-segment [value]="_props.multiple ? 'multiple' : 'single'" (ionChange)="onTypeChange($event)">
-			
+
 			<ion-segment-button value="single">
-				
+
 				<ion-label>{{"page-new-obs.measures.type.single" | translate}}</ion-label>
-			
+
 			</ion-segment-button>
-			
+
 			<ion-segment-button value="multiple">
-				
+
 				<ion-label>{{"page-new-obs.measures.type.multiple" | translate}}</ion-label>
-			
+
 			</ion-segment-button>
-		
+
 		</ion-segment>
-		
-		
+
+
 		<section *ngIf="!_props.multiple" class="grid">
-			
+
 			<div class="col">
-				
+
 				<p>{{"page-new-obs.measures.temperature.label-depth" | translate}}</p>
-				
+
 				<ion-input class="val-input compact ion-text-center"
 						   type="number" min="0"
 						   [(ngModel)]="_props.singleVal.depth"></ion-input>
-			
+
 			</div>
-			
+
 			<div class="col">
-				
+
 				<p>{{"page-new-obs.measures.temperature.label-val" | translate}}</p>
-				
+
 				<ion-input class="val-input compact ion-text-center"
 						   type="number"
 						   [(ngModel)]="_props.singleVal.val"></ion-input>
-			
+
 			</div>
-		
+
 		</section>
-		
-		
+
+
 		<section *ngIf="_props.multiple">
-			
+
 			<div class="grid">
-				
+
 				<div class="col">
-					
+
 					<p>{{"page-new-obs.measures.temperature.label-depth" | translate}}</p>
-					
+
 					<ion-input *ngFor="let v of _props.multipleVal"
 							   class="val-input compact ion-text-center"
 							   type="number" min="0"
 							   [(ngModel)]="v.depth"></ion-input>
-				
+
 				</div>
-				
+
 				<div class="col">
-					
+
 					<p>{{"page-new-obs.measures.temperature.label-val" | translate}}</p>
-					
+
 					<ion-input *ngFor="let v of _props.multipleVal"
 							   class="val-input compact ion-text-center"
 							   type="number"
 							   [(ngModel)]="v.val"></ion-input>
-				
+
 				</div>
-			
+
 			</div>
-			
+
 			<div class="buttons">
-				
+
 				<ion-button shape="round" fill="outline" size="small" color="dark" class="ion-margin-end"
 							(click)="onAddBtnClick()">
-					
+
 					<ion-icon slot="icon-only" name="add"></ion-icon>
-				
+
 				</ion-button>
-				
+
 				<ion-button shape="round" fill="outline" size="small" color="dark"
 							(click)="onRemoveBtnClick()">
-					
+
 					<ion-icon slot="icon-only" name="remove"></ion-icon>
-				
+
 				</ion-button>
-			
+
 			</div>
-		
+
 		</section>
-	
-	
+
+
 	</section>
-	
-	
+
+
 	<!-- Instrument -->
 	<section class="last instrument">
-		
+
 		<app-instrument [instrument]="_props.instrument" [measureName]="'temperature'"></app-instrument>
-	
+
 	</section>
 
 

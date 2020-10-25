@@ -1,294 +1,294 @@
 <ion-header>
-	
+
 	<ion-toolbar>
-		
+
 		<!-- Back button -->
 		<ion-buttons slot="start">
-			
+
 			<ion-button (click)="onClose()">
-				
+
 				<ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-			
+
 			</ion-button>
-		
+
 		</ion-buttons>
-		
+
 		<!-- Title -->
 		<ion-title>{{"page-new-obs.title" | translate}}</ion-title>
-		
+
 		<!-- Help button -->
 		<ion-buttons slot="end">
-			
+
 			<ion-button (click)="helpsService.openHelpPopover($event, 'o')">
-				
+
 				<ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
-			
+
 			</ion-button>
-		
+
 		</ion-buttons>
-	
+
 	</ion-toolbar>
 
 </ion-header>
 
 
 <ion-content class="bg-off-white custom-container">
-	
-	
+
+
 	<!-- If the loading is done -->
 	<main *ngIf="!_isLoading">
-		
-		
+
+
 		<!-- Weather -->
 		<section id="weather">
-			
+
 			<div class="heading">
-				
+
 				<ion-icon name="sunny" class="main"></ion-icon>
-				
+
 				<p class="title">{{"page-new-obs.weather.title" | translate}}</p>
-				
+
 				<ion-icon name="help-circle-outline" class="btn-icon"
 						  (click)="helpsService.openHelpPopover($event, 'o2')"></ion-icon>
-				
+
 				<ion-icon name="refresh"
 						  class="btn-icon icon-right"
 						  [ngClass]="_isWeatherLoading ? 'anim-spinning-cw' : ''"
 						  (click)="onRefreshWeatherClick()"></ion-icon>
-			
+
 			</div>
-			
+
 			<ion-card class="ion-no-margin">
-				
+
 				<ion-card-content>
-					
+
 					<div (click)="onWeatherClick('temperature')">
-						
+
 						<p class="label">{{"page-new-obs.weather.temperature" | translate}}</p>
-						
+
 						<p class="val">{{this._newObservation.weather.temperature || "??"}} °C</p>
-					
+
 					</div>
-					
+
 					<div (click)="onSkyClick()">
-						
+
 						<p class="label sky">{{"page-new-obs.weather.sky.title" | translate}}</p>
-						
+
 						<i class="wi {{skyIcons[this._newObservation.weather.sky.code || 1]}}"></i>
-					
+
 					</div>
-					
+
 					<div (click)="onWeatherClick('wind')">
-						
+
 						<p class="label">{{"page-new-obs.weather.wind" | translate}}</p>
-						
+
 						<p class="val">{{this._newObservation.weather.wind || "??"}} m/s</p>
-					
+
 					</div>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-		
+
 		</section>
-		
-		
+
+
 		<!-- Details -->
 		<section id="details">
-			
-			
+
+
 			<div class="heading">
-				
+
 				<ion-icon name="list" class="main"></ion-icon>
-				
+
 				<p class="title">{{"page-new-obs.details.title" | translate}}</p>
-				
+
 				<ion-icon name="help-circle-outline" class="btn-icon"
 						  (click)="helpsService.openHelpPopover($event, 'o3')"></ion-icon>
-			
+
 			</div>
-			
-			
+
+
 			<ion-card class="ion-no-margin">
-				
+
 				<ion-card-content class="ion-no-padding">
-					
+
 					<ion-item *ngFor="let detail of _newObservation.details | keyvalue: originalOrder"
 							  lines="none" detail>
-						
+
 						<ion-checkbox slot="start"
 									  [checked]="detail.value.checked"
 									  (click)="onDetailCheckboxClick($event, detail.value)"></ion-checkbox>
-						
+
 						<ion-label class="clickable" (click)="onDetailLabelClick($event, detail.value.component)">
-							
+
 							{{"page-new-obs.details." + detail.key + ".title" | translate}}
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-		
-		
+
+
 		</section>
-		
-		
+
+
 		<!-- Measures -->
 		<section id="measures">
-			
-			
+
+
 			<div class="heading">
-				
+
 				<ion-icon name="podium" class="main"></ion-icon>
-				
+
 				<p class="title">{{"page-new-obs.measures.title" | translate}}</p>
-				
+
 				<ion-icon name="help-circle-outline" class="btn-icon"
 						  (click)="helpsService.openHelpPopover($event, 'm')"></ion-icon>
-			
+
 			</div>
-			
-			
+
+
 			<ion-card class="ion-no-margin">
-				
+
 				<ion-card-content class="ion-no-padding">
-					
+
 					<ion-item detail lines="none">
-						
+
 						<ion-checkbox slot="start" (click)="onMeasuresCheckboxClick($event)"
 									  [checked]="_newObservation.measures && _newObservation.measures.checked"></ion-checkbox>
-						
+
 						<ion-label class="clickable" (click)="onMeasuresLabelClick($event)">
-							
+
 							{{"page-new-obs.measures.add" | translate}}
-						
+
 						</ion-label>
-					
+
 					</ion-item>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-		
-		
+
+
 		</section>
-		
-		
+
+
 		<!-- Other -->
 		<section id="other">
-			
+
 			<div class="heading">
-				
+
 				<ion-icon name="ios-more" class="main"></ion-icon>
-				
+
 				<p class="title">{{"page-new-obs.other.title" | translate}}</p>
-				
+
 				<ion-icon name="help-circle-outline" class="btn-icon"
 						  (click)="helpsService.openHelpPopover($event, 'o5')"></ion-icon>
-			
+
 			</div>
-			
+
 			<ion-textarea class="ion-no-margin"
 						  placeholder="{{'page-new-obs.other.ph' | translate}}"
 						  maxlength="500"
 						  rows="3"
 						  [(ngModel)]="_newObservation.other"></ion-textarea>
-		
+
 		</section>
-		
-		
+
+
 		<!-- Photos -->
 		<section id="photos">
-			
+
 			<div class="heading">
-				
+
 				<ion-icon name="camera" class="main"></ion-icon>
-				
+
 				<p class="title">{{"page-new-obs.photos" | translate}}</p>
-				
+
 				<ion-icon name="help-circle-outline" class="btn-icon"
 						  (click)="helpsService.openHelpPopover($event, 'o4')"></ion-icon>
-			
+
 			</div>
-			
+
 			<div class="photos-container">
-				
+
 				<div *ngFor="let i of [0,1,2]" class="photo" (click)="onThumbnailClick(_imageSrc[i], i)">
-					
+
 					<ion-thumbnail *ngIf="_imageSrc[i]">
-						
+
 						<img [src]="_imageSrc[i]" alt="Photo">
-					
+
 					</ion-thumbnail>
-					
+
 					<i *ngIf="_imageSrc[i] === undefined" class="material-icons">add_a_photo</i>
-				
+
 				</div>
-			
+
 			</div>
-		
+
 		</section>
-		
-		
+
+
 		<!-- Buttons -->
 		<section id="buttons" class="last">
-			
+
 			<!-- Send button -->
 			<ion-button expand="block" color="primary" (click)="onSendClick()">
-				
+
 				<ion-icon slot="start" name="ios-send"></ion-icon>
-				
+
 				{{"page-new-obs.btn-send" | translate}}
-			
+
 			</ion-button>
-			
+
 			<!-- Or -->
-<!--			<p class="or ion-margin">{{"page-new-obs.or" | translate}}</p>-->
-			
+			<!--			<p class="or ion-margin">{{"page-new-obs.or" | translate}}</p>-->
+
 			<!-- Alert authorities button -->
-<!--			<ion-button expand="block" color="primary" fill="outline" (click)="onCallAuthoritiesClick()">-->
-<!--				-->
-<!--				<ion-icon slot="start" name="call"></ion-icon>-->
-<!--				-->
-<!--				{{"page-new-obs.btn-call" | translate}}-->
-<!--			-->
-<!--			</ion-button>-->
-		
+			<!--			<ion-button expand="block" color="primary" fill="outline" (click)="onCallAuthoritiesClick()">-->
+			<!--				-->
+			<!--				<ion-icon slot="start" name="call"></ion-icon>-->
+			<!--				-->
+			<!--				{{"page-new-obs.btn-call" | translate}}-->
+			<!--			-->
+			<!--			</ion-button>-->
+
 		</section>
-	
-	
+
+
 	</main>
-	
-	
+
+
 	<!-- Skeleton placeholder -->
 	<section *ngIf="_isLoading" class="skeleton">
-		
+
 		<!-- Weather -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
-		
+
 		<!-- Details -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		<ion-skeleton-text animated class="ske-card-xl ske-section"></ion-skeleton-text>
-		
+
 		<!-- Measures -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
-		
+
 		<!-- Other -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		<ion-skeleton-text animated class="ske-card-sm ske-section"></ion-skeleton-text>
-		
+
 		<!-- Photos -->
 		<ion-skeleton-text animated class="ske-heading"></ion-skeleton-text>
 		<ion-skeleton-text animated class="ske-card-md ske-section"></ion-skeleton-text>
-		
+
 		<!-- Button -->
 		<ion-skeleton-text animated class="ske-btn-block ion-margin-bottom"></ion-skeleton-text>
-	
+
 	</section>
 
 

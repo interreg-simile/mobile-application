@@ -1,93 +1,93 @@
 <ion-header>
-	
+
 	<ion-toolbar>
-		
+
 		<ion-buttons slot="start">
-			
+
 			<ion-menu-button menu="main"></ion-menu-button>
-		
+
 		</ion-buttons>
-		
+
 		<ion-title>{{"page-project.title" | translate}}</ion-title>
-	
+
 	</ion-toolbar>
 
 </ion-header>
 
 
 <ion-content class="bg-off-white custom-container">
-	
-	
+
+
 	<!-- Simile -->
 	<section>
-		
+
 		<p class="card-header">{{"page-project.sec-simile.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin">
-			
+
 			<ion-card-content>
-				
+
 				<p [innerHTML]="'page-project.sec-simile.text' | translate"></p>
-				
+
 			</ion-card-content>
-			
+
 		</ion-card>
-		
+
 	</section>
-	
-	
+
+
 	<!-- Interreg -->
 	<section id="interreg">
-		
+
 		<p class="card-header">{{"page-project.sec-interreg.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin">
-			
+
 			<ion-card-content>
-				
+
 				<p [innerHTML]="'page-project.sec-interreg.text-primary' | translate"></p>
-				
+
 				<p class="ion-margin-bottom text-secondary">
 					{{"page-project.sec-interreg.text-secondary" | translate}}
 				</p>
-				
+
 				<ion-img src="assets/images/logos/interreg.png" (click)="onLinkClick()"></ion-img>
-				
+
 				<ion-img src="assets/images/logos/arc.png"></ion-img>
-				
+
 				<div class="img-container">
-					
+
 					<ion-img src="assets/images/logos/train.png"></ion-img>
-					
+
 				</div>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
-	
-	
+
+
 	<!-- Partners -->
 	<section id="partners" class="last">
-		
+
 		<p class="card-header">{{"page-project.sec-partners.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin">
-			
+
 			<ion-card-content>
-				
+
 				<a href="http://www.polo-lecco.polimi.it/">Politecnico di Milano</a>
 				<a href="https://www.supsi.ch/home.html">Scuola universitaria professionale della Svizzera italiana</a>
 				<a href="https://www.regione.lombardia.it">Regione Lombardia</a>
 				<a href="http://www.irsa.cnr.it/">CNR IRSA</a>
 				<a href="https://www.fondazionepolitecnico.it/en/home/">Fondazione Politecnico di Milano</a>
 				<a href="https://www4.ti.ch/index.php?id=1009">Cantone Ticino</a>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
 
 

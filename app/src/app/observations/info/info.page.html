@@ -1,152 +1,152 @@
 <ion-header>
-	
+
 	<ion-toolbar>
-		
+
 		<!-- Back button -->
 		<ion-buttons slot="start">
-			
+
 			<ion-back-button class="back-button" defaultHref="map"></ion-back-button>
-		
+
 		</ion-buttons>
-	
+
 	</ion-toolbar>
 
 </ion-header>
 
 
 <ion-content class="bg-off-white custom-container">
-	
-	
+
+
 	<section *ngIf="!_isLoading" class="content">
-		
-		
+
+
 		<!-- Creation date -->
 		<section class="date sub-section-space">
 			{{_obs.createdAt | date:"medium":undefined:i18n.currentLang }}
 		</section>
-		
-		
+
+
 		<!-- Photos -->
 		<section *ngIf="_obs.photos.length > 0" class="photos section-space">
-			
+
 			<div *ngFor="let photo of _obs.photos; index as i"
 				 class="photo-container" [ngClass]="i === 0 ? '' : 'ion-margin-start' "
 				 (click)="onThumbnailClick(photo)">
-				
+
 				<img [src]="domSanitizer.bypassSecurityTrustUrl(photo)" alt="Observation photo"/>
-			
+
 			</div>
-		
+
 		</section>
-		
-		
+
+
 		<!-- Position -->
 		<ion-card class="ion-no-margin sub-section-space" [ngClass]="_obs.position.open ? 'open' : ''">
-			
+
 			<!-- Header -->
 			<ion-card-header (click)="onToggleClick('position')">
-				
+
 				<ion-card-subtitle>{{"page-info-obs.position.head" | translate}}</ion-card-subtitle>
-				
+
 				<i class="material-icons">keyboard_arrow_down</i>
-			
+
 			</ion-card-header>
-			
+
 			<!-- Content -->
 			<ion-card-content *ngIf="_obs.position.open">
-				
+
 				<!-- Coordinates -->
 				<p class="row">
 					<span class="prop-name">{{"page-info-obs.position.label-coordinates" | translate}}</span>
 					{{_obs.position.coordinates[1] | number:"1.0-4"}},
 					{{_obs.position.coordinates[0] | number:"1.0-4"}}
 				</p>
-				
+
 				<!-- CRS -->
 				<p class="row">
 					<span class="prop-name">{{"page-info-obs.position.label-crs" | translate}}</span>
 					{{_obs.position.crs.description}}
 				</p>
-				
+
 				<!-- Accuracy -->
 				<p class="row" *ngIf="_obs.position.accuracy">
 					<span class="prop-name">{{"page-info-obs.position.label-accuracy" | translate}}</span>
 					{{_obs.position.accuracy | number:"1.0-4"}} m
 				</p>
-			
+
 			</ion-card-content>
-		
-		
+
+
 		</ion-card>
-		
-		
+
+
 		<!-- Weather -->
 		<ion-card class="ion-no-margin section-space" [ngClass]="_obs.weather.open ? 'open' : ''">
-			
+
 			<!-- Header -->
 			<ion-card-header (click)="onToggleClick('weather')">
-				
+
 				<ion-card-subtitle>{{"page-info-obs.weather.head" | translate}}</ion-card-subtitle>
-				
+
 				<i class="material-icons">keyboard_arrow_down</i>
-			
+
 			</ion-card-header>
-			
+
 			<!-- Content -->
 			<ion-card-content *ngIf="_obs.weather.open">
-				
+
 				<!-- Temperature -->
 				<p class="row" *ngIf="_obs.weather.temperature">
 					<span class="prop-name">{{"page-info-obs.weather.label-temperature" | translate}}</span>
 					{{_obs.weather.temperature}} °C
 				</p>
-				
+
 				<!-- Sky -->
 				<p class="row">
 					<span class="prop-name">{{"page-info-obs.weather.label-sky" | translate}}</span>
 					{{_obs.weather.sky.description}}
 				</p>
-				
+
 				<!-- Wind -->
 				<p class="row" *ngIf="_obs.weather.wind">
 					<span class="prop-name">{{"page-info-obs.weather.label-wind" | translate}}</span>
 					{{_obs.weather.wind}} m/s
 				</p>
-			
+
 			</ion-card-content>
-		
-		
+
+
 		</ion-card>
-		
-		
+
+
 		<!-- Details -->
 		<section *ngIf="_obs.details" class="section-space">
-			
+
 			<p class="card-header">{{"page-info-obs.details.head" | translate}}</p>
-			
+
 			<!-- Algae -->
 			<ion-card *ngIf="_obs.details.algae"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.algae.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="hasDetailProperties('details.algae') ? onToggleClick('details.algae') : null">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.details.algae.head" | translate}}</ion-card-subtitle>
-					
+
 					<i [ngStyle]="{'visibility': hasDetailProperties('details.algae') ? 'visible' : 'hidden'}"
 					   class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.details.algae.open">
-					
+
 					<!-- Extension -->
 					<p class="row" *ngIf="_obs.details.algae.extension">
 						<span class="prop-name">{{"page-info-obs.details.algae.label-extension" | translate}}</span>
 						{{_obs.details.algae.extension.description}}
 					</p>
-					
+
 					<!-- Colour -->
 					<p class="row" *ngIf="_obs.details.algae.colour || _obs.details.algae.iridescent">
 						<span class="prop-name">{{"page-info-obs.details.algae.label-colour" | translate}}</span>
@@ -157,178 +157,178 @@
 							</span>
 						</span>
 					</p>
-					
+
 					<!-- Look -->
 					<p class="row" *ngIf="_obs.details.algae.look">
 						<span class="prop-name">{{"page-info-obs.details.algae.label-look" | translate}}</span>
 						{{_obs.details.algae.look.description}}
 					</p>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Foams -->
 			<ion-card *ngIf="_obs.details.foams"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.foams.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="hasDetailProperties('details.foams') ? onToggleClick('details.foams') : null">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.details.foams.head" | translate}}</ion-card-subtitle>
-					
+
 					<i [ngStyle]="{'visibility': hasDetailProperties('details.foams') ? 'visible' : 'hidden'}"
 					   class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.details.foams.open">
-					
+
 					<!-- Extension -->
 					<p class="row" *ngIf="_obs.details.foams.extension">
 						<span class="prop-name">{{"page-info-obs.details.foams.label-extension" | translate}}</span>
 						{{_obs.details.foams.extension.description}}
 					</p>
-					
+
 					<!-- Look -->
 					<p class="row" *ngIf="_obs.details.foams.look">
 						<span class="prop-name">{{"page-info-obs.details.foams.label-look" | translate}}</span>
 						{{_obs.details.foams.look.description}}
 					</p>
-					
+
 					<!-- Height -->
 					<p class="row" *ngIf="_obs.details.foams.height">
 						<span class="prop-name">{{"page-info-obs.details.foams.label-height" | translate}}</span>
 						{{_obs.details.foams.height.description}}
 					</p>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Oils -->
 			<ion-card *ngIf="_obs.details.oils"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.oils.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="hasDetailProperties('details.oils') ? onToggleClick('details.oils') : null">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.details.oils.head" | translate}}</ion-card-subtitle>
-					
+
 					<i [ngStyle]="{'visibility': hasDetailProperties('details.oils') ? 'visible' : 'hidden'}"
 					   class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.details.oils.open">
-					
+
 					<!-- Extension -->
 					<p class="row" *ngIf="_obs.details.oils.extension">
 						<span class="prop-name">{{"page-info-obs.details.oils.label-extension" | translate}}</span>
 						{{_obs.details.oils.extension.description}}
 					</p>
-					
+
 					<!-- Type -->
 					<p class="row" *ngIf="_obs.details.oils.type">
 						<span class="prop-name">{{"page-info-obs.details.oils.label-type" | translate}}</span>
 						{{_obs.details.oils.type.description}}
 					</p>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Litters -->
 			<ion-card *ngIf="_obs.details.litters"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.litters.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header
 						(click)="hasDetailProperties('details.litters') ? onToggleClick('details.litters') : null">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.details.litters.head" | translate}}</ion-card-subtitle>
-					
+
 					<i [ngStyle]="{'visibility': hasDetailProperties('details.litters') ? 'visible' : 'hidden'}"
 					   class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.details.litters.open">
-					
+
 					<!-- Quantity -->
 					<p class="row" *ngIf="_obs.details.litters.quantity">
 						<span class="prop-name">{{"page-info-obs.details.litters.label-quantity" | translate}}</span>
 						{{_obs.details.litters.quantity.description}}
 					</p>
-					
+
 					<!-- Type -->
 					<p class="row" *ngIf="_obs.details.litters.type">
-						
+
 						<span class="prop-name">{{"page-info-obs.details.litters.label-type" | translate}}</span>
-						
+
 						{{_obs.details.litters.type | joinDetails}}
-					
+
 					</p>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Odours -->
 			<ion-card *ngIf="_obs.details.odours"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.odours.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header
 						(click)="hasDetailProperties('details.odours') ? onToggleClick('details.odours') : null">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.details.odours.head" | translate}}</ion-card-subtitle>
-					
+
 					<i [ngStyle]="{'visibility': hasDetailProperties('details.odours') ? 'visible' : 'hidden'}"
 					   class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.details.odours.open">
-					
+
 					<!-- Intensity -->
 					<p class="row" *ngIf="_obs.details.odours.intensity">
 						<span class="prop-name">{{"page-info-obs.details.odours.label-intensity" | translate}}</span>
 						{{_obs.details.odours.intensity.description}}
 					</p>
-					
+
 					<!-- Origin -->
 					<p class="row" *ngIf="_obs.details.odours.origin">
 						<span class="prop-name">{{"page-info-obs.details.odours.label-origin" | translate}}</span>
 						{{_obs.details.odours.origin | joinDetails}}
 					</p>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Outlets -->
 			<ion-card *ngIf="_obs.details.outlets"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.outlets.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header
 						(click)="hasDetailProperties('details.outlets') ? onToggleClick('details.outlets') : null">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.details.outlets.head" | translate}}</ion-card-subtitle>
-					
+
 					<i [ngStyle]="{'visibility': hasDetailProperties('details.outlets') ? 'visible' : 'hidden'}"
 					   class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.details.outlets.open">
-					
+
 					<!-- In place -->
 					<p class="row" *ngIf="_obs.details.outlets.inPlace">
 						<span class="prop-name">{{"page-info-obs.details.outlets.label-in-place" | translate}}</span>
@@ -337,19 +337,19 @@
 							<span *ngIf="!_obs.details.outlets.inPlace">{{"page-info-obs.no" | translate}}</span>
 						</span>
 					</p>
-					
+
 					<!-- Terminal -->
 					<p class="row" *ngIf="_obs.details.outlets.terminal">
 						<span class="prop-name">{{"page-info-obs.details.outlets.label-terminal" | translate}}</span>
 						{{_obs.details.outlets.terminal.description}}
 					</p>
-					
+
 					<!-- Colour -->
 					<p class="row" *ngIf="_obs.details.outlets.colour">
 						<span class="prop-name">{{"page-info-obs.details.outlets.label-colour" | translate}}</span>
 						{{_obs.details.outlets.colour.description}}
 					</p>
-					
+
 					<!-- Vapour -->
 					<p class="row" *ngIf="_obs.details.outlets.vapour">
 						<span class="prop-name">{{"page-info-obs.details.outlets.label-vapour" | translate}}</span>
@@ -358,7 +358,7 @@
 							<span *ngIf="!_obs.details.outlets.vapour">{{"page-info-obs.no" | translate}}</span>
 						</span>
 					</p>
-					
+
 					<!-- Signage -->
 					<p class="row" *ngIf="_obs.details.outlets.signage">
 						<span class="prop-name">{{"page-info-obs.details.outlets.label-signage" | translate}}</span>
@@ -367,7 +367,7 @@
 							<span *ngIf="!_obs.details.outlets.signage">{{"page-info-obs.no" | translate}}</span>
 						</span>
 					</p>
-					
+
 					<!-- Signage photo -->
 					<p class="row" *ngIf="_obs.details.outlets.signagePhoto">
 						<span
@@ -377,7 +377,7 @@
 							{{"page-info-obs.view" | translate}}
 						</span>
 					</p>
-					
+
 					<!-- Production activities -->
 					<p class="row" *ngIf="_obs.details.outlets.prodActNearby">
 						<span class="prop-name">{{"page-info-obs.details.outlets.label-prod-activities" | translate}}</span>
@@ -386,147 +386,147 @@
 							<span *ngIf="!_obs.details.outlets.prodActNearby">{{"page-info-obs.no" | translate}}</span>
 						</span>
 					</p>
-					
+
 					<!-- Production activities details -->
 					<div *ngIf="_obs.details.outlets.prodActNearbyDetails">
-						
+
 						<p class="prop-name">{{"page-info-obs.details.outlets.label-prod-activities-details" | translate}}</p>
-						
+
 						<p>{{_obs.details.outlets.prodActNearbyDetails}}</p>
-					
+
 					</div>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Fauna -->
 			<ion-card *ngIf="_obs.details.fauna"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.details.fauna.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header
 						(click)="hasDetailProperties('details.fauna') ? onToggleClick('details.fauna') : null">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.details.fauna.head" | translate}}</ion-card-subtitle>
-					
+
 					<i [ngStyle]="{'visibility': hasDetailProperties('details.fauna') ? 'visible' : 'hidden'}"
 					   class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.details.fauna.open">
-					
+
 					<div *ngFor="let category of _obs.details.fauna | keyvalue: originalOrder; index as idx">
-						
+
 						<div *ngIf="category.key.toString() !== 'checked' && category.key.toString() !== 'open'"
 							 [class]="objKeys(_obs.details.fauna).length === idx + 2 ? '' : 'fauna-category'">
-							
+
 							<p class="sub-header">
 								{{"page-info-obs.details.fauna." + category.key | translate}}
 							</p>
-							
+
 							<!-- Number -->
 							<p class="row" *ngIf="category.value.number">
-								
+
 								<span class="prop-name">{{"page-info-obs.details.fauna.label-number" | translate}}</span>
-								
+
 								{{category.value.number}}
-								
+
 							</p>
-							
+
 							<!-- Deceased -->
 							<p class="row" *ngIf="category.value.deceased">
-								
+
 								<span class="prop-name">{{"page-info-obs.details.fauna.label-deceased" | translate}}</span>
-								
+
 								{{"page-info-obs.yes" | translate}}
-							
+
 							</p>
-							
+
 							<!-- Abnormal -->
 							<div [class]="category.value.abnormal.details ? '' : 'row'"
 								 *ngIf="category.value.abnormal">
-								
+
 								<p class="prop-name">{{"page-info-obs.details.fauna.label-abnormal" | translate}}</p>
-								
+
 								<p *ngIf="category.value.abnormal.details">
 									{{category.value.abnormal.details}}
 								</p>
-								
+
 								<span *ngIf="!category.value.abnormal.details">
 									{{"page-info-obs.yes" | translate}}
 								</span>
-							
+
 							</div>
-							
+
 							<!-- Alien -->
 							<div [class]="category.value.alien.species ? '' : 'row'"
 								 *ngIf="category.value.alien">
-								
+
 								<p class="prop-name">{{"page-info-obs.details.fauna.label-alien" | translate}}</p>
-								
+
 								<p *ngIf="category.value.alien.species">
 									{{category.value.alien.species | joinDetails}}
 								</p>
-								
+
 								<span *ngIf="!category.value.alien.species">
 									{{"page-info-obs.yes" | translate}}
 								</span>
-							
+
 							</div>
-						
+
 						</div>
-					
+
 					</div>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-		
+
 		</section>
-		
-		
+
+
 		<!-- Measures -->
 		<section id="measures" *ngIf="_obs.measures" class="section-space">
-			
+
 			<p class="card-header">{{"page-info-obs.measures.head" | translate}}</p>
-			
+
 			<!-- Transparency -->
 			<ion-card *ngIf="_obs.measures.transparency"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.measures.transparency.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="onToggleClick('measures.transparency')">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.measures.transparency.head" | translate}}</ion-card-subtitle>
-					
+
 					<i class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.measures.transparency.open">
-					
+
 					<!-- Value -->
 					<p class="row">
 						<span class="prop-name">{{"page-info-obs.measures.transparency.label-value" | translate}}</span>
 						{{_obs.measures.transparency.val}} m
 					</p>
-					
+
 					<!-- Instrument -->
 					<section>
-						
+
 						<!-- Header -->
 						<p class="instrument-header">{{"page-info-obs.measures.instrument.head" | translate}}</p>
-						
+
 						<!-- Type -->
 						<p class="row">
 							<span class="prop-name">{{"page-info-obs.measures.instrument.label-type" | translate}}</span>
 							{{_obs.measures.transparency.instrument.type.description}}
 						</p>
-						
+
 						<!-- Precision -->
 						<p class="row" *ngIf="_obs.measures.transparency.instrument.precision">
 						<span class="prop-name">
@@ -534,68 +534,68 @@
 						</span>
 							{{_obs.measures.transparency.instrument.precision}} m
 						</p>
-						
+
 						<!-- Details -->
 						<div class="free-text" *ngIf="_obs.measures.transparency.instrument.details">
 							<p class="prop-name">{{"page-info-obs.measures.instrument.label-details" | translate}}</p>
 							<p>{{_obs.measures.transparency.instrument.details}}</p>
 						</div>
-					
+
 					</section>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Temperature -->
 			<ion-card *ngIf="_obs.measures.temperature"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.measures.temperature.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="onToggleClick('measures.temperature')">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.measures.temperature.head" | translate}}</ion-card-subtitle>
-					
+
 					<i class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.measures.temperature.open">
-					
+
 					<!-- Value -->
 					<div class="grid">
-						
+
 						<div class="col">
-							
+
 							<p class="head">{{"page-info-obs.measures.temperature.label-depth" | translate}}</p>
-							
+
 							<p *ngFor="let v of _obs.measures.temperature.val">{{v.depth}} m</p>
-						
+
 						</div>
-						
+
 						<div class="col">
-							
+
 							<p class="head">{{"page-info-obs.measures.temperature.label-value" | translate}}</p>
-							
+
 							<p *ngFor="let v of _obs.measures.temperature.val">{{v.val}} °C</p>
-						
+
 						</div>
-					
+
 					</div>
-					
+
 					<!-- Instrument -->
 					<section>
-						
+
 						<!-- Header -->
 						<p class="instrument-header">{{"page-info-obs.measures.instrument.head" | translate}}</p>
-						
+
 						<!-- Type -->
 						<p class="row">
 							<span class="prop-name">{{"page-info-obs.measures.instrument.label-type" | translate}}</span>
 							{{_obs.measures.temperature.instrument.type.description}}
 						</p>
-						
+
 						<!-- Precision -->
 						<p class="row" *ngIf="_obs.measures.temperature.instrument.precision">
 						<span class="prop-name">
@@ -603,68 +603,68 @@
 						</span>
 							{{_obs.measures.temperature.instrument.precision}} °C
 						</p>
-						
+
 						<!-- Details -->
 						<div class="free-text" *ngIf="_obs.measures.temperature.instrument.details">
 							<p class="prop-name">{{"page-info-obs.measures.instrument.label-details" | translate}}</p>
 							<p>{{_obs.measures.temperature.instrument.details}}</p>
 						</div>
-					
+
 					</section>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- pH -->
 			<ion-card *ngIf="_obs.measures.ph"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.measures.ph.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="onToggleClick('measures.ph')">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.measures.ph.head" | translate}}</ion-card-subtitle>
-					
+
 					<i class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.measures.ph.open">
-					
+
 					<!-- Value -->
 					<div class="grid">
-						
+
 						<div class="col">
-							
+
 							<p class="head">{{"page-info-obs.measures.ph.label-depth" | translate}}</p>
-							
+
 							<p *ngFor="let v of _obs.measures.ph.val">{{v.depth}} m</p>
-						
+
 						</div>
-						
+
 						<div class="col">
-							
+
 							<p class="head">{{"page-info-obs.measures.ph.label-value" | translate}}</p>
-							
+
 							<p *ngFor="let v of _obs.measures.ph.val">{{v.val}}</p>
-						
+
 						</div>
-					
+
 					</div>
-					
+
 					<!-- Instrument -->
 					<section>
-						
+
 						<!-- Header -->
 						<p class="instrument-header">{{"page-info-obs.measures.instrument.head" | translate}}</p>
-						
+
 						<!-- Type -->
 						<p class="row">
 							<span class="prop-name">{{"page-info-obs.measures.instrument.label-type" | translate}}</span>
 							{{_obs.measures.ph.instrument.type.description}}
 						</p>
-						
+
 						<!-- Precision -->
 						<p class="row" *ngIf="_obs.measures.ph.instrument.precision">
 						<span class="prop-name">
@@ -672,70 +672,70 @@
 						</span>
 							{{_obs.measures.ph.instrument.precision}} °C
 						</p>
-						
+
 						<!-- Details -->
 						<div class="free-text" *ngIf="_obs.measures.ph.instrument.details">
 							<p class="prop-name">{{"page-info-obs.measures.instrument.label-details" | translate}}</p>
 							<p>{{_obs.measures.ph.instrument.details}}</p>
 						</div>
-					
+
 					</section>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Oxygen -->
 			<ion-card *ngIf="_obs.measures.oxygen"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.measures.oxygen.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="onToggleClick('measures.oxygen')">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.measures.oxygen.head" | translate}}</ion-card-subtitle>
-					
+
 					<i class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.measures.oxygen.open">
-					
+
 					<!-- Value -->
 					<div class="grid">
-						
+
 						<div class="col">
-							
+
 							<p class="head">{{"page-info-obs.measures.oxygen.label-depth" | translate}}</p>
-							
+
 							<p *ngFor="let v of _obs.measures.oxygen.val">{{v.depth}} m</p>
-						
+
 						</div>
-						
+
 						<div class="col">
-							
+
 							<p class="head">{{"page-info-obs.measures.oxygen.label-value" | translate}}</p>
-							
+
 							<p *ngFor="let v of _obs.measures.oxygen.val">
 								{{v.val}} {{_obs.measures.oxygen.percentage ? "%" : "mg/l"}}
 							</p>
-						
+
 						</div>
-					
+
 					</div>
-					
+
 					<!-- Instrument -->
 					<section>
-						
+
 						<!-- Header -->
 						<p class="instrument-header">{{"page-info-obs.measures.instrument.head" | translate}}</p>
-						
+
 						<!-- Type -->
 						<p class="row">
 							<span class="prop-name">{{"page-info-obs.measures.instrument.label-type" | translate}}</span>
 							{{_obs.measures.oxygen.instrument.type.description}}
 						</p>
-						
+
 						<!-- Precision -->
 						<p class="row" *ngIf="_obs.measures.oxygen.instrument.precision">
 						<span class="prop-name">
@@ -744,99 +744,99 @@
 							{{_obs.measures.oxygen.instrument.precision}}
 							{{_obs.measures.oxygen.percentage ? "%" : "mg/l"}}
 						</p>
-						
+
 						<!-- Details -->
 						<div class="free-text" *ngIf="_obs.measures.oxygen.instrument.details">
 							<p class="prop-name">{{"page-info-obs.measures.instrument.label-details" | translate}}</p>
 							<p>{{_obs.measures.oxygen.instrument.details}}</p>
 						</div>
-					
+
 					</section>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-			
+
 			<!-- Bacteria -->
 			<ion-card *ngIf="_obs.measures.bacteria"
 					  class="ion-no-margin sub-section-space"
 					  [ngClass]="_obs.measures.bacteria.open ? 'open' : ''">
-				
+
 				<!-- Header -->
 				<ion-card-header (click)="onToggleClick('measures.bacteria')">
-					
+
 					<ion-card-subtitle>{{"page-info-obs.measures.bacteria.head" | translate}}</ion-card-subtitle>
-					
+
 					<i class="material-icons">keyboard_arrow_down</i>
-				
+
 				</ion-card-header>
-				
+
 				<ion-card-content *ngIf="_obs.measures.bacteria.open">
-					
+
 					<!-- Escherichia Coli -->
 					<p class="row" *ngIf="_obs.measures.bacteria.escherichiaColi">
 						<span class="prop-name">{{"page-info-obs.measures.bacteria.label-eColi" | translate}}</span>
 						{{_obs.measures.bacteria.escherichiaColi}} UFC/100ml
 					</p>
-					
+
 					<!-- Enterococci -->
 					<p class="row" *ngIf="_obs.measures.bacteria.enterococci">
 						<span class="prop-name">{{"page-info-obs.measures.bacteria.label-enterococci" | translate}}</span>
 						{{_obs.measures.bacteria.enterococci}} UFC/100ml
 					</p>
-				
+
 				</ion-card-content>
-			
+
 			</ion-card>
-		
+
 		</section>
-		
-		
+
+
 		<!-- Other -->
 		<ion-card *ngIf="_obs.other" class="ion-no-margin" [ngClass]="_obs.otherOpen ? 'open' : ''">
-			
+
 			<!-- Header -->
 			<ion-card-header (click)="onToggleClick('otherOpen')">
-				
+
 				<ion-card-subtitle>{{"page-info-obs.other" | translate}}</ion-card-subtitle>
-				
+
 				<i class="material-icons">keyboard_arrow_down</i>
-			
+
 			</ion-card-header>
-			
+
 			<ion-card-content *ngIf="_obs.otherOpen">
 				{{_obs.other}}
 			</ion-card-content>
-		
+
 		</ion-card>
-	
-	
+
+
 	</section>
-	
-	
+
+
 	<!-- Skeleton text -->
 	<section *ngIf="_isLoading" class="skeleton">
-		
+
 		<!-- Date -->
 		<div class="ske-end">
 			<ion-skeleton-text animated class="ske-date sub-section-space"></ion-skeleton-text>
 		</div>
-		
+
 		<!-- Photos -->
 		<div class="ske-center">
 			<ion-skeleton-text animated class="ske-photos section-space"></ion-skeleton-text>
 		</div>
-		
+
 		<!-- Position -->
 		<ion-skeleton-text animated class="ske-card sub-section-space"></ion-skeleton-text>
-		
+
 		<!-- Weather -->
 		<ion-skeleton-text animated class="ske-card section-space"></ion-skeleton-text>
-		
+
 		<!-- All the rest -->
 		<ion-skeleton-text animated class="ske-header sub-section-space"></ion-skeleton-text>
 		<ion-skeleton-text animated class="ske-card-xl"></ion-skeleton-text>
-	
+
 	</section>
 
 

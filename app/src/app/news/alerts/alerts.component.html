@@ -1,41 +1,41 @@
 <!-- No data -->
-<section *ngIf="alerts.length === 0" class="on-page-message" >
-	
+<section *ngIf="alerts.length === 0" class="on-page-message">
+
 	<ion-icon name="notifications"></ion-icon>
-	
+
 	<p class="ion-no-margin">{{ "page-news.no-alerts" | translate }}</p>
 
 </section>
 
 <!-- Data -->
 <ion-list *ngIf="alerts.length > 0" class="ion-no-padding">
-	
+
 	<ion-item *ngFor="let alert of alerts"
 			  button detail="false"
 			  (click)="onAlertClick(alert)">
-		
+
 		<section class="container ion-padding-vertical">
-			
+
 			<section class="ion-padding-end">
-				
+
 				<div class="notification-dot" [class.active]="!alert.read"></div>
-			
+
 			</section>
-			
+
 			<section class="content">
-				
+
 				<div class="date">
 					{{ alert.createdAt | date:undefined:undefined:locale}}
 				</div>
-				
+
 				<div class="title">
 					<span>{{ alert.title }}</span>
 				</div>
-			
+
 			</section>
-		
+
 		</section>
-	
+
 	</ion-item>
 
 </ion-list>

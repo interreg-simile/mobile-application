@@ -1,132 +1,132 @@
 <ion-header>
-	
+
 	<ion-toolbar>
-		
+
 		<!-- Back button -->
 		<ion-buttons slot="start">
-			
+
 			<ion-button (click)="closeModal(false)">
-				
+
 				<ion-icon name="close"></ion-icon>
-			
+
 			</ion-button>
-		
+
 		</ion-buttons>
-		
+
 		<!-- Title -->
 		<ion-title>{{"page-new-obs.details.foams.title" | translate}}</ion-title>
-		
+
 		<!-- Right buttons -->
 		<ion-buttons slot="end">
-			
+
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
-				
+
 				<ion-icon name="checkmark"></ion-icon>
-			
+
 			</ion-button>
-		
+
 		</ion-buttons>
-	
+
 	</ion-toolbar>
 
 </ion-header>
 
 <ion-content class="bg-off-white custom-container">
-	
+
 	<!-- Extension -->
 	<section id="extension">
-		
+
 		<p class="card-header">{{"page-new-obs.details.foams.extension.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin card-radio-list">
-			
+
 			<ion-card-content>
-				
+
 				<ion-radio-group allow-empty-selection="true"
 								 name="extension"
 								 [(ngModel)]="_props.extension">
-					
+
 					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
-						
+
 						<ion-label>{{"page-new-obs.details.foams.extension." + i | translate}}</ion-label>
-						
+
 						<ion-radio slot="start" [value]="i"></ion-radio>
-					
+
 					</ion-item>
-				
+
 				</ion-radio-group>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
-	
+
 	<!-- Height -->
 	<section id="height">
-		
+
 		<p class="card-header">{{"page-new-obs.details.foams.height.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin card-radio-list">
-			
+
 			<ion-card-content>
-				
+
 				<ion-radio-group allow-empty-selection="true"
 								 name="height"
 								 [(ngModel)]="_props.height">
-					
+
 					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
-						
+
 						<ion-label>{{"page-new-obs.details.foams.height." + i | translate}}</ion-label>
-						
+
 						<ion-radio slot="start" [value]="i"></ion-radio>
-					
+
 					</ion-item>
-				
+
 				</ion-radio-group>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
-	
+
 	<!-- Look -->
 	<section id="look" class="last">
-		
+
 		<p class="card-header">{{"page-new-obs.details.foams.look.head" | translate}}</p>
-		
+
 		<ion-card class="ion-no-margin card-radio-list">
-			
+
 			<ion-card-content>
-				
+
 				<ion-radio-group allow-empty-selection="true"
 								 name="look"
 								 [(ngModel)]="_props.look">
-					
+
 					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
-						
+
 						<ion-label class="label-icon">
-							
+
 							{{"page-new-obs.details.foams.look." + i | translate}}
-							
+
 							<ion-icon name="help-circle-outline" class="help-icon"
 									  (click)="helpsService.openHelpModal('o3.2' + i)"></ion-icon>
-						
+
 						</ion-label>
-						
+
 						<ion-radio slot="start" [value]="i"></ion-radio>
-					
+
 					</ion-item>
-				
+
 				</ion-radio-group>
-			
+
 			</ion-card-content>
-		
+
 		</ion-card>
-	
+
 	</section>
-	
-	
+
+
 </ion-content>
