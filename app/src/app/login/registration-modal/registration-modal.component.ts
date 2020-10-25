@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController } from "@ionic/angular";
+import {AlertController, LoadingController, ModalController, Platform} from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Duration, ToastService } from "../../shared/toast.service";
 import { AuthService } from "../../shared/auth.service";
@@ -29,12 +29,13 @@ export class RegistrationModalComponent implements OnInit {
   }
 
   constructor(private modalCtr: ModalController,
-              private i18n: TranslateService,
+              public i18n: TranslateService,
               private loadingCtr: LoadingController,
               private toastService: ToastService,
               private authService: AuthService,
               private alertCrt: AlertController,
-              private networkService: NetworkService) { }
+              private networkService: NetworkService,
+              public platform: Platform) { }
 
   ngOnInit() {}
 

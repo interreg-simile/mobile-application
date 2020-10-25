@@ -22,6 +22,18 @@ $color-border : #E1E1E1;
     }
   }
 
+  &.ios {
+    ion-label {
+      opacity: 1;
+    }
+
+    &.item-has-focus {
+      ion-label {
+        color: var(--ion-color-primary);
+      }
+    }
+  }
+
 }
 
 .small {

@@ -24,14 +24,14 @@
 		{{'page-auth.modalRegister.mandatoryText' | translate}}
 	</p>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phEmail' | translate}}</ion-label>
 		<ion-input type="email"
 							 inputmode="email"
 							 [(ngModel)]="email"></ion-input>
 	</ion-item>
 	
-	<ion-item class="val-input no-margin">
+	<ion-item class="val-input no-margin" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phPassword' | translate}}</ion-label>
 		<ion-input type="password"
 							 inputmode="password"
@@ -42,42 +42,42 @@
 		{{'page-auth.modalRegister.passwordRules' | translate}}
 	</p>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phConfirmPassword' | translate}}</ion-label>
 		<ion-input type="password"
 							 inputmode="password"
 							 [(ngModel)]="confirmPassword"></ion-input>
 	</ion-item>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phName' | translate}}</ion-label>
 		<ion-input type="text"
 							 inputmode="text"
 							 [(ngModel)]="name"></ion-input>
 	</ion-item>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phSurname' | translate}}</ion-label>
 		<ion-input type="text"
 							 inputmode="text"
 							 [(ngModel)]="surname"></ion-input>
 	</ion-item>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phCity' | translate}}</ion-label>
 		<ion-input type="text"
 							 inputmode="text"
 							 [(ngModel)]="city"></ion-input>
 	</ion-item>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phYearOfBirth' | translate}}</ion-label>
 		<ion-input type="number"
 							 inputmode="number"
 							 [(ngModel)]="year"></ion-input>
 	</ion-item>
 	
-	<ion-item class="val-input">
+	<ion-item class="val-input" lines="none">
 		<ion-label position="floating">{{'page-auth.modalRegister.phGender' | translate}}</ion-label>
 		<ion-input readonly
 							 (ionFocus)="openGenderPicker()"
