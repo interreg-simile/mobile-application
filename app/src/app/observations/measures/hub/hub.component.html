@@ -1,61 +1,45 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<!-- Back button -->
 		<ion-buttons slot="start">
-
 			<ion-button (click)="closeModal()">
-
 				<ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
 
 		<!-- Title -->
-		<ion-title>{{"page-new-obs.measures.hub.title" | translate}}</ion-title>
-
+		<ion-title>{{ "page-new-obs.measures.hub.title" | translate }}</ion-title>
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content class="bg-off-white custom-container">
-
-
 	<!-- Measure types -->
 	<section class="options-list">
-
-		<p class="card-header">{{"page-new-obs.measures.hub.head" | translate}}</p>
+		<p class="card-header">
+			{{ "page-new-obs.measures.hub.head" | translate }}
+		</p>
 
 		<ion-card class="ion-no-margin">
-
 			<ion-card-content class="ion-no-padding">
-
 				<div *ngFor="let measure of _measures | keyvalue: originalOrder">
-
 					<ion-item *ngIf="measure.key !== 'checked'" lines="none" detail>
+						<ion-checkbox
+							slot="start"
+							[checked]="measure.value.checked"
+							(click)="onMeasureCheckboxClick($event, measure.value)"
+						></ion-checkbox>
 
-						<ion-checkbox slot="start"
-									  [checked]="measure.value.checked"
-									  (click)="onMeasureCheckboxClick($event, measure.value)"></ion-checkbox>
-
-						<ion-label class="clickable" (click)="onMeasureLabelClick($event, measure.value.component)">
-
-							{{"page-new-obs.measures." + measure.key + ".title" | translate}}
-
+						<ion-label
+							class="clickable"
+							(click)="onMeasureLabelClick($event, measure.value.component)"
+						>
+							{{
+								"page-new-obs.measures." + measure.key + ".title" | translate
+							}}
 						</ion-label>
-
 					</ion-item>
-
 				</div>
-
 			</ion-card-content>
-
 		</ion-card>
-
 	</section>
-
-
 </ion-content>

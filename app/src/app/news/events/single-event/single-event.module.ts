@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Routes, RouterModule } from "@angular/router";
+import { IonicModule } from "@ionic/angular";
 import { TranslateModule } from "@ngx-translate/core";
 
-import { SingleEventPage } from './single-event.page';
+import { SingleEventPage } from "./single-event.page";
 
-
-const routes: Routes = [{ path: '', component: SingleEventPage }];
+const routes: Routes = [{ path: "", component: SingleEventPage }];
 
 @NgModule({
   imports: [
@@ -16,8 +15,8 @@ const routes: Routes = [{ path: '', component: SingleEventPage }];
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    TranslateModule
+    TranslateModule,
   ],
-    declarations: [SingleEventPage]
+  declarations: [SingleEventPage],
 })
 export class SingleEventPageModule {}

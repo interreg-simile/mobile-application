@@ -1,15 +1,15 @@
 @import "../../../theme/variables";
 
-$color-border : #E1E1E1;
+$color-border: #e1e1e1;
 
 .val-input {
-  --background  : #FFFFFF;
-  border-radius : 5px;
-  border        : 1px solid $color-border;
-  margin-bottom : 8px;
+  --background: #ffffff;
+  border-radius: 5px;
+  border: 1px solid $color-border;
+  margin-bottom: 8px;
 
   &.no-margin {
-    margin-bottom : 0;
+    margin-bottom: 0;
   }
 
   ion-label {
@@ -33,7 +33,6 @@ $color-border : #E1E1E1;
       }
     }
   }
-
 }
 
 .small {
@@ -47,5 +46,4 @@ $color-border : #E1E1E1;
   &.password-rules {
     margin: 4px 0 8px 0;
   }
-
 }

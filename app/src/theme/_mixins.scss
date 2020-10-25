@@ -1,26 +1,27 @@
 /** Utilities Sass Mixins **/
 
 @mixin flex-display($direction: row, $justify: flex-start, $align: stretch) {
-  display         : flex;
-  flex-direction  : $direction;
-  justify-content : $justify;
-  align-items     : $align;
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
 }
 
-@mixin flex-center() { @include flex-display(row, center, center) }
+@mixin flex-center() {
+  @include flex-display(row, center, center);
+}
 
-@mixin flex-static($size) { flex : 0 0 $size }
+@mixin flex-static($size) {
+  flex: 0 0 $size;
+}
 
 @mixin icon() {
-
   .icon-container {
     @include flex-static(48px);
 
     ion-icon {
-      padding   : 12px;
-      font-size : 24px;
+      padding: 12px;
+      font-size: 24px;
     }
-
   }
-
 }

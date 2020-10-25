@@ -1,38 +1,38 @@
-$fab-size     : 56px;
-$fab-min-size : 40px;
-$fab-top      : 8px;
-$fab-bottom   : 36px;
-$fab-distance : 16px;
-
+$fab-size: 56px;
+$fab-min-size: 40px;
+$fab-top: 8px;
+$fab-bottom: 36px;
+$fab-distance: 16px;
 
 .icon-notification-dot {
-  width         : 8px;
-  height        : 8px;
-  background    : var(--ion-color-danger);
-  border-radius : 100%;
-  position      : absolute;
-  top           : 10px;
-  right         : 12px;
+  width: 8px;
+  height: 8px;
+  background: var(--ion-color-danger);
+  border-radius: 100%;
+  position: absolute;
+  top: 10px;
+  right: 12px;
 }
-
 
 #map {
-  width  : 100%;
-  height : 100%;
+  width: 100%;
+  height: 100%;
 }
 
-ion-fab[vertical=top] {
-
-  &.fab-secondary { top : $fab-top + $fab-min-size + $fab-distance }
-
+ion-fab[vertical="top"] {
+  &.fab-secondary {
+    top: $fab-top + $fab-min-size + $fab-distance;
+  }
 }
 
-ion-fab[vertical=bottom] {
-  bottom : $fab-bottom;
+ion-fab[vertical="bottom"] {
+  bottom: $fab-bottom;
 
-  &.fab-secondary { bottom : $fab-bottom + $fab-size + $fab-distance }
-
+  &.fab-secondary {
+    bottom: $fab-bottom + $fab-size + $fab-distance;
+  }
 }
 
-
-.follow { --ion-color-contrast : #3E86E8 !important; }
+.follow {
+  --ion-color-contrast: #3e86e8 !important;
+}

@@ -1,96 +1,78 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<!-- Back button -->
 		<ion-buttons slot="start">
-
 			<ion-button (click)="closeModal(false)">
-
 				<ion-icon name="close"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
 
 		<!-- Title -->
-		<ion-title>{{"page-new-obs.details.odours.title" | translate}}</ion-title>
+		<ion-title>{{ "page-new-obs.details.odours.title" | translate }}</ion-title>
 
 		<!-- Right buttons -->
 		<ion-buttons slot="end">
-
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
-
 				<ion-icon name="checkmark"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
-
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content class="bg-off-white custom-container">
-
-
 	<!-- Intensity -->
 	<section>
-
-		<p class="card-header">{{"page-new-obs.details.odours.intensity.head" | translate}}</p>
+		<p class="card-header">
+			{{ "page-new-obs.details.odours.intensity.head" | translate }}
+		</p>
 
 		<ion-card class="ion-no-margin card-radio-list">
-
 			<ion-card-content>
-
-				<ion-radio-group allow-empty-selection="true"
-								 name="extension"
-								 [(ngModel)]="_props.intensity">
-
-					<ion-item *ngFor="let i of [1,2,3]" [lines]="i === 3 ? 'none' : 'full'">
-
-						<ion-label>{{"page-new-obs.details.odours.intensity." + i | translate}}</ion-label>
+				<ion-radio-group
+					allow-empty-selection="true"
+					name="extension"
+					[(ngModel)]="_props.intensity"
+				>
+					<ion-item
+						*ngFor="let i of [1, 2, 3]"
+						[lines]="i === 3 ? 'none' : 'full'"
+					>
+						<ion-label>{{
+							"page-new-obs.details.odours.intensity." + i | translate
+						}}</ion-label>
 
 						<ion-radio slot="start" [value]="i"></ion-radio>
-
 					</ion-item>
-
 				</ion-radio-group>
-
 			</ion-card-content>
-
 		</ion-card>
-
 	</section>
-
 
 	<!-- Origin -->
 	<section class="last">
-
-		<p class="card-header">{{"page-new-obs.details.odours.origin.head" | translate}}</p>
+		<p class="card-header">
+			{{ "page-new-obs.details.odours.origin.head" | translate }}
+		</p>
 
 		<ion-card class="ion-no-margin card-radio-list">
-
 			<ion-card-content>
+				<ion-item
+					*ngFor="let i of [1, 2, 3, 4, 5, 6]"
+					[lines]="i === 6 ? 'none' : 'full'"
+				>
+					<ion-label>{{
+						"page-new-obs.details.odours.origin." + i | translate
+					}}</ion-label>
 
-				<ion-item *ngFor="let i of [1,2,3,4,5,6]" [lines]="i === 6 ? 'none' : 'full'">
-
-					<ion-label>{{"page-new-obs.details.odours.origin." + i | translate}}</ion-label>
-
-					<ion-checkbox slot="start"
-								  value="{{i}}"
-								  [checked]="_props.origin.includes(i)"
-								  (ionChange)="onTypeChange($event)"></ion-checkbox>
-
+					<ion-checkbox
+						slot="start"
+						value="{{ i }}"
+						[checked]="_props.origin.includes(i)"
+						(ionChange)="onTypeChange($event)"
+					></ion-checkbox>
 				</ion-item>
-
 			</ion-card-content>
-
 		</ion-card>
-
 	</section>
-
-
 </ion-content>

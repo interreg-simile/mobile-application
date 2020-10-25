@@ -1,18 +1,16 @@
 ion-content {
-  --background : var(--ion-color-dark);
+  --background: var(--ion-color-dark);
 
   ion-slides {
-    width  : 100%;
-    height : 100%;
+    width: 100%;
+    height: 100%;
 
     .img-container {
-      width           : 100%;
-      height          : 100%;
-      display         : flex;
-      align-items     : center;
-      justify-content : center;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
   }
-
 }

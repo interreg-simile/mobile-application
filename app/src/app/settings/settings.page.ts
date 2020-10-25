@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AppVersion } from '@ionic-native/app-version/ngx';
-import { AlertController, LoadingController, ModalController, NavController } from "@ionic/angular";
+import { Component, OnInit } from "@angular/core";
+import { AppVersion } from "@ionic-native/app-version/ngx";
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+  NavController,
+} from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { NGXLogger } from "ngx-logger";
 
@@ -15,104 +20,103 @@ import { NetworkService } from "../shared/network.service";
 import { Duration, ToastService } from "../shared/toast.service";
 
 @Component({
-  selector   : 'app-settings',
-  templateUrl: './settings.page.html',
-  styleUrls  : ['./settings.page.scss'],
+  selector: "app-settings",
+  templateUrl: "./settings.page.html",
+  styleUrls: ["./settings.page.scss"],
 })
 export class SettingsPage implements OnInit {
-
   public _version: string;
 
-  constructor(private appVersion: AppVersion,
-              public langService: LangService,
-              private alertController: AlertController,
-              private i18n: TranslateService,
-              private logger: NGXLogger,
-              public authService: AuthService,
-              private modalCtr: ModalController,
-              private networkService: NetworkService,
-              private loadingCtr: LoadingController,
-              private userService: UserService,
-              private toastService: ToastService,
-              private alertCtr: AlertController,
-              private navController: NavController) { }
+  constructor(
+    private appVersion: AppVersion,
+    public langService: LangService,
+    private alertController: AlertController,
+    private i18n: TranslateService,
+    private logger: NGXLogger,
+    public authService: AuthService,
+    private modalCtr: ModalController,
+    private networkService: NetworkService,
+    private loadingCtr: LoadingController,
+    private userService: UserService,
+    private toastService: ToastService,
+    private alertCtr: AlertController,
+    private navController: NavController
+  ) {}
 
   ngOnInit() {
-    this.getAppVersion()
-      .catch(err => this.logger.error("Error retrieving the app version", err));
+    this.getAppVersion().catch((err) =>
+      this.logger.error("Error retrieving the app version", err)
+    );
   }
 
   async onLangClick(): Promise<void> {
-
     const createInput = (): Array<any> => {
-
       const input = [];
 
-      this.langService.supportedLanguages.forEach(lang => {
-
+      this.langService.supportedLanguages.forEach((lang) => {
         input.push({
-          name   : lang,
-          type   : "radio",
-          label  : this.i18n.instant(`page-settings.general.language.${ lang }`),
-          value  : lang,
-          checked: lang === this.langService.currLanguage
+          name: lang,
+          type: "radio",
+          label: this.i18n.instant(`page-settings.general.language.${lang}`),
+          value: lang,
+          checked: lang === this.langService.currLanguage,
         });
-
       });
 
       return input;
-
     };
 
     const alert = await this.alertController.create({
-      header         : this.i18n.instant("page-settings.general.language.header"),
+      header: this.i18n.instant("page-settings.general.language.header"),
       backdropDismiss: false,
-      inputs         : createInput(),
-      buttons        : [
-        { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel", },
+      inputs: createInput(),
+      buttons: [
+        { text: this.i18n.instant("common.alerts.btn-cancel"), role: "cancel" },
         {
-          text   : this.i18n.instant("common.alerts.btn-ok"),
-          handler: data => {
+          text: this.i18n.instant("common.alerts.btn-ok"),
+          handler: (data) => {
             if (data !== this.langService.currLanguage)
               this.langService.useLanguage(data);
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
-
   }
 
   async onRegisterClick(): Promise<void> {
-    await this.authService.logout()
-    await this.navController.navigateRoot('/login')
+    await this.authService.logout();
+    await this.navController.navigateRoot("/login");
   }
 
   async onChangeEmailClick(): Promise<void> {
     if (!this.networkService.checkOnlineContentAvailability()) return;
 
     const loading = await this.loadingCtr.create({
-      message     : this.i18n.instant("common.wait"),
-      showBackdrop: false
+      message: this.i18n.instant("common.wait"),
+      showBackdrop: false,
     });
 
     await loading.present();
 
-    let user: User
+    let user: User;
     try {
-      user = await this.userService.getUser()
+      user = await this.userService.getUser();
     } catch (err) {
       await loading.dismiss();
-      await this.toastService.presentToast("common.errors.generic", Duration.short)
-      return
+      await this.toastService.presentToast(
+        "common.errors.generic",
+        Duration.short
+      );
+      return;
     }
 
     const modal = await this.modalCtr.create({
-      component      : ChangeEmailComponent,
+      component: ChangeEmailComponent,
       backdropDismiss: false,
-      componentProps : user
-    })
+      componentProps: user,
+    });
 
     await loading.dismiss();
     await modal.present();
@@ -122,9 +126,9 @@ export class SettingsPage implements OnInit {
     if (!this.networkService.checkOnlineContentAvailability()) return;
 
     const modal = await this.modalCtr.create({
-      component      : ChangePasswordComponent,
+      component: ChangePasswordComponent,
       backdropDismiss: false,
-    })
+    });
     await modal.present();
   }
 
@@ -132,26 +136,29 @@ export class SettingsPage implements OnInit {
     if (!this.networkService.checkOnlineContentAvailability()) return;
 
     const loading = await this.loadingCtr.create({
-      message     : this.i18n.instant("common.wait"),
-      showBackdrop: false
+      message: this.i18n.instant("common.wait"),
+      showBackdrop: false,
     });
 
     await loading.present();
 
-    let user: User
+    let user: User;
     try {
-      user = await this.userService.getUser()
+      user = await this.userService.getUser();
     } catch (err) {
       await loading.dismiss();
-      await this.toastService.presentToast("common.errors.generic", Duration.short)
-      return
+      await this.toastService.presentToast(
+        "common.errors.generic",
+        Duration.short
+      );
+      return;
     }
 
     const modal = await this.modalCtr.create({
-      component      : ChangeInfoComponent,
+      component: ChangeInfoComponent,
       backdropDismiss: false,
-      componentProps : user
-    })
+      componentProps: user,
+    });
 
     await loading.dismiss();
     await modal.present();
@@ -159,13 +166,19 @@ export class SettingsPage implements OnInit {
 
   async onLogoutClick(): Promise<void> {
     const alert = await this.alertCtr.create({
-      header         : this.i18n.instant("page-settings.account.logout.head"),
-      message        : this.i18n.instant("page-settings.account.logout.msg"),
-      buttons        : [
-        { text: this.i18n.instant("page-settings.account.logout.btn-cancel"), role: "cancel" },
-        { text: this.i18n.instant("page-settings.account.logout.btn-confirm"), role: "continue" }
+      header: this.i18n.instant("page-settings.account.logout.head"),
+      message: this.i18n.instant("page-settings.account.logout.msg"),
+      buttons: [
+        {
+          text: this.i18n.instant("page-settings.account.logout.btn-cancel"),
+          role: "cancel",
+        },
+        {
+          text: this.i18n.instant("page-settings.account.logout.btn-confirm"),
+          role: "continue",
+        },
       ],
-      backdropDismiss: false
+      backdropDismiss: false,
     });
 
     await alert.present();
@@ -174,19 +187,25 @@ export class SettingsPage implements OnInit {
 
     if (choice === "cancel") return;
 
-    await this.authService.logout()
-    await this.navController.navigateRoot('/login')
+    await this.authService.logout();
+    await this.navController.navigateRoot("/login");
   }
 
   async onDeleteClick(): Promise<void> {
     const alert = await this.alertCtr.create({
-      header         : this.i18n.instant("page-settings.account.delete.head"),
-      message        : this.i18n.instant("page-settings.account.delete.msg"),
-      buttons        : [
-        { text: this.i18n.instant("page-settings.account.delete.btn-cancel"), role: "cancel" },
-        { text: this.i18n.instant("page-settings.account.delete.btn-delete"), role: "continue" }
+      header: this.i18n.instant("page-settings.account.delete.head"),
+      message: this.i18n.instant("page-settings.account.delete.msg"),
+      buttons: [
+        {
+          text: this.i18n.instant("page-settings.account.delete.btn-cancel"),
+          role: "cancel",
+        },
+        {
+          text: this.i18n.instant("page-settings.account.delete.btn-delete"),
+          role: "continue",
+        },
       ],
-      backdropDismiss: false
+      backdropDismiss: false,
     });
 
     await alert.present();
@@ -196,19 +215,22 @@ export class SettingsPage implements OnInit {
     if (choice === "cancel") return;
 
     const loading = await this.loadingCtr.create({
-      message     : this.i18n.instant("common.wait"),
-      showBackdrop: false
+      message: this.i18n.instant("common.wait"),
+      showBackdrop: false,
     });
     await loading.present();
 
     try {
-      await this.userService.deleteUser()
-      await this.authService.logout()
+      await this.userService.deleteUser();
+      await this.authService.logout();
       await loading.dismiss();
-      await this.navController.navigateRoot('/login')
+      await this.navController.navigateRoot("/login");
     } catch (error) {
       await loading.dismiss();
-      await this.toastService.presentToast("common.errors.generic", Duration.short)
+      await this.toastService.presentToast(
+        "common.errors.generic",
+        Duration.short
+      );
     }
   }
 
@@ -217,7 +239,6 @@ export class SettingsPage implements OnInit {
   }
 
   onContactUsClick(): void {
-    window.open(`mailto:${ projectEmail }`, "_system");
+    window.open(`mailto:${projectEmail}`, "_system");
   }
-
 }

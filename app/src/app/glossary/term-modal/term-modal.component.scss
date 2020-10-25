@@ -1,18 +1,18 @@
 @import "../../../theme/variables";
 
 .images {
-  margin-bottom : 24px;
+  margin-bottom: 24px;
 
-  .margin { margin-bottom : 8px }
-
+  .margin {
+    margin-bottom: 8px;
+  }
 }
 
 .sources {
-  margin : 24px 0;
+  margin: 24px 0;
 
   .card-header {
     color: var(--ion-color-primary);
-    padding-bottom : 8px;
+    padding-bottom: 8px;
   }
-
 }

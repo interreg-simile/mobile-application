@@ -1,31 +1,29 @@
 @import "../../../theme/variables";
 
 .container {
-  padding : 16px 16px 6px 16px;
+  padding: 16px 16px 6px 16px;
 
   .link {
-    text-align : center;
+    text-align: center;
   }
 
   .code {
-    text-align  : center;
-    font-size   : 24px;
-    font-weight : bold;
-    color       : var(--ion-color-primary);
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--ion-color-primary);
   }
 
   .close {
-    width           : 100%;
-    display         : flex;
-    justify-content : flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 
     span {
-      text-transform : uppercase;
-      padding        : 12px;
-      color          : $text-secondary;
-      font-size      : 14px;
+      text-transform: uppercase;
+      padding: 12px;
+      color: $text-secondary;
+      font-size: 14px;
     }
-
   }
-
 }

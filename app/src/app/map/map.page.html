@@ -1,92 +1,89 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<ion-buttons slot="start">
-
 			<ion-menu-button menu="main"></ion-menu-button>
-
 		</ion-buttons>
 
 		<ion-title>{{"page-map.title" | translate}}</ion-title>
 
 		<ion-buttons slot="secondary">
-
 			<ion-button [routerLink]="['/', 'news']">
-
-				<div *ngIf="_areNewAlerts || _areNewEvents" class="icon-notification-dot"></div>
+				<div
+					*ngIf="_areNewAlerts || _areNewEvents"
+					class="icon-notification-dot"
+				></div>
 
 				<ion-icon slot="icon-only" name="notifications"></ion-icon>
-
 			</ion-button>
 
 			<ion-button (click)="onSyncClick()">
-
-				<ion-icon slot="icon-only" name="sync" [ngClass]="_isLoading ? 'anim-spinning-ccw' : ''"></ion-icon>
-
+				<ion-icon
+					slot="icon-only"
+					name="sync"
+					[ngClass]="_isLoading ? 'anim-spinning-ccw' : ''"
+				></ion-icon>
 			</ion-button>
-
 		</ion-buttons>
-
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content>
-
-
 	<!-- Map -->
 	<div id="map"></div>
 
-
 	<!-- FAB layers -->
 	<ion-fab vertical="top" horizontal="end" slot="fixed">
-
-		<ion-fab-button id="btn-legend" color="light" size="small" (click)="onLegendClick($event)">
-
+		<ion-fab-button
+			id="btn-legend"
+			color="light"
+			size="small"
+			(click)="onLegendClick($event)"
+		>
 			<i class="material-icons" (click)="onLegendIconClick($event)">layers</i>
-
 		</ion-fab-button>
-
 	</ion-fab>
-
 
 	<!-- FAB offline -->
-	<ion-fab *ngIf="_isAppOffline"
-			 class="fab-secondary" vertical="top" horizontal="end" slot="fixed">
-
-		<ion-fab-button [color]="_isOfflineBasemapActive ? 'primary' : 'light'" size="small" (click)="onOfflineClick()">
-
+	<ion-fab
+		*ngIf="_isAppOffline"
+		class="fab-secondary"
+		vertical="top"
+		horizontal="end"
+		slot="fixed"
+	>
+		<ion-fab-button
+			[color]="_isOfflineBasemapActive ? 'primary' : 'light'"
+			size="small"
+			(click)="onOfflineClick()"
+		>
 			<i class="material-icons">map</i>
-
 		</ion-fab-button>
-
 	</ion-fab>
-
 
 	<!-- FAB gps -->
-	<ion-fab class="fab-secondary" vertical="bottom" horizontal="end" edge slot="fixed">
-
-		<ion-fab-button color="light" [class.follow]="_isMapFollowing" (click)="onGPSClick()">
-
-			<i class="material-icons">{{ _locationStatus === _locationErrors.NO_ERROR ? "gps_fixed" : "gps_off" }}</i>
-
+	<ion-fab
+		class="fab-secondary"
+		vertical="bottom"
+		horizontal="end"
+		edge
+		slot="fixed"
+	>
+		<ion-fab-button
+			color="light"
+			[class.follow]="_isMapFollowing"
+			(click)="onGPSClick()"
+		>
+			<i class="material-icons"
+				>{{ _locationStatus === _locationErrors.NO_ERROR ? "gps_fixed" :
+				"gps_off" }}</i
+			>
 		</ion-fab-button>
-
 	</ion-fab>
-
 
 	<!-- FAB add -->
 	<ion-fab vertical="bottom" horizontal="end" edge slot="fixed">
-
 		<ion-fab-button (click)="onAddClick()">
-
 			<ion-icon name="add"></ion-icon>
-
 		</ion-fab-button>
-
 	</ion-fab>
-
-
 </ion-content>

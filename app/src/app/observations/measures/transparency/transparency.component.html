@@ -1,68 +1,53 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<!-- Back button -->
 		<ion-buttons slot="start">
-
 			<ion-button (click)="closeModal(false)">
-
 				<ion-icon name="close"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
 
 		<!-- Title -->
-		<ion-title>{{"page-new-obs.measures.transparency.title" | translate}}</ion-title>
+		<ion-title>{{
+			"page-new-obs.measures.transparency.title" | translate
+		}}</ion-title>
 
 		<!-- Right buttons -->
 		<ion-buttons slot="end">
-
 			<!-- Help button -->
 			<ion-button (click)="helpsService.openHelpModal('m1')">
-
 				<ion-icon name="help-circle-outline"></ion-icon>
-
 			</ion-button>
 
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
-
 				<ion-icon name="checkmark"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
-
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content class="bg-off-white custom-container">
-
-
 	<!-- Mandatory -->
-	<p class="info-mandatory">{{"page-new-obs.info-mandatory" | translate}}</p>
-
+	<p class="info-mandatory">{{ "page-new-obs.info-mandatory" | translate }}</p>
 
 	<!-- Value -->
 	<section class="value-single">
+		<p>{{ "page-new-obs.measures.transparency.label-val" | translate }}</p>
 
-		<p>{{"page-new-obs.measures.transparency.label-val" | translate}}</p>
-
-		<ion-input class="val-input" type="number" min="0" [(ngModel)]="_props.val"></ion-input>
-
+		<ion-input
+			class="val-input"
+			type="number"
+			min="0"
+			[(ngModel)]="_props.val"
+		></ion-input>
 	</section>
-
 
 	<!-- Instrument -->
 	<section class="last instrument">
-
-		<app-instrument [instrument]="_props.instrument" [measureName]="'transparency'"></app-instrument>
-
+		<app-instrument
+			[instrument]="_props.instrument"
+			[measureName]="'transparency'"
+		></app-instrument>
 	</section>
-
-
 </ion-content>

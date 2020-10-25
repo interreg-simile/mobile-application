@@ -1,168 +1,162 @@
 @import "../../../theme/variables";
 @import "../shared";
 
-$section-space      : 32px;
-$sub-section-space  : 16px;
+$section-space: 32px;
+$sub-section-space: 16px;
 
-$photo-thumb-height : 120px;
+$photo-thumb-height: 120px;
 
+.section-space {
+  margin-bottom: $section-space;
+}
 
-.section-space { margin-bottom : $section-space }
-
-.sub-section-space { margin-bottom : $sub-section-space }
-
+.sub-section-space {
+  margin-bottom: $sub-section-space;
+}
 
 #measures {
-
-  section { margin-bottom : 0 }
-
+  section {
+    margin-bottom: 0;
+  }
 }
 
-
-.fauna-category { margin-bottom : 18px }
-
+.fauna-category {
+  margin-bottom: 18px;
+}
 
 .date {
-  text-align : end;
-  color      : $text-tertiary;
-  font-style : italic;
+  text-align: end;
+  color: $text-tertiary;
+  font-style: italic;
 }
-
 
 .photos {
-  display         : flex;
-  justify-content : space-between;
-  align-content   : center;
-  margin-top      : 8px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-top: 8px;
 
   .photo-container {
-    flex            : 1;
-    max-width       : 100%;
-    height          : $photo-thumb-height;
-    display         : flex;
-    justify-content : center;
-    align-items     : center;
-    border          : 1px solid $color-border;
-    border-radius   : 5px;
-    overflow        : hidden;
+    flex: 1;
+    max-width: 100%;
+    height: $photo-thumb-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $color-border;
+    border-radius: 5px;
+    overflow: hidden;
 
     img {
-      min-width  : 100%;
-      min-height : 100%;
+      min-width: 100%;
+      min-height: 100%;
     }
-
   }
-
 }
 
-
 ion-card {
-
   ion-card-header {
-    display     : flex;
-    align-items : center;
-    padding     : 0 4px 0 16px;
+    display: flex;
+    align-items: center;
+    padding: 0 4px 0 16px;
 
     ion-card-subtitle {
-      flex           : 1;
-      text-transform : uppercase;
+      flex: 1;
+      text-transform: uppercase;
     }
 
     i {
-      padding    : 12px;
-      transition : all 0.2s ease-in-out;
+      padding: 12px;
+      transition: all 0.2s ease-in-out;
     }
-
   }
 
   ion-card-content {
-
     .sub-header {
-      font-style    : italic;
-      margin-bottom : 4px;
+      font-style: italic;
+      margin-bottom: 4px;
     }
 
     .row {
-      display         : flex;
-      justify-content : flex-start;
-      align-items     : flex-start;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
     }
 
     .prop-name {
-      color        : var(--ion-color-primary);
-      margin-right : 6px;
+      color: var(--ion-color-primary);
+      margin-right: 6px;
     }
 
-    .link { text-decoration : underline }
+    .link {
+      text-decoration: underline;
+    }
 
     .instrument-header {
-      margin         : 10px 0 4px 0;
-      text-transform : uppercase;
+      margin: 10px 0 4px 0;
+      text-transform: uppercase;
     }
 
     .grid {
-      width           : 100%;
-      display         : flex;
-      justify-content : space-around;
-      align-items     : flex-start;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
 
       .col {
-        width          : 45%;
-        display        : flex;
-        flex-direction : column;
-        align-items    : center;
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        .head { color : var(--ion-color-primary) }
-
+        .head {
+          color: var(--ion-color-primary);
+        }
       }
-
     }
-
   }
 
   &.open {
-
     i {
-      transform : rotate(180deg);
+      transform: rotate(180deg);
     }
-
   }
-
 }
 
-
 .skeleton {
-
-  ion-skeleton-text { --border-radius : 5px }
+  ion-skeleton-text {
+    --border-radius: 5px;
+  }
 
   .ske-end {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .ske-center {
-    display         : flex;
-    justify-content : center;
+    display: flex;
+    justify-content: center;
   }
 
   .ske-date {
-    width : 45%;
+    width: 45%;
   }
 
   .ske-photos {
-    width       : 90%;
-    line-height : $photo-thumb-height;
+    width: 90%;
+    line-height: $photo-thumb-height;
   }
 
   .ske-header {
-    width       : 40%;
-    line-height : 14px;
+    width: 40%;
+    line-height: 14px;
   }
 
-  .ske-card { line-height : 48px }
+  .ske-card {
+    line-height: 48px;
+  }
 
-  .ske-card-xl { line-height : 250px }
-
+  .ske-card-xl {
+    line-height: 250px;
+  }
 }
-
-

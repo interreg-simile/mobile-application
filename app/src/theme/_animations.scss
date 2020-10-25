@@ -1,14 +1,26 @@
 /* Spinning animation */
 @keyframes spinning-cw {
-  from { transform : rotate(0deg) }
-  to { transform : rotate(360deg) }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spinning-ccw {
-  from { transform : rotate(0deg) }
-  to { transform : rotate(-360deg) }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 
-.anim-spinning-ccw { animation : spinning-ccw 2s linear infinite }
+.anim-spinning-ccw {
+  animation: spinning-ccw 2s linear infinite;
+}
 
-.anim-spinning-cw { animation : spinning-cw 2s linear infinite }
+.anim-spinning-cw {
+  animation: spinning-cw 2s linear infinite;
+}

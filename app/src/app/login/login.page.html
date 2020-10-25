@@ -1,59 +1,72 @@
 <ion-content class="bg-off-white">
-
 	<section class="logo-bg">
-		<img src="assets/images/logo.png" alt="Logo"/>
+		<img src="assets/images/logo.png" alt="Logo" />
 	</section>
 
 	<section class="custom-container">
-
 		<section class="login-container">
-
 			<ion-item class="val-input" lines="none">
 				<ion-label>
 					<ion-icon name="mail"></ion-icon>
 				</ion-label>
-				<ion-input placeholder="Email"
-						   type="email"
-						   inputmode="email"
-						   [(ngModel)]="email"></ion-input>
+				<ion-input
+					placeholder="Email"
+					type="email"
+					inputmode="email"
+					[(ngModel)]="email"
+				></ion-input>
 			</ion-item>
 
 			<ion-item class="val-input" lines="none">
 				<ion-label>
 					<ion-icon name="lock"></ion-icon>
 				</ion-label>
-				<ion-input placeholder="Password"
-						   type="password"
-						   inputmode="password"
-						   [(ngModel)]="password"></ion-input>
+				<ion-input
+					placeholder="Password"
+					type="password"
+					inputmode="password"
+					[(ngModel)]="password"
+				></ion-input>
 			</ion-item>
 
-			<p class="ion-text-center forgot-password" (click)="onForgotPasswordClick()">
+			<p
+				class="ion-text-center forgot-password"
+				(click)="onForgotPasswordClick()"
+			>
 				{{"page-auth.forgot-password" | translate}}
 			</p>
 
 			<ion-button expand="block" color="primary" (click)="onLoginClick()">
 				{{"page-auth.login" | translate}}
 			</ion-button>
-
 		</section>
 
 		<section class="no-account-container">
+			<p class="ion-text-center ion-margin-bottom">
+				{{"page-auth.noAccount" | translate}}
+			</p>
 
-			<p class="ion-text-center ion-margin-bottom">{{"page-auth.noAccount" | translate}}</p>
-
-			<ion-button expand="block" color="primary" class="ion-margin-bottom" (click)="onRegisterClick()">
+			<ion-button
+				expand="block"
+				color="primary"
+				class="ion-margin-bottom"
+				(click)="onRegisterClick()"
+			>
 				{{"page-auth.register" | translate}}
 			</ion-button>
 
-			<p class="ion-text-center ion-margin-bottom">{{"page-auth.or" | translate}}</p>
+			<p class="ion-text-center ion-margin-bottom">
+				{{"page-auth.or" | translate}}
+			</p>
 
-			<ion-button expand="block" color="primary" fill="outline" (click)="onGuestClick()">
+			<ion-button
+				expand="block"
+				color="primary"
+				fill="outline"
+				(click)="onGuestClick()"
+			>
 				{{"page-auth.continueAsGuest" | translate}}
 			</ion-button>
-
 		</section>
-
 	</section>
-
 </ion-content>

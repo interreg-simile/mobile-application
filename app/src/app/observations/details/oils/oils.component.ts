@@ -1,52 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { Oils } from "../../observation.model";
 import { ModalController } from "@ionic/angular";
 import { ObservationsService } from "../../observations.service";
 import { HelpsService } from "../../../shared/helps/helps.service";
 
-
 interface Props {
-    extension?: number,
-    type?: number
+  extension?: number;
+  type?: number;
 }
 
-
-@Component({ selector: 'app-oils', templateUrl: './oils.component.html', styleUrls: ['./oils.component.scss'] })
+@Component({
+  selector: "app-oils",
+  templateUrl: "./oils.component.html",
+  styleUrls: ["./oils.component.scss"],
+})
 export class OilsComponent implements OnInit {
+  public _props: Props = {};
 
-    public _props: Props = {};
+  constructor(
+    private modalCtr: ModalController,
+    private obsService: ObservationsService,
+    public helpsService: HelpsService
+  ) {}
 
+  ngOnInit() {
+    this._props.extension = this.obsService.newObservation.details.oils.extension.code;
+    this._props.type = this.obsService.newObservation.details.oils.type.code;
+  }
 
-    constructor(private modalCtr: ModalController,
-                private obsService: ObservationsService,
-                public helpsService: HelpsService) { }
-
-
-    ngOnInit() {
-
-        this._props.extension = this.obsService.newObservation.details.oils.extension.code;
-        this._props.type      = this.obsService.newObservation.details.oils.type.code;
-
+  /**
+   * Closes the modal and handle the data saving process.
+   *
+   * @param {Boolean} save - True if the modifications done in the modal are to be saved.
+   */
+  async closeModal(save: boolean) {
+    if (save) {
+      this.obsService.newObservation.details.oils.checked = true;
+      this.obsService.newObservation.details.oils.extension.code = this._props.extension;
+      this.obsService.newObservation.details.oils.type.code = this._props.type;
     }
 
-
-    /**
-     * Closes the modal and handle the data saving process.
-     *
-     * @param {Boolean} save - True if the modifications done in the modal are to be saved.
-     */
-    async closeModal(save: boolean) {
-
-        if (save) {
-
-            this.obsService.newObservation.details.oils.checked = true;
-            this.obsService.newObservation.details.oils.extension.code = this._props.extension;
-            this.obsService.newObservation.details.oils.type.code      = this._props.type;
-
-        }
-
-        await this.modalCtr.dismiss();
-
-    }
-
+    await this.modalCtr.dismiss();
+  }
 }

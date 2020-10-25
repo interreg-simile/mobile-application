@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import cloneDeep from "lodash-es/cloneDeep";
@@ -14,318 +14,303 @@ import { ConnectionStatus, NetworkService } from "../shared/network.service";
 import { OfflineService } from "./offline.service";
 import { FileService } from "../shared/file.service";
 
-
 export interface MinimalObservation {
-    _id: string,
-    uid: string,
-    callId?: number,
-    position: {
-        coordinates: Array<number>,
-        roi?: string,
-        area?: number
-    }
+  _id: string;
+  uid: string;
+  callId?: number;
+  position: {
+    coordinates: Array<number>;
+    roi?: string;
+    area?: number;
+  };
 }
 
-
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class ObservationsService {
+  private _obs = new BehaviorSubject<Array<MinimalObservation>>([]);
 
-    private _obs = new BehaviorSubject<Array<MinimalObservation>>([]);
+  public newObservation: Observation;
 
-    public newObservation: Observation;
+  get observations() {
+    return this._obs.asObservable();
+  }
 
-    get observations() { return this._obs.asObservable() }
+  constructor(
+    private http: HttpClient,
+    private fileService: FileService,
+    private networkService: NetworkService,
+    private logger: NGXLogger,
+    private offlineService: OfflineService
+  ) {}
 
+  /** Retrieves all the observations from the server. */
+  async fetchObservations(): Promise<void> {
+    const url = `${environment.apiBaseUrl}/${environment.apiVersion}/observations`;
 
-    constructor(private http: HttpClient,
-                private fileService: FileService,
-                private networkService: NetworkService,
-                private logger: NGXLogger,
-                private offlineService: OfflineService) { }
+    const qParams = new HttpParams()
+      .set("minimalRes", "true")
+      .set("excludeOutOfRois", "true");
 
+    const res = await this.http
+      .get<GenericApiResponse>(url, { params: qParams })
+      .toPromise();
 
-    /** Retrieves all the observations from the server. */
-    async fetchObservations(): Promise<void> {
+    this._obs.next(res.data);
+  }
 
-        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations`;
+  /**
+   * Retrieves from the server the observation with the given id.
+   *
+   * @param {string} id - The id of the observation.
+   * @return {Promise<ObsInfo>} A promise containing the observation.
+   */
+  async getObservationById(id: string): Promise<ObsInfo> {
+    const url = `${environment.apiBaseUrl}/${environment.apiVersion}/observations/${id}`;
 
-        const qParams = new HttpParams()
-            .set("minimalRes", "true")
-            .set("excludeOutOfRois", "true");
+    const res = await this.http.get<GenericApiResponse>(url).toPromise();
 
-        const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
+    const data = <ObsInfo>res.data;
 
-        this._obs.next(res.data);
+    data.photos = data.photos.map((p) => `${environment.apiBaseUrl}/${p}`);
 
+    if (get(data, "details.outlets.signagePhoto"))
+      data.details.outlets.signagePhoto = `${environment.apiBaseUrl}/${data.details.outlets.signagePhoto}`;
+
+    return data;
+  }
+
+  /**
+   * Calls the API to get the current weather data for a give point.
+   *
+   * @param {LatLng} coords - The coordinates of the point.
+   * @returns {Promise<Object>} - The weather data.
+   */
+  async getWeatherData(
+    coords: LatLng
+  ): Promise<{ sky: number; temperature: number; wind: number }> {
+    const url = `${environment.apiBaseUrl}/${environment.apiVersion}/misc/weather`;
+
+    const qParams = new HttpParams()
+      .set("lat", coords.lat.toString())
+      .set("lon", coords.lng.toString());
+
+    const res = await this.http
+      .get<GenericApiResponse>(url, { params: qParams })
+      .toPromise();
+
+    return res.data;
+  }
+
+  /**
+   * Sends a new observation to the server.
+   *
+   * @return {Promise<"online" | "offline">} A promise containing the place where the observation has been stored.
+   */
+  async postObservation(): Promise<"online" | "offline"> {
+    console.log(this.newObservation);
+
+    const cleanObs = this.cleanObservationFields();
+
+    if (
+      this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline
+    ) {
+      await this.offlineService.storeObservation(cleanObs);
+      return "offline";
+    } else {
+      await this.sendObservation(cleanObs);
+      return "online";
     }
+  }
 
+  async postObservationWithCall(): Promise<MinimalObservation> {
+    const cleanObs = this.cleanObservationFields();
 
-    /**
-     * Retrieves from the server the observation with the given id.
-     *
-     * @param {string} id - The id of the observation.
-     * @return {Promise<ObsInfo>} A promise containing the observation.
-     */
-    async getObservationById(id: string): Promise<ObsInfo> {
+    return this.sendObservation(cleanObs, true);
+  }
 
-        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations/${ id }`;
+  /** Sends to the server all the locally saved observations. */
+  async postStoredObservations(): Promise<void> {
+    const savedObs = await this.offlineService.getStoredObservations();
 
-        const res = await this.http.get<GenericApiResponse>(url).toPromise();
+    if (!savedObs || savedObs.length === 0) return;
 
-        const data = <ObsInfo>res.data;
+    const pObs = [];
+    const errObs = [];
 
-        data.photos = data.photos.map(p => `${ environment.apiBaseUrl }/${ p }`);
+    savedObs.forEach((obs) => {
+      pObs.push(
+        this.sendObservation(obs)
+          .then(() => {
+            this.logger.log("Observation correctly sent");
+            this.removeStoredObservationImages(obs);
+          })
+          .catch((err) => {
+            this.logger.error("Error sending observation.", err);
+            errObs.push(obs);
+          })
+      );
+    });
 
-        if (get(data, "details.outlets.signagePhoto"))
-            data.details.outlets.signagePhoto = `${ environment.apiBaseUrl }/${ data.details.outlets.signagePhoto }`;
+    await Promise.all(pObs);
 
-        return data;
+    await this.offlineService.storeObservations(errObs);
+  }
 
-    }
+  /**
+   * Cleans the fields of the new observation, preparing it to be sent to the server.
+   *
+   * @return {Object} A cleaned copy of the new observation.
+   */
+  private cleanObservationFields(): any {
+    const obs = <any>cloneDeep(this.newObservation);
 
+    obs.position.coordinates = [
+      obs.position.coordinates.lng,
+      obs.position.coordinates.lat,
+    ];
 
-    /**
-     * Calls the API to get the current weather data for a give point.
-     *
-     * @param {LatLng} coords - The coordinates of the point.
-     * @returns {Promise<Object>} - The weather data.
-     */
-    async getWeatherData(coords: LatLng): Promise<{ sky: number, temperature: number, wind: number }> {
+    Object.keys(obs.details).forEach((k) => {
+      if (!obs.details[k].checked) {
+        delete obs.details[k];
+        return;
+      }
 
-        const url = `${ environment.apiBaseUrl }/${ environment.apiVersion }/misc/weather`;
+      delete obs.details[k].component;
 
-        const qParams = new HttpParams()
-            .set("lat", coords.lat.toString())
-            .set("lon", coords.lng.toString());
+      if (k === "odours" && obs.details[k].origin.length === 0)
+        obs.details[k].origin = undefined;
+      if (k === "litters" && obs.details[k].type.length === 0)
+        obs.details[k].type = undefined;
 
-        const res = await this.http.get<GenericApiResponse>(url, { params: qParams }).toPromise();
-
-        return res.data;
-
-    }
-
-
-    /**
-     * Sends a new observation to the server.
-     *
-     * @return {Promise<"online" | "offline">} A promise containing the place where the observation has been stored.
-     */
-    async postObservation(): Promise<"online" | "offline"> {
-
-        console.log(this.newObservation)
-
-        const cleanObs = this.cleanObservationFields();
-
-        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
-            await this.offlineService.storeObservation(cleanObs);
-            return "offline";
-        } else {
-            await this.sendObservation(cleanObs);
-            return "online";
-        }
-
-    }
-
-    async postObservationWithCall(): Promise<MinimalObservation> {
-
-        const cleanObs = this.cleanObservationFields();
-
-        return this.sendObservation(cleanObs, true);
-
-    }
-
-
-    /** Sends to the server all the locally saved observations. */
-    async postStoredObservations(): Promise<void> {
-
-        const savedObs = await this.offlineService.getStoredObservations();
-
-        if (!savedObs || savedObs.length === 0) return;
-
-        const pObs   = [];
-        const errObs = [];
-
-        savedObs.forEach(obs => {
-            pObs.push(
-                this.sendObservation(obs)
-                    .then(() => {
-                        this.logger.log("Observation correctly sent");
-                        this.removeStoredObservationImages(obs);
-                    })
-                    .catch(err => {
-                        this.logger.error("Error sending observation.", err);
-                        errObs.push(obs)
-                    })
-            );
+      if (k === "fauna") {
+        Object.keys(obs.details.fauna).forEach((f) => {
+          if (
+            obs.details.fauna[f].alien &&
+            obs.details.fauna[f].alien.species.length === 0
+          )
+            obs.details.fauna[f].alien.species = undefined;
         });
+      }
+    });
 
-        await Promise.all(pObs);
+    if (Object.keys(obs.details).length === 0) delete obs.details;
 
-        await this.offlineService.storeObservations(errObs);
+    if (obs.measures) {
+      if (!obs.measures.checked) {
+        delete obs.measures;
+      } else {
+        Object.keys(obs.measures).forEach((k) => {
+          if (!obs.measures[k].checked) {
+            delete obs.measures[k];
+            return;
+          }
 
-    }
-
-
-    /**
-     * Cleans the fields of the new observation, preparing it to be sent to the server.
-     *
-     * @return {Object} A cleaned copy of the new observation.
-     */
-    private cleanObservationFields(): any {
-
-        const obs = <any>cloneDeep(this.newObservation);
-
-        obs.position.coordinates = [obs.position.coordinates.lng, obs.position.coordinates.lat];
-
-        Object.keys(obs.details).forEach(k => {
-
-            if (!obs.details[k].checked) {
-                delete obs.details[k];
-                return;
-            }
-
-            delete obs.details[k].component;
-
-            if (k === "odours" && obs.details[k].origin.length === 0) obs.details[k].origin = undefined;
-            if (k === "litters" && obs.details[k].type.length === 0) obs.details[k].type = undefined;
-
-            if (k === "fauna") {
-
-                Object.keys(obs.details.fauna).forEach(f => {
-                    if (obs.details.fauna[f].alien && obs.details.fauna[f].alien.species.length === 0)
-                        obs.details.fauna[f].alien.species = undefined
-                });
-
-            }
-
+          delete obs.measures[k].checked;
+          delete obs.measures[k].component;
         });
-
-        if (Object.keys(obs.details).length === 0) delete obs.details;
-
-        if (obs.measures) {
-
-            if (!obs.measures.checked) {
-
-                delete obs.measures;
-
-            } else {
-
-                Object.keys(obs.measures).forEach(k => {
-
-                    if (!obs.measures[k].checked) {
-                        delete obs.measures[k];
-                        return;
-                    }
-
-                    delete obs.measures[k].checked;
-                    delete obs.measures[k].component;
-
-                });
-
-            }
-
-        }
-
-        return obs;
-
+      }
     }
 
+    return obs;
+  }
 
-    /**
-     * Posts an observation to the server.
-     *
-     * @param {Object} obs - The observation to be posted.
-     * @param {boolean} [generateCallId=false] - Flag that states if a call id has to be generated.
-     * @return {Promise<MinimalObservation>} The inserted observation.
-     */
-    private async sendObservation(obs: any, generateCallId: boolean = false): Promise<MinimalObservation> {
+  /**
+   * Posts an observation to the server.
+   *
+   * @param {Object} obs - The observation to be posted.
+   * @param {boolean} [generateCallId=false] - Flag that states if a call id has to be generated.
+   * @return {Promise<MinimalObservation>} The inserted observation.
+   */
+  private async sendObservation(
+    obs: any,
+    generateCallId: boolean = false
+  ): Promise<MinimalObservation> {
+    const formData = await this.setRequestBody(obs);
 
-        const formData = await this.setRequestBody(obs);
+    const url = `${environment.apiBaseUrl}/${environment.apiVersion}/observations`;
+    const qParams = new HttpParams()
+      .set("minimalRes", "true")
+      .set("callId", String(generateCallId));
 
-        const url     = `${ environment.apiBaseUrl }/${ environment.apiVersion }/observations`;
-        const qParams = new HttpParams()
-            .set("minimalRes", "true")
-            .set("callId", String(generateCallId));
+    const res = await this.http
+      .post<GenericApiResponse>(url, formData, { params: qParams })
+      .toPromise();
 
-        const res = await this.http.post<GenericApiResponse>(url, formData, { params: qParams }).toPromise();
+    const resData = <MinimalObservation>res.data;
 
-        const resData = <MinimalObservation>res.data;
+    if (resData.position.roi) this._obs.next([...this._obs.value, resData]);
 
-        if (resData.position.roi)
-            this._obs.next([...this._obs.value, resData]);
+    return resData;
+  }
 
-        return resData;
+  /**
+   * Creates the body of a new observation post request.
+   *
+   * @param {Object} obs - The observation to post.
+   * @return {Promise<FormData>} A promise containing the created form data.
+   */
+  private async setRequestBody(obs: any): Promise<FormData> {
+    const formData = new FormData();
 
+    for (let i = 0; i < obs.photos.length; i++) {
+      if (obs.photos[i]) {
+        await this.fileService
+          .appendImage(formData, obs.photos[i], "photos")
+          .catch((err) =>
+            this.logger.error(`Error appending photo ${obs.photos[i]}.`, err)
+          );
+      }
     }
 
+    const outletPhoto = get(obs, "details.outlets.signagePhoto");
 
-    /**
-     * Creates the body of a new observation post request.
-     *
-     * @param {Object} obs - The observation to post.
-     * @return {Promise<FormData>} A promise containing the created form data.
-     */
-    private async setRequestBody(obs: any): Promise<FormData> {
+    if (outletPhoto) {
+      await this.fileService
+        .appendImage(formData, obs.details.outlets.signagePhoto, "signage")
+        .catch((err) =>
+          this.logger.error("Error appending signage photo.", err)
+        );
 
-        const formData = new FormData();
-
-        for (let i = 0; i < obs.photos.length; i++) {
-
-            if (obs.photos[i]) {
-                await this.fileService.appendImage(formData, obs.photos[i], "photos")
-                    .catch(err => this.logger.error(`Error appending photo ${obs.photos[i]}.`, err));
-            }
-
-        }
-
-        const outletPhoto = get(obs, "details.outlets.signagePhoto");
-
-        if (outletPhoto) {
-
-            await this.fileService.appendImage(formData, obs.details.outlets.signagePhoto, "signage")
-                .catch(err => this.logger.error("Error appending signage photo.", err));
-
-            obs.details.outlets.signagePhoto = undefined;
-
-        }
-
-        Object.keys(obs).forEach(k => {
-            if (k === "photos") return;
-            formData.append(k, JSON.stringify(obs[k]));
-        });
-
-        if (outletPhoto) obs.details.outlets.signagePhoto = outletPhoto;
-
-        return formData;
-
+      obs.details.outlets.signagePhoto = undefined;
     }
 
+    Object.keys(obs).forEach((k) => {
+      if (k === "photos") return;
+      formData.append(k, JSON.stringify(obs[k]));
+    });
 
-    /**
-     * Removes all the images of an observation.
-     *
-     * @param {Object} obs - The observation.
-     */
-    async removeStoredObservationImages(obs: any): Promise<void> {
+    if (outletPhoto) obs.details.outlets.signagePhoto = outletPhoto;
 
-        for (let i = 0; i < obs.photos.length; i++) {
+    return formData;
+  }
 
-            if (obs.photos[i])
-                await this.fileService.removeImage(obs.photos[i])
-                    .catch(err => this.logger.error(`Error removing image ${obs.photos[i]}`, err));
-
-        }
-
-        const outletPhoto = get(obs, "details.outlets.signagePhoto");
-
-        if (outletPhoto)
-            await this.fileService.removeImage(outletPhoto)
-                .catch(err => this.logger.error(`Error removing image ${outletPhoto}`, err));
-
+  /**
+   * Removes all the images of an observation.
+   *
+   * @param {Object} obs - The observation.
+   */
+  async removeStoredObservationImages(obs: any): Promise<void> {
+    for (let i = 0; i < obs.photos.length; i++) {
+      if (obs.photos[i])
+        await this.fileService
+          .removeImage(obs.photos[i])
+          .catch((err) =>
+            this.logger.error(`Error removing image ${obs.photos[i]}`, err)
+          );
     }
 
+    const outletPhoto = get(obs, "details.outlets.signagePhoto");
 
-    /** Sets the new observation to null. */
-    resetNewObservation(): void { this.newObservation = null }
+    if (outletPhoto)
+      await this.fileService
+        .removeImage(outletPhoto)
+        .catch((err) =>
+          this.logger.error(`Error removing image ${outletPhoto}`, err)
+        );
+  }
 
+  /** Sets the new observation to null. */
+  resetNewObservation(): void {
+    this.newObservation = null;
+  }
 }

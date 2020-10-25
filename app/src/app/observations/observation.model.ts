@@ -13,382 +13,384 @@ import { PhComponent } from "./measures/ph/ph.component";
 import { OxygenComponent } from "./measures/oxygen/oxygen.component";
 import { BacteriaComponent } from "./measures/bacteria/bacteria.component";
 
-
 export interface Position {
-    coordinates: LatLng,
-    accuracy: number,
-    roi?: string
+  coordinates: LatLng;
+  accuracy: number;
+  roi?: string;
 }
-
 
 export interface Weather {
-    temperature: number,
-    sky: { code: number },
-    wind: number
+  temperature: number;
+  sky: { code: number };
+  wind: number;
 }
 
-
 export interface Algae {
-    checked: boolean,
-    component: Object,
-    extension: { code: number },
-    colour: { code: number },
-    iridescent: boolean,
-    look: { code: number },
+  checked: boolean;
+  component: Object;
+  extension: { code: number };
+  colour: { code: number };
+  iridescent: boolean;
+  look: { code: number };
 }
 
 export interface Foams {
-    checked: boolean,
-    component: Object,
-    extension: { code: number },
-    look: { code: number },
-    height: { code: number }
+  checked: boolean;
+  component: Object;
+  extension: { code: number };
+  look: { code: number };
+  height: { code: number };
 }
 
 export interface Oils {
-    checked: boolean,
-    component: Object,
-    extension: { code: number },
-    type: { code: number }
+  checked: boolean;
+  component: Object;
+  extension: { code: number };
+  type: { code: number };
 }
 
 export interface Litters {
-    checked: boolean,
-    component: Object,
-    quantity: { code: number },
-    type: any[]
+  checked: boolean;
+  component: Object;
+  quantity: { code: number };
+  type: any[];
 }
 
 export interface Odours {
-    checked: boolean,
-    component: Object,
-    intensity: { code: number },
-    origin: any[]
+  checked: boolean;
+  component: Object;
+  intensity: { code: number };
+  origin: any[];
 }
 
 export interface Outlets {
-    checked: boolean,
-    component: Object,
-    inPlace: boolean,
-    terminal: { code: number },
-    colour: { code: number },
-    vapour: boolean,
-    signage: boolean,
-    signagePhoto: string,
-    prodActNearby: boolean,
-    prodActNearbyDetails: string
+  checked: boolean;
+  component: Object;
+  inPlace: boolean;
+  terminal: { code: number };
+  colour: { code: number };
+  vapour: boolean;
+  signage: boolean;
+  signagePhoto: string;
+  prodActNearby: boolean;
+  prodActNearbyDetails: string;
 }
 
 export interface Fauna {
-    checked: boolean,
-    component: Object,
-    fish: {
-        checked: boolean,
-        number: number,
-        deceased: boolean,
-        abnormal: { checked: boolean, details: string },
-        alien: { checked: boolean, species: any[] }
-    },
-    birds: {
-        checked: boolean,
-        number: number,
-        deceased: boolean,
-        abnormal: { checked: boolean, details: string },
-        alien: { checked: boolean, species: any[] }
-    },
-    molluscs: {
-        checked: boolean,
-        number: number,
-        deceased: boolean,
-        abnormal: { checked: boolean, details: string },
-        alien: { checked: boolean, species: any[] }
-    },
-    crustaceans: {
-        checked: boolean,
-        number: number,
-        deceased: boolean,
-        abnormal: { checked: boolean, details: string },
-        alien: { checked: boolean, species: any[] }
-    },
-    turtles: {
-        checked: boolean,
-        number: number,
-        deceased: boolean,
-        abnormal: { checked: boolean, details: string },
-        alien: { checked: boolean, species: any[] }
-    }
+  checked: boolean;
+  component: Object;
+  fish: {
+    checked: boolean;
+    number: number;
+    deceased: boolean;
+    abnormal: { checked: boolean; details: string };
+    alien: { checked: boolean; species: any[] };
+  };
+  birds: {
+    checked: boolean;
+    number: number;
+    deceased: boolean;
+    abnormal: { checked: boolean; details: string };
+    alien: { checked: boolean; species: any[] };
+  };
+  molluscs: {
+    checked: boolean;
+    number: number;
+    deceased: boolean;
+    abnormal: { checked: boolean; details: string };
+    alien: { checked: boolean; species: any[] };
+  };
+  crustaceans: {
+    checked: boolean;
+    number: number;
+    deceased: boolean;
+    abnormal: { checked: boolean; details: string };
+    alien: { checked: boolean; species: any[] };
+  };
+  turtles: {
+    checked: boolean;
+    number: number;
+    deceased: boolean;
+    abnormal: { checked: boolean; details: string };
+    alien: { checked: boolean; species: any[] };
+  };
 }
 
 export interface Details {
-    algae: Algae,
-    foams: Foams,
-    oils: Oils,
-    litters: Litters,
-    odours: Odours,
-    outlets: Outlets,
-    fauna: Fauna
+  algae: Algae;
+  foams: Foams;
+  oils: Oils;
+  litters: Litters;
+  odours: Odours;
+  outlets: Outlets;
+  fauna: Fauna;
 }
 
-
 export interface Instrument {
-    type: { code: number },
-    brand: string,
-    precision: number,
-    details: string
+  type: { code: number };
+  brand: string;
+  precision: number;
+  details: string;
 }
 
 export interface Transparency {
-    checked: boolean,
-    component: Object,
-    val: number,
-    instrument: Instrument
+  checked: boolean;
+  component: Object;
+  val: number;
+  instrument: Instrument;
 }
 
 export interface Temperature {
-    checked: boolean,
-    component: Object,
-    multiple: boolean,
-    val: any[],
-    instrument: Instrument
+  checked: boolean;
+  component: Object;
+  multiple: boolean;
+  val: any[];
+  instrument: Instrument;
 }
 
 export interface Ph {
-    checked: boolean,
-    component: Object,
-    multiple: boolean,
-    val: any[],
-    instrument: Instrument
+  checked: boolean;
+  component: Object;
+  multiple: boolean;
+  val: any[];
+  instrument: Instrument;
 }
 
 export interface Oxygen {
-    checked: boolean,
-    component: Object,
-    multiple: boolean,
-    percentage: boolean,
-    val: any[],
-    instrument: Instrument
+  checked: boolean;
+  component: Object;
+  multiple: boolean;
+  percentage: boolean;
+  val: any[];
+  instrument: Instrument;
 }
 
 export interface Bacteria {
-    checked: boolean,
-    component: Object,
-    escherichiaColi: number
-    enterococci: number
+  checked: boolean;
+  component: Object;
+  escherichiaColi: number;
+  enterococci: number;
 }
 
 export interface Measures {
-    checked: boolean
-    transparency: Transparency,
-    temperature: Temperature,
-    ph: Ph,
-    oxygen: Oxygen,
-    bacteria: Bacteria
+  checked: boolean;
+  transparency: Transparency;
+  temperature: Temperature;
+  ph: Ph;
+  oxygen: Oxygen;
+  bacteria: Bacteria;
 }
-
 
 export class MeasuresImpl implements Measures {
+  checked: boolean;
+  transparency: Transparency;
+  temperature: Temperature;
+  ph: Ph;
+  oxygen: Oxygen;
+  bacteria: Bacteria;
 
-    checked: boolean;
-    transparency: Transparency;
-    temperature: Temperature;
-    ph: Ph;
-    oxygen: Oxygen;
-    bacteria: Bacteria;
+  constructor() {
+    this.checked = false;
 
-    constructor() {
+    this.transparency = {
+      checked: false,
+      component: TransparencyComponent,
+      val: undefined,
+      instrument: {
+        type: { code: undefined },
+        brand: undefined,
+        precision: undefined,
+        details: undefined,
+      },
+    };
 
-        this.checked = false;
+    this.temperature = {
+      checked: false,
+      component: TemperatureComponent,
+      multiple: undefined,
+      val: [],
+      instrument: {
+        type: { code: undefined },
+        brand: undefined,
+        precision: undefined,
+        details: undefined,
+      },
+    };
 
-        this.transparency = {
-            checked   : false,
-            component : TransparencyComponent,
-            val       : undefined,
-            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
-        };
+    this.ph = {
+      checked: false,
+      component: PhComponent,
+      multiple: undefined,
+      val: [],
+      instrument: {
+        type: { code: undefined },
+        brand: undefined,
+        precision: undefined,
+        details: undefined,
+      },
+    };
 
-        this.temperature = {
-            checked   : false,
-            component : TemperatureComponent,
-            multiple  : undefined,
-            val       : [],
-            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
-        };
+    this.oxygen = {
+      checked: false,
+      component: OxygenComponent,
+      multiple: undefined,
+      percentage: undefined,
+      val: [],
+      instrument: {
+        type: { code: undefined },
+        brand: undefined,
+        precision: undefined,
+        details: undefined,
+      },
+    };
 
-        this.ph = {
-            checked   : false,
-            component : PhComponent,
-            multiple  : undefined,
-            val       : [],
-            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
-        };
-
-        this.oxygen = {
-            checked   : false,
-            component : OxygenComponent,
-            multiple  : undefined,
-            percentage: undefined,
-            val       : [],
-            instrument: { type: { code: undefined }, brand: undefined, precision: undefined, details: undefined }
-        };
-
-        this.bacteria = {
-            checked        : false,
-            component      : BacteriaComponent,
-            escherichiaColi: undefined,
-            enterococci    : undefined
-        };
-
-    }
-
+    this.bacteria = {
+      checked: false,
+      component: BacteriaComponent,
+      escherichiaColi: undefined,
+      enterococci: undefined,
+    };
+  }
 }
 
-
 export class Observation {
+  id: string;
 
-    id: string;
+  createdAt: Date;
 
-    createdAt: Date;
+  // uid: string;
 
-    // uid: string;
+  position: Position;
 
-    position: Position;
+  weather: Weather;
 
-    weather: Weather;
+  details: Details;
 
-    details: Details;
+  measures: Measures;
 
-    measures: Measures;
+  other: string;
 
-    other: string;
+  photos: Array<string>;
 
-    photos: Array<string>;
+  /**
+   * Create a new observation and initializes all the values except for the passed ones to undefined.
+   *
+   * @param {LatLng} coords - The coordinated of the new observation.
+   * @param {number} accuracy - The accuracy of the coordinates.
+   */
+  constructor(coords: LatLng, accuracy: number) {
+    this.position = {
+      coordinates: coords,
+      accuracy: accuracy,
+    };
 
+    this.weather = {
+      temperature: undefined,
+      sky: { code: 1 },
+      wind: undefined,
+    };
 
-    /**
-     * Create a new observation and initializes all the values except for the passed ones to undefined.
-     *
-     * @param {LatLng} coords - The coordinated of the new observation.
-     * @param {number} accuracy - The accuracy of the coordinates.
-     */
-    constructor(coords: LatLng, accuracy: number) {
+    this.photos = [undefined, undefined, undefined];
 
+    const algae: Algae = {
+      checked: false,
+      component: AlgaeComponent,
+      extension: { code: undefined },
+      look: { code: undefined },
+      colour: { code: undefined },
+      iridescent: undefined,
+    };
 
-        this.position = {
-            coordinates: coords,
-            accuracy   : accuracy
-        };
+    const foams: Foams = {
+      checked: false,
+      component: FoamsComponent,
+      extension: { code: undefined },
+      look: { code: undefined },
+      height: { code: undefined },
+    };
 
-        this.weather = {
-            temperature: undefined,
-            sky        : { code: 1 },
-            wind       : undefined
-        };
+    const oils: Oils = {
+      checked: false,
+      component: OilsComponent,
+      extension: { code: undefined },
+      type: { code: undefined },
+    };
 
-        this.photos = [undefined, undefined, undefined];
+    const litters: Litters = {
+      checked: false,
+      component: LittersComponent,
+      quantity: { code: undefined },
+      type: [],
+    };
 
+    const odours: Odours = {
+      checked: false,
+      component: OdoursComponent,
+      intensity: { code: undefined },
+      origin: [],
+    };
 
-        const algae: Algae = {
-            checked   : false,
-            component : AlgaeComponent,
-            extension : { code: undefined },
-            look      : { code: undefined },
-            colour    : { code: undefined },
-            iridescent: undefined
-        };
+    const outlets: Outlets = {
+      checked: false,
+      component: OutletsComponent,
+      inPlace: undefined,
+      terminal: { code: undefined },
+      colour: { code: undefined },
+      vapour: undefined,
+      signage: undefined,
+      signagePhoto: undefined,
+      prodActNearby: undefined,
+      prodActNearbyDetails: undefined,
+    };
 
-        const foams: Foams = {
-            checked  : false,
-            component: FoamsComponent,
-            extension: { code: undefined },
-            look     : { code: undefined },
-            height   : { code: undefined }
-        };
+    const fauna: Fauna = {
+      checked: false,
+      component: FaunaComponent,
+      fish: {
+        checked: undefined,
+        number: undefined,
+        deceased: undefined,
+        abnormal: { checked: undefined, details: undefined },
+        alien: { checked: undefined, species: [] },
+      },
+      birds: {
+        checked: undefined,
+        number: undefined,
+        deceased: undefined,
+        abnormal: { checked: undefined, details: undefined },
+        alien: { checked: undefined, species: [] },
+      },
+      molluscs: {
+        checked: undefined,
+        number: undefined,
+        deceased: undefined,
+        abnormal: { checked: undefined, details: undefined },
+        alien: { checked: undefined, species: [] },
+      },
+      crustaceans: {
+        checked: undefined,
+        number: undefined,
+        deceased: undefined,
+        abnormal: { checked: undefined, details: undefined },
+        alien: { checked: undefined, species: [] },
+      },
+      turtles: {
+        checked: undefined,
+        number: undefined,
+        deceased: undefined,
+        abnormal: { checked: undefined, details: undefined },
+        alien: { checked: undefined, species: [] },
+      },
+    };
 
-        const oils: Oils = {
-            checked  : false,
-            component: OilsComponent,
-            extension: { code: undefined },
-            type     : { code: undefined }
-        };
-
-        const litters: Litters = {
-            checked  : false,
-            component: LittersComponent,
-            quantity : { code: undefined },
-            type     : [],
-        };
-
-        const odours: Odours = {
-            checked  : false,
-            component: OdoursComponent,
-            intensity: { code: undefined },
-            origin   : []
-        };
-
-        const outlets: Outlets = {
-            checked             : false,
-            component           : OutletsComponent,
-            inPlace             : undefined,
-            terminal            : { code: undefined },
-            colour              : { code: undefined },
-            vapour              : undefined,
-            signage             : undefined,
-            signagePhoto        : undefined,
-            prodActNearby       : undefined,
-            prodActNearbyDetails: undefined
-        };
-
-        const fauna: Fauna = {
-            checked    : false,
-            component  : FaunaComponent,
-            fish       : {
-                checked : undefined,
-                number  : undefined,
-                deceased: undefined,
-                abnormal: { checked: undefined, details: undefined },
-                alien   : { checked: undefined, species: [] }
-            },
-            birds      : {
-                checked : undefined,
-                number  : undefined,
-                deceased: undefined,
-                abnormal: { checked: undefined, details: undefined },
-                alien   : { checked: undefined, species: [] }
-            },
-            molluscs   : {
-                checked : undefined,
-                number  : undefined,
-                deceased: undefined,
-                abnormal: { checked: undefined, details: undefined },
-                alien   : { checked: undefined, species: [] }
-            },
-            crustaceans: {
-                checked : undefined,
-                number  : undefined,
-                deceased: undefined,
-                abnormal: { checked: undefined, details: undefined },
-                alien   : { checked: undefined, species: [] }
-            },
-            turtles    : {
-                checked : undefined,
-                number  : undefined,
-                deceased: undefined,
-                abnormal: { checked: undefined, details: undefined },
-                alien   : { checked: undefined, species: [] }
-            }
-        };
-
-        this.details = {
-            algae  : algae,
-            foams  : foams,
-            oils   : oils,
-            litters: litters,
-            odours : odours,
-            outlets: outlets,
-            fauna  : fauna,
-        };
-
-    }
-
-
+    this.details = {
+      algae: algae,
+      foams: foams,
+      oils: oils,
+      litters: litters,
+      odours: odours,
+      outlets: outlets,
+      fauna: fauna,
+    };
+  }
 }

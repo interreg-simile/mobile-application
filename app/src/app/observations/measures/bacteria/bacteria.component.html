@@ -1,78 +1,68 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<!-- Back button -->
 		<ion-buttons slot="start">
-
 			<ion-button (click)="closeModal(false)">
-
 				<ion-icon name="close"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
 
 		<!-- Title -->
-		<ion-title>{{"page-new-obs.measures.bacteria.title" | translate}}</ion-title>
+		<ion-title>{{
+			"page-new-obs.measures.bacteria.title" | translate
+		}}</ion-title>
 
 		<!-- Right buttons -->
 		<ion-buttons slot="end">
-
 			<!-- Help button -->
 			<ion-button (click)="helpsService.openHelpPopover($event, 'm5')">
-
 				<ion-icon name="help-circle-outline"></ion-icon>
-
 			</ion-button>
 
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
-
 				<ion-icon name="checkmark"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
-
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content class="bg-off-white custom-container">
-
-
 	<section>
-
 		<div>
+			<p>{{ "page-new-obs.measures.bacteria.eColi" | translate }}</p>
 
-			<p>{{"page-new-obs.measures.bacteria.eColi" | translate}}</p>
-
-			<ion-icon name="help-circle-outline" class="help-icon"
-					  (click)="helpsService.openHelpPopover($event, 'm5.1')"></ion-icon>
-
+			<ion-icon
+				name="help-circle-outline"
+				class="help-icon"
+				(click)="helpsService.openHelpPopover($event, 'm5.1')"
+			></ion-icon>
 		</div>
 
-		<ion-input class="val-input" type="number" min="0" [(ngModel)]="_props.escherichiaColi"></ion-input>
-
+		<ion-input
+			class="val-input"
+			type="number"
+			min="0"
+			[(ngModel)]="_props.escherichiaColi"
+		></ion-input>
 	</section>
-
 
 	<section class="last">
-
 		<div>
+			<p>{{ "page-new-obs.measures.bacteria.enterococci" | translate }}</p>
 
-			<p>{{"page-new-obs.measures.bacteria.enterococci" | translate}}</p>
-
-			<ion-icon name="help-circle-outline" class="help-icon"
-					  (click)="helpsService.openHelpPopover($event, 'm5.2')"></ion-icon>
-
+			<ion-icon
+				name="help-circle-outline"
+				class="help-icon"
+				(click)="helpsService.openHelpPopover($event, 'm5.2')"
+			></ion-icon>
 		</div>
 
-		<ion-input class="val-input" type="number" min="0" [(ngModel)]="_props.enterococci"></ion-input>
-
+		<ion-input
+			class="val-input"
+			type="number"
+			min="0"
+			[(ngModel)]="_props.enterococci"
+		></ion-input>
 	</section>
-
-
 </ion-content>

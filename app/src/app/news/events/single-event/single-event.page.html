@@ -1,140 +1,106 @@
 <ion-header>
-	
 	<ion-toolbar>
-		
 		<ion-buttons slot="start">
-			
 			<ion-back-button class="back-button" defaultHref="news"></ion-back-button>
-		
 		</ion-buttons>
-		
+
 		<!-- Title -->
 		<ion-title>{{ event.title }}</ion-title>
-	
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content class="bg-off-white custom-container">
-	
 	<!-- Description -->
 	<section class="description">
-		
-		<div class="card-header">{{"page-news.single-event.header-description" | translate}}</div>
-		
+		<div class="card-header">
+			{{"page-news.single-event.header-description" | translate}}
+		</div>
+
 		<ion-card class="ion-no-margin">
-			
 			<ion-card-content>{{event.description}}</ion-card-content>
-		
 		</ion-card>
-	
 	</section>
-	
+
 	<!-- Links -->
 	<section *ngIf="event.links && event.links.length > 0" class="links">
-		
-		<div class="card-header">{{"page-news.single-event.header-links" | translate}}</div>
-		
+		<div class="card-header">
+			{{"page-news.single-event.header-links" | translate}}
+		</div>
+
 		<ion-card class="ion-no-margin">
-			
 			<ion-card-content>
-				
-				<div *ngFor="let link of event.links; index as i"
-					 class="link"
-					 [ngClass]="i === event.links.length - 1 ? 'last' : ''">
-					
+				<div
+					*ngFor="let link of event.links; index as i"
+					class="link"
+					[ngClass]="i === event.links.length - 1 ? 'last' : ''"
+				>
 					<p class="name">{{link.name}}</p>
-					
+
 					<a [href]="link.url" class="url">{{link.url}}</a>
-				
 				</div>
-			
 			</ion-card-content>
-		
 		</ion-card>
-	
 	</section>
-	
+
 	<!-- Details -->
 	<section *ngIf="event.hasDetails" class="details">
-		
-		<div class="card-header">{{"page-news.single-event.header-details" | translate}}</div>
-		
+		<div class="card-header">
+			{{"page-news.single-event.header-details" | translate}}
+		</div>
+
 		<ion-card class="ion-no-margin">
-			
 			<ion-card-content>
-				
 				<!-- Address -->
 				<div class="row ion-padding-bottom">
-					
 					<ion-icon name="navigate"></ion-icon>
-					
+
 					<div>
-						
 						<p>{{event.address}}</p>
-						
+
 						<p class="route" (click)="onDirectionsClick()">
 							{{"page-news.single-event.get-route" | translate}}
 						</p>
-					
 					</div>
-				
 				</div>
-				
+
 				<!-- Time -->
 				<div class="row">
-					
 					<ion-icon name="calendar"></ion-icon>
-					
+
 					<div>
-						
 						{{ event.date | date:"fullDate":undefined:locale | titlecase }}
-						{{"page-news.single-event.at" | translate}}
-						{{ event.date | date:"shortTime":undefined:locale }}
-					
+						{{"page-news.single-event.at" | translate}} {{ event.date |
+						date:"shortTime":undefined:locale }}
 					</div>
-				
 				</div>
-			
 			</ion-card-content>
-		
 		</ion-card>
-	
 	</section>
-	
+
 	<!-- Contacts -->
 	<section class="contacts">
-		
-		<div class="card-header">{{"page-news.single-event.header-contacts" | translate}}</div>
-		
+		<div class="card-header">
+			{{"page-news.single-event.header-contacts" | translate}}
+		</div>
+
 		<ion-card class="ion-no-margin">
-			
 			<ion-card-content>
-				
-				<div *ngIf="event.contacts.email"
-					 [ngClass]="event.contacts.phone ? 'ion-padding-bottom' : ''"
-					 class="row">
-					
+				<div
+					*ngIf="event.contacts.email"
+					[ngClass]="event.contacts.phone ? 'ion-padding-bottom' : ''"
+					class="row"
+				>
 					<ion-icon name="mail"></ion-icon>
-					
+
 					<a href="mailto:{{event.contacts.email}}">{{event.contacts.email}}</a>
-				
 				</div>
-				
+
 				<div *ngIf="event.contacts.phone" class="row">
-					
 					<ion-icon name="call"></ion-icon>
-					
+
 					<a href="tel:{{event.contacts.phone}}">{{event.contacts.phone}}</a>
-				
 				</div>
-			
 			</ion-card-content>
-		
 		</ion-card>
-	
 	</section>
-
 </ion-content>
-

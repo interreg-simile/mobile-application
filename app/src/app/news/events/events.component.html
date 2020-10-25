@@ -1,50 +1,38 @@
 <!-- No data -->
 <section *ngIf="events.length === 0" class="on-page-message">
-	
 	<ion-icon name="calendar"></ion-icon>
-	
+
 	<p class="ion-no-margin">{{ "page-news.no-events" | translate }}</p>
-
 </section>
-
 
 <!-- Data -->
 <ion-list *ngIf="events.length > 0" class="ion-no-padding">
-	
-	<ion-item *ngFor="let event of events"
-			  button detail="false"
-			  (click)="onEventClick(event)">
-		
+	<ion-item
+		*ngFor="let event of events"
+		button
+		detail="false"
+		(click)="onEventClick(event)"
+	>
 		<section class="container ion-padding-vertical">
-			
 			<section class="ion-padding-end">
-				
 				<div class="notification-dot" [class.active]="!event.read"></div>
-			
 			</section>
-			
+
 			<section class="content">
-				
 				<div class="title">
 					<span>{{ event.title }}</span>
 				</div>
-				
+
 				<div class="bottom-row" *ngIf="event.hasDetails">
-					
 					<div class="city">
 						{{ event.city | titlecase }}
 					</div>
-					
-					<div class="date">
-						{{ event.date | date:undefined:undefined:locale}}
-					</div>
-				
-				</div>
-			
-			</section>
-		
-		</section>
-	
-	</ion-item>
 
+					<div class="date">
+						{{ event.date | date: undefined:undefined:locale }}
+					</div>
+				</div>
+			</section>
+		</section>
+	</ion-item>
 </ion-list>

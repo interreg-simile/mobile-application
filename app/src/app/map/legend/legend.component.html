@@ -1,48 +1,59 @@
 <ion-list class="ion-no-padding">
-
 	<!-- User observations -->
 	<ion-item lines="none" *ngIf="authService.isLoggedIn()">
+		<ion-icon
+			src="assets/images/user-observation-marker.svg"
+			slot="start"
+			size="large"
+			class="ion-no-margin"
+		></ion-icon>
 
-		<ion-icon src="assets/images/user-observation-marker.svg"
-				  slot="start" size="large" class="ion-no-margin"></ion-icon>
+		<ion-label class="ion-text-wrap">{{
+			"page-map.legend.user-obs" | translate
+		}}</ion-label>
 
-		<ion-label class="ion-text-wrap">{{"page-map.legend.user-obs" | translate}}</ion-label>
-
-		<ion-checkbox slot="end"
-					  [checked]="navParams.get('hasUserObsMarkers')"
-					  (ionChange)="onCheckboxChange($event, _markerEnum.USER_OBSERVATIONS)"></ion-checkbox>
-
+		<ion-checkbox
+			slot="end"
+			[checked]="navParams.get('hasUserObsMarkers')"
+			(ionChange)="onCheckboxChange($event, _markerEnum.USER_OBSERVATIONS)"
+		></ion-checkbox>
 	</ion-item>
-
 
 	<!-- Observations -->
 	<ion-item lines="none">
+		<ion-icon
+			src="assets/images/observation-marker.svg"
+			slot="start"
+			size="large"
+			class="ion-no-margin"
+		></ion-icon>
 
-		<ion-icon src="assets/images/observation-marker.svg"
-				  slot="start" size="large" class="ion-no-margin"></ion-icon>
+		<ion-label class="ion-text-wrap">{{
+			"page-map.legend.other-obs" | translate
+		}}</ion-label>
 
-		<ion-label class="ion-text-wrap">{{"page-map.legend.other-obs" | translate}}</ion-label>
-
-		<ion-checkbox slot="end"
-					  [checked]="navParams.get('hasObsMarkers')"
-					  (ionChange)="onCheckboxChange($event, _markerEnum.OTHER_OBSERVATIONS)"></ion-checkbox>
-
+		<ion-checkbox
+			slot="end"
+			[checked]="navParams.get('hasObsMarkers')"
+			(ionChange)="onCheckboxChange($event, _markerEnum.OTHER_OBSERVATIONS)"
+		></ion-checkbox>
 	</ion-item>
-
 
 	<!-- Events -->
 	<ion-item lines="none">
+		<ion-icon
+			src="assets/images/event-marker.svg"
+			slot="start"
+			size="large"
+			class="ion-no-margin"
+		></ion-icon>
 
-		<ion-icon src="assets/images/event-marker.svg"
-				  slot="start" size="large" class="ion-no-margin"></ion-icon>
+		<ion-label>{{ "page-map.legend.events" | translate }}</ion-label>
 
-		<ion-label>{{"page-map.legend.events" | translate}}</ion-label>
-
-		<ion-checkbox slot="end"
-					  [checked]="navParams.get('hasEventsMarkers')"
-					  (ionChange)="onCheckboxChange($event, _markerEnum.EVENTS)"></ion-checkbox>
-
+		<ion-checkbox
+			slot="end"
+			[checked]="navParams.get('hasEventsMarkers')"
+			(ionChange)="onCheckboxChange($event, _markerEnum.EVENTS)"
+		></ion-checkbox>
 	</ion-item>
-
-
 </ion-list>

@@ -1,96 +1,103 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<ion-buttons slot="start">
-
 			<ion-button (click)="closeModal()">
-
 				<ion-icon name="arrow-back"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
 
-		<ion-title>{{"page-auth.modalRegister.title" | translate}}</ion-title>
-
+		<ion-title>{{ "page-auth.modalRegister.title" | translate }}</ion-title>
 	</ion-toolbar>
-
 </ion-header>
 
 <ion-content class="bg-off-white custom-container">
-
 	<p class="small ion-margin-bottom">
-		{{'page-auth.modalRegister.mandatoryText' | translate}}
+		{{ "page-auth.modalRegister.mandatoryText" | translate }}
 	</p>
 
 	<ion-item class="val-input" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phEmail' | translate}}</ion-label>
-		<ion-input type="email"
-				   inputmode="email"
-				   [(ngModel)]="email"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phEmail" | translate
+		}}</ion-label>
+		<ion-input type="email" inputmode="email" [(ngModel)]="email"></ion-input>
 	</ion-item>
 
 	<ion-item class="val-input no-margin" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phPassword' | translate}}</ion-label>
-		<ion-input type="password"
-				   inputmode="password"
-				   [(ngModel)]="password"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phPassword" | translate
+		}}</ion-label>
+		<ion-input
+			type="password"
+			inputmode="password"
+			[(ngModel)]="password"
+		></ion-input>
 	</ion-item>
 
 	<p class="small password-rules">
-		{{'page-auth.modalRegister.passwordRules' | translate}}
+		{{ "page-auth.modalRegister.passwordRules" | translate }}
 	</p>
 
 	<ion-item class="val-input" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phConfirmPassword' | translate}}</ion-label>
-		<ion-input type="password"
-				   inputmode="password"
-				   [(ngModel)]="confirmPassword"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phConfirmPassword" | translate
+		}}</ion-label>
+		<ion-input
+			type="password"
+			inputmode="password"
+			[(ngModel)]="confirmPassword"
+		></ion-input>
 	</ion-item>
 
 	<ion-item class="val-input" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phName' | translate}}</ion-label>
-		<ion-input type="text"
-				   inputmode="text"
-				   [(ngModel)]="name"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phName" | translate
+		}}</ion-label>
+		<ion-input type="text" inputmode="text" [(ngModel)]="name"></ion-input>
 	</ion-item>
 
 	<ion-item class="val-input" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phSurname' | translate}}</ion-label>
-		<ion-input type="text"
-				   inputmode="text"
-				   [(ngModel)]="surname"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phSurname" | translate
+		}}</ion-label>
+		<ion-input type="text" inputmode="text" [(ngModel)]="surname"></ion-input>
 	</ion-item>
 
 	<ion-item class="val-input" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phCity' | translate}}</ion-label>
-		<ion-input type="text"
-				   inputmode="text"
-				   [(ngModel)]="city"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phCity" | translate
+		}}</ion-label>
+		<ion-input type="text" inputmode="text" [(ngModel)]="city"></ion-input>
 	</ion-item>
 
 	<ion-item class="val-input" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phYearOfBirth' | translate}}</ion-label>
-		<ion-input type="number"
-				   inputmode="number"
-				   [(ngModel)]="year"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phYearOfBirth" | translate
+		}}</ion-label>
+		<ion-input type="number" inputmode="number" [(ngModel)]="year"></ion-input>
 	</ion-item>
 
 	<ion-item class="val-input" lines="none">
-		<ion-label position="floating">{{'page-auth.modalRegister.phGender' | translate}}</ion-label>
-		<ion-input readonly
-				   (ionFocus)="openGenderPicker()"
-				   [value]="shownGender"></ion-input>
+		<ion-label position="floating">{{
+			"page-auth.modalRegister.phGender" | translate
+		}}</ion-label>
+		<ion-input
+			readonly
+			(ionFocus)="openGenderPicker()"
+			[value]="shownGender"
+		></ion-input>
 	</ion-item>
 
 	<p class="small terms ion-margin-bottom">
-		{{'page-auth.modalRegister.termsText' | translate}}
-		<a href="">{{'page-auth.modalRegister.termsLink' | translate}}</a>
+		{{ "page-auth.modalRegister.termsText" | translate }}
+		<a href="">{{ "page-auth.modalRegister.termsLink" | translate }}</a>
 	</p>
 
-	<ion-button expand="block" color="primary" class="ion-margin-top" (click)="onRegisterClick()">
-		{{"page-auth.register" | translate}}
+	<ion-button
+		expand="block"
+		color="primary"
+		class="ion-margin-top"
+		(click)="onRegisterClick()"
+	>
+		{{ "page-auth.register" | translate }}
 	</ion-button>
-
 </ion-content>

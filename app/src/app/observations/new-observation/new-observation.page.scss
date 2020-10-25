@@ -1,175 +1,171 @@
 @import "../../../theme/variables";
 @import "../shared";
 
-$info-small-margin     : 18px;
-$section-margin-bottom : 32px;
-$heading-margin-bottom : 4px;
-
+$info-small-margin: 18px;
+$section-margin-bottom: 32px;
+$heading-margin-bottom: 4px;
 
 .ripple-parent {
-  position : relative;
-  overflow : hidden;
+  position: relative;
+  overflow: hidden;
 }
-
 
 main section {
-  margin-bottom : $section-margin-bottom;
+  margin-bottom: $section-margin-bottom;
 
   .heading {
-    display       : flex;
-    align-items   : center;
-    color         : $text-tertiary;
-    font-size     : $font-body-lg;
-    margin-bottom : $heading-margin-bottom;
+    display: flex;
+    align-items: center;
+    color: $text-tertiary;
+    font-size: $font-body-lg;
+    margin-bottom: $heading-margin-bottom;
 
     ion-icon {
-      font-size : $font-title;
+      font-size: $font-title;
 
-      &.main { margin-right : 14px }
+      &.main {
+        margin-right: 14px;
+      }
 
-      &.btn-icon { padding : 12px }
+      &.btn-icon {
+        padding: 12px;
+      }
 
-      &.icon-right { margin-left : auto }
-
+      &.icon-right {
+        margin-left: auto;
+      }
     }
-
   }
-
 }
-
 
 #location {
-
   ion-card-content {
-    display         : flex;
-    flex-direction  : row;
-    justify-content : space-between;
-    align-items     : center;
-    min-width       : 0;
-    color           : #000000;
-    padding         : 4px 8px 4px 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 0;
+    color: #000000;
+    padding: 4px 8px 4px 16px;
 
     p {
-      font-size     : $font-body;
-      margin        : 0;
-      flex          : 1;
-      white-space   : nowrap;
-      overflow      : hidden;
-      text-overflow : ellipsis;
+      font-size: $font-body;
+      margin: 0;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     ion-icon {
-      font-size : $font-title;
-      color     : $text-tertiary;
-      padding   : 12px 8px;
+      font-size: $font-title;
+      color: $text-tertiary;
+      padding: 12px 8px;
     }
-
   }
-
 }
 
-
 #weather {
-
   ion-card-content {
-    display         : flex;
-    justify-content : space-between;
-    align-items     : initial;
+    display: flex;
+    justify-content: space-between;
+    align-items: initial;
 
     div {
-      width      : 33%;
-      text-align : center;
-      color      : $text-primary;
+      width: 33%;
+      text-align: center;
+      color: $text-primary;
 
       .label {
-        margin-bottom : 8px;
+        margin-bottom: 8px;
 
-        &.sky { margin-bottom : 12px }
-
+        &.sky {
+          margin-bottom: 12px;
+        }
       }
 
       .val {
-        font-size : $font-body-lg;
-        color     : var(--ion-color-primary);
+        font-size: $font-body-lg;
+        color: var(--ion-color-primary);
       }
 
       i {
-        font-size : $font-title;
-        color     : var(--ion-color-primary);
+        font-size: $font-title;
+        color: var(--ion-color-primary);
       }
-
     }
-
   }
-
 }
-
 
 #photos {
-  margin-bottom : 40px;
+  margin-bottom: 40px;
 
   .photos-container {
-    width           : 100%;
-    display         : flex;
-    justify-content : space-around;
-    align-items     : center;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
     .photo {
-      width           : 80px;
-      height          : 80px;
-      display         : flex;
-      justify-content : center;
-      align-items     : center;
-      border          : 1px solid darken($color-border, 5);
-      border-radius   : 10px;
-      overflow        : hidden;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid darken($color-border, 5);
+      border-radius: 10px;
+      overflow: hidden;
 
-      i { color : var(--ion-color-primary) }
-
-      ion-thumbnail {
-        width  : 100%;
-        height : 100%;
+      i {
+        color: var(--ion-color-primary);
       }
 
+      ion-thumbnail {
+        width: 100%;
+        height: 100%;
+      }
     }
-
   }
-
 }
-
 
 #buttons {
-
   .or {
-    text-align : center;
-    color      : $text-secondary;
+    text-align: center;
+    color: $text-secondary;
   }
-
 }
 
-
 .skeleton {
-  border-radius : 5px;
+  border-radius: 5px;
 
   .ske-info-sm {
-    width         : 40%;
-    margin-bottom : $info-small-margin;
+    width: 40%;
+    margin-bottom: $info-small-margin;
   }
 
-  .ske-section { margin-bottom : $section-margin-bottom }
+  .ske-section {
+    margin-bottom: $section-margin-bottom;
+  }
 
   .ske-heading {
-    width         : 50%;
-    margin-bottom : $heading-margin-bottom * 2;
-    line-height   : $font-title;
+    width: 50%;
+    margin-bottom: $heading-margin-bottom * 2;
+    line-height: $font-title;
   }
 
-  .ske-card-sm { line-height : 60px }
+  .ske-card-sm {
+    line-height: 60px;
+  }
 
-  .ske-card-md { line-height : 100px }
+  .ske-card-md {
+    line-height: 100px;
+  }
 
-  .ske-card-xl { line-height : 350px }
+  .ske-card-xl {
+    line-height: 350px;
+  }
 
-  .ske-btn-block { line-height : 45px }
-
+  .ske-btn-block {
+    line-height: 45px;
+  }
 }

@@ -1,34 +1,31 @@
 @import "../theme/mixins";
 @import "../theme/variables";
 
-
-$avatar-size : 48px;
-
+$avatar-size: 48px;
 
 .container {
-  width : 100%;
+  width: 100%;
   @include flex-center();
 
   ion-avatar {
-    height : $avatar-size;
-    @include flex-static($avatar-size)
+    height: $avatar-size;
+    @include flex-static($avatar-size);
   }
 
   .username {
-    flex         : 1;
-    font-weight  : 500;
-    font-size    : $font-title;
+    flex: 1;
+    font-weight: 500;
+    font-size: $font-title;
   }
 
   @include icon();
-
 }
 
-
 .active-link {
-  --background : rgba(var(--ion-color-primary-rgb), 0.1);
-  --color      : var(--ion-color-primary);
+  --background: rgba(var(--ion-color-primary-rgb), 0.1);
+  --color: var(--ion-color-primary);
 
-  ion-icon { color : var(--ion-color-primary) }
-
+  ion-icon {
+    color: var(--ion-color-primary);
+  }
 }

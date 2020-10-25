@@ -1,153 +1,138 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<!-- Back button -->
 		<ion-buttons slot="start">
-
 			<ion-button (click)="closeModal(false)">
-
 				<ion-icon name="close"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
 
 		<!-- Title -->
-		<ion-title>{{"page-new-obs.details.fauna.title" | translate}}</ion-title>
+		<ion-title>{{ "page-new-obs.details.fauna.title" | translate }}</ion-title>
 
 		<!-- Right buttons -->
 		<ion-buttons slot="end">
-
 			<!-- Check button -->
 			<ion-button (click)="closeModal(true)">
-
 				<ion-icon name="checkmark"></ion-icon>
-
 			</ion-button>
-
 		</ion-buttons>
-
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content class="bg-off-white custom-container">
-
 	<!--suppress TypeScriptValidateTypes -->
 	<section *ngFor="let prop of _props | keyvalue: _originalOrder; index as idx">
-
 		<ion-card class="ion-no-margin card-radio-list">
-
 			<ion-card-content>
-
-
 				<!-- Category  -->
 				<ion-item [lines]="prop.value.checked ? 'inset' : 'none'" class="no-bg">
+					<ion-label>{{
+						"page-new-obs.details.fauna." + prop.key | translate
+					}}</ion-label>
 
-					<ion-label>{{"page-new-obs.details.fauna." + prop.key | translate}}</ion-label>
-
-					<ion-checkbox slot="start"
-								  color="primary"
-								  [(ngModel)]="prop.value.checked"></ion-checkbox>
-
+					<ion-checkbox
+						slot="start"
+						color="primary"
+						[(ngModel)]="prop.value.checked"
+					></ion-checkbox>
 				</ion-item>
-
 
 				<!-- Number -->
 				<div *ngIf="prop.value.checked" class="sub-property deceased-number">
+					<p>{{ "page-new-obs.details.fauna.deceased.number" | translate }}</p>
 
-					<p>{{"page-new-obs.details.fauna.deceased.number" | translate}}</p>
-
-					<ion-input class="val-input compact" type="number" min="0"
-							   [(ngModel)]="prop.value.number"></ion-input>
-
+					<ion-input
+						class="val-input compact"
+						type="number"
+						min="0"
+						[(ngModel)]="prop.value.number"
+					></ion-input>
 				</div>
-
 
 				<!-- Deceased -->
 				<div *ngIf="prop.value.checked">
-
 					<ion-item lines="none" class="no-bg">
+						<ion-label>{{
+							"page-new-obs.details.fauna.deceased.head" | translate
+						}}</ion-label>
 
-						<ion-label>{{"page-new-obs.details.fauna.deceased.head" | translate}}</ion-label>
-
-						<ion-checkbox slot="start"
-									  color="primary"
-									  [(ngModel)]="prop.value.deceased"></ion-checkbox>
-
+						<ion-checkbox
+							slot="start"
+							color="primary"
+							[(ngModel)]="prop.value.deceased"
+						></ion-checkbox>
 					</ion-item>
-
 				</div>
-
 
 				<!-- Abnormal  -->
 				<div *ngIf="prop.value.checked">
-
 					<ion-item lines="none" class="no-bg">
+						<ion-label>{{
+							"page-new-obs.details.fauna.abnormal.head" | translate
+						}}</ion-label>
 
-						<ion-label>{{"page-new-obs.details.fauna.abnormal.head" | translate}}</ion-label>
-
-						<ion-checkbox slot="start"
-									  color="primary"
-									  [(ngModel)]="prop.value.abnormal.checked"></ion-checkbox>
-
+						<ion-checkbox
+							slot="start"
+							color="primary"
+							[(ngModel)]="prop.value.abnormal.checked"
+						></ion-checkbox>
 					</ion-item>
 
 					<div *ngIf="prop.value.abnormal.checked" class="sub-property">
-
-						<ion-textarea placeholder="{{'page-new-obs.details.fauna.abnormal.ph' | translate}}"
-									  type="text" maxlength="250" rows="3"
-									  [(ngModel)]="prop.value.abnormal.details"></ion-textarea>
-
+						<ion-textarea
+							placeholder="{{
+								'page-new-obs.details.fauna.abnormal.ph' | translate
+							}}"
+							type="text"
+							maxlength="250"
+							rows="3"
+							[(ngModel)]="prop.value.abnormal.details"
+						></ion-textarea>
 					</div>
-
 				</div>
-
 
 				<!-- Alien  -->
 				<div *ngIf="prop.value.checked">
-
 					<ion-item lines="none" class="no-bg">
+						<ion-label>{{
+							"page-new-obs.details.fauna.alien.head" | translate
+						}}</ion-label>
 
-						<ion-label>{{"page-new-obs.details.fauna.alien.head" | translate}}</ion-label>
-
-						<ion-checkbox slot="start"
-									  color="primary"
-									  [(ngModel)]="prop.value.alien.checked"></ion-checkbox>
-
+						<ion-checkbox
+							slot="start"
+							color="primary"
+							[(ngModel)]="prop.value.alien.checked"
+						></ion-checkbox>
 					</ion-item>
 
 					<div *ngIf="prop.value.alien.checked" class="ion-padding-start">
-
 						<ion-item *ngFor="let i of prop.value.alien.idx" lines="none">
-
 							<ion-label class="label-icon">
+								{{
+									"page-new-obs.details.fauna.alien." + prop.key + "." + i
+										| translate
+								}}
 
-								{{"page-new-obs.details.fauna.alien." + prop.key + "." + i | translate}}
-
-								<ion-icon name="help-circle-outline" class="help-icon"
-										  (click)="helpsService.openHelpPopover($event, 'o3.5' + (idx + 1)  + i)"></ion-icon>
-
+								<ion-icon
+									name="help-circle-outline"
+									class="help-icon"
+									(click)="
+										helpsService.openHelpPopover($event, 'o3.5' + (idx + 1) + i)
+									"
+								></ion-icon>
 							</ion-label>
 
-							<ion-checkbox slot="start"
-										  value="{{i}}"
-										  [checked]="prop.value.alien.species.includes(i)"
-										  (ionChange)="onSpecieChange($event, prop.key.toString())"></ion-checkbox>
-
+							<ion-checkbox
+								slot="start"
+								value="{{ i }}"
+								[checked]="prop.value.alien.species.includes(i)"
+								(ionChange)="onSpecieChange($event, prop.key.toString())"
+							></ion-checkbox>
 						</ion-item>
-
 					</div>
-
 				</div>
-
-
 			</ion-card-content>
-
 		</ion-card>
-
 	</section>
-
 </ion-content>

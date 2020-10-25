@@ -1,53 +1,48 @@
 @import "../../theme/variables";
 
-
 section {
-  margin-bottom : 32px;
+  margin-bottom: 32px;
 
-  &.last { margin-bottom : 24px }
-
+  &.last {
+    margin-bottom: 24px;
+  }
 }
 
-
 ion-card-content {
-  color : $text-primary;
+  color: $text-primary;
 }
 
 .text-secondary {
-  color      : $text-tertiary;
-  font-style : italic;
+  color: $text-tertiary;
+  font-style: italic;
 }
-
 
 #interreg {
-
   ion-card-content {
-
-    p { margin-bottom : 16px }
-
-    ion-img { margin-top : 16px }
-
-    .img-container {
-      width           : 100%;
-      display         : flex;
-      justify-content : center;
-
-      ion-img { width : 60% }
-
+    p {
+      margin-bottom: 16px;
     }
 
+    ion-img {
+      margin-top: 16px;
+    }
+
+    .img-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      ion-img {
+        width: 60%;
+      }
+    }
   }
-
 }
-
 
 #partners {
-
   ion-card-content {
-
-    p:not(:last-child) { margin-bottom : 8px }
-
+    p:not(:last-child) {
+      margin-bottom: 8px;
+    }
   }
-
 }
-

@@ -1,29 +1,30 @@
-
 section {
-  margin-bottom : 32px;
+  margin-bottom: 32px;
 
-  &.last { margin-bottom : 24px }
-
+  &.last {
+    margin-bottom: 24px;
+  }
 }
-
 
 ion-icon {
-  color : var(--ion-color-primary);
+  color: var(--ion-color-primary);
 }
 
-ion-label p { color : #000000 }
-
+ion-label p {
+  color: #000000;
+}
 
 .flex-label {
-  display         : flex;
-  justify-content : space-between;
-  align-items     : center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  .name { flex : 1 }
-
-  .choice {
-    text-transform : uppercase;
-    color          : var(--ion-color-primary);
+  .name {
+    flex: 1;
   }
 
+  .choice {
+    text-transform: uppercase;
+    color: var(--ion-color-primary);
+  }
 }

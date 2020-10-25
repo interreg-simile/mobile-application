@@ -1,42 +1,38 @@
 @import "../../../../theme/variables";
 @import "../../shared";
 
-
 section {
-  margin-bottom : 20px;
+  margin-bottom: 20px;
 
-  &.last {margin-bottom : 0}
-
+  &.last {
+    margin-bottom: 0;
+  }
 }
 
-
-ion-card { --color : #{$text-secondary} }
-
+ion-card {
+  --color: #{$text-secondary};
+}
 
 .type {
-
-  .label { margin-bottom : 4px }
-
+  .label {
+    margin-bottom: 4px;
+  }
 
   ion-radio-group {
-
     ion-item {
-      --background    : transparent;
-      --padding-start : 0;
+      --background: transparent;
+      --padding-start: 0;
     }
 
-    ion-radio { margin : 0 16px 0 0 }
-
+    ion-radio {
+      margin: 0 16px 0 0;
+    }
   }
-
 }
 
-
 .precision {
-
   ion-input {
-    --padding-top    : 5px;
-    --padding-bottom : 5px;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
   }
-
 }

@@ -1,55 +1,58 @@
 @import "../../theme/variables";
 @import "../../theme/mixins";
 
-
 ion-segment {
-  background : var(--ion-color-primary) !important;
+  background: var(--ion-color-primary) !important;
 
   ion-segment-button {
-    --background              : var(--ion-color-primary);
-    --background-checked      : var(--ion-color-primary);
-    --indicator-color-checked : #FFFFFF;
-    --color                   : #{$text-unfocused};
-    --color-checked           : #FFFFFF;
+    --background: var(--ion-color-primary);
+    --background-checked: var(--ion-color-primary);
+    --indicator-color-checked: #ffffff;
+    --color: #{$text-unfocused};
+    --color-checked: #ffffff;
 
     section {
       @include flex-center();
 
-      ion-label { padding-right : 8px }
-
-      .notification-dot {
-        display    : none;
-        border     : none;
-        background : $text-unfocused;
-
-        &.visible { display : block }
-
+      ion-label {
+        padding-right: 8px;
       }
 
+      .notification-dot {
+        display: none;
+        border: none;
+        background: $text-unfocused;
+
+        &.visible {
+          display: block;
+        }
+      }
     }
 
-    &.segment-button-checked .notification-dot { background : #FFFFFF !important }
-
+    &.segment-button-checked .notification-dot {
+      background: #ffffff !important;
+    }
   }
-
 }
 
 ion-segment.ios {
-  padding    : 6px 16px;
-  background : $off-white;
+  padding: 6px 16px;
+  background: $off-white;
 
   ion-segment-button {
-    --background : #FFFFFF;
-    --color      : var(--ion-color-primary);
+    --background: #ffffff;
+    --color: var(--ion-color-primary);
 
-    .notification-dot { background : var(--ion-color-danger) }
-
+    .notification-dot {
+      background: var(--ion-color-danger);
+    }
   }
-
 }
 
+ion-refresher {
+  z-index: 0;
+}
 
-ion-refresher { z-index : 0 }
-
-
-.data-container { padding-top : 8px }
+.data-container {
+  padding-top: 8px;
+}

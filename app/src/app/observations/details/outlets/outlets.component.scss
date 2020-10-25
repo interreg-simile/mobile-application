@@ -1,38 +1,33 @@
 @import "../../shared";
 
+$color-border: #e1e1e1;
 
-$color-border : #E1E1E1;
+.no-bg {
+  --background: transparent;
+}
 
-
-.no-bg { --background : transparent }
-
-
-#inPlace { margin-top : 8px }
-
+#inPlace {
+  margin-top: 8px;
+}
 
 .colours ion-card-content .colour-container .colour-box .colour {
-  width  : 30px;
-  height : 30px;
+  width: 30px;
+  height: 30px;
 }
-
 
 #signage {
-
   .photo {
-    color   : var(--ion-color-primary);
-    padding : 8px 0 16px 22px;
+    color: var(--ion-color-primary);
+    padding: 8px 0 16px 22px;
   }
-
 }
 
-
 #prod {
-
   ion-card-content {
-    padding : 0;
+    padding: 0;
 
-    .text-area { margin : 0 16px 16px 16px }
-
+    .text-area {
+      margin: 0 16px 16px 16px;
+    }
   }
-
 }

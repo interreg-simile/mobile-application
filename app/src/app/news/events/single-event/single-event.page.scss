@@ -1,47 +1,48 @@
 @import "../../../../theme/variables";
 @import "../../../../theme/mixins";
 
-
 .title {
-  font-size   : $font-title-lg;
-  font-weight : 500;
-  color       : var(--ion-color-primary);
-  padding     : 8px 0 16px 0;
+  font-size: $font-title-lg;
+  font-weight: 500;
+  color: var(--ion-color-primary);
+  padding: 8px 0 16px 0;
 }
 
-
-.description { padding-bottom : 24px }
-
+.description {
+  padding-bottom: 24px;
+}
 
 .row {
   @include flex-display(row, flex-start, center);
 
   ion-icon {
-    font-size     : 24px;
-    color         : var(--ion-color-primary);
-    padding-right : 16px;
+    font-size: 24px;
+    color: var(--ion-color-primary);
+    padding-right: 16px;
   }
-
 }
-
 
 .route {
-  color           : var(--ion-color-primary);
-  text-decoration : underline;
+  color: var(--ion-color-primary);
+  text-decoration: underline;
 }
 
-
-.details { padding-bottom : 24px }
+.details {
+  padding-bottom: 24px;
+}
 
 .links {
-  padding-bottom : 24px;
+  padding-bottom: 24px;
 
   .link {
     margin-bottom: 16px;
 
-    &.last { margin-bottom: 0 }
+    &.last {
+      margin-bottom: 0;
+    }
 
-    .name { margin-bottom: 4px }
-
+    .name {
+      margin-bottom: 4px;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 
@@ -6,37 +6,33 @@ import { Event } from "./event.model";
 import { NetworkService } from "../../shared/network.service";
 import { Alert } from "../alerts/alert.model";
 
-
-@Component({ selector: 'app-events', templateUrl: './events.component.html', styleUrls: ['./events.component.scss'] })
+@Component({
+  selector: "app-events",
+  templateUrl: "./events.component.html",
+  styleUrls: ["./events.component.scss"],
+})
 export class EventsComponent implements OnInit {
+  @Input() events: Event[];
 
-    @Input() events: Event[];
+  public locale: string;
 
-    public locale: string;
+  constructor(
+    private i18n: TranslateService,
+    private networkService: NetworkService,
+    private router: Router
+  ) {}
 
+  ngOnInit(): void {
+    this.locale = this.i18n.currentLang;
+  }
 
-    constructor(private i18n: TranslateService,
-                private networkService: NetworkService,
-                private router: Router) { }
-
-
-    ngOnInit(): void {
-
-        this.locale = this.i18n.currentLang;
-
-    }
-
-
-    /**
-     * Fired when the user clicks on an event. It opens the relative details page.
-     *
-     * @param {Event} event - The event.
-     */
-    async onEventClick(event: Event): Promise<void> {
-
-        if (this.networkService.checkOnlineContentAvailability())
-            await this.router.navigate(["/", "news", "events", event.id]);
-
-    }
-
+  /**
+   * Fired when the user clicks on an event. It opens the relative details page.
+   *
+   * @param {Event} event - The event.
+   */
+  async onEventClick(event: Event): Promise<void> {
+    if (this.networkService.checkOnlineContentAvailability())
+      await this.router.navigate(["/", "news", "events", event.id]);
+  }
 }

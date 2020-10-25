@@ -1,41 +1,35 @@
 @import "../../../theme/variables";
 @import "../../../theme/mixins";
 
-
 ion-item {
-  --background : #{$off-white};
+  --background: #{$off-white};
 
   .container {
-    display : flex;
+    display: flex;
 
     .content {
-      display        : flex;
-      flex-direction : column;
+      display: flex;
+      flex-direction: column;
 
       .date {
-        color          : $text-secondary;
-        font-size      : $font-body-small;
-        padding-bottom : 8px;
-        line-height    : 1;
+        color: $text-secondary;
+        font-size: $font-body-small;
+        padding-bottom: 8px;
+        line-height: 1;
       }
 
       .title {
-        width        : 100%;
-        display      : table;
-        table-layout : fixed;
+        width: 100%;
+        display: table;
+        table-layout: fixed;
 
         span {
-          display       : table-cell;
-          white-space   : nowrap;
-          overflow      : hidden;
-          text-overflow : ellipsis;
+          display: table-cell;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
-
       }
-
     }
-
   }
-
 }
-

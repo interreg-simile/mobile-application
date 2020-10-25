@@ -1,54 +1,43 @@
 <ion-header>
-
 	<ion-toolbar>
-
 		<ion-buttons slot="start">
-
 			<ion-back-button></ion-back-button>
-
 		</ion-buttons>
-
 	</ion-toolbar>
-
 </ion-header>
 
-
 <ion-content class="bg-off-white custom-container">
-
 	<div class="title">{{ alert.title }}</div>
 
-	<div class="date">{{ alert.createdAt | date:undefined:undefined:locale }}</div>
+	<div class="date">
+		{{ alert.createdAt | date:undefined:undefined:locale }}
+	</div>
 
-	<div class="content"
-		 [ngClass]="alert.links && alert.links.length > 0 ? 'padding-bottom' : ''">
+	<div
+		class="content"
+		[ngClass]="alert.links && alert.links.length > 0 ? 'padding-bottom' : ''"
+	>
 		{{ alert.content }}
 	</div>
 
 	<!-- Links -->
 	<section *ngIf="alert.links && alert.links.length > 0" class="links">
-
-		<div class="card-header">{{"page-news.single-alert.header-links" | translate}}</div>
+		<div class="card-header">
+			{{"page-news.single-alert.header-links" | translate}}
+		</div>
 
 		<ion-card class="ion-no-margin">
-
 			<ion-card-content>
-
-				<div *ngFor="let link of alert.links; index as i"
-					 class="link"
-					 [ngClass]="i === alert.links.length - 1 ? 'last' : ''">
-
+				<div
+					*ngFor="let link of alert.links; index as i"
+					class="link"
+					[ngClass]="i === alert.links.length - 1 ? 'last' : ''"
+				>
 					<p class="name">{{link.name}}</p>
 
 					<a [href]="link.url" class="url">{{link.url}}</a>
-
 				</div>
-
 			</ion-card-content>
-
 		</ion-card>
-
 	</section>
-
-
 </ion-content>
-

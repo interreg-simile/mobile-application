@@ -1,29 +1,32 @@
 @import "../../../../theme/variables";
 
-
 .title {
-  font-size      : $font-title-lg;
-  font-weight    : 500;
-  color          : var(--ion-color-primary);
-  padding-bottom : 8px;
+  font-size: $font-title-lg;
+  font-weight: 500;
+  color: var(--ion-color-primary);
+  padding-bottom: 8px;
 }
 
 .date {
-  font-size      : $font-body-small;
-  color          : $text-secondary;
-  padding-bottom : 24px;
+  font-size: $font-body-small;
+  color: $text-secondary;
+  padding-bottom: 24px;
 }
 
-.content.padding-bottom { padding-bottom : 24px; }
+.content.padding-bottom {
+  padding-bottom: 24px;
+}
 
 .links {
   .link {
     margin-bottom: 16px;
 
-    &.last { margin-bottom: 0 }
+    &.last {
+      margin-bottom: 0;
+    }
 
-    .name { margin-bottom: 4px }
-
+    .name {
+      margin-bottom: 4px;
+    }
   }
 }
-
