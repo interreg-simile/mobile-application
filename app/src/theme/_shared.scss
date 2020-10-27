@@ -55,6 +55,10 @@ p {
 ion-card {
   background: #fff !important;
 
+  ion-card-subtitle.ios {
+    margin: 0;
+  }
+
   ion-card-content {
     &.card-content-md {
       font-size: $font-body;

@@ -2,8 +2,6 @@
 @import '../../theme/mixins';
 
 ion-segment {
-  background: var(--ion-color-primary) !important;
-
   ion-segment-button {
     --background: var(--ion-color-primary);
     --background-checked: var(--ion-color-primary);
@@ -35,12 +33,16 @@ ion-segment {
   }
 }
 
+ion-segment.md {
+  background: var(--ion-color-primary) !important;
+}
+
 ion-segment.ios {
   padding: 6px 16px;
   background: $off-white;
 
   ion-segment-button {
-    --background: #fff;
+    --background: #f7f7fa;
     --color: var(--ion-color-primary);
 
     .notification-dot {
