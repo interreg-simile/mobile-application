@@ -24,6 +24,7 @@ npm-debug.log*
 coverage
 dist
 node_modules
+app/package-lock.json
 platforms
 plugins
 www
